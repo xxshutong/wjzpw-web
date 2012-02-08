@@ -1,0 +1,72 @@
+{% extends "base_site.html" %}
+{% block title %}Kinetic Academy | Manage Kids{% endblock %}
+
+{% block content %}
+    <link rel="stylesheet" href="/static/css/parent.css">
+    <link rel="stylesheet" href="/static/css/metaverse.css">
+    <style type='text/css'>
+        .pagination {
+            text-align: right;
+        }
+    </style>
+
+    <div class="page-header">
+        <h1 style="float:left; width: 80%">Settings</h1>
+    </div>
+        
+    <div class="content">
+        <div class="row">
+            <div class="left_inner">
+                <ul>
+                    <li>
+                        <span class="btn primary {% ifequal operate 'add' %}gold{% endifequal %}" id='span_add_kids' onclick="addKids()">Add Child</span>
+                    </li>
+
+                    <li>
+                        <span class="btn primary {% ifequal operate 'manage' %}gold{% endifequal %}" id='span_manage_kids' onclick="manageKids()">Manage Children</span>
+                    </li>
+
+                    <li>
+                         <span class="btn primary {% ifequal operate 'email' %}gold{% endifequal %}" id='span_change_email' onclick="changeEmail()">Change email</span>
+                    </li>
+                    
+                    <li>
+                        <span class="btn primary {% ifequal operate 'password' %}gold{% endifequal %}" id='span_change_password' onclick="changePassword()">Change password</span>
+                    </li>
+                </ul>
+            </div>
+            {{ change_email|safe }}
+            {{ add_kids|safe }}
+            {{ change_password|safe }}
+            {{ manage_kids|safe }}
+            {{ update_kids|safe }}
+
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#li_activate').attr('class', '');
+            $('#li_Stats').attr('class', '');
+            $('#li_badges').attr('class', '');
+            $('#li_rewards').attr('class', '');
+            $('#li_settings').attr('class', 'active');
+        });
+        
+        function changeEmail(){
+            window.location.href = "/parent/settings/forward-change-email/";
+        }
+
+        function manageKids(){
+            window.location.href = "/parent/settings/manage-kids/";
+            
+        }
+
+        function changePassword(){
+            window.location.href = "/parent/settings/change-password/";
+        }
+
+        function addKids(){
+            window.location.href = "/parent/settings/";
+        }
+    </script>
+{% endblock %}

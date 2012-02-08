@@ -1,0 +1,556 @@
+{% extends "base_site.html" %}
+{% load pagination_tags %}
+
+{% block title %}Kinetic Academy | Rewards{% endblock %}
+
+{% block content %}
+    <!-- Le styles -->
+    <script src="/static/js/bootstrap-modal.js"></script>
+    <link rel="stylesheet" href="/static/css/parent.css">
+    <link rel="stylesheet" href="/static/css/metaverse.css">
+
+    <!-- Multiselect Plugin -->
+    <link rel="stylesheet" href="/static/js/dropdown/jquery-ui-1.8.13.custom.css">
+    <link rel="stylesheet" href="/static/js/dropdown/ui.dropdownchecklist.themeroller.css">
+    <script src="/static/js/dropdown/jquery-ui-1.8.13.custom.min.js"></script>
+    <script src="/static/js/dropdown/ui.dropdownchecklist-1.4-min.js"></script>
+
+    <style type="text/css">
+        .close_info {
+            float: right;
+            color: black;
+            font-size: 20px;
+            font-weight: bold;
+            line-height: 13.5px;
+            text-shadow: 0 1px 0 white;
+            filter: alpha(opacity = 20);
+            -khtml-opacity: 0.2;
+            -moz-opacity: 0.2;
+            opacity: 0.2;
+        }
+
+    </style>
+
+    <div class="page-header-parent">
+        <h1 style="float:left; width: 80%">Rewards</h1>
+          
+	    <span style="clear:right;">
+            <a id="add_part" style="float:right;" class="btn gold" data-backdrop="static"
+                       data-controls-modal="add-participation" href="#" onclick="$('#add-participation').css('top','50%');$('#suggest_info').show();">Add reward</a>
+        </span>     
+    </div>
+
+	
+	<div class="content">
+		<div class="row">
+			<div class="span4"><h5>Pending rewards</h5></div>
+			
+			<div class="span11">
+	            {% if success != None %}
+	                {% if success %}
+	                    <div class="alert-message success" id="alert-message">
+	                        Reward successfully deleted.
+	                    </div>
+	                {% else %}
+	                    <div class="alert-message error">
+	                        Failed to delete reward. Please contact support.
+	                    </div>
+	                {% endif %}
+	            {% endif %}
+	            <div id='alert-message-reward'>
+	            </div>
+	            <div class="alert-message block-message info" id="div_approve_info" style="display: none">
+	                <a class="close" href="#">×</a>
+	                <p class="highlight">Are you sure you want to approve this reward?</p>
+	                <div class="alert-actions">
+	                    <a id="a_approve" class="btn gold" href="#" onclick="">Approve</a> <a class="btn danger" onclick="hideApproveInfo()" href="#">Cancel</a>
+	                </div>
+	            </div>
+	            <div class="alert-message block-message info" id="div_reject_info" style="display: none">
+	                <a class="close" href="#">×</a>
+	                <p class="highlight">Are you sure you want to reject this reward?</p>
+	                <div class="alert-actions">
+	                    <a id="a_reject" class="btn danger" href="#" onclick="">Reject</a> 
+	                    <a class="btn primary" onclick="hideRejectInfo()" href="#">Cancel</a>
+	                </div>
+	           </div>
+	            <!-- Insert start -->
+	            
+	            {% if redemptions %}
+	            
+	            <table class="zebra-striped">
+	                <thead class="green">
+	                <tr>
+	                    <th>Reward</th>
+	                    <th>Earned By</th>
+	                    <th>Earned On</th>
+	                    <th>Reward Given?</th>
+	                </tr>
+	                </thead>
+	                <tbody>
+					{% autopaginate redemptions 10 %}
+	                {% for redemption in redemptions %}
+	                    <tr>
+	                        {% if redemption.validated == None %}
+	                            <td><b>{{ redemption.reward.name }}</b></td>
+	                            <td><b>{{ redemption.user.username }}</b></td>
+	                            <td><b>{{ redemption.created_at|date:"N d, Y"  }}</b></td>
+	                            <td>
+	                                <a href="#" onclick="approveRedemption('{{ redemption.id }}')"
+	                                   title="approve"><img src="/static/images/icons/approve.png" class="icon_pend"></a>
+	                                <a href="#" onclick="rejectRedemption('{{ redemption.id }}')"
+	                                   title="reject"><img src="/static/images/icons/reject.png" class="icon_pend"></a>
+	                            </td>
+	                        {% else %}
+	                            <td>{{ redemption.reward.name }}</td>
+	                            <td>{{ redemption.user.username }}</td>
+	                            <td>{{ redemption.created_at|date:"N d, Y"  }}</td>
+	                            <td>Rejected</td>
+	                        {% endif %}
+	                    </tr>
+	                {% endfor %}
+	                </tbody>
+	            </table>
+				{% paginate %}
+	            
+	            {% else %}
+	            	<h4 class="highlight">There are no pending rewards. Well done!</h4>
+	            {% endif %}
+	            
+	            <!-- End #tab1 -->
+	            <!-- Insert end -->			
+			</div>		
+		</div>
+	
+		<div class="row">
+			<div class="span4"><h5>Rewards in play</h5></div>
+			
+			<div class="span11" id="delete_reward_confirm">
+	            <div class="alert-message block-message info" id="div_delete_info" style="display: none">
+	                <a class="close" href="#" onclick="hideDeleteInfo()">×</a>
+	                <p class="highlight">Are you sure you want to delete this reward?</p>
+	                <div class="alert-actions" >
+	                    <a id="a_delete" class="btn danger" href="#" onclick="">Delete</a> <a class="btn primary" onclick="hideDeleteInfo()" href="#">Cancel</a>
+	                </div>
+	            </div>
+	            <!-- Insert start -->
+	            
+	            {% if rewards %}
+	            
+	            <table class="zebra-striped">
+	                <thead class="green">
+	                <tr>
+	                    <th>Reward</th>
+	                    <th>Points</th>
+	                    <th>Eligibility</th>
+	                    <th>Action</th>
+	                </tr>
+	                </thead>
+	                <tbody>
+					{% autopaginate rewards 10 %}
+	                {% for reward in rewards %}
+	                <tr style="border-bottom: 1px solid #DDD;">
+	                    <td>
+	                        <input type="hidden" class="reward_id" value="{{ reward.id }}">
+	                        <span class="name_view">{{ reward.name }}</span>
+	                        <input name="reward_name" type="text" class="span2 name_edit" style="display: none;"/>
+	                    </td>
+	                    <td>
+	                        <span class="point_view">{{ reward.points_required }}</span>
+	                        <input name="reward_point" type="text" class="span2 point_edit" style="display: none;"/>
+	                    </td>
+	                    <td>
+	                        <input type="hidden" class="childs_edit" name="reward_childs"/>
+	                        {% if reward.eligibility.all %}
+	                            <select class="related_childs" style="display: none;"  multiple="multiple" disabled="true">
+	                                {% for child in childs %}
+	                                    {% if child in reward.eligibility.all  %}
+	                                        <option value="{{ child.id }}" selected="selected">{{ child.username }}</option>
+	                                    {% else %}
+	                                        <option value="{{ child.id }}">{{ child.username }}</option>
+	                                    {% endif %}
+	                                {% endfor %}
+	                            </select>
+	                        {% else %}
+	                            <select class="related_childs" style="display: none;"  multiple="multiple" disabled="true">
+	                                {% for child in childs %}
+	                                    <option value="{{ child.id }}">{{ child.username }}</option>
+	                                {% endfor %}
+	                            </select>
+	                        {% endif %}
+	                    </td>
+	                    <td>
+	                        <a class="btn small danger" href="#delete_reward_confirm" onclick="deleteReward('{{ reward.id }}')">Delete</a>
+	                        <a class="edit_btn btn small primary" href="#">Edit</a>
+	                        <a class="done_btn btn small primary" href="#" style="display: none;">Save</a>
+	                    </td>
+	                </tr>
+	                {% endfor %}
+	                </tbody>
+	            </table>
+				{% paginate %}
+	            <!-- End #tab1 -->
+	            <!-- Insert end -->	
+	            
+	            {% else %}
+	            	<h4 class="highlight">There are no current rewards. Why don't you add one?</h4>
+	            {% endif %}	            
+	            		
+			</div>		
+		</div><!-- Rewards list End-->
+		
+		<div id="past_reward" class="row">
+			<div class="span4"><h5>Past rewards</h5></div>
+			
+			<div class="span11">
+	            <!-- Insert start -->
+	            <table class="zebra-striped">
+	                <thead class="green">
+	                <tr>
+	                    <th>Reward</th>
+	                    <th>Points</th>
+	                    <th>Eligibility</th>
+	                    <th>Action</th>
+	                </tr>
+	                </thead>
+	                <tbody>
+	                {% autopaginate past_redemptions 10 %}
+	                {% for redemption in past_redemptions %}
+	                    <tr>
+                            {% if redemption.validated %}
+                            <td>{{ redemption.reward.name }}</td>
+                            <td>{{ redemption.reward.points_required }}</td>
+                            <td>{{ redemption.user.username }}</td>
+                            <td>
+                                <a href="#" title="Make active" style="text-decoration: underline">Make active</a>
+                            </td>
+                            {% else %}
+                            <td>{{ redemption.reward.name }}</td>
+                            <td>{{ redemption.reward.points_required }}</td>
+                            <td>{{ redemption.user.username }}</td>
+                            <td>Rejected</td>
+                            {% endif %}
+	                    </tr>
+	                {% endfor %}
+	                </tbody>
+	            </table>
+				{% paginate %}
+	            <!-- End #tab1 -->
+	            <!-- Insert end -->			
+			</div>		
+		</div>		
+	</div>
+
+
+<script type="text/javascript">
+
+    function hideApproveInfo() {
+        $('#div_approve_info').css('display','none');
+    }
+
+    function hideRejectInfo() {
+        $('#div_reject_info').css('display','none');
+    }
+
+    function hideDeleteInfo() {
+        $('#div_delete_info').css('display','none');
+    }
+
+    function approveRedemption(redemption_id) {
+        $('#div_approve_info').css('display','');
+        $('#a_approve').attr('href','/parent/approve-redemption/'+redemption_id+'/1/');
+    }
+
+    function rejectRedemption(redemption_id){
+        $('#div_reject_info').css('display','');
+        $('#a_reject').attr('href','/parent/reject-redemption/'+redemption_id+'/1/');
+    }
+
+    function deleteReward(reward_id){
+        $('#div_delete_info').css('display','');
+        $('#a_delete').attr('href','/parent/delete-reward/'+reward_id+'/');
+    }
+
+    $("#past_reward").fadeTo('fast',0.6);
+</script>
+
+{% endblock %}
+
+{% block modal %}
+    <!--Add participation begin -->
+    <div id="add-participation" class="modal fade" style="top: -100%">
+        <div class="modal-header">
+            <a href="#" class="close" onclick="redirect_to_rewards()">×</a>
+
+            <h3>Add a reward</h3>
+        </div>
+        <div class="modal-body">
+            <form id="add_rewards" action="{% url add_reward %}" method="post">
+                {% csrf_token %}
+                <div id='alert-message-container'>
+
+                </div>
+                    <div class="alert-message error" id='error-message'
+                     style="display: none;">
+                    The reward name and required points need to be filled in.
+                </div>
+                <div style="padding: 5px;">
+                    <div>
+                        <span style="margin-right: 30px"><input id="reward_name" name="reward_name" type="text" placeholder="reward"
+                                                                class="span2"></span>
+                        <span style="margin-right: 30px"><input id="reward_point" name="reward_point" type="text" placeholder="points"
+                                                               class="span2"></span>
+                        <span >
+                            {% if childs|length == 1 %}
+                                {% for child in childs %}
+                                    <input type="hidden" id="reward_childs" name="reward_childs" value="{{ child.id }}"/>
+                                    <input id="childs_view1" name="childs_view1" value="{{ child.username }}" readonly="true"/>
+                                {% endfor %}
+                            {% else %}
+                                <input type="hidden" id="reward_childs" name="reward_childs"/>
+                                <select id="childs_view" name="childs_view" style="display: none;"  multiple="multiple">
+                                    {% for child in childs %}
+                                        <option value="{{ child.id }}">{{ child.username }}</option>
+                                    {% endfor %}
+                                </select>
+                            {% endif %}
+
+                        </span>
+                    </div>
+                </div>
+            </form>
+            <div id="suggest_info" class="alert-message block-message info">
+                <p><strong>Note: </strong>Each hour of moderate activity will generate approximately 200 points.</p>
+            </div>
+            <div>
+                <table style="background-color: white;">
+                    <thead class="green">
+                    <tr>
+                        <th>Suggested rewards</th>
+                        <th>Suggested points</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for suggest_reward in suggest_rewards %}
+                    <tr class="suggest_row">
+                        <td>{{ suggest_reward.name }}</td>
+                        <td>{{ suggest_reward.points_required }}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        <div class="modal-footer">
+        	<a class="btn danger" href="#" onclick="redirect_to_rewards()">Cancel</a>
+            <a class="btn gold" href="#" onclick="add_rewards(true)">Add reward</a>            
+        </div>
+    </div>
+    <!--Add participation end -->
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#li_activate').attr('class', '');
+            $('#li_Stats').attr('class', '');
+            $('#li_badges').attr('class', '');
+            $('#li_rewards').attr('class', 'active');
+            $('#li_settings').attr('class', '');
+            
+            $('.suggest_row').mouseover(function() {
+                $(this).css("cursor", "pointer");
+            });
+
+            $('.suggest_row').click(function() {
+                $('#reward_name').attr('value', $(this).find('td').first().html());
+                $('#reward_point').attr('value', $(this).find('td').last().html());
+            });
+
+            iniAddRewardSelect();
+
+            $('.related_childs').dropdownchecklist({emptyText: "Please select ...", width: 200, maxDropHeight: 150 ,onItemClick: function(checkbox, selector){
+                    var justChecked = checkbox.prop("checked");
+                    var checked_val = checkbox.val();
+                    var values = "";
+                    for (i = 0; i < selector.options.length; i++) {
+                        if (selector.options[i].selected && (selector.options[i].value != "")) {
+                            if(justChecked || selector.options[i].value != checked_val) {
+                                if (values != "") values += ";";
+                                values += selector.options[i].value;
+                            }
+                        }
+                    }
+                    if(justChecked) {
+                        if(values == "") {
+                            values = checked_val;
+                        } else {
+                            values = values + ";" + checked_val;
+                        }
+                    }
+                    $selector_q = $(selector)
+                    $selector_q.prev().attr('value', values);
+                } });
+
+            /**Enable edit**/
+            $('.edit_btn').click(function() {
+                /**Hide**/
+                $(this).hide();
+                var name_view = $(this).parent().parent().find('.name_view');
+                name_view.hide();
+                var point_view = $(this).parent().parent().find('.point_view');
+                point_view.hide();
+
+                /**Show**/
+                $(this).next().show();
+                var name_edit = $(this).parent().parent().find('.name_edit');
+                name_edit.show();
+                var point_edit = $(this).parent().parent().find('.point_edit');
+                point_edit.show();
+                name_edit.attr('value', name_view.html());
+                point_edit.attr('value', point_view.html());
+
+                /**Initialize childs hidden field**/
+                selector_jq = $(this).parent().parent().find('select');
+                var selector = selector_jq.get(0);
+                var values = "";
+                for (i = 0; i < selector.options.length; i++) {
+                    if (selector.options[i].selected && (selector.options[i].value != "")) {
+                        if (values != "") values += ";";
+                        values += selector.options[i].value;
+                    }
+                }
+                selector_jq.prev().attr('value', values);
+            });
+
+            /**Submit edit**/
+            $('.done_btn').click(function() {
+                /**Hide**/
+                $(this).hide();
+                var name_edit = $(this).parent().parent().find('.name_edit');
+                name_edit.hide();
+                var point_edit = $(this).parent().parent().find('.point_edit');
+                point_edit.hide();
+
+                /**Show**/
+                $(this).prev().show();
+                var name_view = $(this).parent().parent().find('.name_view');
+                name_view.show();
+                var point_view = $(this).parent().parent().find('.point_view');
+                point_view.show();
+                name_view.html(name_edit.val());
+                point_view.html(point_edit.val());
+
+                /**Submit to server**/
+                var parms = "reward_id=" + $(this).parent().parent().find('.reward_id').val() + "&reward_name=" + encodeURIComponent(name_edit.val()) + "&reward_point=" + encodeURIComponent(point_edit.val()) + "&reward_childs=" + encodeURIComponent($(this).parent().parent().find('.childs_edit').val());
+                $.ajax({
+                    type:"GET",
+                    async:false,
+                    url:"/parent/edit-reward/",
+                    data:parms,
+                    success: function(data) {
+                        $('.alert-message').hide();
+                        $('#alert-message-reward').show();
+                        if (data == 'True') {
+                            $('#alert-message-reward').attr('class', 'alert-message success');
+                            $('#alert-message-reward').html("Edit reward successfully.");
+                        }
+                        else {
+                            $('#alert-message-reward').attr('class', 'alert-message error');
+                            $('#alert-message-reward').html("Edit reward failed, please re-edit the reward again.");
+                        }
+                    }
+                });
+            });
+        });
+    
+        function add_rewards(isDone) {
+            var childs = $('#reward_childs').val();
+            var rewardName = $('#reward_name').val();
+            var rewardPoint = $('#reward_point').val();
+
+            if (childs == null || childs == '' || rewardName == null || rewardName == '' || rewardPoint == null || rewardPoint == '') {
+                $('#alert-message-container').attr('class', 'alert-message error');
+                $('#alert-message-container').html("Reward name, reward points and child's name are not allowed to be blank.");
+                return;
+            }
+
+            $.ajax({
+                type:"POST",
+                async:false,
+                url:"{% url add_reward %}",
+                data:$("#add_rewards").serialize(),
+                success: function(data) {
+                    if (data == 'True') {
+                        if(isDone) {
+                            window.location='/parent/rewards/';
+                        } else {
+                            $('#alert-message-container').attr('class', 'alert-message success');
+                            $('#alert-message-container').html('Reward successfully added. Add another reward or click "Done."');
+
+                            iniAddReward();
+                        }
+                    }
+                    else {
+                        $('#alert-message-container').attr('class', 'alert-message error');
+                        $('#alert-message-container').html("Add reward failed, please re-create the reward again.");
+                    }
+                }
+            });
+        }
+
+        function iniAddReward() {
+            $('#reward_name').attr('value','');
+            $('#reward_point').attr('value','');
+            if ($("#childs_view").length > 0) {
+                $("#reward_childs").attr('value','');
+            }
+
+            $('#childs_view').next().remove();
+            $('#childs_view').next().remove();
+            $('#childs_view').find("option").removeAttr("selected");
+            iniAddRewardSelect();
+        }
+
+        function redirect_to_rewards(){
+            window.location='/parent/rewards/';
+        }
+
+        function close_info() {
+            $('#suggest_info').hide();
+        }
+
+        function iniAddRewardSelect() {
+
+            $('#childs_view').dropdownchecklist({width: 200, maxDropHeight: 150 ,onComplete: function(selector) {
+                var values = "";
+                for (i = 0; i < selector.options.length; i++) {
+                    if (selector.options[i].selected && (selector.options[i].value != "")) {
+                        if (values != "") values += ";";
+                        values += selector.options[i].value;
+                    }
+                }
+                $('#reward_childs').attr('value', values);
+            }, onItemClick: function(checkbox, selector){
+                var justChecked = checkbox.prop("checked");
+                var checked_val = checkbox.val();
+                var values = "";
+                for (i = 0; i < selector.options.length; i++) {
+                    if (selector.options[i].selected && (selector.options[i].value != "")) {
+                        if(justChecked || selector.options[i].value != checked_val) {
+                            if (values != "") values += ";";
+                            values += selector.options[i].value;
+                        }
+                    }
+                }
+                if(justChecked) {
+                    if(values == "") {
+                        values = checked_val;
+                    } else {
+                        values = values + ";" + checked_val;
+                    }
+                }
+                $('#reward_childs').attr('value', values);
+            } });
+        }
+    </script>
+{% endblock %}

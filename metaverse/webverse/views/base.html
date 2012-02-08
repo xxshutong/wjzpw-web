@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/static/css/bootstrap.css" rel="stylesheet">
+    <link href="/static/css/docs.css" rel="stylesheet">
+    <link href="/static/css/prettify.css" rel="stylesheet">
+
+    <!-- Le javascript -->
+    <script src="/static/js/jquery-1.6.1.min.js"></script>
+    <script src="/static/js/prettify.js"></script>
+    <script>$(function () {
+        prettyPrint()
+    })</script>
+    <script src="/static/js/bootstrap-dropdown.js"></script>
+    <script src="/static/js/bootstrap-twipsy.js"></script>
+    <script src="/static/js/bootstrap-scrollspy.js"></script>
+    <!--
+    <script src="/static/js/application.js"></script>
+    -->
+</head>
+
+<body>
+<!-- Masthead (blueprinty thing)
+================================================== -->
+<header class="jumbotron masthead" id="overview">
+    <div class="inner">
+        <div class="container">
+            <h1>Metaverse</h1>
+
+            <p class="lead">
+                Unleash your inner superhero
+            </p>
+        </div>
+        <!-- /container -->
+    </div>
+</header>
+
+{% block topbar %}{% endblock %}
+
+<div id="content" class="container">
+    {% block content %}{% endblock %}
+
+    {% block footer %}
+        <footer>
+            <p>&copy; Digido 2011</p>
+        </footer>
+    {% endblock %}
+</div>
+
+
+
+</body>
+</html>

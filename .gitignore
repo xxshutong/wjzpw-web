@@ -1,0 +1,6 @@
+.ve
+.Python
+.idea
+*.pyc
+*.DS_Store
+# metaverse/webverse/static/upload/images/*.*

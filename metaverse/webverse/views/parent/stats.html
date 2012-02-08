@@ -1,0 +1,215 @@
+{% extends "base_site.html" %}
+
+{% block title %}Kinetic Academy | Calendar{% endblock %}
+
+{% block content %}
+
+    <link rel="stylesheet" href="/static/css/parent.css">
+    <link rel='stylesheet' type='text/css' href='/static/css/theme.css'/>
+    <link rel='stylesheet' type='text/css' href='/static/css/fullcalendar.css'/>
+    <link rel='stylesheet' type='text/css'
+          href='/static/css/fullcalendar.print.css' media='print'/>
+    <script type='text/javascript'
+            src='/static/js/jquery-ui-1.8.11.custom.min.js'></script>
+    <script type='text/javascript'
+            src='/static/js/fullcalendar.min.js'></script>
+
+    <style type='text/css'>
+        #calendar {
+            width: 90%;
+            margin: 0 auto;
+        }
+    </style>
+
+    <form action="{% url get-stats-by-child %}" method="post">
+        {% csrf_token %}
+        
+         <div class="page-header">
+            <h1 style="float:left; width: 80%">Calendar</h1>
+        </div>       
+        <div class="content">
+            <div class="row" style="margin: 0px">
+                <div style="float: left;width: 20%">
+
+                    {% if children %}
+                        {% for child in children %}
+                            <input id="{{ child.id }}"
+                                   style="width: 180px;margin-bottom: 20px;"
+                                   class="btn primary" type="button"
+                                   value="{{ child.username }}"
+                                   onclick="change_stats_by_child('{{ child.id }}')">
+                            <br>
+                        {% endfor %}
+                    {% endif %}
+
+                </div>
+                
+                <div id="calendar-out" style="float: left;width: 80%">
+
+                    <div id='calendar'></div>
+
+                </div>
+            </div>
+            <div class="row">
+                <input type="hidden" id="hidden_id" name="hidden_id" value="">
+            </div>
+        </div>
+    </form>
+
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            $('#li_activate').attr('class', '');
+            $('#li_Stats').attr('class', 'active');
+            $('#li_badges').attr('class', '');
+            $('#li_rewards').attr('class', '');
+            $('#li_settings').attr('class', '');
+
+            {% if child_id %}
+                $("input").css('color', 'white');
+                $('#{{ child_id }}').addClass("gold");
+            {% else %}
+                $('#{{ child_id }}').addClass("primary");
+            {% endif %}
+
+            var date = new Date();
+            var d = date.getDate();
+            var m = date.getMonth();
+            var y = date.getFullYear();
+
+            $('#calendar').fullCalendar({
+                theme: true,
+                height: 300,
+                header: {
+                    left:'',
+                    center: 'title',
+                    right: 'prev,next today',
+                    
+                },
+                defaultView: 'basicWeek',
+                editable: false,
+                disableDragging:false,
+                events: [
+                    {% if stats %}
+                      {% for stat in stats %}
+                        {% if forloop.first %}
+                        {% else %}
+                        ,
+                        {% endif %}
+                        {
+                          GoldimageUrl:'<img style="width: 28px;vertical-align: top;" src="../../static/images/star_gold_64x64.png">',
+                          GrayimageUrl:'<img style="width: 28px;vertical-align: top;" src="../../static/images/star_silver_64x64.png">',
+                          title:'All Activity',
+                          start:'{{ stat.date }}',
+                          description: 'stats',
+                          duration: '{{ stat.duration }}',
+                        }
+											{% endfor %}
+										{% endif %}
+                    {% if activities %}
+                        {% for activity in activities %}
+                            {% if activity.validated == "True" %}
+                              {% if stats %}
+                                ,
+                              {% else %}
+                                {% if forloop.first %}
+                                {% else %}
+                                    ,
+                                {% endif %}
+                              {% endif %}
+                              {
+                                  GoldimageUrl:'<img style="width: 28px;vertical-align: top;" src="../../static/images/star_gold_64x64.png">',
+                                  GrayimageUrl:'<img style="width: 28px;vertical-align: top;" src="../../static/images/star_silver_64x64.png">',
+                                  title:'{{ activity.activity }} ({{ activity.duration }})',
+                                  start:'{{ activity.date }}',
+                                  description: 'activity',
+                                  backgroundColor: '#000033',
+                                  textColor: '#ffffff'
+                              }
+                            {% else %}
+                              {% if forloop.first %}
+                              {% else %}
+                                  ,
+                              {% endif %}
+                              {
+                                  GoldimageUrl:'<img style="width: 28px;vertical-align: top;" src="../../static/images/star_gold_64x64.png">',
+                                  GrayimageUrl:'<img style="width: 28px;vertical-align: top;" src="../../static/images/star_silver_64x64.png">',
+                                  title:'{{ activity.activity }} ({{ activity.duration }})',
+                                  start:'{{ activity.date }}',
+                                  description: 'activity',
+                                  backgroundColor: '#ffff00',
+                                  textColor: '#000000'
+                              }
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+
+                    {% if redemptions %}
+                        {% for redemption in redemptions  %}
+                            {% if redemption.validated %}
+                              {% if activities %}
+                                ,
+                              {% else %}
+                                {% if forloop.first %}
+                                {% else %}
+                                  ,
+                                {% endif %}
+                              {% endif %}
+                              {
+                                GoldimageUrl:'<img style="width: 28px;vertical-align: top;" src="../../static/images/star_gold_64x64.png">',
+                                  title: '{{ redemption.name }}',
+                                  start: '{{ redemption.create_day }}',
+                                  description: 'redeemed',
+                                  backgroundColor: '#00ff00',
+                                  textColor: '#000000'
+                              }
+                            {% else %}
+                              {% if stats %}
+                                ,
+                              {% else %}
+                                {% if forloop.first %}
+                                {% else %}
+                                  ,
+                                {% endif %}
+                              {% endif %}
+                              {
+                                GrayimageUrl:'<img style="width: 28px;vertical-align: top;" src="../../static/images/star_silver_64x64.png">',
+                                  title: '{{ redemption.name }}',
+                                  start: '{{ redemption.create_day }}',
+                                  description: 'pending',
+                                  backgroundColor: '#ff0000',
+                                  textColor: '#ffffff'
+                              }
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                ],
+                eventAfterRender:function( event, element, view ) {
+                      var eventType = event.description;
+                      var title = element.find('span.fc-event-title').text();
+                      if (eventType == 'stats') {
+                         if(event.duration >= {{ GOLD_STAR_MIN }}){
+                             element.find('span.fc-event-title').before($(event.GoldimageUrl));
+                         }
+                        else{
+                           element.find('span.fc-event-title').before($(event.GrayimageUrl));
+                        }                       
+                      }
+                      else if (eventType == 'activity') {
+                      }
+                      else if ( eventType == 'redeemed' ) {
+                      }
+                      else if ( eventType == 'pending' ) {
+                      }
+                }
+            });
+        });
+
+        function change_stats_by_child(child_id) {
+            $('#hidden_id').val(child_id);
+            document.forms[0].submit();
+        }
+
+    </script>
+{% endblock %}

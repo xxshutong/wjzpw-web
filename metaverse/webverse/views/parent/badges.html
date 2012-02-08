@@ -1,0 +1,106 @@
+{% extends "base_site.html" %}
+
+{% block title %}Kinetic Academy | Achievements{% endblock %}
+
+{% block content %}
+    <link rel="stylesheet" href="/static/css/parent.css">
+    <link rel="stylesheet" href="/static/css/metaverse.css">
+    <script src="/static/js/prettify.js"></script>
+    <script src="/static/js/bootstrap-twipsy.js"></script>
+    <script src="/static/js/bootstrap-popover.js"></script>
+
+    <div class="page-header">
+        <h1 style="float:left; width: 80%">Achievements</h1>
+    </div>
+    <div class="content">
+        <div class="row">
+            <div class="left_inner">
+                <ul>
+                    {% for child in childs %}
+                        {% if child.id == child_id %}
+                            <li><a class="btn gold"
+                                    href="/parent/badges/{{ child.id }}/">
+                                <div>{{ child.username }}</div>
+                            </a></li>
+                        {% else %}
+                            <li><a class="btn primary" href="/parent/badges/{{ child.id }}/">
+                                <div>{{ child.username }}</div>
+                            </a></li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="right_inner">
+                <ul>
+                    {% for badge in badges %}
+                        {% if badge.id in badge_ids %}
+                            <li>
+                                <div class="badge_area" rel="popover" data-content="{{ badge.description }}" data-original-title="Description">
+                                    <img src="/{{ badge.image_path }}">
+
+                                    <h4 style="display:none;">{{ badge.name }}</h4>
+                                </div>
+                            </li>
+                        {% else %}
+                            <li>
+                                {% for key,value in badge_tips.items %}
+                                    {% if key == badge.id %}
+                                        <div class="badge_area" rel="popover" data-content="{{ value }}" data-original-title="Description">
+                                    {% endif %}
+                                {% endfor %}
+                                    <img src="/static/upload/images/badge_blank.png">
+                                    <h4 >{{ badge.name }}</h4>
+                                </div>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            $('.badge_area').mouseover(function() {
+                $(this).css("background-color", "#b1db62");
+            });
+
+            $('.badge_area').mouseout(function() {
+                $(this).css("background-color", "");
+            });
+
+
+            $('#li_activate').attr('class', '');
+            $('#li_Stats').attr('class', '');
+            $('#li_badges').attr('class', 'active');
+            $('#li_rewards').attr('class', '');
+            $('#li_settings').attr('class', '');
+
+        });
+
+        $(function () {
+            $("div[rel=popover]")
+                    .popover({
+                        offset: 10,
+                        placement: 'above'
+                    })
+                    .click(function(e) {
+                        e.preventDefault()
+                    })
+        });
+
+        $(function() {
+            left_height = $('.left_inner').height();
+            right_height = $('.right_inner').height();
+            if(left_height > right_height) {
+                $('.left_inner').css('border-right', '1px solid #eee');
+                $('.right_inner').css('border-left', '0px');
+            } else {
+                $('.right_inner').css('border-left', '1px solid #eee');
+                $('.left_inner').css('border-right', '0px');
+            }
+        });
+
+    </script>
+{% endblock %}

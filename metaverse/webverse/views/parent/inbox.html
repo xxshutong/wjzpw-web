@@ -1,0 +1,492 @@
+{% extends "base_site.html" %}
+{% load pagination_tags %}
+
+{% block title %}Welcome to Kinetic Academy{% endblock %}
+
+{% block content %}
+    <script src="/static/js/bootstrap-modal.js"></script>
+    <link rel="stylesheet" href="/static/css/parent.css">
+
+
+    <div class="page-header-parent">
+        <h1 style="float: left;width: 80%">Inbox</h1>
+          
+	    <span style="clear:right;">
+            <a id="add_part" style="float:right;" class="btn gold" data-backdrop="static" data-controls-modal="add-participation" href="#">Add activity</a>
+        </span>     
+    </div>
+
+
+	<div class="content">
+		<div class="row" id="c2">
+			<div class="span4" id="pending_rewards"><h5>Pending rewards</h5></div>
+
+			<div class="span11">
+	            <div class="alert-message block-message info" id="div_approve_info_r" style="display: none">
+	                <a class="close" href="#">×</a>
+	                <p class="highlight">Approve the reward after you have given it to your child.</p>
+	                <div class="alert-actions">
+	                    <a id="a_approve_r" class="btn gold" href="#" onclick="">Approve</a> <a class="btn danger" onclick="hideApproveInfoR()" href="#">Cancel</a>
+	                </div>
+	            </div>
+	            <div class="alert-message block-message info" id="div_reject_info_r" style="display: none">
+	                <a class="close" href="#">×</a>
+	                <p class="highlight">Rejecting the reward will refund the points to your child.</p>
+	                <div class="alert-actions">
+	                    <a id="a_reject_r" class="btn danger" href="#" onclick="">Reject</a> <a class="btn primary" onclick="hideRejectInfoR()" href="#">Cancel</a>
+	                </div>
+	           </div>
+	            <!-- Insert start -->
+	            
+	            {% if redemptions %}
+	            
+	            <table class="zebra-striped">
+	                <thead class="green">
+	                <tr>
+	                    <th>Reward</th>
+	                    <th>Earned By</th>
+	                    <th>Earned On</th>
+	                    <th>Reward Given?</th>
+	                </tr>
+	                </thead>
+	                <tbody>
+					{% autopaginate redemptions 10 %}
+	                {% for redemption in redemptions %}
+	                    <tr>
+	                        {% if redemption.validated == None %}
+	                            <td><b>{{ redemption.reward.name }}</b></td>
+	                            <td><b>{{ redemption.user.username }}</b></td>
+	                            <td><b>{{ redemption.created_at|date:"N d, Y"  }}</b></td>
+	                            <td>
+	                                <a href="#pending_rewards" onclick="approveRedemption('{{ redemption.id }}')"
+	                                   title="approve"><img src="/static/images/icons/approve.png" class="icon_pend"></a>
+	                                <a href="#pending_rewards" onclick="rejectRedemption('{{ redemption.id }}')"
+	                                   title="reject"><img src="/static/images/icons/reject.png" class="icon_pend"></a>
+	                            </td>
+	                        {% else %}
+	                            <td>{{ redemption.reward.name }}</td>
+	                            <td>{{ redemption.user.username }}</td>
+	                            <td>{{ redemption.created_at|date:"N d, Y"  }}</td>
+	                            <td>Rejected</td>
+	                        {% endif %}
+	                    </tr>
+	                {% endfor %}
+	                </tbody>
+	            </table>
+				{% paginate %}
+	            <!-- End #tab1 -->
+	            <!-- Insert end -->
+	            
+	            {% else %}
+	                 <h4 class="highlight">There are no pending rewards. Well done!</h4>
+	            {% endif %}
+			
+			</div>		
+		</div>	
+		
+		<div class="row" id="c2">
+			<div class="span4"><h5>Recent activities</h5></div> 
+
+			<div class="span11">
+	           <div class="alert-message block-message info" id="div_approve_info" style="display: none">
+	                <a class="close" href="#" onclick="hideApproveInfo()">×</a>
+	                <p class="highlight">Are you sure you want to approve this activity?</p>
+	                <div class="alert-actions">
+	                    <a id="a_approve" class="btn gold" href="#" onclick="">Approve</a> <a class="btn danger" onclick="hideApproveInfo()" href="#">Cancel</a>
+	                </div>
+	            </div>
+	            <div class="alert-message block-message info" id="div_reject_info" style="display: none">
+	                <a class="close" href="#" onclick="hideRejectInfo()">×</a>
+	                <p class="highlight">Are you sure you want to reject this activity?</p>
+	                <div class="alert-actions">
+	                    <a id="a_reject" class="btn danger" href="#" onclick="">Reject</a> <a class="btn primary" onclick="hideRejectInfo()" href="#">Cancel</a>
+	                </div>
+	           </div>
+	            <div id='alert-message-activity'>
+	            </div>
+
+
+				{% if participation_list %}
+	            <!-- Insert start -->
+	            <table id='t2' class="zebra-striped">
+	                <thead class="green">
+	                <tr>
+	                    <th>Child</th>
+	                    <th>Activity</th>
+	                    <th>Time</th>
+	                    <th>Date</th>
+	                    <th>Status</th>
+	                </tr>
+	                </thead>
+	                <tbody>
+					{% autopaginate participation_list 10 %}
+
+	                {% for participation in participation_list %}
+	                    {% if participation.validated == None %}
+	                        <tr>
+	                            <td>
+	                                <input type="hidden" value="{{ participation.id }}"/>
+	                                <b><span class="child_view">{{ participation.user.username }}</span></b>
+	                                <select class="small child_edit" style="display: none;">
+	                                    <option value="">(Kids)</option>
+	                                    {% if kids %}
+	                                        {% for kid in kids %}
+	                                            {% if kid.id == participation.user.id %}
+	                                                <option value="{{ kid.id }}" selected="selected">{{ kid.username }}</option>
+	                                            {% else %}
+	                                                <option value="{{ kid.id }}">{{ kid.username }}</option>
+	                                            {% endif %}
+	                                        {% endfor %}
+	                                    {% endif %}
+	                                </select>
+	                            </td>
+	                            <td>
+	                                <b><span class="activity_view">{{ participation.activity.name }}</span></b>
+	                                <select class="small activity_edit" style="display: none;">
+	                                    <option value="">(Activity)</option>
+	                                    {% if activity_list %}
+	                                        {% for activity in activity_list %}
+	                                            {% if activity.id == participation.activity.id %}
+	                                                <option value="{{ activity.id }}" selected="selected">{{ activity.name }}</option>
+	                                            {% else %}
+	                                                <option value="{{ activity.id }}">{{ activity.name }}</option>
+	                                            {% endif %}
+	                                        {% endfor %}
+	                                    {% endif %}
+	                                </select>
+	                            </td>
+	                            <td>
+	                                <b><span class="duration_minute_view"><span class="duration_minute_value">{{ participation.duration_minute }}</span> min.</span></b>
+	                                <select class="small duration_minute_edit" style="display: none;">
+	                                    <option value="">(Time)</option>
+	                                    <option value="10" {% if participation.duration_minute == 10 %} selected="selected" {% endif %}>10 Min</option>
+	                                    <option value="30" {% if participation.duration_minute == 30 %} selected="selected" {% endif %}>30 Min</option>
+	                                    <option value="60" {% if participation.duration_minute == 60 %} selected="selected" {% endif %}>1 Hour</option>
+	                                    <option value="120" {% if participation.duration_minute == 120 %} selected="selected" {% endif %}>2 Hours</option>
+	                                </select>
+	                            </td>
+	                            <td>
+	                                <b><span class="activity_date_view"><span class="activity_date_value">{{ participation.activity_date|date:"N d, Y"}}</span></span></b>
+	                                <select class="small activity_date_edit" style="display: none;">
+	                                    <option value="">(Date)</option>
+	                                    <option value="0" {% if participation.get_date_duration == 0 %}selected="selected"{% endif %}>Today</option>
+	                                    <option value="1" {% if participation.get_date_duration == 1 %}selected="selected"{% endif %}>Yesterday</option>
+	                                    <option value="2" {% if participation.get_date_duration == 2 %}selected="selected"{% endif %}>2 Days Ago</option>
+	                                    <option value="3" {% if participation.get_date_duration == 3 %}selected="selected"{% endif %}>3 Days Ago</option>
+	                                </select>
+	                            </td>
+
+	                            <td>
+	                                <a class="btn small gold"
+	                                   href="#"
+	                                   onclick="approveActivity('{{ participation.id }}')">Approve</a>
+	                                <a class="btn small danger" href="#"
+	                                   onclick="rejectActivity('{{ participation.id }}')">Reject</a>
+	                                <a class="edit_btn btn small primary" href="#">Edit</a>
+	                                <a class="done_btn btn small primary" href="#" style="display: none;">Save</a>
+	                            </td>
+	                        </tr>
+	                        {% else %}
+	                        <tr>
+	                            <td>{{ participation.user.username }}</td>
+	                            <td>{{ participation.activity.name }}</td>
+	                            <td>{{ participation.duration_minute }} min.</td>
+	                            <td>{{ participation.activity_date|date:"N d, Y" }}</td>
+	                            <td>
+	                                {% if participation.validated %}
+	                                    <img src="/static/images/icons/approve.png"
+	                                         class="icon_pend">
+	                                {% else %}
+	                                    <img src="/static/images/icons/reject.png"
+	                                         class="icon_pend">
+	                                {% endif %}
+	                            </td>	                            
+	                        </tr>	                        
+	                    {% endif %}
+	                {% endfor %}
+	                </tbody>
+	            </table>
+				{% paginate %}
+
+	            {% else %}
+	                 <h4 class="highlight">There are no recent activities. Why don't you add one?</h4>
+	            {% endif %}
+
+	            <!-- End #tab1 -->
+	            <!-- Insert end -->
+
+			</div>
+
+		</div>
+	</div>    
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#li_activate').attr('class', 'active');
+        $('#li_Stats').attr('class', '');
+        $('#li_badges').attr('class', '');
+        $('#li_rewards').attr('class', '');
+        $('#li_settings').attr('class', '');
+
+        /**Enable edit**/
+        $('.edit_btn').click(function() {
+            /**Hide**/
+            $(this).hide();
+            var child_view = $(this).parent().parent().find('.child_view');
+            child_view.hide();
+            var activity_view = $(this).parent().parent().find('.activity_view');
+            activity_view.hide();
+            var duration_minute_view = $(this).parent().parent().find('.duration_minute_view');
+            duration_minute_view.hide();
+            var activity_date_view = $(this).parent().parent().find('.activity_date_view');
+            activity_date_view.hide();
+
+            /**Show**/
+            $(this).next().show();
+            var child_edit = child_view.parent().next();
+            child_edit.show();
+            var activity_edit = activity_view.parent().next();
+            activity_edit.show();
+            var duration_minute_edit = duration_minute_view.parent().next();
+            duration_minute_edit.show();
+            var activity_date_edit = activity_date_view.parent().next();
+            activity_date_edit.show();
+        });
+
+        /**Submit edit**/
+        $('.done_btn').click(function() {
+            /**Hide**/
+            var child_edit = $(this).parent().parent().find('.child_edit');
+            var activity_edit = $(this).parent().parent().find('.activity_edit');
+            var duration_minute_edit = $(this).parent().parent().find('.duration_minute_edit');
+            var activity_date_edit = $(this).parent().parent().find('.activity_date_edit');
+            if (child_edit.val() == '' || activity_edit.val() == '' || duration_minute_edit.val() == '' || activity_date_edit.val() == '') {
+                $('.alert-message').hide();
+                $('#alert-message-activity').show();
+                $('#alert-message-activity').attr('class', 'alert-message error');
+                $('#alert-message-activity').html("Edit activity failed, all fields are required.");
+                return;
+            }
+            $(this).hide();
+            child_edit.hide();
+            activity_edit.hide();
+            duration_minute_edit.hide();
+            activity_date_edit.hide();
+
+            /**Show**/
+            $(this).prev().show();
+            var child_view = child_edit.prev().children().first();
+            child_view.show();
+            var activity_view = activity_edit.prev().children().first();
+            activity_view.show();
+            var duration_minute_view = duration_minute_edit.prev().children().first();
+            duration_minute_view.show();
+            var activity_date_view = activity_date_edit.prev().children().first();
+            activity_date_view.show();
+            child_view.html(child_edit.find("option:selected").text());
+            activity_view.html(activity_edit.find("option:selected").text());
+            duration_minute_view.find('span').html(duration_minute_edit.val());
+            var f = new Date();
+            f.setDate(f.getDate() - activity_date_edit.val());
+            activity_date_view.find('span').html( wrapMonth(f.getMonth() + 1) + " " + f.getDate() + ", " + f.getFullYear());
+            var hidden_part_id = child_view.parent().prev();
+
+            /**Submit to server**/
+            var parms = "participation_id=" + hidden_part_id.val() + "&child_id=" + child_edit.val() + "&activity_id=" + encodeURIComponent(activity_edit.val()) + "&duration_minute=" + encodeURIComponent(duration_minute_edit.val()) + "&activity_date=" + encodeURIComponent(activity_date_edit.val());
+            $.ajax({
+                type:"GET",
+                async:false,
+                url:"/parent/edit-activity/",
+                data:parms,
+                success: function(data) {
+                    $('.alert-message').hide();
+                    $('#alert-message-activity').show();
+                    if (data == 'True') {
+                        $('#alert-message-activity').attr('class', 'alert-message success');
+                        $('#alert-message-activity').html("Activity changes saved. Approve this activity to add the points to your child's account.");
+                    }
+                    else {
+                        $('#alert-message-activity').attr('class', 'alert-message error');
+                        $('#alert-message-activity').html("Edit activity failed, please re-edit the activity again.");
+                    }
+                }
+            });
+        });
+    });
+
+    function wrapMonth(month) {
+        switch(month) {
+            case 1: return 'Jan.';
+            case 2: return 'Feb.';
+            case 3: return 'Mar.';
+            case 4: return 'Apr.';
+            case 5: return 'May';
+            case 6: return 'Jun.';
+            case 7: return 'Jul.';
+            case 8: return 'Aug.';
+            case 9: return 'Sept.';
+            case 10: return 'Oct.';
+            case 11: return 'Nov.';
+            case 12: return 'Dec.';
+            default: return null;
+        }
+    }
+
+    function hideApproveInfo() {
+        $('#div_approve_info').css('display','none');
+    }
+
+    function hideRejectInfo() {
+        $('#div_reject_info').css('display','none');
+    }
+
+    function hideApproveInfoR() {
+        $('#div_approve_info_r').css('display','none');
+    }
+
+    function hideRejectInfoR() {
+        $('#div_reject_info_r').css('display','none');
+    }
+
+    function approveActivity(participation_id) {
+        $('#div_approve_info').css('display','');
+        $('#a_approve').attr('href','/parent/approve-participation/'+participation_id+'/');
+    }
+
+    function rejectActivity(participation_id){
+        $('#div_reject_info').css('display','');
+        $('#a_reject').attr('href','/parent/reject-participation/'+participation_id+'/');
+    }
+
+    function approveRedemption(redemption_id) {
+        $('#div_approve_info_r').css('display','');
+        $('#a_approve_r').attr('href','/parent/approve-redemption/'+redemption_id+'/2/');
+    }
+
+    function rejectRedemption(redemption_id){
+        $('#div_reject_info_r').css('display','');
+        $('#a_reject_r').attr('href','/parent/reject-redemption/'+redemption_id+'/2/');
+    }
+</script>
+
+{% endblock %}
+
+{% block modal %}
+    <!--Add participation begin -->
+    <div id="add-participation" class="modal hide fade">
+        <div class="modal-header">
+            <a href="#" class="close">×</a>
+
+            <h3>Add Activity</h3>
+        </div>
+        <div class="modal-body">
+            <form id="activity-form" action="{% url parent_add_activity %}" method="post">
+                {% csrf_token %}
+                <div id='alert-message-container'>
+
+                </div>
+                    <div class="alert-message error" id='error-message'
+                     style="display: none;">
+                    Activity name, duration and date can not be blank.
+                </div>
+                <fieldset>
+                    <div class="clearfix">
+                      <div class="span4" style="border-left-style: none;">
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <select id='kids-selector'
+                                    name="kids-selector" class="medium">
+                                <option value="">(Kids)</option>
+                                {% if kids %}
+                                    {% for kid in kids %}
+                                        <option value="{{ kid.id }}">{{ kid.username }}</option>
+                                    {% endfor %}
+                                {% endif %}
+                            </select>
+                        </div>
+                        <div class="span4" style="border-left-style: none;">
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <select id='activity-selector'
+                                    name="activity-selector" class="medium">
+                                <option value="">(Activity)</option>
+                                {% if activity_list %}
+                                    {% for activity in activity_list %}
+                                        <option value="{{ activity.id }}">{{ activity.name }}</option>
+                                    {% endfor %}
+                                {% endif %}
+                            </select>
+                        </div>
+                        <div class="span4" style="border-left-style: none;margin-top: 20px;">
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <select id='time-selector' name="time-selector"
+                                    class="medium">
+                                <option value="">(Time)</option>
+                                <option value="10">10 Min</option>
+                                <option value="15">15 Min</option>
+                                <option value="30">30 Min</option>
+                                <option value="45">45 Min</option>
+                                <option value="60">1 Hour</option>
+                                <option value="90">90 Min</option>
+                                <option value="120">2 Hours</option>
+                            </select>
+                        </div>
+                        <div class="span4" style="border-left-style: none;margin-top: 20px;margin-left: 40px">
+                            <select id='date-selector' name="date-selector"
+                                    class="medium" >
+                                <option value="">(Date)</option>
+                                <option value="0">Today</option>
+                                <option value="1">Yesterday</option>
+                                <option value="2">2 Days Ago</option>
+                                <option value="3">3 Days Ago</option>
+                            </select>
+                        </div>
+                    </div>
+                </fieldset>
+
+            </form>
+        </div>
+        <div class="modal-footer">
+             <input type="button" class="btn danger" value="Cancel" onclick="redirect_to_inbox()"/> 
+             <input type="button" class="btn gold" value="Add Activity" onclick="add_activities()" />
+        </div>
+    </div>
+    <!--Add participation end -->
+    <script type="text/javascript">
+//    init_table();
+    function add_activities(){
+         $.ajax({
+            type:"POST",
+            async:false,
+            url:"{% url parent_add_activity %}",
+            data:$("#activity-form").serialize(),
+            success: function(data){
+                if(data == 'True'){
+                    $('#alert-message-container').attr('class', 'alert-message success');
+                    $('#alert-message-container').html('Activity successfully added. Add another activity or click "Done."');
+					
+					redirect_to_inbox();
+                }
+                else{
+                    $('#alert-message-container').attr('class', 'alert-message error');
+                    $('#alert-message-container').html("Add activity failed, please re-create the activity again.");
+                }
+            }
+        });
+    }
+
+    function iniAddActivities() {
+        $('#kids-selector').attr('value','');
+        $('#activity-selector').attr('value','');
+        $('#time-selector').attr('value','');
+        $('#date-selector').attr('value','');
+    }
+
+
+    function redirect_to_inbox(){
+        window.location='/parent/inbox/';
+    }
+
+    </script>
+{% endblock %}
