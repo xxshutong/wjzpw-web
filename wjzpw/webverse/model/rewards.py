@@ -1,8 +1,8 @@
 import datetime
 import logging
-from metaverse.webverse.model.users import UserManager
-from metaverse.webverse.models import Suggestion_Reward, UserReward
-from metaverse.webverse.models import Reward, UserProfile, Redemption
+from wjzpw.webverse.model.users import UserManager
+from wjzpw.webverse.models import Suggestion_Reward, UserReward
+from wjzpw.webverse.models import Reward, UserProfile, Redemption
 from django.db import connection, transaction
 
 class SuggestionRewardManager(object):

@@ -1,5 +1,5 @@
 from django.contrib.auth import models as auth_models
-from metaverse.webverse.models import UserProfile
+from wjzpw.webverse.models import UserProfile
 
 class FacebookBackend:
     def authenticate(self, email=None, token=None):

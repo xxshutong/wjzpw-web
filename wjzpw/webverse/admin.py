@@ -1,4 +1,4 @@
-from metaverse.webverse.models import UserProfile, Activity, Participation, Suggestion_Reward, Reward, Redemption, \
+from wjzpw.webverse.models import UserProfile, Activity, Participation, Suggestion_Reward, Reward, Redemption, \
                                       Badge, Achievement
 from django.contrib import admin
 

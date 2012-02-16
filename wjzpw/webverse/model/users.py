@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
-from metaverse.webverse.models import UserProfile
-from metaverse.webverse.utils import generate_base64_string
+from wjzpw.webverse.models import UserProfile
+from wjzpw.webverse.utils import generate_base64_string
 
 class UserManager(object):
     @staticmethod

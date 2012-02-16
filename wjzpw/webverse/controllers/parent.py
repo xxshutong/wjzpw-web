@@ -4,12 +4,12 @@ from django.http import Http404, HttpResponse
 from django.shortcuts import render_to_response, redirect
 from django.template import loader
 from django.template.context import RequestContext
-from metaverse import settings
-from metaverse.webverse.forms.forms import KidsForm, ChangeEmailForm, KidsEditForm, PasswordReset
-from metaverse.webverse.model.participation import ParticipationManager, ActivityManager, BadgeManager
-from metaverse.webverse.model.rewards import SuggestionRewardManager, RedemptionManager, RewardsManager
-from metaverse.webverse.model.users import UserManager
-from metaverse.webverse.models import UserProfile
+from wjzpw import settings
+from wjzpw.webverse.forms.forms import KidsForm, ChangeEmailForm, KidsEditForm, PasswordReset
+from wjzpw.webverse.model.participation import ParticipationManager, ActivityManager, BadgeManager
+from wjzpw.webverse.model.rewards import SuggestionRewardManager, RedemptionManager, RewardsManager
+from wjzpw.webverse.model.users import UserManager
+from wjzpw.webverse.models import UserProfile
 from django.template.loader import render_to_string
 
 parent_inbox_page = 'parent/inbox.html'

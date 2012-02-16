@@ -6,7 +6,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from jsonrpc import jsonrpc_site
 
 import re
-import metaverse.rpc
+import wjzpw.rpc
 
 admin.autodiscover()
 

@@ -2,7 +2,7 @@ import logging
 import random
 import string
 from django.core.mail.message import EmailMessage
-from metaverse import settings
+from wjzpw import settings
 import md5
 import base64
 def send_email(html_content, recipient, subject):
@@ -46,7 +46,7 @@ forgot_password_mail_template='''
         <body>
             <p>
                 Hi %s, <br><br>
-                Here is your password of metaverse, please remember it or you can change it when you login success.<br>
+                Here is your password of wjzpw, please remember it or you can change it when you login success.<br>
                 password: %s<br><br>
                 Regards,<br>
                 Metaverse

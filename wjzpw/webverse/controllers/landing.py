@@ -5,11 +5,11 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, render_to_response, redirect
 from django.http import HttpResponseRedirect
 from django.template.context import RequestContext
-from metaverse import settings
-from metaverse.webverse import utils
-from metaverse.webverse.forms.forms import RegistrationForm, LoginForm, ForgotPasswordForm
-from metaverse.webverse.model.users import UserManager
-from metaverse.webverse.utils import send_email, generate_password
+from wjzpw import settings
+from wjzpw.webverse import utils
+from wjzpw.webverse.forms.forms import RegistrationForm, LoginForm, ForgotPasswordForm
+from wjzpw.webverse.model.users import UserManager
+from wjzpw.webverse.utils import send_email, generate_password
 
 kid_home_page = "../views/kid/kid.html"
 parent_home_page = "../views/parent/parent.html"

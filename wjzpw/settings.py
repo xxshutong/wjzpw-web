@@ -1,12 +1,12 @@
 from os import path
 import sys, os
-# Django settings for metaverse project.
+# Django settings for wjzpw project.
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 PROJECT_DIR = os.getcwd()
-WEBVERSE_DIR = '/metaverse/webverse'
+WEBVERSE_DIR = '/wjzpw/webverse'
 
 ADMINS = (
     # ('Winston Ng', 'winston@xplusz.com'),
@@ -17,7 +17,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', 
-        'NAME': 'metaverse',             
+        'NAME': 'wjzpw',
         'USER': '',
         'PASSWORD': '',
         'HOST': 'localhost',          
@@ -113,14 +113,14 @@ MIDDLEWARE_CLASSES = (
     'pagination.middleware.PaginationMiddleware',
 )
 
-ROOT_URLCONF = 'metaverse.urls'
+ROOT_URLCONF = 'wjzpw.urls'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     # IMPORTANT - this path only works for "foreman start" and not the typical "runserver" command.
-    PROJECT_DIR + "/metaverse/webverse/views"
+    PROJECT_DIR + "/wjzpw/webverse/views"
 )
 
 INSTALLED_APPS = (

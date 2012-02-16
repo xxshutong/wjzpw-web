@@ -7,11 +7,11 @@ from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
-from metaverse import settings
-from metaverse.webverse.forms.forms import RegistrationForm, LoginForm
+from wjzpw import settings
+from wjzpw.webverse.forms.forms import RegistrationForm, LoginForm
 from urllib import urlopen
 from simplejson import loads
-from metaverse.webverse.models import UserProfile
+from wjzpw.webverse.models import UserProfile
 
 landing_home_page = "../views/landing.html"
 parent_inbox_page = "../views/parent/inbox.html"

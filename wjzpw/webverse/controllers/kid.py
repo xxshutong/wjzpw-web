@@ -2,14 +2,14 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response
 from django.template import loader
 from django.template.context import RequestContext
-from metaverse import settings
-from metaverse.webverse.model.participation import ActivityManager, ParticipationManager, BadgeManager
+from wjzpw import settings
+from wjzpw.webverse.model.participation import ActivityManager, ParticipationManager, BadgeManager
 import datetime
-from metaverse.webverse.model.rewards import RewardsManager,RedemptionManager
+from wjzpw.webverse.model.rewards import RewardsManager,RedemptionManager
 from django.http import HttpResponse, HttpResponseRedirect
-from metaverse.webverse.utils import send_email
-from metaverse.webverse import utils
-from metaverse.webverse.model.users import UserManager
+from wjzpw.webverse.utils import send_email
+from wjzpw.webverse import utils
+from wjzpw.webverse.model.users import UserManager
 
 kid_home_page = "../views/kid/kid.html"
 kid_stats_page = "../views/kid/stats.html"

@@ -1,6 +1,6 @@
 import logging
 from django.db.models.aggregates import Count, Sum
-from metaverse.webverse.models import Activity, Participation, UserProfile, Badge, Achievement
+from wjzpw.webverse.models import Activity, Participation, UserProfile, Badge, Achievement
 import datetime
 from django.db import connection, transaction
 from django.shortcuts import get_object_or_404
