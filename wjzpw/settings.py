@@ -32,7 +32,7 @@ DATABASES = {
 # timezone as the operating system.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'Asia/Shanghai'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
@@ -122,6 +122,8 @@ TEMPLATE_DIRS = (
     # IMPORTANT - this path only works for "foreman start" and not the typical "runserver" command.
     PROJECT_DIR + "/wjzpw/webverse/views"
 )
+
+print TEMPLATE_DIRS
 
 INSTALLED_APPS = (
     'django.contrib.auth',
