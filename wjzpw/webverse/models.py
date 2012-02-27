@@ -14,14 +14,79 @@ from django.db.models.fields.related import OneToOneField
 #        manage.py schemamigration webverse --auto
 #        manage.py migrate
 
-class UserProfile(models.Model):
+class AbstractModel(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
+
+class Province(models.Model):
+    """
+    Province info.
+    """
+    PROVINCE_TYPE = (
+        (0, 'Province'),
+        (1, 'City Managed directly')
+    )
+    type = models.IntegerField('Province Type', max_length=2, choices=PROVINCE_TYPE, default=0)
+    code = models.CharField('Code', max_length=5, blank=True)
+    spell = models.CharField('Spell', max_length=50, blank=False)
+    name = models.CharField('Name', max_length=255, blank=False)
+    def __unicode__(self):
+        return self.name
+
+class City(models.Model):
+    """
+    City info.
+    """
+    CITY_TYPE = (
+        (0, 'City'),
+        (1, 'Area')
+    )
+    type = models.IntegerField('City Type', max_length=2, choices=CITY_TYPE, default=0)
+    code = models.CharField('Code', max_length=5, blank=True)
+    spell = models.CharField('Spell', max_length=50, blank=False)
+    name = models.CharField('Name', max_length=255, blank=False)
+    province = models.ForeignKey(Province, name='Province')
+    def __unicode__(self):
+        return self.name
+
+class Location(models.Model):
+    """
+    Location info.
+    """
+    spell = models.CharField('Spell', max_length=50, blank=False)
+    name = models.CharField('Name', max_length=255, blank=False)
+    def __unicode__(self):
+        return self.name
+
+class Industry(models.Model):
+    """
+    Industry info
+    """
+    spell = models.CharField('Spell', max_length=50, blank=True)
+    name = models.CharField('Name', max_length=255, blank=False)
+    def __unicode__(self):
+        return self.name
+
+class Service(models.Model):
+    PERIOD_TYPE = (
+        (0, 'Free'),
+        (1, 'One month'),
+        (2, 'One quarter'),
+        (3, 'Half a year'),
+        (4, 'One year')
+    )
+    period = models.IntegerField('Period Type', max_length=2, choices=PERIOD_TYPE, default=0)
+    price = models.IntegerField('Price', default=0)
+    name = models.CharField('Name', max_length=255, blank=False)
+
+class UserProfile(AbstractModel):
     """
     Profile for any users with access to the system.
     Points are updated here but can be computed by the awarded points - redeemed points. For performance.
     """
     USER_TYPE = (
-        (0, 'Parent'),
-        (1, 'Child')
+        (0, 'Person'),
+        (1, 'Company')
     )
 
     GENDER = (
@@ -30,135 +95,143 @@ class UserProfile(models.Model):
         (2, 'not-specified')
     )
 
+    WEDDING_TYPE = (
+        (0, 'Secret'),
+        (1, 'Married'),
+        (2, 'Not Married'),
+        (3, 'Divorced')
+    )
+
+    JOB_STATE_TYPE = (
+        (0, 'On leave, want to find at once'),
+        (1, 'On work, consider changing environment'),
+        (2, 'On work, will left if better chance'),
+        (3, 'Fresh graduates'),
+        (4, 'Not want job-hopping')
+    )
+
+    JOB_TYPE_TYPE = (
+        (0, 'Have working experience'),
+        (1, 'Fresh graduates')
+    )
+
+    WORK_YEARS_TYPE = (
+        (0, '1 year'),
+        (1, '2 years'),
+        (2, '3-5 years'),
+        (3, '5-10 years'),
+        (4, '10- years')
+    )
+
+    COMPANY_SCOPE_TYPE = (
+        (0, '< 50'),
+        (1, '50 < 150'),
+        (2, '150 < 500'),
+        (3, '> 500')
+    )
+
     user = OneToOneField(User)
+    type = models.IntegerField('User Type', max_length=2, choices=USER_TYPE, default=0)
     username = models.CharField('Username', max_length=50, null=True, blank=False)
     realname = models.CharField('Real Name', max_length=50, null=True, blank=False)
-    type = models.IntegerField('User Type', max_length=2, choices=USER_TYPE, default=0)
-    email = models.EmailField('Email', )
     gender = models.IntegerField('Gender', max_length=2, choices=GENDER, default=2)
-    birthdate = models.DateField('Birthdate', null=True, blank=True)
+    birthday = models.DateField('Birthday', null=True, blank=True)
+    census = models.ForeignKey(City, name='Census')
+    location = models.ForeignKey(Location, name='Location')
+    mobile_phone = models.CharField('Mobile Phone/Telephone', max_length=20)
+    qq = models.CharField('QQ', max_length=20)
+    wedding = models.IntegerField('Wedding', max_length=2, choices=WEDDING_TYPE, default=0)
+    stature = models.IntegerField('Stature', null=True, blank=True)
+    weight = models.IntegerField('Weight', null=True, blank=True)
+    job_state = models.IntegerField('Current Job Status', max_length=2, choices=JOB_STATE_TYPE, default=0)
+    job_type = models.IntegerField('Your Type', max_length=2, choices=JOB_TYPE_TYPE, default=0)
+    work_years = models.IntegerField('Work Years', max_length=2, choices=WORK_YEARS_TYPE, null=True, blank=True)
     points_balance = models.IntegerField('Points', default=0)
-    parent_id = models.IntegerField("Parent id", null=True, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True, null=True)
-    updated_at = models.DateTimeField(auto_now=True, null=True)
-    #facebook information
+    cp_accept_notice = models.BooleanField('Accept Notice', default=True)
+    cp_name = models.CharField('Company Name', max_length=255, null=True)
+    cp_license = models.CharField('Business License', max_length=255, null=True)
+    cp_industry = models.ForeignKey(Industry, name='Industry Type')
+    cp_scope = models.IntegerField('Company Scope', max_length=2, choices=COMPANY_SCOPE_TYPE, default=0)
+    cp_intro = models.CharField('Company Intro', max_length=50, null=True)
+    cp_address = models.CharField('Company Address', max_length=2000, null=True)
+    cp_postcode = models.CharField('Address Postcode', max_length=10, null=True)
+    cp_contact = models.CharField('Contact Name', max_length=50, null=True)
+    cp_telephone = models.CharField('Contact Telephone', max_length=15)
+    cp_mobile_phone = models.CharField('Contact Mobile Phone', max_length=15)
+    cp_fax = models.CharField('Contact Fax', max_length=15)
+    cp_website = models.CharField('Web Site', max_length=50)
+    cp_service = models.ForeignKey(Service, name='Service', null=True, blank=True)
+    cp_service_begin = models.DateField(null=True, blank=True)
+
+    #For Restful
     access_token = models.CharField(max_length=1024, unique=True, null=True, blank=True)
     expires = models.IntegerField(null=True, blank=True)
-    uid = models.BigIntegerField(unique=True, null=True, blank=True)
-    is_deleted = models.BooleanField("Is Deleted", default=False)
 
     def __unicode__(self):
         return str(self.user.id) + "-" + self.email
 
 
-class Activity(models.Model):
+class Job(models.Model):
     """
-    Types of action set up to be performed by children.
+    Job Entity
     """
-    name = models.CharField('Activity Name', max_length=256, blank=False)
-    points_per_minute = models.IntegerField('Points per minute', default=0)
-    image_path = models.ImageField(upload_to='static/upload/images',max_length=255)
+    JOB_TYPE = (
+        (0, 'Full-time'),
+        (1, 'Part-time'),
+        (2, 'Practice'),
+        (3, 'Full/Part-time')
+    )
 
-    def __unicode__(self):
-        return self.name
+    EDUCATION_TYPE = (
+        (0, 'Unlimited'),
+        (1, 'Junior High School'),
+        (2, 'Senior High School'),
+        (3, 'Middle Technical School'),
+        (4, 'Technical Secondary School'),
+        (5, 'Junior College'),
+        (6, 'Undergraduates'),
+        (7, 'MBA'),
+        (8, 'Master'),
+        (9, 'Doctor'),
+        (10, 'Other')
+    )
 
+    EXPERIENCE_TYPE = (
+        (0, 'Unlimited'),
+        (1, '1 year'),
+        (2, '2 years'),
+        (3, '3-5 years'),
+        (4, '5-10 years'),
+        (5, '10+ years')
+    )
 
-class Participation(models.Model):
-    """
-    A single act of doing an activity by a child.
-    """
-    user = models.ForeignKey(UserProfile, name='Participant')
-    activity = models.ForeignKey(Activity, name='Activity')
-    validated = models.NullBooleanField('Validated')
-    duration_minute = models.IntegerField('Duration in Minutes')
-    activity_date = models.DateField('Participation Date')
-    points_awarded = models.IntegerField('Points Awarded', null=False, blank=False, default=0)
-    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    AGE_SCOPE = (
+        (0, 'Unlimited'),
+        (1, '< 20'),
+        (2, '20 < 30'),
+        (3, '30 < 35'),
+        (4, '35 <')
+    )
 
-    def get_date_duration(self):
-        temp = (datetime.date.today() - self.activity_date).days
-        return temp
+    SEX_TYPE = (
+        (0, 'Unlimited'),
+        (1, 'Male'),
+        (2, 'Female')
+    )
+
+    company = models.ForeignKey(UserProfile, name='Company')
+    name = models.CharField('Job Name', max_length=255)
+    salary = models.IntegerField('Salary', default=None)
+    department = models.CharField('Department', max_length=255)
+    number = models.IntegerField('Number Of People', default=1)
+    end_date = models.DateField('End Date', null=True, blank=True)
+    location = models.ForeignKey(Location, name='Work Location')
+    edu_background = models.IntegerField('Education Background', max_length=2, choices=EDUCATION_TYPE, default=0)
+    work_experience = models.IntegerField('Work Experience', max_length=2, choices=EXPERIENCE_TYPE, default=0)
+    age = models.IntegerField('Age Scope', max_length=2, choices=AGE_SCOPE, default=0)
+    sex = models.IntegerField('Sex', max_length=2, choices=SEX_TYPE, default=0)
+    description = models.CharField('Description', min_length=10, max_length=2000)
 
     def __unicode__(self):
         return str(self.user.id) + '-' + self.user.email + '-' + self.activity.name
-
-
-class Suggestion_Reward(models.Model):
-    """
-    Reward suggestion for Parents when they are setting the account.
-    """
-    name = models.CharField('Reward Name', max_length=256, blank=False)
-    points_required = models.IntegerField('Points Required', null=False, blank=False, default=0)
-
-    def __unicode__(self):
-        return self.name
-
-
-class Reward(models.Model):
-    """
-    Incentives setup by Parent for child to earn points and redeem.
-    Eligibility allows parent to pick which child can redeem this reward.
-    """
-    user = models.ForeignKey(UserProfile, related_name='owner')
-    name = models.CharField('Reward Name', max_length=256, blank=False)
-    points_required = models.IntegerField('Points Required', null=False, blank=False, default=0)
-    eligibility = models.ManyToManyField(UserProfile, through='UserReward')
-    is_deleted = models.BooleanField("Is Deleted", default=False)
-
-    def __unicode__(self):
-        return self.name
-
-
-class Redemption(models.Model):
-    """
-    Who redeem which reward. Points deducted are recorded in case the points required for reward changed.
-    """
-    user = models.ForeignKey(UserProfile, name='Who redeem it?')
-    reward = models.ForeignKey(Reward)
-    validated = models.NullBooleanField('Validated')
-    validated_date = models.DateField('Validate Date', null=True, blank=True, default=None)
-    created_at = models.DateTimeField(auto_now_add=True, null=True)
-
-    def __unicode__(self):
-        return str(self.user.id) + '-' + self.user.email + '-' + self.reward.name
-
-
-class Badge(models.Model):
-    """
-    Achievement setup by admin to award participation.
-    """
-    name = models.CharField('Badge Name', max_length=256, blank=False)
-    description = models.CharField('Badge Description', max_length=1024, blank=False)
-    activity = models.ForeignKey(Activity, name='Activity Participated', null=True, blank=True)
-    duration_minute = models.IntegerField('Duration in Minutes', null=True, blank=True, default=0)
-    participation_count = models.IntegerField('Number of participation', null=True, blank=True, default=0)
-    consecutive_count = models.IntegerField('Number of consecutive day participation', null=True, blank=True, default=0)
-    day_range = models.IntegerField('Range of days where above criteria has to be met', null=True, blank=True, default=0)
-    image_path = models.ImageField(upload_to='static/upload/images',max_length=255)
-
-    def __unicode__(self):
-        return self.name
-
-
-class Achievement(models.Model):
-    """
-    Badges earned by user.
-    """
-    user = models.ForeignKey(UserProfile)
-    badge = models.ForeignKey(Badge)
-    created_at = models.DateTimeField(auto_now_add=True, null=True)
-
-    def __unicode__(self):
-        return str(self.user.id) + '-' + self.user.email + '-' + self.badge.name
-
-
-class UserReward(models.Model):
-    """
-    Store the relationship between kids and rewards, when parent create a new reward
-    """
-    user = models.ForeignKey(UserProfile)
-    reward = models.ForeignKey(Reward)
-
-    def __unicode__(self):
-        return str(self.user.id) + '-' + self.user.email + '-' + self.reward.name
 

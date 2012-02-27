@@ -148,11 +148,15 @@
 									<div class="clearfix">
 										<label for="xlInput"><span class="required_star">*</span>工作地区：</label>
 										<div class="sinput">
-											<input type="text" size="30" name="fdsf" id="xlInput" class="small"/>
-										</div>
-										<label for="xlInput" class="slabel">现所在地：</label>
-										<div class="sinput">
-											<input type="text" size="30" name="fdsf" id="xlInput" class="small"/>
+                                            <select style="width: 70px;" name="huji">
+                                                <option value="松陵" selected="">松陵</option>
+                                                <option value="盛泽">盛泽</option>
+                                                <option value="铜锣">铜锣</option>
+                                                <option value="北京">北京</option>
+                                                <option value="上海">上海</option>
+                                                <option value="深圳">深圳</option>
+                                            </select>
+                                            镇/开发区
 										</div>
 									</div>
 									<!-- /clearfix -->
@@ -199,7 +203,9 @@
 										</div>
 										<label for="xlInput" class="slabel">性别要求：</label>
 										<div class="sinput">
-											<input type="radio" checked="" value="1" name="sex">
+                                            <input type="radio" checked="" value="1" name="sex">
+                                            不限
+											<input type="radio" value="1" name="sex">
 											男 
 											<input type="radio" value="0" name="sex">
 											女
