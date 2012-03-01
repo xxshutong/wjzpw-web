@@ -1,7 +1,6 @@
 
 from django.db import models
 from django.contrib.auth.models import User
-import datetime
 from django.db.models.fields.related import OneToOneField
 
 # Defines the model for Digido.
@@ -171,7 +170,7 @@ class UserProfile(AbstractModel):
         return str(self.user.id) + "-" + self.email
 
 
-class Job(models.Model):
+class Job(AbstractModel):
     """
     Job Entity
     """
@@ -230,8 +229,47 @@ class Job(models.Model):
     work_experience = models.IntegerField('Work Experience', max_length=2, choices=EXPERIENCE_TYPE, default=0)
     age = models.IntegerField('Age Scope', max_length=2, choices=AGE_SCOPE, default=0)
     sex = models.IntegerField('Sex', max_length=2, choices=SEX_TYPE, default=0)
-    description = models.CharField('Description', min_length=10, max_length=2000)
+    description = models.CharField('Description', max_length=2000)
 
     def __unicode__(self):
         return str(self.user.id) + '-' + self.user.email + '-' + self.activity.name
+
+class Feedback(models.Model):
+    """
+    Feedback from visitor or member
+    """
+    TYPE = (
+        (0, 'Suggest'),
+        (1, 'Consult'),
+        (2, 'Complain')
+    )
+
+    sender = models.CharField('Sender', max_length=50)
+    email = models.CharField('Email', max_length=100)
+    type = models.IntegerField('Type', max_length=2, choices=TYPE, default=0)
+    subject = models.CharField('Subject', max_length=255)
+    content = models.CharField('Content', max_length=2000)
+
+class Announcement(AbstractModel):
+    """
+    Announcement for show in dashboard
+    """
+    subject = models.CharField('Subject', max_length=255)
+    content = models.CharField('Content', max_length=10000)
+    end_date = models.DateField('End Date', blank=True)
+
+class FriendlyLink(models.Model):
+    """
+    Friend Link Model
+    """
+    name = models.CharField('Name', max_length=100)
+    web_site = models.CharField('Web Site', max_length=100)
+    is_active = models.BooleanField('Is Activated', default=True)
+
+
+class Configuration(models.Model):
+    hot_line_one = models.CharField('Hot Line 1', max_length=20)
+    hot_line_two = models.CharField('Hot Line 2', max_length=20, blank=True)
+    qq = models.CharField('QQ', max_length=50)
+
 
