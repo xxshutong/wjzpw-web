@@ -1,0 +1,534 @@
+/* Override some defaults */
+  html, body, table {
+	background-color: #eee;
+	font-family: Helvetica,Tahoma,Arial,sans-serif;
+	font-size: 12px;
+    line-height: 1.5;
+    text-align: left;
+  }
+  
+  form .clearfix {
+    margin-bottom: 10px;
+	}
+  
+  form .sinput {
+    margin-left: 20px;
+	float:left;
+  }
+  
+  label.slabel {
+  	width:80px;
+  }
+  
+  fieldset {
+    margin-bottom: 0px;
+}
+
+  p {
+  	font-size:12px;
+  }
+  
+  label {
+  	padding-top:2px;
+  }
+  
+  .value {
+	color:#0988CB;
+    float: left;
+    font-size: 13px;
+    line-height: 18px;
+    padding-top: 2px;
+    text-align: left;
+	margin-left:20px;
+}
+
+a.selected {
+	color:#FF0000 !important;
+}
+
+  body {
+	padding-top: 40px; /* 40px to make the container go all the way to the bottom of the topbar */
+  }
+  .container > footer p {
+	text-align: center; /* center align it with the container */
+  }
+  .container {
+	width: 1000px; /* downsize our container to make the content feel a bit tighter and more cohesive. NOTE: this removes two full columns from the grid, meaning you only go to 14 columns and not 16. */
+  }
+  
+  .btn {
+  	text-shadow:none;
+  }
+  .btn.primary {
+  	text-shadow:none;
+  }
+  
+.required_star {
+	color:#ff0000;
+	margin-right:3px;
+}
+
+	.row {
+	margin: 0 0 10px 0;
+	}
+	
+	.solid_border {
+		border:#dddddd dashed 1px;
+	}
+
+	.view_fields {
+		margin-bottom: 18px;
+	}
+	.view_fields .clearfix {
+		margin-bottom: 10px;
+	}
+	
+	.view_fields .input {
+    margin-left: 150px;
+}
+  /* The white background content wrapper */
+  .content {
+	background-color: #fff;
+	padding: 10px 10px;
+	margin: 0 -20px; /* negative indent the amount of the padding to maintain the grid system */
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+	   -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+			box-shadow: 0 1px 2px rgba(0,0,0,.15);
+  }
+  
+  .tabs > li > a {
+    line-height: 28px;
+	font-weight:bold;
+	font-size: 14px;
+	
+	
+}
+
+.topbar div > ul.nav > li, .nav > li {
+	font-weight:bold;
+}
+
+a {
+	color: #1F376D;
+	}
+	
+	a.more {
+		color: #0069D6;
+	}
+  .tabs {
+      margin: 0px;
+  }
+
+
+  /* Page header tweaks */
+  .page-header {
+	background-color: #f5f5f5;
+	padding: 20px 20px 10px;
+	margin: 0px -20px 0px;
+	height: 64px;
+  }
+ 
+  .content-header {
+    -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+    background-color: #FFFFFF;
+    margin: 0 -20px;
+    padding: 0px 20px 0px 20px; 
+}
+
+ .banner {
+    float: left;
+    width: 380px;
+}
+
+.banner li {
+    float: left;
+}
+ .page-header .linedh {
+    float: left;
+    height: 60px;
+    line-height: 26px;
+    text-align: right;
+    width: 280px;
+	font-weight:bold ;
+}
+
+ .page-header .linedh li {
+ 	font-weight:bold;
+  }
+  
+  #logo {
+    float: left;
+    height: 60px;
+    margin-left: 10px !important;
+    width: 300px;
+	}
+
+  /* Styles you shouldn't keep as they are for displaying this base example only */
+  .content .span10,
+  .content .span4 {
+	min-height: 500px;
+  }
+  /* Give a quick and non-cross-browser friendly divider */
+  .content .span4 {
+	margin-left: 0;
+	padding-left: 19px;
+	border-left: 1px solid #eee;
+  }
+
+  .topbar .btn {
+	border: 0;
+  }
+  
+.topbar a {
+text-shadow:none;
+}
+  
+  dl, dd, dt, ul, li, h1, h2, h3, h4, h5, h6 {
+    border: 0 none;
+    list-style-position: outside;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+     white-space: normal;
+}
+
+/* Form 类型 */
+input, .uneditable-input {
+	height: 13px;
+	}
+	
+	select {
+		height:24px;
+		padding:0px;
+	}
+	
+	.btn {
+	font-size:12px;
+	 padding: 3px 14px;
+	}
+	
+	.right_layer .actions .btn {
+		 padding: 5px 14px;
+		 width:auto;
+	}
+	
+	/* 网站首页样式 */
+	
+	.employ_font {
+		color:red;
+		margin-left:10px;
+		margin-right:10px;
+	}
+	
+	.main_login {
+ -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
+    border: 1px solid #DDDDDD;
+    float: left;
+    width: 260px;
+	 -webkit-border-top-left-radius:6px;-webkit-border-top-right-radius:6px;-moz-border-radius-topleft:6px;-moz-border-radius-topright:6px;  
+ -webkit-border-bottom-left-radius:0px;-webkit-border-bottom-right-radius:0px;-moz-border-radius-bottomleft:0px;-moz-border-radius-bottomright:0px;
+}
+.main_search {
+    float: left;
+	margin-left:11px;
+	margin-right:1px;
+    width: 453px;
+}
+.main_ann {
+-webkit-border-top-left-radius:6px;-webkit-border-top-right-radius:6px;-moz-border-radius-topleft:6px;-moz-border-radius-topright:6px;  
+ -webkit-border-bottom-left-radius:0px;-webkit-border-bottom-right-radius:0px;-moz-border-radius-bottomleft:0px;-moz-border-radius-bottomright:0px;
+ -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
+    border: 1px solid #DDDDDD;
+    float: left;
+    width: 280px;
+		margin-left:10px;
+}
+
+.main_search .con {
+border-left: 1px solid #FEE705;
+border-right: 1px solid #FEE705;
+border-bottom: 1px solid #FEE705;
+}
+
+.main_search .con form input {
+width: 130px;
+}
+
+.tit {
+    font-size: 14px;
+    font-weight: bold;
+	color:#46A546;
+    height: 30px;
+    line-height: 30px;
+    margin: 0 auto;
+    padding-left: 15px;
+	border-bottom: 1px solid #DDDDDD;
+}
+.tit span {
+	font-size:12px;
+    float: right;
+    font-weight: normal;
+    height: 30px;
+    line-height: 30px;
+    padding-right: 10px;
+    width: auto;
+}
+
+.con {
+    height: auto !important;
+    line-height: 180%;
+    margin: 0 auto;
+    min-height: 30px;
+    overflow: hidden !important;
+    padding: 10px;
+}
+
+.con fieldset {
+padding-top:0px;
+margin-bottom:0px;
+}
+
+.con label {
+    color: #404040;
+    float: left;
+    font-size: 12px;
+    padding-top:3px;
+    text-align: right;
+    width: 60px;
+}
+.con form {
+margin-bottom:0px;
+}
+
+.con form .input {
+margin-left:0px;
+float:left;
+}
+
+
+.con form .clearfix {
+margin-bottom: 10px;
+}
+
+.con .actions {
+    -moz-border-radius: 0 0 3px 3px;
+    background: none repeat scroll 0 0 #F5F5F5;
+    border-top: 1px solid #DDDDDD;
+margin-top: 10px;
+margin-bottom:0px;
+padding:10px 10px 10px 10px;
+height:30px;
+
+}
+
+.con form img {
+vertical-align:bottom;
+width:60px;
+height:22px;
+margin-left:6px;
+}
+
+.con  .btn {
+font-size:14px;
+width: 80px;
+font-weight:bold;
+text-align:center;
+  }
+  
+  .con .submit {
+  padding-left:20px;
+    padding-right:20px;
+  }
+  
+  .actions  .btn {
+  	width: 70px;
+  }
+	/* Main page end */
+	
+	
+	/* key list */
+	.keylist {
+	
+	}
+	.keylist ul{
+	padding:5px;
+	height:auto;
+	height:50px;
+	}
+	
+	.keylist ul li {
+	margin-right:10px;
+	margin-bottom:10px;
+	float:left;
+	font-size:11px;
+	}
+	
+	.main_ann .t1 {
+		float:left;
+	}
+	
+	.main_ann .anouncement {
+		width:150px;
+		float: right;
+		height: 56px;
+
+	}
+	
+	.main_ann .anouncement a{
+	}
+	
+	.main_ann .anouncement ul li {
+	text-align:right;
+	}
+	
+	.main_newspic {
+		float: left;
+    margin: 8px 0 0 10px;
+    width: 275px;
+	height:140px;
+    border: 1px solid #DDDDDD;
+	padding:3px;
+	
+	-moz-border-radius: 4px 4px 4px 4px;
+    -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
+	}
+	
+	.main_newspic img {
+		width: 275px;
+		height:140px;
+	}
+	
+	/* 图片广告列表 */
+	.adv_list ul {
+	
+	}
+	
+	.adv_list ul li {
+	float:left;
+	margin-right:6px;
+	}
+	
+		.adv_list ul li img {
+		height:60px;
+		}
+		
+		/* 最新推荐招聘列表*/
+	.suggest_list ul {
+	
+	}
+	
+	.suggest_list ul li {
+	float:left;
+	padding-right:6px;
+	width:327px;
+    color: #1F376D;
+    height: auto;
+    line-height: 25px;
+    list-style: none outside none;
+
+	}
+	
+	.tjli {
+    background-color: #F5F5F5;
+}
+.tjliA {
+    background-color: #FFFBF1;
+}
+
+/*友情链接*/
+.main_links {
+	text-align:center;
+	margin:0px;
+	margin-left:-20px;
+	 background-color: white;
+	width:1040px;
+	color: #000000;
+    height: 22px;
+    list-style: none outside none;
+    padding: 4px 0 0;
+	-webkit-border-radius: 0 0 6px 6px;
+	-moz-border-radius: 0 0 6px 6px;
+	border-radius: 0 0 6px 6px;
+	-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .15);
+	-moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .15);
+	box-shadow: 0 1px 2px rgba(0, 0, 0, .15);
+}
+
+.main_search ul li {
+	float:left;
+	margin-right:10px;
+}
+
+
+/**********左右布局********************/
+.left_layer {
+	width: 188px;
+	min-height:30px;
+	border-right:1px solid #DDDDDD;
+	float:left;
+	padding:6px;
+}
+
+.left_layer p {
+	letter-spacing:1.5px;
+	line-height:20px;
+}
+
+.right_layer {
+	float:left;
+	width:799px;
+	padding:10px;
+}
+
+p.title {
+	font-size:13px;
+	color:#268BD2;
+	font-weight:bold;
+}
+
+.right_layer .main_login {
+	width:807px;
+	margin-top:10px;
+}
+
+/*********注册页面********************/
+.work_experience {
+	border-bottom:1px dashed #46A546;
+}
+
+/*********搜索页面***************************/
+input, textarea, select, .uneditable-input {
+    width: auto;
+}
+
+table th, table td {
+    line-height: 18px;
+    padding: 6px 6px 5px;
+    text-align: left;
+}
+
+.pagination {
+    height: 36px;
+    margin: 0;
+}
+
+.pagination a {
+    line-height: 30px;
+}
+
+table tr td.odd {
+    background-color: #F9F9F9;
+}
+
+/**********************职位详细页及发布职位页***************************/
+.position_list ul li {
+	padding-bottom: 5px;
+}
+
+.multi_view .sinput {
+	width:200px;
+}
+
+.multi_view .value {
+	margin-left:0px;
+}

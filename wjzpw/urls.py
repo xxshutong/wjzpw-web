@@ -8,7 +8,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 #landing
 urlpatterns = patterns('webverse.controllers.landing',
     # Landing page.
-    url(r'^$', 'index', name='index'),
+    url(r'^$', 'dashboard', name='dashboard'),
 
 )
 

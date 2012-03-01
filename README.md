@@ -1,4 +1,4 @@
-DIGIDO - METAVERSE PROJECT
+WJZPW - WEB PROJECT
 ==========================
 
 THE STACK
@@ -25,25 +25,23 @@ These instructions are for Mac OSX only. sudo where necessary.
     > mkdir -p ~/Library/LaunchAgents
     > cp /usr/local/Cellar/postgresql/9.1.1/org.postgresql.postgres.plist ~/Library/LaunchAgents/
     > launchctl load -w ~/Library/LaunchAgents/org.postgresql.postgres.plist
-    > createdb metaverse
 
 * gem install heroku
-* gem install foreman
+* gem install foreman(2.6.1)
 * python
 
 
 QUICK START
 -----------
-1. Get repository access from Alan.
-2. git clone <see repo url>
-3. cd digido
+1. Get repository access from xxshutong@gmail.com.
+2. git clone git@github.com:xxshutong/wjzpw-web.git
+3. cd wjzpw-web
 4. ./setup.sh
 5. source .ve/bin/activate
-6. createdb metaverse
-7. cd webverse
-8. manage.py syncdb
-9. manage.py migrate
-10. To start the server, you must run it from within the digido directory.
+6. createdb wjzpw
+8. ./wjzpw/manage.py syncdb
+9. ./wjzpw/manage.py migrate
+10. To start the server, you must run it from within the wjzpw-web directory.
     Otherwise the TEMPLATE_DIR will not be found. This is to stay consistent
     with how it'd run within Heroku which puts the app in different directory.
 
@@ -55,7 +53,7 @@ QUICK START
 
 11. Load admin user
 
-    >python metaverse/manage.py loaddata admin_users
+    >python ./wjzpw/manage.py loaddata ./wjzpw/webverse/fixtures/admin_users.json
     
 
 **Note:** Default user name and password are admin/asdf

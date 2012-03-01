@@ -1,0 +1,260 @@
+{% extends "base.html" %}
+
+{% block title %}吴江-招聘网 | wj-zpw.com{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="content">
+        <div class="row">
+            <!-- 登陆框 -->
+            <div class="main_login">
+                <div class="tit">
+                    <span><a class="more" href="#">忘记密码？</a></span>会员登录
+                </div>
+                <div class="con">
+                    <form method="post" action="#">
+                        <fieldset>
+                            <div class="clearfix">
+                                <label for="username">用户名：</label>
+                                <div class="input">
+                                    <input type="text" name="username" id="username" class="medium">
+                                </div>
+                            </div><!-- /clearfix -->
+                            <div class="clearfix">
+                                <label for="passwd">密　码：</label>
+                                <div class="input">
+                                    <input type="password" name="passwd" id="passwd" class="medium">
+                                </div>
+                            </div><!-- /clearfix -->
+                            <div class="clearfix">
+                                <label for="code">验证码：</label>
+                                <div class="input">
+                                    <input type="text" name="code" id="code"  style="width: 60px;">
+                                    <img src="../static/images/temp/verifycode.jpg"/>
+                                </div>
+                            </div><!-- /clearfix -->
+                            <div class="clearfix">
+                                <label id="type">类　型：</label>
+                                <div class="input">
+
+                                    <input type="radio" value="personal" name="type" checked="checked">个人用户
+                                    <input type="radio" value="company" name="type">企业用户
+                                </div>
+                            </div>
+                            <div class="clearfix submit">
+                                <button class="btn primary" type="submit">登陆</button>
+                                <a href="#" class="btn primary" style="float:right">忘记密码</a>
+                            </div>
+                            <div class="actions">
+                                <a href="personal/register.html" class="btn success" style="float:left">个人注册</a>
+                                <a href="company/register.html" class="btn success" style="float:right">企业注册</a>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+            <!-- 搜索框 -->
+            <div class="main_search">
+                <div style="height:30px;">
+                    <ul class="tabs">
+                        <li class="active"><a href="#">职位搜索</a></li>
+                        <li><a href="#">人才搜索</a></li>
+                    </ul>
+                </div>
+                <div class="con">
+                    <form method="post" action="#">
+                        <fieldset>
+                            <div class="clearfix">
+                                <label for="industry">行　业：</label>
+                                <div class="input">
+                                    <input type="text" name="industry" id="industry">
+                                </div>
+                                <label for="position">岗　位：</label>
+                                <div class="input">
+                                    <input type="text" name="position" id="position">
+                                </div>
+                            </div><!-- /clearfix -->
+                            <div class="clearfix">
+                                <label for="place">工作地：</label>
+                                <div class="input">
+                                    <input type="text" name="place" id="place">
+                                </div>
+                                <label for="date">日　期：</label>
+                                <div class="input">
+                                    <input type="text" name="date" id="date">
+                                </div>
+                            </div><!-- /clearfix -->
+                            <div class="clearfix">
+                                <label id="type">类　型：</label>
+                                <div class="input">
+                                    <input type="radio" value="personal" name="type" checked="checked" style="width:auto">职位
+                                    <input type="radio" value="company" name="type" style="width:auto">公司名
+                                </div>
+                            </div>
+                            <!-- Search custom style without css file Begin-->
+                            <div class="clearfix" style="padding-right:20px;">
+                                <label id="type" style="padding-top: 5px;">关键字：</label>
+                                <div class="input-prepend" style="float:left">
+                                    <span class="add-on" style="height:20px; border-color: #EE5F5B;"><img  style=" width:20px; height:20px;" src="../static/images/search.png"/></span>
+                                    <input type="text" class="error" size="16" name="prependedInput" id="prependedInput" style="width:200px; height:20px;border-color: #EE5F5B;">
+                                </div>
+                                <a href="#" class="btn primary" style="float:right; height:20px; width:60px;">搜索</a>
+                            </div>
+                            <!-- Search custom style without css file End-->
+                            <div class="keylist actions" style="height:auto">
+                                <ul>
+                                    <li class="label notice"><a href="#">跟单员</a></li>
+                                    <li class="label notice"><a href="#">软件工程师</a></li>
+                                    <li class="label notice"><a href="#">业务员</a></li>
+                                    <li class="label notice"><a href="#">外贸销售</a></li>
+                                    <li class="label notice"><a href="#">总经理</a></li>
+                                    <li class="label notice"><a href="#">项目经理</a></li>
+                                    <li class="label notice"><a href="#">外派工程师</a></li>
+                                    <li class="label notice"><a href="#">数据库工程师</a></li>
+                                </ul>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+            <!-- 公告框 -->
+            <div class="main_ann">
+                <div class="tit">
+                    <span><a class="more" href="#">更多>></a></span>网站公告
+                </div>
+                <div class="con">
+                    <div class="t1"><img width="59" height="56" src="../static/images/t1.gif"></div>
+                    <div class="anouncement">
+                        <marquee scrollAmount=1 direction=up height="56">
+                            <ul>
+                                <li><a href="#">早晨好啊！</a></li>
+                                <li><a href="#">空气好清新啊</a></li>
+                                <li><a href="#">今天过得好吗？</a></li>
+                            </ul>
+                        </marquee>
+                    </div>
+                </div>
+            </div>
+            <!-- 图片或者视频 -->
+            <div class="main_newspic">
+                <a href="#">
+                    <img class="thumbnail" alt="" src="http://placehold.it/210x150">
+                </a>
+            </div>
+        </div>
+
+        <!-- 图片广告 -->
+        <div class="row adv_list">
+            <ul>
+                <li><a href="#"><img src="../static/images/long_adv.gif" title="足不出户"/></a></li>
+                <li><a href="#"><img src="../static/images/temp/adv_1.gif" title="足不出户"/></a></li>
+                <li><a href="#"><img src="../static/images/temp/adv_2.gif" title="足不出户"/></a></li>
+                <li><a href="#"><img src="../static/images/temp/adv_3.gif" title="足不出户"/></a></li>
+                <li><a href="#"><img src="../static/images/temp/adv_4.gif" title="足不出户"/></a></li>
+                <li><a href="#"><img src="../static/images/temp/adv_5.gif" title="足不出户"/></a></li>
+                <li><a href="#"><img src="../static/images/temp/adv_6.gif" title="足不出户"/></a></li>
+                <li><a href="#"><img src="../static/images/temp/adv_7.gif" title="足不出户"/></a></li>
+            </ul>
+        </div>
+
+        <!-- 推荐企业招聘-->
+        <div class="row">
+            <div class="main_login" style="width:1020px">
+                <div class="tit">
+                    <span><a class="more" href="#">更多>></a></span>VIP企业招聘
+                </div>
+                <div class="con suggest_list">
+                    <ul>
+                        <li class="tjli"><img src="../static/images/dot.gif"><a href="company/company.html">义乌坤禾光学眼镜有限公司</a><span class="employ_font">聘</span><a href="company/position.html">业务员 阿里巴巴运营..</a></li>
+                        <li class="tjli"><img src="../static/images/dot.gif"><a href="company/company.html">义乌坤禾光学眼镜有限公司</a><span class="employ_font">聘</span><a href="company/position.html">业务员 阿里巴巴运营..</a></li>
+                        <li class="tjli"><img src="../static/images/dot.gif"><a href="company/company.html">义乌坤禾光学眼镜有限公司</a><span class="employ_font">聘</span><a href="company/position.html">业务员 阿里巴巴运营..</a></li>
+                        <li class="tjliA"><img src="../static/images/dot.gif"><a href="company/company.html">义乌坤禾光学眼镜有限公司</a><span class="employ_font">聘</span><a href="company/position.html">业务员 阿里巴巴运营..</a></li>
+                        <li class="tjliA"><img src="../static/images/dot.gif"><a href="company/company.html">义乌坤禾光学眼镜有限公司</a><span class="employ_font">聘</span><a href="company/position.html">业务员 阿里巴巴运营..</a></li>
+                        <li class="tjliA"><img src="../static/images/dot.gif"><a href="company/company.html">义乌坤禾光学眼镜有限公司</a><span class="employ_font">聘</span><a href="company/position.html">业务员 阿里巴巴运营..</a></li>
+                        <li class="tjli"><img src="../static/images/dot.gif"><a href="company/company.html">义乌坤禾光学眼镜有限公司</a><span class="employ_font">聘</span><a href="company/position.html">业务员 阿里巴巴运营..</a></li>
+                        <li class="tjli"><img src="../static/images/dot.gif"><a href="company/company.html">义乌坤禾光学眼镜有限公司</a><span class="employ_font">聘</span><a href="company/position.html">业务员 阿里巴巴运营..</a></li>
+                        <li class="tjli"><img src="../static/images/dot.gif"><a href="company/company.html">义乌坤禾光学眼镜有限公司</a><span class="employ_font">聘</span><a href="company/position.html">业务员 阿里巴巴运营..</a></li>
+                        <li class="tjliA"><img src="../static/images/dot.gif"><a href="company/company.html">义乌坤禾光学眼镜有限公司</a><span class="employ_font">聘</span><a href="company/position.html">业务员 阿里巴巴运营..</a></li>
+                        <li class="tjliA"><img src="../static/images/dot.gif"><a href="company/company.html">义乌坤禾光学眼镜有限公司</a><span class="employ_font">聘</span><a href="company/position.html">业务员 阿里巴巴运营..</a></li>
+                        <li class="tjliA"><img src="../static/images/dot.gif"><a href="company/company.html">义乌坤禾光学眼镜有限公司</a><span class="employ_font">聘</span><a href="company/position.html">业务员 阿里巴巴运营..</a></li>
+                        <li class="tjli"><img src="../static/images/dot.gif"><a href="company/company.html">义乌坤禾光学眼镜有限公司</a><span class="employ_font">聘</span><a href="company/position.html">业务员 阿里巴巴运营..</a></li>
+                        <li class="tjli"><img src="../static/images/dot.gif"><a href="company/company.html">义乌坤禾光学眼镜有限公司</a><span class="employ_font">聘</span><a href="company/position.html">业务员 阿里巴巴运营..</a></li>
+                        <li class="tjli"><img src="../static/images/dot.gif"><a href="company/company.html">义乌坤禾光学眼镜有限公司</a><span class="employ_font">聘</span><a href="company/position.html">业务员 阿里巴巴运营..</a></li>
+                        <li class="tjliA"><img src="../static/images/dot.gif"><a href="company/company.html">义乌坤禾光学眼镜有限公司</a><span class="employ_font">聘</span><a href="company/position.html">业务员 阿里巴巴运营..</a></li>
+                        <li class="tjliA"><img src="../static/images/dot.gif"><a href="company/company.html">义乌坤禾光学眼镜有限公司</a><span class="employ_font">聘</span><a href="company/position.html">业务员 阿里巴巴运营..</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 最新企业招聘 -->
+        <div class="row">
+            <div class="main_login" style="width:1020px">
+                <div class="tit">
+                    <span><a class="more" href="#">更多>></a></span>最新企业招聘
+                </div>
+                <div class="con suggest_list">
+                    <ul>
+                        <li class="tjli"><img src="../static/images/dot.gif"><a href="company/company.html">义乌坤禾光学眼镜有限公司</a><span class="employ_font">聘</span><a href="company/position.html">业务员 阿里巴巴运营..</a></li>
+                        <li class="tjli"><img src="../static/images/dot.gif"><a href="company/company.html">义乌坤禾光学眼镜有限公司</a><span class="employ_font">聘</span><a href="company/position.html">业务员 阿里巴巴运营..</a></li>
+                        <li class="tjli"><img src="../static/images/dot.gif"><a href="company/company.html">义乌坤禾光学眼镜有限公司</a><span class="employ_font">聘</span><a href="company/position.html">业务员 阿里巴巴运营..</a></li>
+                        <li class="tjliA"><img src="../static/images/dot.gif"><a href="company/company.html">义乌坤禾光学眼镜有限公司</a><span class="employ_font">聘</span><a href="company/position.html">业务员 阿里巴巴运营..</a></li>
+                        <li class="tjliA"><img src="../static/images/dot.gif"><a href="company/company.html">义乌坤禾光学眼镜有限公司</a><span class="employ_font">聘</span><a href="company/position.html">业务员 阿里巴巴运营..</a></li>
+                        <li class="tjliA"><img src="../static/images/dot.gif"><a href="company/company.html">义乌坤禾光学眼镜有限公司</a><span class="employ_font">聘</span><a href="company/position.html">业务员 阿里巴巴运营..</a></li>
+                        <li class="tjli"><img src="../static/images/dot.gif"><a href="company/company.html">义乌坤禾光学眼镜有限公司</a><span class="employ_font">聘</span><a href="company/position.html">业务员 阿里巴巴运营..</a></li>
+                        <li class="tjli"><img src="../static/images/dot.gif"><a href="company/company.html">义乌坤禾光学眼镜有限公司</a><span class="employ_font">聘</span><a href="company/position.html">业务员 阿里巴巴运营..</a></li>
+                        <li class="tjli"><img src="../static/images/dot.gif"><a href="company/company.html">义乌坤禾光学眼镜有限公司</a><span class="employ_font">聘</span><a href="company/position.html">业务员 阿里巴巴运营..</a></li>
+                        <li class="tjliA"><img src="../static/images/dot.gif"><a href="company/company.html">义乌坤禾光学眼镜有限公司</a><span class="employ_font">聘</span><a href="company/position.html">业务员 阿里巴巴运营..</a></li>
+                        <li class="tjliA"><img src="../static/images/dot.gif"><a href="company/company.html">义乌坤禾光学眼镜有限公司</a><span class="employ_font">聘</span><a href="company/position.html">业务员 阿里巴巴运营..</a></li>
+                        <li class="tjliA"><img src="../static/images/dot.gif"><a href="company/company.html">义乌坤禾光学眼镜有限公司</a><span class="employ_font">聘</span><a href="company/position.html">业务员 阿里巴巴运营..</a></li>
+                        <li class="tjli"><img src="../static/images/dot.gif"><a href="company/company.html">义乌坤禾光学眼镜有限公司</a><span class="employ_font">聘</span><a href="company/position.html">业务员 阿里巴巴运营..</a></li>
+                        <li class="tjli"><img src="../static/images/dot.gif"><a href="company/company.html">义乌坤禾光学眼镜有限公司</a><span class="employ_font">聘</span><a href="company/position.html">业务员 阿里巴巴运营..</a></li>
+                        <li class="tjli"><img src="../static/images/dot.gif"><a href="company/company.html">义乌坤禾光学眼镜有限公司</a><span class="employ_font">聘</span><a href="company/position.html">业务员 阿里巴巴运营..</a></li>
+                        <li class="tjliA"><img src="../static/images/dot.gif"><a href="company/company.html">义乌坤禾光学眼镜有限公司</a><span class="employ_font">聘</span><a href="company/position.html">业务员 阿里巴巴运营..</a></li>
+                        <li class="tjliA"><img src="../static/images/dot.gif"><a href="company/company.html">义乌坤禾光学眼镜有限公司</a><span class="employ_font">聘</span><a href="company/position.html">业务员 阿里巴巴运营..</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- 友情链接 -->
+        <div class="row">
+            <div class="main_search" style="width:1022px; margin:0px;">
+                <div style="height:30px;">
+                    <ul class="tabs">
+                        <li class="active"><a href="#" onClick="return false;">友情链接</a></li>
+                    </ul>
+                </div>
+                <div class="con" style="min-height:inherit">
+                    <ul>
+                        <li><a href="#">盛泽招聘网</a></li>
+                        <li><a href="#">盛泽招聘网</a></li>
+                        <li><a href="#">盛泽招聘网</a></li>
+                        <li><a href="#">盛泽招聘网</a></li>
+                        <li><a href="#">盛泽招聘网</a></li>
+                        <li><a href="#">盛泽招聘网</a></li>
+                        <li><a href="#">盛泽招聘网</a></li>
+                        <li><a href="#">盛泽招聘网</a></li>
+                        <li><a href="#">盛泽招聘网</a></li>
+                        <li><a href="#">盛泽招聘网</a></li>
+                        <li><a href="#">盛泽招聘网</a></li>
+                        <li><a href="#">盛泽招聘网</a></li>
+                        <li><a href="#">盛泽招聘网</a></li>
+                        <li><a href="#">盛泽招聘网</a></li>
+                        <li><a href="#">盛泽招聘网</a></li>
+                        <li><a href="#">盛泽招聘网</a></li>
+                        <li><a href="#">盛泽招聘网</a></li>
+                        <li><a href="#">盛泽招聘网</a></li>
+                        <li><a href="#">盛泽招聘网</a></li>
+                        <li><a href="#">盛泽招聘网</a></li>
+                        <li><a href="#">盛泽招聘网</a></li>
+                        <li><a href="#">盛泽招聘网</a></li>
+                        <li><a href="#">盛泽招聘网</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

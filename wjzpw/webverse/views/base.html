@@ -1,60 +1,117 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh" xml:lang="zh">
 <head>
+    <meta charset="utf-8">
     <title>{% block title %}{% endblock %}</title>
+    <meta name="description" content="吴江-招聘网，吴江招聘，职业技能培训，企业信息化">
+    <meta name="author" content="xxshutong@gmail.com">
+    <meta content="www.wj-zpw.com,版权所有,请勿转载" name="Copyright">
+    <meta content="求职 招聘 吴江招聘 吴江招聘网 招聘网站 社会保险 人才租赁 劳务派遣 人才网站 工作 猎头 培训 简历 招聘会 毕业生 大学生 外企招聘 HR专家咨询 职业顾问 短期员工聘用 大学生实习  job career hire employee recruitment headhunting training HR zhaopinwang gongzuo" name="keywords">
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-
     <!-- Le styles -->
+    <script src="/static/js/jquery-1.7.min.js" type="text/javascript"></script>
     <link href="/static/css/bootstrap.css" rel="stylesheet">
-    <link href="/static/css/docs.css" rel="stylesheet">
-    <link href="/static/css/prettify.css" rel="stylesheet">
-
-    <!-- Le javascript -->
-    <script src="/static/js/jquery-1.6.1.min.js"></script>
-    <script src="/static/js/prettify.js"></script>
-    <script>$(function () {
-        prettyPrint()
-    })</script>
-    <script src="/static/js/bootstrap-dropdown.js"></script>
-    <script src="/static/js/bootstrap-twipsy.js"></script>
-    <script src="/static/js/bootstrap-scrollspy.js"></script>
-    <!--
-    <script src="/static/js/application.js"></script>
-    -->
+    <link href="/static/css/wjzpw.css" rel="stylesheet">
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="../images/favicon.ico">
+    {% block head %}{% endblock %}
 </head>
 
 <body>
-<!-- Masthead (blueprinty thing)
-================================================== -->
-<header class="jumbotron masthead" id="overview">
-    <div class="inner">
-        <div class="container">
-            <h1>Metaverse</h1>
-
-            <p class="lead">
-                Unleash your inner superhero
-            </p>
+    <!-- 头部信息开始 -->
+    <div class="topbar">
+        <div class="fill">
+            <div class="container"> <a class="brand" href="index.html">吴江-招聘网</a>
+                <ul class="nav">
+                    <li class="active"><a href="#">首页</a></li>
+                    <li><a href="personal/searchJob.html">找工作</a></li>
+                    <li><a href="company/searchPerson.html">找人才</a></li>
+                    <li><a href="#">高级人才</a></li>
+                    <li><a href="#" style="display:none">兼职人才</a></li>
+                    <li><a href="feedback.html">留言反馈</a></li>
+                    <li><a href="#" style="color:orange">相关服务</a></li>
+                </ul>
+                <div style="float:right">
+                    <ul >
+                        <li><span style="float:left; padding-top:10px;">欢迎</span><a href="#" style="float:left">zhoulei984623</a></li>
+                        <li style="padding-top:10px">|</li>
+                        <li><a href="personal/dashboard/dashboard.html">控制面板</a></li>
+                        <li style="padding-top:10px">|</li>
+                        <li><a href="#">注册</a></li>
+                        <li style="padding-top:10px">|</li>
+                        <li><a href="#">登陆</a></li>
+                        <li style="padding-top:10px">|</li>
+                        <li><a href="company/addPosition.html">发布职位</a></li>
+                        <li style="padding-top:10px">|</li>
+                        <li><a href="#">退出</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <!-- /container -->
     </div>
-</header>
+    <!-- 头部信息结束 -->
 
-{% block topbar %}{% endblock %}
+    <!-- 主体顶部信息开始 -->
+    <div class="container">
+        <div class="content-header">
+            <div class="page-header">
+                <div id="logo">
+                    <a href="#"><img alt="欢迎访问吴江招聘网" src="../static/images/logo.png"/></a>
+                </div>
+                <div class="banner">
+                    <li>
+                        <a target="_blank" href="#">
+                            <img width="316" height="60" border="0" src="../static/images/temp/join.gif" alt="合作">
+                        </a>
+                    </li>
+                </div>
+                <div class="linedh">
+                    <li class="dh">客服热线：15051504639</li>
+                    <li class="dh">客服QQ：2508230681</li>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 主体顶部信息结束 -->
 
-<div id="content" class="container">
+    <!-- 主体信息开始 -->
     {% block content %}{% endblock %}
+    <!-- 主体信息结束 -->
 
-    {% block footer %}
+    <!-- 尾部信息开始 -->
+    <div class="container" style="padding-top:7px;">
+        <div class="main_links">
+            |
+            <a href="/common.php?cid=1">关于我们</a>
+            |
+            <a href="/common.php?cid=9">会员服务</a>
+            |
+            <a href="/common.php?cid=8">会员协议</a>
+            |
+            <a href="/common.php?cid=7">联系我们</a>
+            |
+            <a href="/common.php?cid=6">后台管理</a>
+            |
+            <a href="/common.php?cid=5">广告服务</a>
+            |
+            <a href="/common.php?cid=4">隐私声明</a>
+            |
+            <a href="/common.php?cid=3">法律声明</a>
+            |
+            <a href="/common.php?cid=2">服务条款</a>
+            |
+            <a href="/common.php?cid=10">付款方式</a>
+            |
+        </div>
         <footer>
-            <p>&copy; Digido 2011</p>
+            <p>&copy; 吴江招聘网 2011</p>
         </footer>
-    {% endblock %}
-</div>
-
-
+    </div>
+    <!-- 尾部信息结束 -->
 
 </body>
 </html>

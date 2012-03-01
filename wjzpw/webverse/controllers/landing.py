@@ -11,17 +11,15 @@ from wjzpw.webverse.forms.forms import RegistrationForm, LoginForm, ForgotPasswo
 from wjzpw.webverse.model.users import UserManager
 from wjzpw.webverse.utils import send_email, generate_password
 
-landing_home_page = "../views/landing.html"
+dashboard_page = "../views/dashboard.html"
 
-def index(request):
+def dashboard(request):
     """ Renders Dashboard/Home page. """
     signupForm = RegistrationForm()
     loginForm = LoginForm()
-    fb_url = settings.FACEBOOK_AUTH_URL.format(request.build_absolute_uri(settings.FACEBOOK_REDIRECT_URI))
 
     return render_to_response(
-        landing_home_page, {}, RequestContext(request, {
-            'fb_url':fb_url,
+        dashboard_page, {}, RequestContext(request, {
             'formLogin':loginForm,
             'formSignup':signupForm,
         }),
