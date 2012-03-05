@@ -6,19 +6,12 @@ from django.shortcuts import render, render_to_response, redirect
 from django.http import HttpResponseRedirect
 from django.template.context import RequestContext
 from wjzpw.webverse import utils
-from wjzpw.webverse.forms.forms import RegistrationForm, LoginForm
 
-dashboard_page = "../views/dashboard.html"
+register_page = "../views/personal/register.html"
 
-def dashboard(request):
-    """ Renders Dashboard/Home page. """
-    signupForm = RegistrationForm()
-    loginForm = LoginForm()
-
+def register(request):
     return render_to_response(
-        dashboard_page, {}, RequestContext(request, {
-#            'formLogin':loginForm,
-#            'formSignup':signupForm,
+        register_page, {}, RequestContext(request, {
         }),
     )
 

@@ -12,5 +12,12 @@ urlpatterns = patterns('webverse.controllers.landing',
 
 )
 
+#personal
+urlpatterns += patterns('webverse.controllers.personal',
+    # Personal register page.
+    url(r'^personal/register/$', 'register', name='personal_register'),
+
+)
+
 staticdir= settings.PROJECT_DIR + settings.WEBVERSE_DIR + "/static"
 urlpatterns += patterns('', url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': staticdir}),)
