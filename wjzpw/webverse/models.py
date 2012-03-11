@@ -131,7 +131,6 @@ class UserProfile(AbstractModel):
 
     user = OneToOneField(User)
     type = models.IntegerField('User Type', max_length=2, choices=USER_TYPE, default=0)
-    username = models.CharField('Username', max_length=50, null=True, blank=False)
     realname = models.CharField('Real Name', max_length=50, null=True, blank=False)
     gender = models.IntegerField('Gender', max_length=2, choices=GENDER, default=2)
     birthday = models.DateField('Birthday', null=True, blank=True)

@@ -180,17 +180,6 @@ SILVER_STAR_MIN = 1
 
 
 #######################################################################################################################
-# FACEBOOK SETTINGS
-#######################################################################################################################
-
-FACEBOOK_APP_ID = "300275413340203"
-FACEBOOK_APP_SECRET = "7a5ac28c58b93b91b89e2648133a594f"
-FACEBOOK_SCOPE = 'email'
-FACEBOOK_REDIRECT_URI = "/facebook/authentication_callback/"
-LOGIN_REDIRECT_URL = "/parent/inbox/"
-FACEBOOK_AUTH_URL = "https://www.facebook.com/dialog/oauth?client_id="+FACEBOOK_APP_ID+"&redirect_uri={0}&scope=email"
-
-#######################################################################################################################
 # SESSION EXPIRATION SETTINGS
 #######################################################################################################################
 LOGIN_URL  = "/"
