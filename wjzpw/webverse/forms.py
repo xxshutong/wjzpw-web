@@ -1,6 +1,7 @@
+# coding: utf-8
 from django import forms
 #from django.core.exceptions import ValidationError
-#from django.db import transaction
+from django.db import transaction
 #from django.forms.extras.widgets import SelectDateWidget
 #from django.forms.widgets import PasswordInput
 from django.utils.translation import ugettext_lazy as _
@@ -24,9 +25,64 @@ class PersonalRegForm(forms.ModelForm):
     """
     class Meta:
         model = UserProfile
+        fields = ('username','password','real_name','email','gender','birthday','census','location',
+                  'mobile_phone','qq','wedding','stature','weight','job_state','job_type','work_years')
+        widgets = {
+
+        }
 
     password2 = forms.CharField(widget=forms.PasswordInput(render_value=False),
                                 label=_(u'password (again)'))
     tos = forms.BooleanField(widget=forms.CheckboxInput(), required=False,
-                           label=_(u'I have read and agree to the Terms of Service'))
+                           label=_(u'服务条款'))
 
+    def clean_username(self):
+        """
+        Validate that the supplied username is unique for the
+        site.
+
+        """
+        if UserProfile.objects.filter(username__iexact=self.cleaned_data['username']):
+            raise forms.ValidationError(_(u"用户名已经存在."))
+        return self.cleaned_data['username']
+
+    def clean_email(self):
+        """
+        Validate that the supplied email is unique for the
+        site.
+
+        """
+        if UserProfile.objects.filter(email__iexact=self.cleaned_data['email']):
+            raise forms.ValidationError(_(u'电子邮件已经存在.'))
+        return self.cleaned_data['email']
+
+    def clean_tos(self):
+        """
+        Validate that the user accepted the Terms of Service.
+
+        """
+        if self.cleaned_data.get('tos', False):
+            return self.cleaned_data['tos']
+        raise forms.ValidationError(_(u'必须同意用户服务协议才可以继续.'))
+
+    def clean(self):
+        """
+        Verifiy that the values entered into the two password fields
+        match. Note that an error here will end up in
+        ``non_field_errors()`` because it doesn't apply to a single
+        field.
+
+        """
+        if 'password' in self.cleaned_data and 'password2' in self.cleaned_data:
+            if self.cleaned_data['password'] != self.cleaned_data['password2']:
+                raise forms.ValidationError(_(u'两次输入的密码不一致.'))
+        return self.cleaned_data
+
+    @transaction.commit_on_success
+    def save(self, new_data):
+        user_profile = UserProfile()
+        user_profile.email = new_data['email']
+        user_profile.username = new_data['username']
+        user_profile.save()
+
+        return user_profile

@@ -1,72 +1,64 @@
 [
-  {
-    "pk": 1,
-    "model": "auth.user",
-    "fields": {
-      "username": "admin",
-      "first_name": "",
-      "last_name": "",
-      "is_active": true,
-      "is_superuser": true,
-      "is_staff": true,
-      "last_login": "2010-12-13 18:52:28",
-      "groups": [
-        
-      ],
-      "user_permissions": [
-        
-      ],
-      "password": "sha1$2b70a$d0c5af89c56b27eec1bfc089f7565a543fb8559d",
-      "email": "admin@stonesanctuaryinteractive.com",
-      "date_joined": "2010-12-13 18:46:40"
+    { "fields" : { "name" : "Admin" },
+        "model" : "auth.group",
+        "pk" : 1
+    },
+    { "fields" : { "name" : "Manager" },
+        "model" : "auth.group",
+        "pk" : 2
+    },
+    { "fields" : { "name" : "Analyst",
+        "permissions" : [  ]
+    },
+        "model" : "auth.group",
+        "pk" : 3
+    },
+    { "fields" : { "date_joined" : "2010-12-13 18:46:40",
+        "email" : "admin@storypanda.com",
+        "first_name" : "",
+        "groups" : [ 1 ],
+        "is_active" : true,
+        "is_staff" : true,
+        "is_superuser" : true,
+        "last_login" : "2010-12-13 18:52:28",
+        "last_name" : "",
+        "password" : "sha1$2b70a$d0c5af89c56b27eec1bfc089f7565a543fb8559d",
+        "user_permissions" : [  ],
+        "username" : "admin"
+    },
+        "model" : "auth.user",
+        "pk" : 1
+    },
+    { "fields" : { "date_joined" : "2010-12-13 18:46:40",
+        "email" : "manager@storypanda.com",
+        "first_name" : "",
+        "groups" : [ 2 ],
+        "is_active" : true,
+        "is_staff" : true,
+        "is_superuser" : false,
+        "last_login" : "2010-12-13 18:52:28",
+        "last_name" : "",
+        "password" : "sha1$2b70a$d0c5af89c56b27eec1bfc089f7565a543fb8559d",
+        "user_permissions" : [  ],
+        "username" : "manager"
+    },
+        "model" : "auth.user",
+        "pk" : 2
+    },
+    { "fields" : { "date_joined" : "2010-12-13 18:46:40",
+        "email" : "analyst@storypanda.com",
+        "first_name" : "",
+        "groups" : [ 3 ],
+        "is_active" : true,
+        "is_staff" : true,
+        "is_superuser" : false,
+        "last_login" : "2010-12-13 18:52:28",
+        "last_name" : "",
+        "password" : "sha1$2b70a$d0c5af89c56b27eec1bfc089f7565a543fb8559d",
+        "user_permissions" : [  ],
+        "username" : "analyst"
+    },
+        "model" : "auth.user",
+        "pk" : 3
     }
-  },
-
-  {
-    "pk": 2,
-    "model": "auth.user",
-    "fields": {
-      "username": "jack",
-      "first_name": "",
-      "last_name": "",
-      "is_active": true,
-      "is_superuser": false,
-      "is_staff": true,
-      "last_login": "2010-12-13 18:52:28",
-      "groups": [
-
-      ],
-      "user_permissions": [
-
-      ],
-      "password": "sha1$2b70a$d0c5af89c56b27eec1bfc089f7565a543fb8559d",
-      "email": "jackzhou@xplusz.com",
-      "date_joined": "2010-12-13 18:46:40"
-    }
-  },
-
-  {
-    "pk": 1,
-    "model": "webverse.userprofile",
-    "fields": {
-      "user": 1,
-      "type": 0,
-      "email": "admin@stonesanctuaryinteractive.com",
-      "gender": 0,
-      "username": "admin"
-    }
-  },
-
- {
-    "pk": 2,
-    "model": "webverse.userprofile",
-    "fields": {
-      "user": 2,
-      "type": 1,
-      "email": "jackzhou@xplusz.com",
-      "gender": 0,
-      "username": "jack",
-      "parent_id": 1
-    }
-  }
 ]

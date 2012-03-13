@@ -1,4 +1,5 @@
-
+# coding: utf-8
+from django.contrib.auth.models import get_hexdigest
 from django.db import models
 from django.db.models.fields.related import OneToOneField
 from django.utils.translation import ugettext_lazy as _
@@ -14,6 +15,8 @@ from django.utils.translation import ugettext_lazy as _
 #        manage.py migrate
 import datetime
 
+UNUSABLE_PASSWORD = '!' # This will never be a valid hash
+
 class AbstractModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
@@ -26,10 +29,10 @@ class Province(models.Model):
         (0, 'Province'),
         (1, 'City Managed directly')
     )
-    type = models.IntegerField('Province Type', max_length=2, choices=PROVINCE_TYPE, default=0)
-    code = models.CharField('Code', max_length=5, blank=True)
-    spell = models.CharField('Spell', max_length=50, blank=False)
-    name = models.CharField('Name', max_length=255, blank=False)
+    type = models.IntegerField('省份类型', max_length=2, choices=PROVINCE_TYPE, default=0)
+    code = models.CharField('代码', max_length=5, blank=True)
+    spell = models.CharField('拼音', max_length=50, blank=False)
+    name = models.CharField('名称', max_length=255, blank=False)
     def __unicode__(self):
         return self.name
 
@@ -41,10 +44,10 @@ class City(models.Model):
         (0, 'City'),
         (1, 'Area')
     )
-    type = models.IntegerField('City Type', max_length=2, choices=CITY_TYPE, default=0)
-    code = models.CharField('Code', max_length=5, blank=True)
-    spell = models.CharField('Spell', max_length=50, blank=False)
-    name = models.CharField('Name', max_length=255, blank=False)
+    type = models.IntegerField('城市类型', max_length=2, choices=CITY_TYPE, default=0)
+    code = models.CharField('代码', max_length=5, blank=True)
+    spell = models.CharField('拼音', max_length=50, blank=False)
+    name = models.CharField('名称', max_length=255, blank=False)
     province = models.ForeignKey(Province, name='Province')
     def __unicode__(self):
         return self.name
@@ -53,8 +56,8 @@ class Location(models.Model):
     """
     Location info.
     """
-    spell = models.CharField('Spell', max_length=50, blank=False)
-    name = models.CharField('Name', max_length=255, blank=False)
+    spell = models.CharField('拼音', max_length=50, blank=False)
+    name = models.CharField('名称', max_length=255, blank=False)
     def __unicode__(self):
         return self.name
 
@@ -62,8 +65,8 @@ class Industry(models.Model):
     """
     Industry info
     """
-    spell = models.CharField('Spell', max_length=50, blank=True)
-    name = models.CharField('Name', max_length=255, blank=False)
+    spell = models.CharField('拼音', max_length=50, blank=True)
+    name = models.CharField('名称', max_length=255, blank=False)
     def __unicode__(self):
         return self.name
 
@@ -75,9 +78,9 @@ class Service(models.Model):
         (3, 'Half a year'),
         (4, 'One year')
     )
-    period = models.IntegerField('Period Type', max_length=2, choices=PERIOD_TYPE, default=0)
-    price = models.IntegerField('Price', default=0)
-    name = models.CharField('Name', max_length=255, blank=False)
+    period = models.IntegerField('服务期限', max_length=2, choices=PERIOD_TYPE, default=0)
+    price = models.IntegerField('价格', default=0)
+    name = models.CharField('名称', max_length=255, blank=False)
 
 class UserProfile(AbstractModel):
     """
@@ -130,24 +133,24 @@ class UserProfile(AbstractModel):
         (3, '> 500')
     )
 
-    username = models.CharField(_('username'), max_length=30, unique=True, help_text=_("Required. 30 characters or fewer. Letters, numbers and @/./+/-/_ characters"))
-    email = models.EmailField(_('e-mail address'), blank=True)
-    password = models.CharField(_('password'), max_length=128, help_text=_("Use '[algo]$[salt]$[hexdigest]' or use the <a href=\"password/\">change password form</a>."))
+    username = models.CharField(_('用户名'), max_length=30, unique=True, help_text=_("Required. 30 characters or fewer. Letters, numbers and @/./+/-/_ characters"))
+    email = models.EmailField(_('电子邮件'), blank=True)
+    password = models.CharField(_('密码'), max_length=128, help_text=_("Use '[algo]$[salt]$[hexdigest]' or use the <a href=\"password/\">change password form</a>."))
     type = models.IntegerField('User Type', max_length=2, choices=USER_TYPE, default=0)
-    realname = models.CharField('Real Name', max_length=50, null=True, blank=False)
-    gender = models.IntegerField('Gender', max_length=2, choices=GENDER, default=2)
-    birthday = models.DateField('Birthday', null=True, blank=True)
-    census = models.ForeignKey(City, name='Census')
-    location = models.ForeignKey(Location, name='Location')
-    mobile_phone = models.CharField('Mobile Phone/Telephone', max_length=20)
+    real_name = models.CharField('真实姓名', max_length=50, null=True, blank=False)
+    gender = models.IntegerField('性别', max_length=2, choices=GENDER, default=2)
+    birthday = models.DateField('生日', null=True, blank=True)
+    census = models.ForeignKey(City, name='户籍')
+    location = models.ForeignKey(Location, name='现所在地')
+    mobile_phone = models.CharField('手机/电话', max_length=20)
     qq = models.CharField('QQ', max_length=20)
-    wedding = models.IntegerField('Wedding', max_length=2, choices=WEDDING_TYPE, default=0)
-    stature = models.IntegerField('Stature', null=True, blank=True)
-    weight = models.IntegerField('Weight', null=True, blank=True)
-    job_state = models.IntegerField('Current Job Status', max_length=2, choices=JOB_STATE_TYPE, default=0)
-    job_type = models.IntegerField('Your Type', max_length=2, choices=JOB_TYPE_TYPE, default=0)
-    work_years = models.IntegerField('Work Years', max_length=2, choices=WORK_YEARS_TYPE, null=True, blank=True)
-    points_balance = models.IntegerField('Points', default=0)
+    wedding = models.IntegerField('婚姻状况', max_length=2, choices=WEDDING_TYPE, default=0)
+    stature = models.IntegerField('身高', null=True, blank=True)
+    weight = models.IntegerField('体重', null=True, blank=True)
+    job_state = models.IntegerField('求职状态', max_length=2, choices=JOB_STATE_TYPE, default=0)
+    job_type = models.IntegerField('类型', max_length=2, choices=JOB_TYPE_TYPE, default=0)
+    work_years = models.IntegerField('工作经验', max_length=2, choices=WORK_YEARS_TYPE, null=True, blank=True)
+    points_balance = models.IntegerField('点数', default=0)
     cp_accept_notice = models.BooleanField('Accept Notice', default=True)
     cp_name = models.CharField('Company Name', max_length=255, null=True)
     cp_license = models.CharField('Business License', max_length=255, null=True)
@@ -164,12 +167,26 @@ class UserProfile(AbstractModel):
     cp_service = models.ForeignKey(Service, name='Service', null=True, blank=True)
     cp_service_begin = models.DateField(null=True, blank=True)
     is_active = models.BooleanField(_('active'), default=True, help_text=_("Designates whether this user should be treated as active. Unselect this instead of deleting accounts."))
-    last_login = models.DateTimeField(_('last login'), default=datetime.datetime.now)
-    date_joined = models.DateTimeField(_('date joined'), default=datetime.datetime.now)
+    last_login = models.DateTimeField(_('最后登陆时间'), default=datetime.datetime.now)
+    date_joined = models.DateTimeField(_('注册时间'), default=datetime.datetime.now)
 
     #For Restful
     access_token = models.CharField(max_length=1024, unique=True, null=True, blank=True)
     expires = models.IntegerField(null=True, blank=True)
+
+    def set_password(self, raw_password):
+        if raw_password is None:
+            self.set_unusable_password()
+        else:
+            import random
+            algo = 'sha1'
+            salt = get_hexdigest(algo, str(random.random()), str(random.random()))[:5]
+            hsh = get_hexdigest(algo, salt, raw_password)
+            self.password = '%s$%s$%s' % (algo, salt, hsh)
+
+    def set_unusable_password(self):
+        # Sets a value that will never be a valid hash
+        self.password = UNUSABLE_PASSWORD
 
     def __unicode__(self):
         return str(self.user.id) + "-" + self.email
