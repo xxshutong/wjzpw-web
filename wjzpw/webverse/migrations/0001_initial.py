@@ -62,66 +62,13 @@ class Migration(SchemaMigration):
         ))
         db.send_create_signal('webverse', ['Service'])
 
-        # Adding model 'MajorType'
-        db.create_table('webverse_majortype', (
-            ('abstractmodel_ptr', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['webverse.AbstractModel'], unique=True, primary_key=True)),
-            ('code', self.gf('django.db.models.fields.CharField')(max_length=255)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=255)),
-        ))
-        db.send_create_signal('webverse', ['MajorType'])
-
-        # Adding model 'Resume'
-        db.create_table('webverse_resume', (
-            ('abstractmodel_ptr', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['webverse.AbstractModel'], unique=True, primary_key=True)),
-            ('job_type', self.gf('django.db.models.fields.IntegerField')(default=0, max_length=2)),
-            ('expected_industry', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['webverse.Industry'])),
-            ('expected_position', self.gf('django.db.models.fields.CharField')(max_length=255)),
-            ('expected_location', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['webverse.Location'])),
-            ('is_support_house', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('expected_salary', self.gf('django.db.models.fields.IntegerField')(default=0, max_length=2)),
-            ('on_work_time', self.gf('django.db.models.fields.IntegerField')(default=0, max_length=2)),
-            ('picture', self.gf('django.db.models.fields.files.ImageField')(max_length=255)),
-            ('self_evaluation', self.gf('django.db.models.fields.CharField')(max_length=2000)),
-        ))
-        db.send_create_signal('webverse', ['Resume'])
-
-        # Adding model 'ResumeWork'
-        db.create_table('webverse_resumework', (
-            ('abstractmodel_ptr', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['webverse.AbstractModel'], unique=True, primary_key=True)),
-            ('resume', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['webverse.Resume'])),
-            ('start_date', self.gf('django.db.models.fields.DateField')()),
-            ('end_date', self.gf('django.db.models.fields.DateField')(null=True)),
-            ('company_name', self.gf('django.db.models.fields.CharField')(max_length=255)),
-            ('industry_type', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['webverse.Industry'])),
-            ('company_scope', self.gf('django.db.models.fields.IntegerField')(default=0, max_length=2)),
-            ('company_type', self.gf('django.db.models.fields.IntegerField')(max_length=2)),
-            ('department', self.gf('django.db.models.fields.CharField')(max_length=255)),
-            ('position', self.gf('django.db.models.fields.CharField')(max_length=255)),
-            ('description', self.gf('django.db.models.fields.CharField')(max_length=2000)),
-        ))
-        db.send_create_signal('webverse', ['ResumeWork'])
-
-        # Adding model 'ResumeEducation'
-        db.create_table('webverse_resumeeducation', (
-            ('abstractmodel_ptr', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['webverse.AbstractModel'], unique=True, primary_key=True)),
-            ('resume', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['webverse.Resume'])),
-            ('start_date', self.gf('django.db.models.fields.DateField')()),
-            ('end_date', self.gf('django.db.models.fields.DateField')()),
-            ('school_name', self.gf('django.db.models.fields.CharField')(max_length=255)),
-            ('major_name', self.gf('django.db.models.fields.CharField')(max_length=255)),
-            ('major_type', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['webverse.MajorType'])),
-            ('edu_background', self.gf('django.db.models.fields.IntegerField')(default=0, max_length=2)),
-            ('desc', self.gf('django.db.models.fields.CharField')(max_length=2000, null=True)),
-            ('is_oversea', self.gf('django.db.models.fields.BooleanField')(default=False)),
-        ))
-        db.send_create_signal('webverse', ['ResumeEducation'])
-
         # Adding model 'UserProfile'
         db.create_table('webverse_userprofile', (
             ('abstractmodel_ptr', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['webverse.AbstractModel'], unique=True, primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True)),
+            ('username', self.gf('django.db.models.fields.CharField')(unique=True, max_length=30)),
+            ('email', self.gf('django.db.models.fields.EmailField')(max_length=75, blank=True)),
+            ('password', self.gf('django.db.models.fields.CharField')(max_length=128)),
             ('type', self.gf('django.db.models.fields.IntegerField')(default=0, max_length=2)),
-            ('username', self.gf('django.db.models.fields.CharField')(max_length=50, null=True)),
             ('realname', self.gf('django.db.models.fields.CharField')(max_length=50, null=True)),
             ('gender', self.gf('django.db.models.fields.IntegerField')(default=2, max_length=2)),
             ('birthday', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
@@ -140,7 +87,6 @@ class Migration(SchemaMigration):
             ('cp_name', self.gf('django.db.models.fields.CharField')(max_length=255, null=True)),
             ('cp_license', self.gf('django.db.models.fields.CharField')(max_length=255, null=True)),
             ('cp_industry', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['webverse.Industry'])),
-            ('cp_type', self.gf('django.db.models.fields.IntegerField')(max_length=2)),
             ('cp_scope', self.gf('django.db.models.fields.IntegerField')(default=0, max_length=2)),
             ('cp_intro', self.gf('django.db.models.fields.CharField')(max_length=50, null=True)),
             ('cp_address', self.gf('django.db.models.fields.CharField')(max_length=2000, null=True)),
@@ -152,6 +98,9 @@ class Migration(SchemaMigration):
             ('cp_website', self.gf('django.db.models.fields.CharField')(max_length=50)),
             ('cp_service', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['webverse.Service'], null=True, blank=True)),
             ('cp_service_begin', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
+            ('is_active', self.gf('django.db.models.fields.BooleanField')(default=True)),
+            ('last_login', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now)),
+            ('date_joined', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now)),
             ('access_token', self.gf('django.db.models.fields.CharField')(max_length=1024, unique=True, null=True, blank=True)),
             ('expires', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
         ))
@@ -162,8 +111,7 @@ class Migration(SchemaMigration):
             ('abstractmodel_ptr', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['webverse.AbstractModel'], unique=True, primary_key=True)),
             ('company', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['webverse.UserProfile'])),
             ('name', self.gf('django.db.models.fields.CharField')(max_length=255)),
-            ('type', self.gf('django.db.models.fields.IntegerField')(default=0, max_length=2)),
-            ('salary', self.gf('django.db.models.fields.IntegerField')(default=0, max_length=2)),
+            ('salary', self.gf('django.db.models.fields.IntegerField')(default=None)),
             ('department', self.gf('django.db.models.fields.CharField')(max_length=255)),
             ('number', self.gf('django.db.models.fields.IntegerField')(default=1)),
             ('end_date', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
@@ -235,18 +183,6 @@ class Migration(SchemaMigration):
         # Deleting model 'Service'
         db.delete_table('webverse_service')
 
-        # Deleting model 'MajorType'
-        db.delete_table('webverse_majortype')
-
-        # Deleting model 'Resume'
-        db.delete_table('webverse_resume')
-
-        # Deleting model 'ResumeWork'
-        db.delete_table('webverse_resumework')
-
-        # Deleting model 'ResumeEducation'
-        db.delete_table('webverse_resumeeducation')
-
         # Deleting model 'UserProfile'
         db.delete_table('webverse_userprofile')
 
@@ -267,42 +203,6 @@ class Migration(SchemaMigration):
 
 
     models = {
-        'auth.group': {
-            'Meta': {'object_name': 'Group'},
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '80'}),
-            'permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'})
-        },
-        'auth.permission': {
-            'Meta': {'ordering': "('content_type__app_label', 'content_type__model', 'codename')", 'unique_together': "(('content_type', 'codename'),)", 'object_name': 'Permission'},
-            'codename': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['contenttypes.ContentType']"}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '50'})
-        },
-        'auth.user': {
-            'Meta': {'object_name': 'User'},
-            'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'email': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'blank': 'True'}),
-            'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'groups': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['auth.Group']", 'symmetrical': 'False', 'blank': 'True'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'is_staff': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'is_superuser': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'last_login': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
-            'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'}),
-            'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'})
-        },
-        'contenttypes.contenttype': {
-            'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},
-            'app_label': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
-        },
         'webverse.abstractmodel': {
             'Meta': {'object_name': 'AbstractModel'},
             'created_at': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'null': 'True', 'blank': 'True'}),
@@ -366,9 +266,8 @@ class Migration(SchemaMigration):
             'location': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['webverse.Location']"}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
             'number': ('django.db.models.fields.IntegerField', [], {'default': '1'}),
-            'salary': ('django.db.models.fields.IntegerField', [], {'default': '0', 'max_length': '2'}),
+            'salary': ('django.db.models.fields.IntegerField', [], {'default': 'None'}),
             'sex': ('django.db.models.fields.IntegerField', [], {'default': '0', 'max_length': '2'}),
-            'type': ('django.db.models.fields.IntegerField', [], {'default': '0', 'max_length': '2'}),
             'work_experience': ('django.db.models.fields.IntegerField', [], {'default': '0', 'max_length': '2'})
         },
         'webverse.location': {
@@ -377,12 +276,6 @@ class Migration(SchemaMigration):
             'name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
             'spell': ('django.db.models.fields.CharField', [], {'max_length': '50'})
         },
-        'webverse.majortype': {
-            'Meta': {'object_name': 'MajorType', '_ormbases': ['webverse.AbstractModel']},
-            'abstractmodel_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['webverse.AbstractModel']", 'unique': 'True', 'primary_key': 'True'}),
-            'code': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '255'})
-        },
         'webverse.province': {
             'Meta': {'object_name': 'Province'},
             'code': ('django.db.models.fields.CharField', [], {'max_length': '5', 'blank': 'True'}),
@@ -390,46 +283,6 @@ class Migration(SchemaMigration):
             'name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
             'spell': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
             'type': ('django.db.models.fields.IntegerField', [], {'default': '0', 'max_length': '2'})
-        },
-        'webverse.resume': {
-            'Meta': {'object_name': 'Resume', '_ormbases': ['webverse.AbstractModel']},
-            'abstractmodel_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['webverse.AbstractModel']", 'unique': 'True', 'primary_key': 'True'}),
-            'expected_industry': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['webverse.Industry']"}),
-            'expected_location': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['webverse.Location']"}),
-            'expected_position': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'expected_salary': ('django.db.models.fields.IntegerField', [], {'default': '0', 'max_length': '2'}),
-            'is_support_house': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'job_type': ('django.db.models.fields.IntegerField', [], {'default': '0', 'max_length': '2'}),
-            'on_work_time': ('django.db.models.fields.IntegerField', [], {'default': '0', 'max_length': '2'}),
-            'picture': ('django.db.models.fields.files.ImageField', [], {'max_length': '255'}),
-            'self_evaluation': ('django.db.models.fields.CharField', [], {'max_length': '2000'})
-        },
-        'webverse.resumeeducation': {
-            'Meta': {'object_name': 'ResumeEducation', '_ormbases': ['webverse.AbstractModel']},
-            'abstractmodel_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['webverse.AbstractModel']", 'unique': 'True', 'primary_key': 'True'}),
-            'desc': ('django.db.models.fields.CharField', [], {'max_length': '2000', 'null': 'True'}),
-            'edu_background': ('django.db.models.fields.IntegerField', [], {'default': '0', 'max_length': '2'}),
-            'end_date': ('django.db.models.fields.DateField', [], {}),
-            'is_oversea': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'major_name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'major_type': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['webverse.MajorType']"}),
-            'resume': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['webverse.Resume']"}),
-            'school_name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'start_date': ('django.db.models.fields.DateField', [], {})
-        },
-        'webverse.resumework': {
-            'Meta': {'object_name': 'ResumeWork', '_ormbases': ['webverse.AbstractModel']},
-            'abstractmodel_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['webverse.AbstractModel']", 'unique': 'True', 'primary_key': 'True'}),
-            'company_name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'company_scope': ('django.db.models.fields.IntegerField', [], {'default': '0', 'max_length': '2'}),
-            'company_type': ('django.db.models.fields.IntegerField', [], {'max_length': '2'}),
-            'department': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'description': ('django.db.models.fields.CharField', [], {'max_length': '2000'}),
-            'end_date': ('django.db.models.fields.DateField', [], {'null': 'True'}),
-            'industry_type': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['webverse.Industry']"}),
-            'position': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'resume': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['webverse.Resume']"}),
-            'start_date': ('django.db.models.fields.DateField', [], {})
         },
         'webverse.service': {
             'Meta': {'object_name': 'Service'},
@@ -458,21 +311,24 @@ class Migration(SchemaMigration):
             'cp_service': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['webverse.Service']", 'null': 'True', 'blank': 'True'}),
             'cp_service_begin': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
             'cp_telephone': ('django.db.models.fields.CharField', [], {'max_length': '15'}),
-            'cp_type': ('django.db.models.fields.IntegerField', [], {'max_length': '2'}),
             'cp_website': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
+            'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
+            'email': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'blank': 'True'}),
             'expires': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
             'gender': ('django.db.models.fields.IntegerField', [], {'default': '2', 'max_length': '2'}),
+            'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
             'job_state': ('django.db.models.fields.IntegerField', [], {'default': '0', 'max_length': '2'}),
             'job_type': ('django.db.models.fields.IntegerField', [], {'default': '0', 'max_length': '2'}),
+            'last_login': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
             'location': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['webverse.Location']"}),
             'mobile_phone': ('django.db.models.fields.CharField', [], {'max_length': '20'}),
+            'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
             'points_balance': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
             'qq': ('django.db.models.fields.CharField', [], {'max_length': '20'}),
             'realname': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
             'stature': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
             'type': ('django.db.models.fields.IntegerField', [], {'default': '0', 'max_length': '2'}),
-            'user': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['auth.User']", 'unique': 'True'}),
-            'username': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
+            'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'}),
             'wedding': ('django.db.models.fields.IntegerField', [], {'default': '0', 'max_length': '2'}),
             'weight': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
             'work_years': ('django.db.models.fields.IntegerField', [], {'max_length': '2', 'null': 'True', 'blank': 'True'})

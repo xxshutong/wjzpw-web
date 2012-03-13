@@ -174,11 +174,6 @@ LOGGING = {
 # Suggested exercise time required per day. In minutes.
 DAILY_EXERCISE_TIME = 60
 
-# Minimum required exercise minutes required to get these stars in Stats.
-GOLD_STAR_MIN = 60
-SILVER_STAR_MIN = 1
-
-
 #######################################################################################################################
 # SESSION EXPIRATION SETTINGS
 #######################################################################################################################

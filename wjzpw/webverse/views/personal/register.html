@@ -18,15 +18,12 @@
                     <img src="../../static/images/wizard_3_b.gif"/>
                 </div>
                 <div>
-                    <form method="POST" action="{% url personal_register %}" id="register_form">
-                        {% csrf_token %}
+                    <form>
                         <fieldset>
                         <div class="clearfix">
                             <label for="xlInput"><span class="required_star">*</span>用户名：</label>
                             <div class="input">
                                 <input type="text" size="30" name="xlInput" id="xlInput" class="middle">
-                                {{ form.username }}
-                                {{ form.username.errors }}
                             </div>
                         </div>
                         <!-- /clearfix -->

@@ -1,7 +1,7 @@
 
 from django.db import models
-from django.contrib.auth.models import User
 from django.db.models.fields.related import OneToOneField
+from django.utils.translation import ugettext_lazy as _
 
 # Defines the model for Digido.
 #
@@ -12,6 +12,7 @@ from django.db.models.fields.related import OneToOneField
 #  * Use south migration tool to generate the migration script.
 #        manage.py schemamigration webverse --auto
 #        manage.py migrate
+import datetime
 
 class AbstractModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, null=True)
@@ -129,7 +130,9 @@ class UserProfile(AbstractModel):
         (3, '> 500')
     )
 
-    user = OneToOneField(User)
+    username = models.CharField(_('username'), max_length=30, unique=True, help_text=_("Required. 30 characters or fewer. Letters, numbers and @/./+/-/_ characters"))
+    email = models.EmailField(_('e-mail address'), blank=True)
+    password = models.CharField(_('password'), max_length=128, help_text=_("Use '[algo]$[salt]$[hexdigest]' or use the <a href=\"password/\">change password form</a>."))
     type = models.IntegerField('User Type', max_length=2, choices=USER_TYPE, default=0)
     realname = models.CharField('Real Name', max_length=50, null=True, blank=False)
     gender = models.IntegerField('Gender', max_length=2, choices=GENDER, default=2)
@@ -160,6 +163,9 @@ class UserProfile(AbstractModel):
     cp_website = models.CharField('Web Site', max_length=50)
     cp_service = models.ForeignKey(Service, name='Service', null=True, blank=True)
     cp_service_begin = models.DateField(null=True, blank=True)
+    is_active = models.BooleanField(_('active'), default=True, help_text=_("Designates whether this user should be treated as active. Unselect this instead of deleting accounts."))
+    last_login = models.DateTimeField(_('last login'), default=datetime.datetime.now)
+    date_joined = models.DateTimeField(_('date joined'), default=datetime.datetime.now)
 
     #For Restful
     access_token = models.CharField(max_length=1024, unique=True, null=True, blank=True)
