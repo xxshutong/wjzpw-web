@@ -2,7 +2,7 @@ from os import path
 import sys, os
 # Django settings for wjzpw project.
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 PROJECT_DIR = os.getcwd()
@@ -33,6 +33,7 @@ DATABASES = {
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
 TIME_ZONE = 'Asia/Shanghai'
+DEFAULT_CHARSET='utf-8'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
