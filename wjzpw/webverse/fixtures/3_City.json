@@ -1,0 +1,15 @@
+[
+    {
+        "model" : "webverse.City",
+        "pk" : 1,
+        "fields" :
+        {
+            "name": "苏州",
+            "spell": "suzhou",
+            "code": "",
+            "type": 0,
+            "province": 1
+
+        }
+    }
+]

@@ -1,0 +1,13 @@
+[
+    {
+        "model" : "webverse.Province",
+        "pk" : 1,
+        "fields" :
+        {
+            "name" : "江苏",
+            "spell": "jiangsu",
+            "code": "",
+            "type": 0
+        }
+    }
+]

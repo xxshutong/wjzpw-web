@@ -5,6 +5,8 @@ from django.db import transaction
 #from django.forms.extras.widgets import SelectDateWidget
 #from django.forms.widgets import PasswordInput
 from django.utils.translation import ugettext_lazy as _
+from django.forms.widgets import TextInput,RadioSelect,Select
+from django.forms.fields import DateField, ChoiceField, MultipleChoiceField
 #from django.contrib.auth.models import User
 #
 #
@@ -28,13 +30,19 @@ class PersonalRegForm(forms.ModelForm):
         fields = ('username','password','real_name','email','gender','birthday','census','location',
                   'mobile_phone','qq','wedding','stature','weight','job_state','job_type','work_years')
         widgets = {
-
+            'username': TextInput(attrs={'size': 30}),
+            'email': TextInput(attrs={'size': 25}),
+            'mobile_phone': TextInput(attrs={'size': 30}),
+            'qq': TextInput(attrs={'size': 15})
         }
 
-    password2 = forms.CharField(widget=forms.PasswordInput(render_value=False),
-                                label=_(u'password (again)'))
-    tos = forms.BooleanField(widget=forms.CheckboxInput(), required=False,
-                           label=_(u'服务条款'))
+    #Override
+    gender = ChoiceField(widget=RadioSelect(attrs={'style':'width:auto;'}), choices=UserProfile.GENDER)
+
+    #Additional
+    password1 = forms.CharField(widget=forms.PasswordInput(render_value=False, attrs={'class': 'middle', 'size': 20}))
+    password2 = forms.CharField(widget=forms.PasswordInput(render_value=False, attrs={'class': 'middle', 'size': 20}))
+    tos = forms.BooleanField(widget=forms.CheckboxInput(), required=False)
 
     def clean_username(self):
         """

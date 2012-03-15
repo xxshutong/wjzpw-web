@@ -4,6 +4,7 @@ from django.shortcuts import render, render_to_response, redirect
 from django.http import HttpResponseRedirect
 from django.template.context import RequestContext
 from wjzpw.webverse.forms import PersonalRegForm
+from wjzpw.webverse.models import Province
 
 register_page = "../views/personal/register.html"
 
@@ -12,9 +13,11 @@ Personal registration
 """
 def register(request):
     form = PersonalRegForm()
+    provinces = Province.objects.all()
     return render_to_response(
         register_page, {}, RequestContext(request, {
-            'form':form
+            'form':form,
+            'provinces':provinces
         }),
     )
 

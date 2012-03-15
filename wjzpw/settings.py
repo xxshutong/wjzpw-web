@@ -140,7 +140,6 @@ INSTALLED_APPS = (
 AUTH_PROFILE_MODULE = 'webverse.UserProfile'
 
 AUTHENTICATION_BACKENDS = (
-    'webverse.controllers.backend.FacebookBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
 

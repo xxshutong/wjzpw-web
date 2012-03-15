@@ -58,6 +58,7 @@ class Location(models.Model):
     """
     spell = models.CharField('拼音', max_length=50, blank=False)
     name = models.CharField('名称', max_length=255, blank=False)
+    order = models.IntegerField('顺序', max_length=2, default=0)
     def __unicode__(self):
         return self.name
 
@@ -93,9 +94,9 @@ class UserProfile(AbstractModel):
     )
 
     GENDER = (
-        (0, 'male'),
-        (1, 'female'),
-        (2, 'not-specified')
+        (0, '男'),
+        (1, '女'),
+        (2, '保密')
     )
 
     WEDDING_TYPE = (
@@ -134,7 +135,7 @@ class UserProfile(AbstractModel):
     )
 
     username = models.CharField(_('用户名'), max_length=30, unique=True, help_text=_("Required. 30 characters or fewer. Letters, numbers and @/./+/-/_ characters"))
-    email = models.EmailField(_('电子邮件'), blank=True)
+    email = models.EmailField(_('电子邮件'), max_length=80)
     password = models.CharField(_('密码'), max_length=128, help_text=_("Use '[algo]$[salt]$[hexdigest]' or use the <a href=\"password/\">change password form</a>."))
     type = models.IntegerField('User Type', max_length=2, choices=USER_TYPE, default=0)
     real_name = models.CharField('真实姓名', max_length=50, null=True, blank=False)

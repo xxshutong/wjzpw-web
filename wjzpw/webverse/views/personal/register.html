@@ -18,40 +18,47 @@
                     <img src="../../static/images/wizard_3_b.gif"/>
                 </div>
                 <div>
-                    <form>
+                    <form method="POST" action="{% url personal_register %}" id="register_form">
+                        {% csrf_token %}
+                        {{ form.non_field_errors }}
                         <fieldset>
                         <div class="clearfix">
                             <label for="xlInput"><span class="required_star">*</span>用户名：</label>
                             <div class="input">
-                                <input type="text" size="30" name="xlInput" id="xlInput" class="middle">
+                                {{ form.username }}
+                                {{ form.username.errors }}
                             </div>
                         </div>
                         <!-- /clearfix -->
                         <div class="clearfix">
                             <label for="xlInput"><span class="required_star">*</span>密　码：</label>
                             <div class="input">
-                                <input type="password" size="30" name="xlInput" id="xlInput" class="middle">
+                                {{ form.password1 }}
+                                {{ form.password1.errors }}
                             </div>
                         </div>
                         <!-- /clearfix -->
                         <div class="clearfix">
                             <label for="xlInput"><span class="required_star">*</span>确认密码：</label>
                             <div class="input">
-                                <input type="password" size="30" name="xlInput" id="xlInput" class="middle">
+                                {{ form.password2 }}
+                                {{ form.password2.errors }}
                             </div>
                         </div>
                         <!-- /clearfix -->
                         <div class="clearfix">
                             <label for="xlInput"><span class="required_star">*</span>真实姓名：</label>
                             <div class="input">
-                                <input type="text" size="30" name="xlInput" id="xlInput" class="small">
+                                {{ form.real_name }}
+                                {{ form.real_name.errors }}
                             </div>
                         </div>
                         <!-- /clearfix -->
                         <div class="clearfix">
                             <label for="xlInput"><span class="required_star">*</span>电子邮件：</label>
                             <div class="input">
-                                <input type="text" size="30" name="xlInput" id="xlInput" class="xlarge">
+                                {{ form.email }}
+                                {{ form.email.errors }}
                                 <span class="help-block">
                                     <strong>注意:</strong> 请如实填写，当您忘记密码时需要此邮件地址。
                                 </span>
@@ -60,11 +67,9 @@
                         <!-- /clearfix -->
                         <div class="clearfix">
                             <label for="xlInput"><span class="required_star">*</span>性　别：</label>
-                            <div class="input">
-                                <input type="radio" checked="" value="1" name="sex">
-                                男
-                                <input type="radio" value="0" name="sex">
-                                女
+                            <div class="input choice_radio">
+                                    {{ form.gender }}
+                                    {{ form.gender.errors }}
                             </div>
                         </div>
                         <!-- /clearfix -->
@@ -72,103 +77,8 @@
                             <label for="xlInput"><span class="required_star">*</span>出生日期：</label>
                             <div class="input">
                                 <div class="inline-inputs">
-                                    <select style="width: 70px;" name="birthyear">
-                                      <option value="1951">1951</option>
-                                      <option value="1952">1952</option>
-                                      <option value="1953">1953</option>
-                                      <option value="1954">1954</option>
-                                      <option value="1955">1955</option>
-                                      <option value="1956">1956</option>
-                                      <option value="1957">1957</option>
-                                      <option value="1958">1958</option>
-                                      <option value="1959">1959</option>
-                                      <option value="1960">1960</option>
-                                      <option value="1961">1961</option>
-                                      <option value="1962">1962</option>
-                                      <option value="1963">1963</option>
-                                      <option value="1964">1964</option>
-                                      <option value="1965">1965</option>
-                                      <option value="1966">1966</option>
-                                      <option value="1967">1967</option>
-                                      <option value="1968">1968</option>
-                                      <option value="1969">1969</option>
-                                      <option value="1970">1970</option>
-                                      <option value="1971">1971</option>
-                                      <option value="1972">1972</option>
-                                      <option value="1973">1973</option>
-                                      <option value="1974">1974</option>
-                                      <option value="1975">1975</option>
-                                      <option value="1976">1976</option>
-                                      <option value="1977">1977</option>
-                                      <option value="1978">1978</option>
-                                      <option value="1979">1979</option>
-                                      <option value="1980">1980</option>
-                                      <option value="1981">1981</option>
-                                      <option value="1982">1982</option>
-                                      <option value="1983">1983</option>
-                                      <option value="1984">1984</option>
-                                      <option value="1985">1985</option>
-                                      <option value="1986">1986</option>
-                                      <option value="1987">1987</option>
-                                      <option value="1988" selected="">1988</option>
-                                      <option value="1989">1989</option>
-                                      <option value="1990">1990</option>
-                                      <option value="1991">1991</option>
-                                      <option value="1992">1992</option>
-                                      <option value="1993">1993</option>
-                                      <option value="1994">1994</option>
-                                      <option value="1995">1995</option>
-                                    </select>
-                                    年
-                                    <select name="birthmonth" style="width:40px;">
-                                      <option value="1" selected="">1</option>
-                                      <option value="2">2</option>
-                                      <option value="3">3</option>
-                                      <option value="4">4</option>
-                                      <option value="5">5</option>
-                                      <option value="6">6</option>
-                                      <option value="7">7</option>
-                                      <option value="8">8</option>
-                                      <option value="9">9</option>
-                                      <option value="10">10</option>
-                                      <option value="11">11</option>
-                                      <option value="12">12</option>
-                                    </select>
-                                    月
-                                    <select name="birthday" style="width:40px;">
-                                      <option value="1" selected="">1</option>
-                                      <option value="2">2</option>
-                                      <option value="3">3</option>
-                                      <option value="4">4</option>
-                                      <option value="5">5</option>
-                                      <option value="6">6</option>
-                                      <option value="7">7</option>
-                                      <option value="8">8</option>
-                                      <option value="9">9</option>
-                                      <option value="10">10</option>
-                                      <option value="11">11</option>
-                                      <option value="12">12</option>
-                                      <option value="13">13</option>
-                                      <option value="14">14</option>
-                                      <option value="15">15</option>
-                                      <option value="16">16</option>
-                                      <option value="17">17</option>
-                                      <option value="18">18</option>
-                                      <option value="19">19</option>
-                                      <option value="20">20</option>
-                                      <option value="21">21</option>
-                                      <option value="22">22</option>
-                                      <option value="23">23</option>
-                                      <option value="24">24</option>
-                                      <option value="25">25</option>
-                                      <option value="26">26</option>
-                                      <option value="27">27</option>
-                                      <option value="28">28</option>
-                                      <option value="29">29</option>
-                                      <option value="30">30</option>
-                                      <option value="31">31</option>
-                                    </select>
-                                    日
+                                    {{ form.birthday }}
+                                    {{ form.birthday.errors }}
                                 </div>
                             </div>
                         </div>
@@ -177,18 +87,15 @@
                             <label for="xlInput"><span class="required_star">*</span>户　籍：</label>
                             <div class="input">
                                 <div class="inline-inputs">
-                                    <select style="width: 70px;" name="huji">
-                                      <option value="江苏">江苏</option>
-                                      <option value="浙江">浙江</option>
-                                      <option value="安徽" selected="">安徽</option>
-                                      <option value="北京">北京</option>
-                                      <option value="上海">上海</option>
-                                      <option value="深圳">深圳</option>
+                                    <select style="width: 70px;" name="province" id="id_province">
+                                        <option value>请选择</option>
+                                        {% for province in provinces %}
+                                            <option value="{{ province.id }}">{{ province.name }}</option>
+                                        {% endfor %}
                                     </select>
                                     省(市)
-                                    <select name="birthmonth" style="width:70px;">
-                                      <option value="苏州" selected="">苏州</option>
-                                      <option value="无锡">无锡</option>
+                                    <select id="id_city" name="city" style="width:70px;">
+                                      <option value="" selected>请选择</option>
                                     </select>
                                     市(地区)
                                 </div>
@@ -199,14 +106,8 @@
                             <label for="xlInput"><span class="required_star">*</span>现所在地：</label>
                             <div class="input">
                                 <div class="inline-inputs">
-                                    <select style="width: 70px;" name="huji">
-                                      <option value="松陵" selected="">松陵</option>
-                                      <option value="盛泽">盛泽</option>
-                                      <option value="铜锣">铜锣</option>
-                                      <option value="北京">北京</option>
-                                      <option value="上海">上海</option>
-                                      <option value="深圳">深圳</option>
-                                    </select>
+                                    {{ form.location }}
+                                    {{ form.location.errors }}
                                     镇/开发区
                                 </div>
                             </div>
@@ -215,14 +116,16 @@
                         <div class="clearfix">
                             <label for="xlInput"><span class="required_star">*</span>手机(电话)：</label>
                             <div class="input">
-                                <input type="text" size="30" name="xlInput" id="xlInput" class="middle">
+                                {{ form.mobile_phone }}
+                                {{ form.mobile_phone.errors }}
                             </div>
                         </div>
                         <!-- /clearfix -->
                         <div class="clearfix">
                             <label for="xlInput">QQ：</label>
                             <div class="input">
-                                <input type="text" size="30" name="xlInput" id="xlInput" class="small">
+                                {{ form.qq }}
+                                {{ form.qq.errors }}
                             </div>
                         </div>
                         <!-- /clearfix -->
