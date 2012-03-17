@@ -68,8 +68,8 @@
                         <div class="clearfix">
                             <label for="id_gender"><span class="required_star">*</span>性　别：</label>
                             <div class="input choice_radio">
-                                    {{ form.gender }}
-                                    {{ form.gender.errors }}
+                                {{ form.gender }}
+                                {{ form.gender.errors }}
                             </div>
                         </div>
                         <!-- /clearfix -->
@@ -173,7 +173,7 @@
                         <!-- /clearfix -->
                         <div class="clearfix">
                             <label id="optionsRadio"><span class="required_star">*</span>类　型：</label>
-                            <div class="input radio_ul">
+                            <div class="input choice_radio">
                                 {{ form.job_type }}
                                 {{ form.job_type.errors }}
                             </div>
@@ -224,7 +224,8 @@
                         </div>
                         <!-- /clearfix -->
                         <div class="actions">
-                            <a class="btn primary" href="registerDetail.html">下一步</a>&nbsp;<a class="btn" href="../index.html">取消</a>
+                            <button type="submit" class="btn primary">下一步</button>
+                            &nbsp;<a class="btn" href="../index.html">取消</a>
                         </div>
                         </fieldset>
                     </form>

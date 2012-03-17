@@ -13,6 +13,14 @@ Personal registration
 """
 def register(request):
     form = PersonalRegForm()
+
+    if request.method == 'POST':
+        # post register user
+        form = PersonalRegForm(request.POST)
+        if form.is_valid():
+            form.save(form.cleaned_data)
+
+    # go to register page
     provinces = Province.objects.all()
     return render_to_response(
         register_page, {}, RequestContext(request, {

@@ -39,6 +39,8 @@ class PersonalRegForm(forms.ModelForm):
         }
 
     #Override
+    username = forms.RegexField(label=_(u"用户名"), max_length=30, regex=r'^[\w.@+-]+$',
+        error_messages = {'invalid': _(u"用户名只能包含字母、数字和下划线等字符。")})
     gender = ChoiceField(widget=RadioSelect(attrs={'style':'width:auto;'}), choices=UserProfile.GENDER)
     job_type = ChoiceField(widget=RadioSelect(attrs={'style':'width:auto;'}), choices=UserProfile.JOB_TYPE_TYPE)
 
@@ -53,9 +55,12 @@ class PersonalRegForm(forms.ModelForm):
         site.
 
         """
-        if UserProfile.objects.filter(username__iexact=self.cleaned_data['username']):
-            raise forms.ValidationError(_(u"用户名已经存在."))
-        return self.cleaned_data['username']
+        username = self.cleaned_data["username"]
+        try:
+            UserProfile.objects.get(username=username)
+        except UserProfile.DoesNotExist:
+            return username
+        raise forms.ValidationError(_(u"用户名已经存在。"))
 
     def clean_email(self):
         """
@@ -66,6 +71,17 @@ class PersonalRegForm(forms.ModelForm):
         if UserProfile.objects.filter(email__iexact=self.cleaned_data['email']):
             raise forms.ValidationError(_(u'电子邮件已经存在.'))
         return self.cleaned_data['email']
+
+    def clean_password2(self):
+        """
+        Validate that password and password2 is the same.
+
+        """
+        password1 = self.cleaned_data.get("password1", "")
+        password2 = self.cleaned_data["password2"]
+        if password1 != password2:
+            raise forms.ValidationError(_(u"两次输入的密码不一致。"))
+        return password2
 
     def clean_tos(self):
         """
@@ -78,22 +94,13 @@ class PersonalRegForm(forms.ModelForm):
 
     def clean(self):
         """
-        Verifiy that the values entered into the two password fields
-        match. Note that an error here will end up in
         ``non_field_errors()`` because it doesn't apply to a single
-        field.
-
         """
-        if 'password' in self.cleaned_data and 'password2' in self.cleaned_data:
-            if self.cleaned_data['password'] != self.cleaned_data['password2']:
-                raise forms.ValidationError(_(u'两次输入的密码不一致.'))
         return self.cleaned_data
 
     @transaction.commit_on_success
     def save(self, new_data):
-        user_profile = UserProfile()
-        user_profile.email = new_data['email']
-        user_profile.username = new_data['username']
+        #create user
+        user_profile = UserProfile.objects.create_user(new_data)
         user_profile.save()
-
         return user_profile

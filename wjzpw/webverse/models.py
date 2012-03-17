@@ -14,6 +14,7 @@ from django.utils.translation import ugettext_lazy as _
 #        manage.py schemamigration webverse --auto
 #        manage.py migrate
 import datetime
+from wjzpw.webverse.manager import UserProfileManager
 
 UNUSABLE_PASSWORD = '!' # This will never be a valid hash
 
@@ -176,6 +177,8 @@ class UserProfile(AbstractModel):
     #For Restful
     access_token = models.CharField(max_length=1024, unique=True, null=True, blank=True)
     expires = models.IntegerField(null=True, blank=True)
+
+    objects = UserProfileManager()
 
     def set_password(self, raw_password):
         if raw_password is None:

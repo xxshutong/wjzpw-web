@@ -539,7 +539,11 @@ table tr td.odd {
     width: auto;
 }
 
-.radio_ul ul li label {
-    padding-right: 5px;
-    width: auto;
+.choice_radio ul {
+    height: 23px;
+}
+
+ul.errorlist li{
+    font-style: italic;
+    color: red;
 }

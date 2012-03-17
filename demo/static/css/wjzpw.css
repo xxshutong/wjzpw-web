@@ -192,7 +192,7 @@ text-shadow:none;
      white-space: normal;
 }
 
-/* Form ÀàÐÍ */
+/* Form ï¿½ï¿½ï¿½ï¿½ */
 input, .uneditable-input {
 	height: 13px;
 	}
@@ -212,7 +212,7 @@ input, .uneditable-input {
 		 width:auto;
 	}
 	
-	/* ÍøÕ¾Ê×Ò³ÑùÊ½ */
+	/* ï¿½ï¿½Õ¾ï¿½ï¿½Ò³ï¿½ï¿½Ê½ */
 	
 	.employ_font {
 		color:red;
@@ -398,7 +398,7 @@ text-align:center;
 		height:140px;
 	}
 	
-	/* Í¼Æ¬¹ã¸æÁÐ±í */
+	/* Í¼Æ¬ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ */
 	.adv_list ul {
 	
 	}
@@ -412,7 +412,7 @@ text-align:center;
 		height:60px;
 		}
 		
-		/* ×îÐÂÍÆ¼öÕÐÆ¸ÁÐ±í*/
+		/* ï¿½ï¿½ï¿½ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½Æ¸ï¿½Ð±ï¿½*/
 	.suggest_list ul {
 	
 	}
@@ -435,7 +435,7 @@ text-align:center;
     background-color: #FFFBF1;
 }
 
-/*ÓÑÇéÁ´½Ó*/
+/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 .main_links {
 	text-align:center;
 	margin:0px;
@@ -460,7 +460,7 @@ text-align:center;
 }
 
 
-/**********×óÓÒ²¼¾Ö********************/
+/**********ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½********************/
 .left_layer {
 	width: 188px;
 	min-height:30px;
@@ -491,12 +491,12 @@ p.title {
 	margin-top:10px;
 }
 
-/*********×¢²áÒ³Ãæ********************/
+/*********×¢ï¿½ï¿½Ò³ï¿½ï¿½********************/
 .work_experience {
 	border-bottom:1px dashed #46A546;
 }
 
-/*********ËÑË÷Ò³Ãæ***************************/
+/*********ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½***************************/
 input, textarea, select, .uneditable-input {
     width: auto;
 }
@@ -520,7 +520,7 @@ table tr td.odd {
     background-color: #F9F9F9;
 }
 
-/**********************Ö°Î»ÏêÏ¸Ò³¼°·¢²¼Ö°Î»Ò³***************************/
+/**********************Ö°Î»ï¿½ï¿½Ï¸Ò³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö°Î»Ò³***************************/
 .position_list ul li {
 	padding-bottom: 5px;
 }
@@ -531,4 +531,9 @@ table tr td.odd {
 
 .multi_view .value {
 	margin-left:0px;
+}
+
+/******for django********/
+ul.errorlist li{
+    background-color: red;
 }
