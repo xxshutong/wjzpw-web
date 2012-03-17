@@ -538,3 +538,8 @@ table tr td.odd {
     padding-right: 5px;
     width: auto;
 }
+
+.radio_ul ul li label {
+    padding-right: 5px;
+    width: auto;
+}

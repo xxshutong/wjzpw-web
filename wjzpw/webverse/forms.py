@@ -33,11 +33,14 @@ class PersonalRegForm(forms.ModelForm):
             'username': TextInput(attrs={'size': 30}),
             'email': TextInput(attrs={'size': 25}),
             'mobile_phone': TextInput(attrs={'size': 30}),
-            'qq': TextInput(attrs={'size': 15})
+            'qq': TextInput(attrs={'size': 15}),
+            'stature': TextInput(attrs={'style': 'width:60px;'}),
+            'weight': TextInput(attrs={'style': 'width:60px;'})
         }
 
     #Override
     gender = ChoiceField(widget=RadioSelect(attrs={'style':'width:auto;'}), choices=UserProfile.GENDER)
+    job_type = ChoiceField(widget=RadioSelect(attrs={'style':'width:auto;'}), choices=UserProfile.JOB_TYPE_TYPE)
 
     #Additional
     password1 = forms.CharField(widget=forms.PasswordInput(render_value=False, attrs={'class': 'middle', 'size': 20}))

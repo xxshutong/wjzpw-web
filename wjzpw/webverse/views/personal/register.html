@@ -23,7 +23,7 @@
                         {{ form.non_field_errors }}
                         <fieldset>
                         <div class="clearfix">
-                            <label for="xlInput"><span class="required_star">*</span>用户名：</label>
+                            <label for="id_username"><span class="required_star">*</span>用户名：</label>
                             <div class="input">
                                 {{ form.username }}
                                 {{ form.username.errors }}
@@ -31,7 +31,7 @@
                         </div>
                         <!-- /clearfix -->
                         <div class="clearfix">
-                            <label for="xlInput"><span class="required_star">*</span>密　码：</label>
+                            <label for="id_password"><span class="required_star">*</span>密　码：</label>
                             <div class="input">
                                 {{ form.password1 }}
                                 {{ form.password1.errors }}
@@ -39,7 +39,7 @@
                         </div>
                         <!-- /clearfix -->
                         <div class="clearfix">
-                            <label for="xlInput"><span class="required_star">*</span>确认密码：</label>
+                            <label for="id_password2"><span class="required_star">*</span>确认密码：</label>
                             <div class="input">
                                 {{ form.password2 }}
                                 {{ form.password2.errors }}
@@ -47,7 +47,7 @@
                         </div>
                         <!-- /clearfix -->
                         <div class="clearfix">
-                            <label for="xlInput"><span class="required_star">*</span>真实姓名：</label>
+                            <label for="id_real_name"><span class="required_star">*</span>真实姓名：</label>
                             <div class="input">
                                 {{ form.real_name }}
                                 {{ form.real_name.errors }}
@@ -55,7 +55,7 @@
                         </div>
                         <!-- /clearfix -->
                         <div class="clearfix">
-                            <label for="xlInput"><span class="required_star">*</span>电子邮件：</label>
+                            <label for="id_email"><span class="required_star">*</span>电子邮件：</label>
                             <div class="input">
                                 {{ form.email }}
                                 {{ form.email.errors }}
@@ -66,7 +66,7 @@
                         </div>
                         <!-- /clearfix -->
                         <div class="clearfix">
-                            <label for="xlInput"><span class="required_star">*</span>性　别：</label>
+                            <label for="id_gender"><span class="required_star">*</span>性　别：</label>
                             <div class="input choice_radio">
                                     {{ form.gender }}
                                     {{ form.gender.errors }}
@@ -74,7 +74,7 @@
                         </div>
                         <!-- /clearfix -->
                         <div class="clearfix">
-                            <label for="xlInput"><span class="required_star">*</span>出生日期：</label>
+                            <label for="id_birthday"><span class="required_star">*</span>出生日期：</label>
                             <div class="input">
                                 <div class="inline-inputs">
                                     {{ form.birthday }}
@@ -84,7 +84,7 @@
                         </div>
                         <!-- /clearfix -->
                         <div class="clearfix">
-                            <label for="xlInput"><span class="required_star">*</span>户　籍：</label>
+                            <label for="id_province"><span class="required_star">*</span>户　籍：</label>
                             <div class="input">
                                 <div class="inline-inputs">
                                     <select style="width: 70px;" name="province" id="id_province">
@@ -103,7 +103,7 @@
                         </div>
                         <!-- /clearfix -->
                         <div class="clearfix">
-                            <label for="xlInput"><span class="required_star">*</span>现所在地：</label>
+                            <label for="id_location"><span class="required_star">*</span>现所在地：</label>
                             <div class="input">
                                 <div class="inline-inputs">
                                     {{ form.location }}
@@ -114,7 +114,7 @@
                         </div>
                         <!-- /clearfix -->
                         <div class="clearfix">
-                            <label for="xlInput"><span class="required_star">*</span>手机(电话)：</label>
+                            <label for="id_mobile_phone"><span class="required_star">*</span>手机(电话)：</label>
                             <div class="input">
                                 {{ form.mobile_phone }}
                                 {{ form.mobile_phone.errors }}
@@ -122,7 +122,7 @@
                         </div>
                         <!-- /clearfix -->
                         <div class="clearfix">
-                            <label for="xlInput">QQ：</label>
+                            <label for="id_qq">QQ：</label>
                             <div class="input">
                                 {{ form.qq }}
                                 {{ form.qq.errors }}
@@ -130,75 +130,61 @@
                         </div>
                         <!-- /clearfix -->
                         <div class="clearfix">
-                            <label for="xlInput">婚姻状况：</label>
+                            <label for="id_wedding">婚姻状况：</label>
                             <div class="input">
                                 <div class="inline-inputs">
-                                    <select style="width: 70px;" name="huji">
-                                      <option value="保密" selected="">保密</option>
-                                      <option value="未婚">未婚</option>
-                                      <option value="已婚">已婚</option>
-                                      <option value="离异">离异</option>
-                                    </select>
+                                    {{ form.wedding }}
+                                    {{ form.wedding.errors }}
                                 </div>
                             </div>
                         </div>
                         <!-- /clearfix -->
                         <div class="clearfix">
-                            <label for="xlInput">身　高：</label>
+                            <label for="id_stature">身　高：</label>
                             <div class="input">
                                 <div class="inline-inputs">
-                                    <input type="text" size="30" name="xlInput" id="xlInput" class="small" style="width:60px;">
+                                    {{ form.stature }}
+                                    {{ form.stature.errors }}
                                     CM(公分)
                                 </div>
                             </div>
                         </div>
                         <!-- /clearfix -->
                         <div class="clearfix">
-                            <label for="xlInput">体　重：</label>
+                            <label for="id_weight">体　重：</label>
                             <div class="input">
                                 <div class="inline-inputs">
-                                    <input type="text" size="30" name="xlInput" id="xlInput" class="small" style="width:60px;">
+                                    {{ form.weight }}
+                                    {{ form.weight.errors }}
                                     KG(千克)
                                 </div>
                             </div>
                         </div>
                         <!-- /clearfix -->
                         <div class="clearfix">
-                            <label for="xlInput"><span class="required_star">*</span>求职状态：</label>
+                            <label for="id_job_state"><span class="required_star">*</span>求职状态：</label>
                             <div class="input">
                                 <div class="inline-inputs">
-                                    <select id="gzzk" name="gzzk" style="width:300px;">
-                                      <option value="0">我目前处于离职状态，可立即上岗</option>
-                                      <option value="1">我目前在职，正考虑换个新环境</option>
-                                      <option value="2">对现有工作还算满意，有更好的机会才会考虑</option>
-                                      <option value="3">应届毕业生</option>
-                                      <option value="4">目前暂无跳槽打算</option>
-                                    </select>
+                                    {{ form.job_state }}
+                                    {{ form.job_state.errors }}
                                 </div>
                             </div>
                         </div>
                         <!-- /clearfix -->
                         <div class="clearfix">
                             <label id="optionsRadio"><span class="required_star">*</span>类　型：</label>
-                            <div class="input">
-                                <input type="radio" value="option1" name="optionsRadios" checked="">
-                                有工作经验的社会人才
-                                <input type="radio" value="option2" name="optionsRadios">
-                                在校生或者应届毕业生
+                            <div class="input radio_ul">
+                                {{ form.job_type }}
+                                {{ form.job_type.errors }}
                             </div>
                         </div>
                         <!-- /clearfix -->
                         <div class="clearfix">
-                            <label for="xlInput"><span class="required_star">*</span>工作年限（类型选择有经验才显示）：</label>
+                            <label for="id_work_years"><span class="required_star">*</span>工作年限（类型选择有经验才显示）：</label>
                             <div class="input">
                                 <div class="inline-inputs">
-                                    <select id="gzzk" name="gzzk" style="width:100px;">
-                                      <option value="1">1年</option>
-                                      <option value="2">2年</option>
-                                      <option value="3">3-5年</option>
-                                      <option value="4">5-10年</option>
-                                      <option value="5">10年以上</option>
-                                    </select>
+                                    {{ form.work_years }}
+                                    {{ form.work_years.errors }}
                                 </div>
                             </div>
                         </div>
@@ -217,7 +203,8 @@
                                 <ul class="inputs-list">
                                     <li>
                                         <label>
-                                            <input type="checkbox" value="option1" name="optionsCheckboxes">
+                                            {{ form.tos }}
+                                            {{ form.tos.errors }}
                                             <span>我已认真阅读并同意遵守<a href="#" style="text-decoration:underline">用户服务协议</a></span>
                                         </label>
                                     </li>
@@ -229,7 +216,7 @@
                         </div>
                         <!-- /clearfix -->
                         <div class="clearfix">
-                            <label for="xlInput"><span class="required_star">*</span>验证码：</label>
+                            <label for="id_verify"><span class="required_star">*</span>验证码：</label>
                             <div class="input">
                                 <input type="text" name="code" id="code"  style="width: 60px;">
                                 <img src="../../static/images/temp/verifycode.jpg"/>

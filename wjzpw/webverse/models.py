@@ -94,37 +94,39 @@ class UserProfile(AbstractModel):
     )
 
     GENDER = (
-        (0, '男'),
-        (1, '女'),
-        (2, '保密')
+        (0, _(u'男')),
+        (1, _(u'女')),
+        (2, _(u'保密'))
     )
 
     WEDDING_TYPE = (
-        (0, 'Secret'),
-        (1, 'Married'),
-        (2, 'Not Married'),
-        (3, 'Divorced')
+        (0, _(u'保密')),
+        (1, _(u'已婚')),
+        (2, _(u'未婚')),
+        (3, _(u'离异'))
     )
 
     JOB_STATE_TYPE = (
-        (0, 'On leave, want to find at once'),
-        (1, 'On work, consider changing environment'),
-        (2, 'On work, will left if better chance'),
-        (3, 'Fresh graduates'),
-        (4, 'Not want job-hopping')
+        (0, _(u'目前处于离职状态，可立即上岗')),
+        (1, _(u'目前在职，正考虑换个环境')),
+        (2, _(u'对现有工作很满意，有更好机会才考虑')),
+        (3, _(u'应届生')),
+        (4, _(u'目前暂无跳槽打算'))
     )
 
     JOB_TYPE_TYPE = (
-        (0, 'Have working experience'),
-        (1, 'Fresh graduates')
+        (None, _(u'请选择')),
+        (0, _(u'有工作经验的社会人才')),
+        (1, _(u'在校生或者应届毕业生'))
     )
 
     WORK_YEARS_TYPE = (
-        (0, '1 year'),
-        (1, '2 years'),
-        (2, '3-5 years'),
-        (3, '5-10 years'),
-        (4, '10- years')
+        (None, _(u'请选择')),
+        (0, _(u'1年')),
+        (1, _(u'2年')),
+        (2, _(u'3-5年')),
+        (3, _(u'5-10年')),
+        (4, _(u'10年以上'))
     )
 
     COMPANY_SCOPE_TYPE = (
@@ -150,7 +152,7 @@ class UserProfile(AbstractModel):
     weight = models.IntegerField('体重', null=True, blank=True)
     job_state = models.IntegerField('求职状态', max_length=2, choices=JOB_STATE_TYPE, default=0)
     job_type = models.IntegerField('类型', max_length=2, choices=JOB_TYPE_TYPE, default=0)
-    work_years = models.IntegerField('工作经验', max_length=2, choices=WORK_YEARS_TYPE, null=True, blank=True)
+    work_years = models.IntegerField('工作经验', max_length=2, choices=WORK_YEARS_TYPE, default=None, null=True)
     points_balance = models.IntegerField('点数', default=0)
     cp_accept_notice = models.BooleanField('Accept Notice', default=True)
     cp_name = models.CharField('Company Name', max_length=255, null=True)
