@@ -41,6 +41,8 @@ class PersonalRegForm(forms.ModelForm):
     #Override
     username = forms.RegexField(label=_(u"用户名"), max_length=30, regex=r'^[\w.@+-]+$',
         error_messages = {'invalid': _(u"用户名只能包含字母、数字和下划线等字符。")})
+    real_name = forms.CharField(label=_(u"真实姓名"), max_length=30)
+    birthday_f = forms.CharField(label=_(u'生日'), max_length=10, widget=TextInput(attrs={'readonly': 'true'}))
     gender = ChoiceField(widget=RadioSelect(attrs={'style':'width:auto;'}), choices=UserProfile.GENDER)
     job_type = ChoiceField(widget=RadioSelect(attrs={'style':'width:auto;'}), choices=UserProfile.JOB_TYPE_TYPE)
 

@@ -547,3 +547,30 @@ ul.errorlist li{
     font-style: italic;
     color: red;
 }
+
+[class^="icon-"] {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    vertical-align: text-top;
+    background-image: url(../img/glyphicons-halflings.png);
+    background-position: 14px 14px;
+    background-repeat: no-repeat;
+    *margin-right: .3em;
+}
+
+.icon-arrow-left {
+    background-position: -240px -96px;
+    background-position-x: -240px;
+    background-position-y: -96px;
+}
+
+.icon-arrow-right {
+    background-position: -264px -96px;
+    background-position-x: -264px;
+    background-position-y: -96px;
+}
+
+.datepicker html, body, table {
+    background-color: white;
+}

@@ -2,6 +2,11 @@
 
 {% block title %}吴江-招聘网 | wj-zpw.com{% endblock %}
 
+{% block head %}
+    <link rel="stylesheet" href="/static/css/datepicker.css">
+    <script type='text/javascript' src="/static/js/bootstrap-datepicker.js"></script>
+{% endblock %}
+
 {% block content %}
 <div class="container">
     <div class="content">
@@ -74,11 +79,11 @@
                         </div>
                         <!-- /clearfix -->
                         <div class="clearfix">
-                            <label for="id_birthday"><span class="required_star">*</span>出生日期：</label>
+                            <label for="id_birthday_f"><span class="required_star">*</span>出生日期：</label>
                             <div class="input">
                                 <div class="inline-inputs">
-                                    {{ form.birthday }}
-                                    {{ form.birthday.errors }}
+                                    {{ form.birthday_f }}
+                                    {{ form.birthday_f.errors }}
                                 </div>
                             </div>
                         </div>
@@ -241,6 +246,49 @@
         if(right_height > left_height) {
             $('.left_layer').height(right_height );
         }
+
+        window.prettyPrint && prettyPrint();
+        $('#id_birthday_f').datepicker({
+            format: 'mm-dd-yyyy'
+        })
+                .on('changeDate', function(ev){
+                    $('#id_birthday_f').datepicker('hide');
+                });
+        $('#id_birthday_f').click(function() {
+            $('#id_birthday_f').datepicker('show');
+        });
+
+        // Province switch
+        $('#id_province').change(function() {
+            var value = $(this).val();
+            if (value == '') {
+                $('select#id_city').empty();
+                $('select#id_city').append('<option value>请选择</option>');
+                return;
+            }
+            $.ajax({
+                type:"GET",
+                async:false,
+                url:"/ajax_get_city_by_province/"+value+"/",
+                dataType:"json",
+                success: function(data) {
+                    $('select#id_city').empty();
+                    var data = eval(data);
+                    values = data.value;
+                    labels = data.label;
+                    var str_arr = new Array();
+                    if($.isArray(values)) {
+                        for(var i = 0; i < values.length; i++) {
+                            str_arr.push("<option value=\"" +values[i] + "\">" + labels[i] + "</option>");
+                        }
+                    } else {
+                        str_arr.push("<option value=\"" +values + "\">" + labels + "</option>");
+                    }
+                    $('select#id_city').append(str_arr.join(''));
+                }
+            });
+        });
+
     })
 </script>
 <!-- 主体信息结束 -->
