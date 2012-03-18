@@ -1,6 +1,10 @@
 from os import path
 import sys, os
 # Django settings for wjzpw project.
+import urlparse
+
+# Register database schemes in URLs.
+urlparse.uses_netloc.append('postgres')
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -24,6 +28,33 @@ DATABASES = {
         'PORT': '5432',              
     }
 }
+try:
+
+    # Check to make sure DATABASES is set in settings.py file.
+    # If not default to {}
+
+    if 'DATABASES' not in locals():
+        DATABASES = {}
+
+    if 'DATABASE_URL' in os.environ:
+        url = urlparse.urlparse(os.environ['DATABASE_URL'])
+
+        # Ensure default database exists.
+        DATABASES['default'] = DATABASES.get('default', {})
+
+        # Update with environment configuration.
+        DATABASES['default'].update({
+            'NAME': url.path[1:],
+            'USER': url.username,
+            'PASSWORD': url.password,
+            'HOST': url.hostname,
+            'PORT': url.port,
+            })
+        if url.scheme == 'postgres':
+            DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql_psycopg2'
+
+except Exception:
+    print 'Unexpected error:', sys.exc_info()
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
