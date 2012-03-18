@@ -10,6 +10,7 @@ urlpatterns = patterns('webverse.controllers.landing',
     # Landing page.
     url(r'^$', 'dashboard', name='dashboard'),
     url(r'^ajax_get_city_by_province/(\d+)/$', 'ajax_get_city_by_province', name='ajax_get_city_by_province'),
+    url(r'^verify_image/$', 'verify_image', name='verify_image'),
 
 )
 

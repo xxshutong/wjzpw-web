@@ -14,6 +14,8 @@ from django.utils.translation import ugettext_lazy as _
 #        manage.py schemamigration webverse --auto
 #        manage.py migrate
 import datetime
+import random
+from wjzpw import settings
 from wjzpw.webverse.manager import UserProfileManager
 
 UNUSABLE_PASSWORD = '!' # This will never be a valid hash
@@ -300,3 +302,24 @@ class Configuration(models.Model):
     qq = models.CharField('QQ', max_length=50)
 
 
+class Captcha:
+    """
+    验证码
+    """
+
+    def __init__(self, request, *args, **kwargs):
+        self.request = request
+        self.create()
+
+    @staticmethod
+    def text():
+        return ''.join([random.choice(settings.LETTERS) for i in range(settings.LENGTH)])
+
+    def get(self):
+        return self.request.session.get(settings.NAME, '')
+
+    def destroy(self):
+        self.request.session[settings.NAME] = ''
+
+    def create(self):
+        self.request.session[settings.NAME] = self.text()

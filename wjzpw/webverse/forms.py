@@ -16,6 +16,7 @@ from django.forms.fields import DateField, ChoiceField, MultipleChoiceField
 ## lands in trunk, this will no longer be necessary.
 #from wjzpw.webverse import models
 from wjzpw.webverse.models import UserProfile
+from wjzpw.webverse.widgets import CaptchaWidget
 
 
 class PersonalRegForm(forms.ModelForm):
@@ -54,6 +55,7 @@ class PersonalRegForm(forms.ModelForm):
     password1 = forms.CharField(widget=forms.PasswordInput(render_value=False, attrs={'class': 'middle', 'size': 20}))
     password2 = forms.CharField(widget=forms.PasswordInput(render_value=False, attrs={'class': 'middle', 'size': 20}))
     tos = forms.BooleanField(widget=forms.CheckboxInput(), required=False)
+    verify_img = forms.ImageField(widget=CaptchaWidget())
 
     def clean_username(self):
         """
