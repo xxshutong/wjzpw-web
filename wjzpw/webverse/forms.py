@@ -45,6 +45,10 @@ class PersonalRegForm(forms.ModelForm):
     birthday_f = forms.CharField(label=_(u'生日'), max_length=10, widget=TextInput(attrs={'readonly': 'true'}))
     gender = ChoiceField(widget=RadioSelect(attrs={'style':'width:auto;'}), choices=UserProfile.GENDER)
     job_type = ChoiceField(widget=RadioSelect(attrs={'style':'width:auto;'}), choices=UserProfile.JOB_TYPE_TYPE)
+    mobile_phone = forms.RegexField(label=_(u"手机(电话)"), max_length=15, regex=r'^\d+$',
+        error_messages = {'invalid': _(u"请输入正确的手机号(电话)。")})
+    qq = forms.RegexField(label=_(u"QQ"), max_length=15, regex=r'^[1-9][0-9]{4,}$',
+        error_messages = {'invalid': _(u"QQ格式不正确。")})
 
     #Additional
     password1 = forms.CharField(widget=forms.PasswordInput(render_value=False, attrs={'class': 'middle', 'size': 20}))
@@ -92,7 +96,7 @@ class PersonalRegForm(forms.ModelForm):
         """
         if self.cleaned_data.get('tos', False):
             return self.cleaned_data['tos']
-        raise forms.ValidationError(_(u'必须同意用户服务协议才可以继续.'))
+        raise forms.ValidationError(_(u'必须同意用户服务协议才可以继续。'))
 
     def clean(self):
         """

@@ -116,13 +116,12 @@ class UserProfile(AbstractModel):
     )
 
     JOB_TYPE_TYPE = (
-        (None, _(u'请选择')),
         (0, _(u'有工作经验的社会人才')),
         (1, _(u'在校生或者应届毕业生'))
     )
 
     WORK_YEARS_TYPE = (
-        (None, _(u'请选择')),
+        ('', _(u'请选择')),
         (0, _(u'1年')),
         (1, _(u'2年')),
         (2, _(u'3-5年')),
