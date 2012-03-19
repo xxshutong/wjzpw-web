@@ -12,11 +12,11 @@ register_page = "../views/personal/register.html"
 Personal registration
 """
 def register(request):
-    form = PersonalRegForm()
+    form = PersonalRegForm(request=request)
 
     if request.method == 'POST':
         # post register user
-        form = PersonalRegForm(request.POST)
+        form = PersonalRegForm(request.POST, request=request)
         if form.is_valid():
             form.save(form.cleaned_data)
 

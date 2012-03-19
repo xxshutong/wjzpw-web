@@ -8,6 +8,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.forms.widgets import TextInput,RadioSelect,Select
 from django.forms.fields import DateField, ChoiceField, MultipleChoiceField
 #from django.contrib.auth.models import User
+from django.forms.util import ErrorList
 #
 #
 ## I put this on all required fields, because it's easier to pick up
@@ -15,6 +16,7 @@ from django.forms.fields import DateField, ChoiceField, MultipleChoiceField
 ## in the HTML. Your mileage may vary. If/when Django ticket #3515
 ## lands in trunk, this will no longer be necessary.
 #from wjzpw.webverse import models
+from wjzpw import settings
 from wjzpw.webverse.models import UserProfile
 from wjzpw.webverse.widgets import CaptchaWidget
 
@@ -26,6 +28,13 @@ class PersonalRegForm(forms.ModelForm):
     Validates that the requested username is not already in use, and
     requires the password to be entered twice to catch typos.
     """
+    def __init__(self, data=None, files=None, auto_id='id_%s', prefix=None,\
+                 initial=None, error_class=ErrorList, label_suffix=':',\
+                 empty_permitted=False, instance=None, request=None):
+        super(PersonalRegForm, self).__init__(data, files, auto_id, prefix, initial,\
+            error_class, label_suffix, empty_permitted, instance)
+        self.request = request
+
     class Meta:
         model = UserProfile
         fields = ('username','password','real_name','email','gender','birthday','census','location',
@@ -55,7 +64,7 @@ class PersonalRegForm(forms.ModelForm):
     password1 = forms.CharField(widget=forms.PasswordInput(render_value=False, attrs={'class': 'middle', 'size': 20}))
     password2 = forms.CharField(widget=forms.PasswordInput(render_value=False, attrs={'class': 'middle', 'size': 20}))
     tos = forms.BooleanField(widget=forms.CheckboxInput(), required=False)
-    verify_img = forms.ImageField(widget=CaptchaWidget())
+    verify_img = forms.CharField(widget=CaptchaWidget())
 
     def clean_username(self):
         """
@@ -99,6 +108,16 @@ class PersonalRegForm(forms.ModelForm):
         if self.cleaned_data.get('tos', False):
             return self.cleaned_data['tos']
         raise forms.ValidationError(_(u'必须同意用户服务协议才可以继续。'))
+
+    def clean_verify_img(self):
+        """
+        Validate that the verify code is valid.
+
+        """
+        verify_code = self.cleaned_data.get('verify_img', '')
+        if verify_code == self.request.session.get(settings.NAME, ''):
+            return verify_code
+        raise forms.ValidationError(_(u'验证码错误。'))
 
     def clean(self):
         """
