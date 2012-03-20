@@ -183,8 +183,8 @@
                             </div>
                         </div>
                         <!-- /clearfix -->
-                        <div class="clearfix">
-                            <label for="id_work_years"><span class="required_star">*</span>工作年限（类型选择有经验才显示）：</label>
+                        <div class="clearfix" id="work_years" style="display: none;">
+                            <label for="id_work_years"><span class="required_star">*</span>工作年限：</label>
                             <div class="input">
                                 <div class="inline-inputs">
                                     {{ form.work_years }}
@@ -245,6 +245,14 @@
         if(right_height > left_height) {
             $('.left_layer').height(right_height );
         }
+        // Initialize
+        var value = $('.job_type:checked').val();
+        if (value == 0) {
+            $('#work_years').show();
+        } else {
+            $('#work_years').hide();
+        }
+
 
         window.prettyPrint && prettyPrint();
         $('#id_birthday_f').datepicker({
@@ -288,6 +296,15 @@
             });
         });
 
+        // Work experience switch
+        $('.job_type').click(function() {
+            var value = $(this).val();
+            if (value == 0) {
+                $('#work_years').show();
+            } else {
+                $('#work_years').hide();
+            }
+        });
     })
 </script>
 <!-- 主体信息结束 -->

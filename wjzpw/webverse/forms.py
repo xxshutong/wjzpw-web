@@ -1,21 +1,12 @@
 # coding: utf-8
 from django import forms
-#from django.core.exceptions import ValidationError
 from django.db import transaction
-#from django.forms.extras.widgets import SelectDateWidget
-#from django.forms.widgets import PasswordInput
 from django.utils.translation import ugettext_lazy as _
 from django.forms.widgets import TextInput,RadioSelect,Select
 from django.forms.fields import DateField, ChoiceField, MultipleChoiceField
-#from django.contrib.auth.models import User
 from django.forms.util import ErrorList
 #
 #
-## I put this on all required fields, because it's easier to pick up
-## on them with CSS or JavaScript if they have a class of "required"
-## in the HTML. Your mileage may vary. If/when Django ticket #3515
-## lands in trunk, this will no longer be necessary.
-#from wjzpw.webverse import models
 from wjzpw import settings
 from wjzpw.webverse.models import UserProfile
 from wjzpw.webverse.widgets import CaptchaWidget
@@ -54,7 +45,7 @@ class PersonalRegForm(forms.ModelForm):
     real_name = forms.CharField(label=_(u"真实姓名"), max_length=30)
     birthday_f = forms.CharField(label=_(u'生日'), max_length=10, widget=TextInput(attrs={'readonly': 'true'}))
     gender = ChoiceField(widget=RadioSelect(attrs={'style':'width:auto;'}), choices=UserProfile.GENDER)
-    job_type = ChoiceField(widget=RadioSelect(attrs={'style':'width:auto;'}), choices=UserProfile.JOB_TYPE_TYPE)
+    job_type = ChoiceField(widget=RadioSelect(attrs={'style':'width:auto;', 'class':'job_type'}), choices=UserProfile.JOB_TYPE_TYPE)
     mobile_phone = forms.RegexField(label=_(u"手机(电话)"), max_length=15, regex=r'^\d+$',
         error_messages = {'invalid': _(u"请输入正确的手机号(电话)。")})
     qq = forms.RegexField(label=_(u"QQ"), max_length=15, regex=r'^[1-9][0-9]{4,}$',
@@ -88,6 +79,18 @@ class PersonalRegForm(forms.ModelForm):
         if UserProfile.objects.filter(email__iexact=self.cleaned_data['email']):
             raise forms.ValidationError(_(u'电子邮件已经存在.'))
         return self.cleaned_data['email']
+
+    def clean_work_years(self):
+        """
+        Validate if the work years is required.
+
+        """
+        job_type = self.cleaned_data.get('job_type', '')
+        work_years = self.cleaned_data['work_years']
+        if job_type and job_type == '0':
+            if not work_years or work_years == '':
+                raise forms.ValidationError(_(u'这个字段是必填的.'))
+        return work_years
 
     def clean_password2(self):
         """
