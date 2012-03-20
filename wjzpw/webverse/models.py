@@ -1,5 +1,4 @@
 # coding: utf-8
-from django.contrib.auth.models import get_hexdigest
 from django.db import models
 from django.db.models.fields.related import OneToOneField
 from django.utils.translation import ugettext_lazy as _
@@ -17,8 +16,6 @@ import datetime
 import random
 from wjzpw import settings
 from wjzpw.webverse.manager import UserProfileManager
-
-UNUSABLE_PASSWORD = '!' # This will never be a valid hash
 
 class AbstractModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, null=True)
@@ -159,16 +156,16 @@ class UserProfile(AbstractModel):
     cp_accept_notice = models.BooleanField('Accept Notice', default=True)
     cp_name = models.CharField('Company Name', max_length=255, null=True)
     cp_license = models.CharField('Business License', max_length=255, null=True)
-    cp_industry = models.ForeignKey(Industry, name='Industry Type')
+    cp_industry = models.ForeignKey(Industry, name='Industry Type', null=True, blank=True)
     cp_scope = models.IntegerField('Company Scope', max_length=2, choices=COMPANY_SCOPE_TYPE, default=0)
     cp_intro = models.CharField('Company Intro', max_length=50, null=True)
     cp_address = models.CharField('Company Address', max_length=2000, null=True)
     cp_postcode = models.CharField('Address Postcode', max_length=10, null=True)
     cp_contact = models.CharField('Contact Name', max_length=50, null=True)
-    cp_telephone = models.CharField('Contact Telephone', max_length=15)
-    cp_mobile_phone = models.CharField('Contact Mobile Phone', max_length=15)
-    cp_fax = models.CharField('Contact Fax', max_length=15)
-    cp_website = models.CharField('Web Site', max_length=50)
+    cp_telephone = models.CharField('Contact Telephone', max_length=15, null=True, blank=True)
+    cp_mobile_phone = models.CharField('Contact Mobile Phone', max_length=15, null=True, blank=True)
+    cp_fax = models.CharField('Contact Fax', max_length=15, null=True, blank=True)
+    cp_website = models.CharField('Web Site', max_length=50, null=True, blank=True)
     cp_service = models.ForeignKey(Service, name='Service', null=True, blank=True)
     cp_service_begin = models.DateField(null=True, blank=True)
     is_active = models.BooleanField(_('active'), default=True, help_text=_("Designates whether this user should be treated as active. Unselect this instead of deleting accounts."))
@@ -180,20 +177,6 @@ class UserProfile(AbstractModel):
     expires = models.IntegerField(null=True, blank=True)
 
     objects = UserProfileManager()
-
-    def set_password(self, raw_password):
-        if raw_password is None:
-            self.set_unusable_password()
-        else:
-            import random
-            algo = 'sha1'
-            salt = get_hexdigest(algo, str(random.random()), str(random.random()))[:5]
-            hsh = get_hexdigest(algo, salt, raw_password)
-            self.password = '%s$%s$%s' % (algo, salt, hsh)
-
-    def set_unusable_password(self):
-        # Sets a value that will never be a valid hash
-        self.password = UNUSABLE_PASSWORD
 
     def __unicode__(self):
         return str(self.user.id) + "-" + self.email

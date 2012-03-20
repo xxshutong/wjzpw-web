@@ -52,7 +52,7 @@ class PersonalRegForm(forms.ModelForm):
         error_messages = {'invalid': _(u"QQ格式不正确。")})
 
     #Additional
-    password1 = forms.CharField(widget=forms.PasswordInput(render_value=False, attrs={'class': 'middle', 'size': 20}))
+    password = forms.CharField(widget=forms.PasswordInput(render_value=False, attrs={'class': 'middle', 'size': 20}))
     password2 = forms.CharField(widget=forms.PasswordInput(render_value=False, attrs={'class': 'middle', 'size': 20}))
     tos = forms.BooleanField(widget=forms.CheckboxInput(), required=False)
     verify_img = forms.CharField(widget=CaptchaWidget())
@@ -97,9 +97,9 @@ class PersonalRegForm(forms.ModelForm):
         Validate that password and password2 is the same.
 
         """
-        password1 = self.cleaned_data.get("password1", "")
+        password = self.cleaned_data.get("password", "")
         password2 = self.cleaned_data["password2"]
-        if password1 != password2:
+        if password != password2:
             raise forms.ValidationError(_(u"两次输入的密码不一致。"))
         return password2
 
@@ -126,11 +126,21 @@ class PersonalRegForm(forms.ModelForm):
         """
         ``non_field_errors()`` because it doesn't apply to a single
         """
+        if self.cleaned_data.get('password2'):
+            del self.cleaned_data['password2']
+        if self.cleaned_data.get('birthday_f'):
+            del self.cleaned_data['birthday_f']
+            #TODO
+        if self.cleaned_data.get('tos'):
+            del self.cleaned_data['tos']
+        if self.cleaned_data.get('verify_img'):
+            del self.cleaned_data['verify_img']
+
         return self.cleaned_data
 
     @transaction.commit_on_success
-    def save(self, new_data):
+    def save(self, **new_data):
         #create user
-        user_profile = UserProfile.objects.create_user(new_data)
+        user_profile = UserProfile.objects.create_user(**new_data)
         user_profile.save()
         return user_profile
