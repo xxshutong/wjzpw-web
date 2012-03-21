@@ -1,6 +1,7 @@
 # coding: utf-8
 from django import forms
 from django.db import transaction
+from django.forms.models import ModelChoiceField
 from django.utils.translation import ugettext_lazy as _
 from django.forms.widgets import TextInput,RadioSelect,Select
 from django.forms.fields import DateField, ChoiceField, MultipleChoiceField
@@ -8,7 +9,7 @@ from django.forms.util import ErrorList
 #
 #
 from wjzpw import settings
-from wjzpw.webverse.models import UserProfile
+from wjzpw.webverse.models import UserProfile, City, Location
 from wjzpw.webverse.widgets import CaptchaWidget
 
 
@@ -43,13 +44,15 @@ class PersonalRegForm(forms.ModelForm):
     username = forms.RegexField(label=_(u"用户名"), max_length=30, regex=r'^[\w.@+-]+$',
         error_messages = {'invalid': _(u"用户名只能包含字母、数字和下划线等字符。")})
     real_name = forms.CharField(label=_(u"真实姓名"), max_length=30)
-    birthday_f = forms.CharField(label=_(u'生日'), max_length=10, widget=TextInput(attrs={'readonly': 'true'}))
+    birthday = forms.DateField(label=_(u'生日'), widget=TextInput(attrs={'readonly': 'true'}))
     gender = ChoiceField(widget=RadioSelect(attrs={'style':'width:auto;'}), choices=UserProfile.GENDER)
     job_type = ChoiceField(widget=RadioSelect(attrs={'style':'width:auto;', 'class':'job_type'}), choices=UserProfile.JOB_TYPE_TYPE)
     mobile_phone = forms.RegexField(label=_(u"手机(电话)"), max_length=15, regex=r'^\d+$',
         error_messages = {'invalid': _(u"请输入正确的手机号(电话)。")})
     qq = forms.RegexField(label=_(u"QQ"), max_length=15, regex=r'^[1-9][0-9]{4,}$',
         error_messages = {'invalid': _(u"QQ格式不正确。")})
+    census = ModelChoiceField(City.objects.all(), empty_label=_(u'请选择'))
+    location = ModelChoiceField(Location.objects.all(), empty_label=_(u'请选择'))
 
     #Additional
     password = forms.CharField(widget=forms.PasswordInput(render_value=False, attrs={'class': 'middle', 'size': 20}))

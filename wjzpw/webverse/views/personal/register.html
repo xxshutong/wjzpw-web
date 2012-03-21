@@ -79,11 +79,11 @@
                         </div>
                         <!-- /clearfix -->
                         <div class="clearfix">
-                            <label for="id_birthday_f"><span class="required_star">*</span>出生日期：</label>
+                            <label for="id_birthday"><span class="required_star">*</span>出生日期：</label>
                             <div class="input">
                                 <div class="inline-inputs">
-                                    {{ form.birthday_f }}
-                                    {{ form.birthday_f.errors }}
+                                    {{ form.birthday }}
+                                    {{ form.birthday.errors }}
                                 </div>
                             </div>
                         </div>
@@ -255,14 +255,14 @@
 
 
         window.prettyPrint && prettyPrint();
-        $('#id_birthday_f').datepicker({
-            format: 'mm-dd-yyyy'
+        $('#id_birthday').datepicker({
+            format: 'yyyy-mm-dd'
         })
                 .on('changeDate', function(ev){
-                    $('#id_birthday_f').datepicker('hide');
+                    $('#id_birthday').datepicker('hide');
                 });
-        $('#id_birthday_f').click(function() {
-            $('#id_birthday_f').datepicker('show');
+        $('#id_birthday').click(function() {
+            $('#id_birthday').datepicker('show');
         });
 
         // Province switch
