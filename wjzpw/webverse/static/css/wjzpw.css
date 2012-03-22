@@ -541,6 +541,7 @@ table tr td.odd {
 
 .choice_radio ul {
     height: 23px;
+    min-width: 180px;
 }
 
 ul.errorlist li{

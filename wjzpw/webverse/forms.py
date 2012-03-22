@@ -12,6 +12,26 @@ from wjzpw import settings
 from wjzpw.webverse.models import UserProfile, City, Location
 from wjzpw.webverse.widgets import CaptchaWidget
 
+class LoginForm(forms.Form):
+    username = forms.CharField(label=_(u"用户名"), max_length=30)
+    password = forms.CharField(widget=forms.PasswordInput(render_value=False, attrs={'class': 'middle', 'size': 20}))
+    verify_img = forms.CharField(widget=CaptchaWidget())
+    type = ChoiceField(widget=RadioSelect(attrs={'style':'width:auto;'}), initial=0, choices=UserProfile.USER_TYPE)
+
+    def clean_verify_img(self):
+        """
+        Validate that the verify code is valid.
+
+        """
+        verify_code = self.cleaned_data.get('verify_img', '')
+        if verify_code == self.request.session.get(settings.NAME, ''):
+            return verify_code
+        raise forms.ValidationError(_(u'验证码错误。'))
+
+    def clean(self):
+        pass
+
+
 
 class PersonalRegForm(forms.ModelForm):
     """
@@ -131,9 +151,6 @@ class PersonalRegForm(forms.ModelForm):
         """
         if self.cleaned_data.get('password2'):
             del self.cleaned_data['password2']
-        if self.cleaned_data.get('birthday_f'):
-            del self.cleaned_data['birthday_f']
-            #TODO
         if self.cleaned_data.get('tos'):
             del self.cleaned_data['tos']
         if self.cleaned_data.get('verify_img'):

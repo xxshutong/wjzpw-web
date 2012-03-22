@@ -7,7 +7,7 @@ class CaptchaWidget(Widget):
 
     def render(self, name, value, attrs = None):
         """
-        验证码HTML内容
+        HTML content of verify code image
         """
 
         attrs = self.build_attrs(attrs, name=name)

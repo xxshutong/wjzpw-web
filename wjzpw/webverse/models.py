@@ -89,8 +89,8 @@ class UserProfile(AbstractModel):
     Points are updated here but can be computed by the awarded points - redeemed points. For performance.
     """
     USER_TYPE = (
-        (0, 'Person'),
-        (1, 'Company')
+        (0, _(u'个人用户')),
+        (1, _(u'企业用户'))
     )
 
     GENDER = (

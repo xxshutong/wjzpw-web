@@ -26,3 +26,19 @@ class UserProfileManager(models.Manager):
             salt = get_hexdigest(algo, str(random.random()), str(random.random()))[:5]
             hsh = get_hexdigest(algo, salt, raw_password)
             return '%s$%s$%s' % (algo, salt, hsh)
+
+    def check_password(self, raw_password):
+        """
+        Returns a boolean of whether the raw_password was correct. Handles
+        encryption formats behind the scenes.
+        """
+        # Backwards-compatibility check. Older passwords won't include the
+        # algorithm or salt.
+        if '$' not in self.password:
+            is_correct = (self.password == get_hexdigest('md5', '', raw_password))
+            if is_correct:
+                # Convert the password to the new, more secure format.
+                self.set_password(raw_password)
+                self.save()
+            return is_correct
+        return check_password(raw_password, self.password)
