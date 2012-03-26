@@ -1,22 +1,24 @@
-from django.conf.urls.defaults import patterns, include, url
-from django.contrib import admin
+from django.conf.urls.defaults import patterns, url, include
 from django.conf import settings
-from django.conf.urls.static import static
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.contrib import admin
 
+admin.autodiscover()
 
 #landing
-urlpatterns = patterns('webverse.controllers.landing',
+urlpatterns = patterns('web.controllers.landing',
     # Landing page.
     url(r'^$', 'dashboard', name='dashboard'),
     url(r'^login/$', 'login', name='login'),
+    url(r'^feedback/$', 'feedback', name='feedback'),
     url(r'^ajax_get_city_by_province/(\d+)/$', 'ajax_get_city_by_province', name='ajax_get_city_by_province'),
     url(r'^verify_image/$', 'verify_image', name='verify_image'),
 
+    # Uncomment the next line to enable the admin:
+    url(r'^admin/', include(admin.site.urls)),
 )
 
 #personal
-urlpatterns += patterns('webverse.controllers.personal',
+urlpatterns += patterns('web.controllers.personal',
     # Personal register page.
     url(r'^personal/register/$', 'register', name='personal_register'),
 

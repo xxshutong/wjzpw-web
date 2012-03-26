@@ -4,57 +4,21 @@ import sys, os
 import urlparse
 
 # Register database schemes in URLs.
-urlparse.uses_netloc.append('postgres')
+import pgurl
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 PROJECT_DIR = os.getcwd()
-WEBVERSE_DIR = '/wjzpw/webverse'
+WEBVERSE_DIR = '/wjzpw/web'
 
 ADMINS = (
-    # ('Winston Ng', 'winston@xplusz.com'),
+     ('Jiang Chen', 'xxshutong@gmail.com'),
 )
 
 MANAGERS = ADMINS
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2', 
-        'NAME': 'wjzpw',
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': 'localhost',          
-        'PORT': '5432',              
-    }
-}
-try:
-
-    # Check to make sure DATABASES is set in settings.py file.
-    # If not default to {}
-
-    if 'DATABASES' not in locals():
-        DATABASES = {}
-
-    if 'DATABASE_URL' in os.environ:
-        url = urlparse.urlparse(os.environ['DATABASE_URL'])
-
-        # Ensure default database exists.
-        DATABASES['default'] = DATABASES.get('default', {})
-
-        # Update with environment configuration.
-        DATABASES['default'].update({
-            'NAME': url.path[1:],
-            'USER': url.username,
-            'PASSWORD': url.password,
-            'HOST': url.hostname,
-            'PORT': url.port,
-            })
-        if url.scheme == 'postgres':
-            DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql_psycopg2'
-
-except Exception:
-    print 'Unexpected error:', sys.exc_info()
+DATABASES = pgurl.get_db_settings()
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -87,7 +51,7 @@ MEDIA_ROOT = PROJECT_DIR + WEBVERSE_DIR
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
-MEDIA_URL = 'http://localhost:8000/'
+MEDIA_URL = 'http://localhost:8080/'
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
@@ -134,6 +98,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.static',
     'django.contrib.auth.context_processors.auth',
     'django.core.context_processors.request',
+    'django.contrib.messages.context_processors.messages'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -151,7 +116,7 @@ TEMPLATE_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     # IMPORTANT - this path only works for "foreman start" and not the typical "runserver" command.
-    PROJECT_DIR + "/wjzpw/webverse/views"
+    PROJECT_DIR + "/wjzpw/web/views"
 )
 
 INSTALLED_APPS = (
@@ -164,11 +129,11 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'south',
     'gunicorn',
-    'webverse',
+    'web',
     'jsonrpc',
 )
 
-AUTH_PROFILE_MODULE = 'webverse.UserProfile'
+AUTH_PROFILE_MODULE = 'web.UserProfile'
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',

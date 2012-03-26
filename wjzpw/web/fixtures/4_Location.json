@@ -1,0 +1,11 @@
+[
+    {
+        "model" : "web.Location",
+        "pk" : 1,
+        "fields" :
+        {
+            "name": "吴江经济技术开发区",
+            "spell": "wujiangjingjijishukaifaqu"
+        }
+    }
+]

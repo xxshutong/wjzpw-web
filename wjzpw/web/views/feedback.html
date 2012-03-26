@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block title %}吴江-招聘网 | 留言反馈{% endblock %}
+
+{% block content %}
+<!-- 主体信息开始 -->
+<div class="container">
+    <div class="content">
+        <div class="row">
+            <div class="left_layer">
+                <p class="title">感谢你对我站的关注</p>
+                <p>本站由一群吴江热血青年创立而成，万分期望大家能为我站提出宝贵意见，帮助我们不断改善网站体验，同时为大家提供更贴心的服务。</p>
+            </div>
+            <div class="right_layer" style="padding-top:0px;">
+                <div>
+                    {% if success %}
+                        success
+                    {% endif %}
+                    <form method="POST" action="{% url feedback %}" id="feedback_form" style="margin:0px;">
+                        {% csrf_token %}
+                        {{ feedback_from.non_field_errors }}
+                        <!-- 账户信息 -->
+                        <div class="main_login">
+                            <div class="tit">
+                                在线提交留言内容
+                            </div>
+                            <div>
+                                <fieldset>
+                                    <!-- /clearfix -->
+                                    <div class="clearfix">
+                                        <label for="xlInput"><span class="required_star">*</span>用户名/昵称：</label>
+                                        <div class="input">
+                                            <input type="text" size="30" name="xlInput" id="xlInput" class="middle">
+                                            {{ feedback_from.sender }}
+                                            {{ feedback_from.sender.errors }}
+                                        </div>
+                                    </div>
+                                    <!-- /clearfix -->
+                                    <div class="clearfix">
+                                        <label for="xlInput">邮箱地址：</label>
+                                        <div class="input">
+                                            {{ feedback_from.email }}
+                                            {{ feedback_from.email.errors }}
+                                        </div>
+                                    </div>
+                                    <!-- /clearfix -->
+                                    <div class="clearfix">
+                                        <label for="xlInput">类型：</label>
+                                        <div class="input">
+                                            <div class="inline-inputs">
+                                                <select id="companysize" name="companysize" style="width:100px;">
+                                                    <option value="0">建议</option>
+                                                    <option value="1">咨询</option>
+                                                    <option value="2">投诉</option>
+                                                </select>
+                                                {{ feedback_from.type }}
+                                                {{ feedback_from.type.errors }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /clearfix -->
+                                    <div class="clearfix">
+                                        <label for="xlInput"><span class="required_star">*</span>留言主题：</label>
+                                        <div class="input">
+                                            <input type="text" size="30" name="xlInput" id="xlInput" class="xlarge">
+                                            {{ feedback_from.subject }}
+                                            {{ feedback_from.subject.errors }}
+                                        </div>
+                                    </div>
+                                    <!-- /clearfix -->
+                                    <div class="clearfix">
+                                        <label for="xlInput">留言内容：</label>
+                                        <div class="input">
+                                            <textarea rows="5" name="textarea2" id="textarea2" class="xxlarge"></textarea>
+                                            {{ feedback_from.content }}
+                                            <span class="help-block">请详细填写，我们将对您的意见、建议作出及时回复。</span>
+                                            <span class="help-block">限2000个中文字，已输入<span style="color:red">0</span>个字</span>
+                                            {{ feedback_from.content.errors }}
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="main_login" style="border:none; -moz-box-shadow:none">
+                        <div class="actions">
+                            <button type="submit" class="btn primary">提交</button>&nbsp;<a class="btn" href="index.html">重置</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script language="javascript">
+    $(document).ready(function() {
+        right_height = $('.right_layer').height();
+        left_height = $('.left_layer').height();
+        if(right_height > left_height) {
+            $('.left_layer').height(right_height );
+        }
+    })
+</script>
+<!-- 主体信息结束 -->
+{% endblock %}
