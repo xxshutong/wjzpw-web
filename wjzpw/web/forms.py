@@ -1,15 +1,15 @@
 # coding: utf-8
 from django import forms
 from django.contrib.auth.models import User
-from django.db import transaction
 from django.forms.models import ModelChoiceField
 from django.utils.translation import ugettext_lazy as _
-from django.forms.widgets import TextInput,RadioSelect,Select
-from django.forms.fields import DateField, ChoiceField, MultipleChoiceField
+from django.forms.widgets import TextInput,RadioSelect
+from django.forms.fields import  ChoiceField
 from django.forms.util import ErrorList
 #
 #
 from wjzpw import settings
+from wjzpw.web.controllers.manager.UserProfileManager import create_user
 from wjzpw.web.models import UserProfile, City, Location, Feedback
 from wjzpw.web.widgets import CaptchaWidget
 
@@ -53,8 +53,6 @@ class PersonalRegForm(forms.ModelForm):
         fields = ('real_name','email','gender','birthday','census','location',
                   'mobile_phone','qq','wedding','stature','weight','job_state','job_type','work_years')
         widgets = {
-#            'username': TextInput(attrs={'size': 30}),
-#            'email': TextInput(attrs={'size': 25}),
             'mobile_phone': TextInput(attrs={'size': 30}),
             'qq': TextInput(attrs={'size': 15}),
             'stature': TextInput(attrs={'style': 'width:60px;'}),
@@ -159,13 +157,10 @@ class PersonalRegForm(forms.ModelForm):
 
         return self.cleaned_data
 
-#    @transaction.commit_on_success
     def save(self, **new_data):
-        pass
         #create user
-#        user_profile = UserProfile.objects.create_user(**new_data)
-#        user_profile.save()
-#        return user_profile
+        user_profile = create_user(**new_data)
+        return user_profile
 
 
 class FeedbackForm(forms.ModelForm):

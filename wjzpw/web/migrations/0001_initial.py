@@ -65,8 +65,8 @@ class Migration(SchemaMigration):
             ('real_name', self.gf('django.db.models.fields.CharField')(max_length=50, null=True)),
             ('gender', self.gf('django.db.models.fields.IntegerField')(default=2, max_length=2)),
             ('birthday', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
-            ('\xe6\x88\xb7\xe7\xb1\x8d', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['web.City'])),
-            ('\xe7\x8e\xb0\xe6\x89\x80\xe5\x9c\xa8\xe5\x9c\xb0', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['web.Location'])),
+            ('census', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['web.City'])),
+            ('location', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['web.Location'])),
             ('mobile_phone', self.gf('django.db.models.fields.CharField')(max_length=20)),
             ('qq', self.gf('django.db.models.fields.CharField')(max_length=20)),
             ('wedding', self.gf('django.db.models.fields.IntegerField')(default=0, max_length=2)),
@@ -124,7 +124,7 @@ class Migration(SchemaMigration):
             ('title', self.gf('django.db.models.fields.CharField')(max_length=255)),
             ('Company', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['web.UserProfile'])),
             ('type', self.gf('django.db.models.fields.IntegerField')(default=0, max_length=2)),
-            ('start_date', self.gf('django.db.models.fields.DateField')(default=datetime.datetime(2012, 3, 26, 21, 5, 28, 582940))),
+            ('start_date', self.gf('django.db.models.fields.DateField')(default=datetime.datetime(2012, 3, 29, 23, 23, 53, 358480))),
             ('end_date', self.gf('django.db.models.fields.DateField')()),
             ('img', self.gf('django.db.models.fields.files.ImageField')(max_length=100)),
             ('width', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
@@ -258,7 +258,7 @@ class Migration(SchemaMigration):
         },
         'auth.user': {
             'Meta': {'object_name': 'User'},
-            'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2012, 3, 26, 21, 5, 28, 617766)'}),
+            'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2012, 3, 29, 23, 23, 53, 398076)'}),
             'email': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'blank': 'True'}),
             'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
             'groups': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['auth.Group']", 'symmetrical': 'False', 'blank': 'True'}),
@@ -266,7 +266,7 @@ class Migration(SchemaMigration):
             'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
             'is_staff': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'is_superuser': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'last_login': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2012, 3, 26, 21, 5, 28, 617662)'}),
+            'last_login': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2012, 3, 29, 23, 23, 53, 397972)'}),
             'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
             'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
             'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'}),
@@ -378,7 +378,7 @@ class Migration(SchemaMigration):
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'img': ('django.db.models.fields.files.ImageField', [], {'max_length': '100'}),
             'order': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
-            'start_date': ('django.db.models.fields.DateField', [], {'default': 'datetime.datetime(2012, 3, 26, 21, 5, 28, 582940)'}),
+            'start_date': ('django.db.models.fields.DateField', [], {'default': 'datetime.datetime(2012, 3, 29, 23, 23, 53, 358480)'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
             'type': ('django.db.models.fields.IntegerField', [], {'default': '0', 'max_length': '2'}),
             'updated_at': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'null': 'True', 'blank': 'True'}),
@@ -386,7 +386,7 @@ class Migration(SchemaMigration):
             'width': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'})
         },
         'web.province': {
-            'Meta': {'object_name': 'Province'},
+            'Meta': {'ordering': "('name',)", 'object_name': 'Province'},
             'code': ('django.db.models.fields.CharField', [], {'max_length': '5', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
@@ -406,6 +406,7 @@ class Migration(SchemaMigration):
             'Service': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['web.Service']", 'null': 'True', 'blank': 'True'}),
             'access_token': ('django.db.models.fields.CharField', [], {'max_length': '1024', 'unique': 'True', 'null': 'True', 'blank': 'True'}),
             'birthday': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
+            'census': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['web.City']"}),
             'cp_accept_notice': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
             'cp_address': ('django.db.models.fields.CharField', [], {'max_length': '2000', 'null': 'True'}),
             'cp_contact': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
@@ -425,6 +426,7 @@ class Migration(SchemaMigration):
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'job_state': ('django.db.models.fields.IntegerField', [], {'default': '0', 'max_length': '2'}),
             'job_type': ('django.db.models.fields.IntegerField', [], {'default': '0', 'max_length': '2'}),
+            'location': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['web.Location']"}),
             'mobile_phone': ('django.db.models.fields.CharField', [], {'max_length': '20'}),
             'points_balance': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
             'qq': ('django.db.models.fields.CharField', [], {'max_length': '20'}),
@@ -435,9 +437,7 @@ class Migration(SchemaMigration):
             'user': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['auth.User']", 'unique': 'True'}),
             'wedding': ('django.db.models.fields.IntegerField', [], {'default': '0', 'max_length': '2'}),
             'weight': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
-            'work_years': ('django.db.models.fields.IntegerField', [], {'default': '0', 'max_length': '2', 'null': 'True', 'blank': 'True'}),
-            '\xe6\x88\xb7\xe7\xb1\x8d': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['web.City']"}),
-            '\xe7\x8e\xb0\xe6\x89\x80\xe5\x9c\xa8\xe5\x9c\xb0': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['web.Location']"})
+            'work_years': ('django.db.models.fields.IntegerField', [], {'default': '0', 'max_length': '2', 'null': 'True', 'blank': 'True'})
         }
     }
 

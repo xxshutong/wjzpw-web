@@ -145,15 +145,12 @@ class UserProfile(AbstractModel):
     )
 
     user = OneToOneField(User)
-#    username = models.CharField(_('用户名'), max_length=30, unique=True, help_text=_("Required. 30 characters or fewer. Letters, numbers and @/./+/-/_ characters"))
-#    email = models.EmailField(_('电子邮件'), max_length=80)
-#    password = models.CharField(_('密码'), max_length=128, help_text=_("Use '[algo]$[salt]$[hexdigest]' or use the <a href=\"password/\">change password form</a>."))
     type = models.IntegerField('User Type', max_length=2, choices=USER_TYPE, default=0)
     real_name = models.CharField('真实姓名', max_length=50, null=True, blank=False)
     gender = models.IntegerField('性别', max_length=2, choices=GENDER, default=2)
     birthday = models.DateField('生日', null=True, blank=True)
-    census = models.ForeignKey(City, name='户籍')
-    location = models.ForeignKey(Location, name='现所在地')
+    census = models.ForeignKey(City, name='census')
+    location = models.ForeignKey(Location, name='location')
     mobile_phone = models.CharField('手机/电话', max_length=20)
     qq = models.CharField('QQ', max_length=20)
     wedding = models.IntegerField('婚姻状况', max_length=2, choices=WEDDING_TYPE, default=0)
@@ -189,7 +186,7 @@ class UserProfile(AbstractModel):
 #    objects = UserProfileManager()
 
     def __unicode__(self):
-        return str(self.user.id) + "-" + self.email
+        return self.user.username + "-" + self.user.email
 
 
 ### Common service
