@@ -3,6 +3,9 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.fields.related import OneToOneField
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+
 
 # Defines the model for Digido.
 #
@@ -58,7 +61,7 @@ class City(models.Model):
     code = models.CharField('代码', max_length=5, blank=True)
     spell = models.CharField('拼音', max_length=50, blank=False)
     name = models.CharField('名称', max_length=255, blank=False)
-    province = models.ForeignKey(Province, name='Province')
+    province = models.ForeignKey(Province, name='province')
     def __unicode__(self):
         return self.name
 
@@ -344,3 +347,9 @@ class Captcha:
 
     def create(self):
         self.request.session[settings.NAME] = self.text()
+
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        UserProfile.objects.create(user=instance)
+
+post_save.connect(create_user_profile, sender=User)

@@ -217,6 +217,12 @@ EMAIL_HOST_PASSWORD = 'Mercury'
 EMAIL_PORT = 25
 EMAIL_FROM_USER = 'digiod_no_reply@126.com'
 
+#######################################################################################################################
+# USER PROFILE
+#######################################################################################################################
+AUTH_PROFILE_MODULE = 'web.UserProfile'
+
+
 PROJECT_ROOT = path.abspath(path.dirname(__file__))
 sys.path.append(path.join(PROJECT_ROOT, 'config'))
 

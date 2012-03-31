@@ -1,11 +1,13 @@
 # coding: utf-8
 from django import forms
+from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.forms.models import ModelChoiceField
 from django.utils.translation import ugettext_lazy as _
 from django.forms.widgets import TextInput,RadioSelect
 from django.forms.fields import  ChoiceField
 from django.forms.util import ErrorList
+from django.contrib.auth import login as djlogin
 #
 #
 from wjzpw import settings
@@ -14,6 +16,17 @@ from wjzpw.web.models import UserProfile, City, Location, Feedback
 from wjzpw.web.widgets import CaptchaWidget
 
 class LoginForm(forms.Form):
+    """
+    Login form
+    """
+
+    def __init__(self, data=None, files=None, auto_id='id_%s', prefix=None,
+                 initial=None, error_class=ErrorList, label_suffix=':',
+                 empty_permitted=False, request=None):
+        super(LoginForm, self).__init__(data, files, auto_id, prefix, initial,\
+            error_class, label_suffix, empty_permitted)
+        self.request = request
+
     username = forms.CharField(label=_(u"用户名"), max_length=30)
     password = forms.CharField(widget=forms.PasswordInput(render_value=False, attrs={'class': 'middle', 'size': 20}))
     verify_img = forms.CharField(widget=CaptchaWidget())
@@ -30,8 +43,19 @@ class LoginForm(forms.Form):
         raise forms.ValidationError(_(u'验证码错误。'))
 
     def clean(self):
-        pass
-
+        user = authenticate(username=self.cleaned_data['username'],
+            password=self.cleaned_data['password'])
+        if user:
+            if user.is_active:
+                if not user.is_staff and not user.is_superuser:
+                    djlogin(self.request, user)
+                    self.request.session.set_expiry(settings.SESSION_COOKIE_AGE)
+                else:
+                    raise forms.ValidationError(_(u'用户名或密码错误。'))
+            else:
+                raise forms.ValidationError(_(u'账户未被激活。'))
+        else:
+            raise forms.ValidationError(_(u'用户名或密码错误。'))
 
 
 class PersonalRegForm(forms.ModelForm):

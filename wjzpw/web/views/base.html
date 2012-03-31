@@ -37,17 +37,20 @@
                 </ul>
                 <div style="float:right">
                     <ul >
-                        <li><span style="float:left; padding-top:10px;">欢迎</span><a href="#" style="float:left">zhoulei984623</a></li>
-                        <li style="padding-top:10px">|</li>
-                        <li><a href="personal/dashboard/dashboard.html">控制面板</a></li>
-                        <li style="padding-top:10px">|</li>
-                        <li><a href="#">注册</a></li>
-                        <li style="padding-top:10px">|</li>
-                        <li><a href="#">登陆</a></li>
-                        <li style="padding-top:10px">|</li>
-                        <li><a href="company/addPosition.html">发布职位</a></li>
-                        <li style="padding-top:10px">|</li>
-                        <li><a href="#">退出</a></li>
+                        {% if user.is_active and not user.is_staff and not user.is_superuser %}
+                            <li><span style="float:left; padding-top:10px;">欢迎</span><a href="#" style="float:left">{{ user.username }}</a></li>
+                            <li style="padding-top:10px">|</li>
+                            <li><a href="personal/dashboard/dashboard.html">控制面板</a></li>
+                            <li style="padding-top:10px">|</li>
+                            <li><a href="company/addPosition.html">发布职位</a></li>
+                            <li style="padding-top:10px">|</li>
+                            <li><a href="{% url logout %}">退出</a></li>
+                        {% endif %}
+                        {% if user.is_anonymous %}
+                            <li><a href="#">注册</a></li>
+                            <li style="padding-top:10px">|</li>
+                            <li><a href="#">登陆</a></li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>

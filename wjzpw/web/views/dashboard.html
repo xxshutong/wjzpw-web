@@ -16,6 +16,12 @@
                         {% csrf_token %}
                         <fieldset>
                             <div class="clearfix">
+                                <label></label>
+                                <div class="input">
+                                    {{ login_form.non_field_errors }}
+                                </div>
+                            </div>
+                            <div class="clearfix">
                                 <label for="username">用户名：</label>
                                 <div class="input">
                                     {{ login_form.username }}
@@ -31,6 +37,7 @@
                                 <label for="code">验证码：</label>
                                 <div class="input">
                                     {{ login_form.verify_img }}
+                                    {{ login_form.verify_img.errors }}
                                 </div>
                             </div><!-- /clearfix -->
                             <div class="clearfix">
@@ -41,7 +48,7 @@
                             </div>
                             <div class="clearfix submit">
                                 <button class="btn primary" type="submit">登陆</button>
-                                <a href="#" class="btn primary" style="float:right">忘记密码</a>
+                                <button class="btn primary" href="#" style="float: right; width: 90px">忘记密码</button>
                             </div>
                             <div class="actions">
                                 <a href="/personal/register/" class="btn success" style="float:left">个人注册</a>

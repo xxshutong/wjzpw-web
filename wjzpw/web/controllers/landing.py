@@ -1,9 +1,7 @@
 from StringIO import StringIO
 import datetime
-from django.contrib.auth import authenticate
-from django.contrib.auth.models import User
-from django.shortcuts import render, render_to_response, redirect
-from django.http import HttpResponseRedirect,HttpResponse
+from django.shortcuts import  render_to_response, redirect
+from django.http import  HttpResponse
 from django.template.context import RequestContext
 from random import choice
 import Image
@@ -13,13 +11,14 @@ from wjzpw.web.controllers.utils import Utils
 from wjzpw.web.forms import LoginForm, FeedbackForm
 from wjzpw.web.models import City, Captcha, Announcement, FriendlyLink
 from django.utils import simplejson
+from django.contrib.auth import logout as djlogout
 
 dashboard_page = "../views/dashboard.html"
 feedback_page = "../views/feedback.html"
 
 def dashboard(request):
     """ Renders Dashboard/Home page. """
-    login_form = LoginForm()
+    login_form = LoginForm(request=request)
     announce_list = Announcement.objects.filter(end_date__gte=datetime.datetime.today()).order_by('-updated_at')
     link_list = FriendlyLink.objects.filter(is_active=True).order_by('updated_at')
     return render_to_response(
@@ -31,13 +30,26 @@ def dashboard(request):
     )
 
 def login(request):
-    """ Renders Dashboard/Home page. """
-    login_form = LoginForm(request.POST)
+    """
+    Logs User in.
+    """
+    login_form = LoginForm(request.POST, request=request)
+
+    if login_form.is_valid():
+        pass
     return render_to_response(
         dashboard_page, {}, RequestContext(request, {
             'login_form':login_form,
-            }),
+            }
+        ),
     )
+
+def logout(request):
+    """
+    Logs user out.
+    """
+    djlogout(request)
+    return redirect('/')
 
 def feedback(request):
     """ Renders Feedback page. """
@@ -61,8 +73,9 @@ def ajax_get_city_by_province(request, province_id):
     """
     data = ''
     if request.method == 'GET':
-        city_list = City.objects.filter(province = int(province_id))
+        city_list = City.objects.filter(province__id = int(province_id))
         data = simplejson.dumps(Utils.generate_options(city_list))
+        print data
     return HttpResponse(data, 'application/json')
 
 def verify_image(request):

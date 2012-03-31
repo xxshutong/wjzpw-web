@@ -9,6 +9,7 @@ urlpatterns = patterns('web.controllers.landing',
     # Landing page.
     url(r'^$', 'dashboard', name='dashboard'),
     url(r'^login/$', 'login', name='login'),
+    url(r'^logout/$', 'logout', name='logout'),
     url(r'^feedback/$', 'feedback', name='feedback'),
     url(r'^ajax_get_city_by_province/(\d+)/$', 'ajax_get_city_by_province', name='ajax_get_city_by_province'),
     url(r'^verify_image/$', 'verify_image', name='verify_image'),
