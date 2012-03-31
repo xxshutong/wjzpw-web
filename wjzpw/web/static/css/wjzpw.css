@@ -533,6 +533,17 @@ table tr td.odd {
 	margin-left:0px;
 }
 
+.real_name {
+    FONT-SIZE: 14px;
+    font-weight: bold;
+    text-decoration: underline;
+    color: "#ff0000"
+}
+
+.main_login ul li {
+    margin-top: 10px;
+}
+
 /****************For django change**********/
 .choice_radio ul li label {
     padding-right: 5px;

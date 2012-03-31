@@ -9,54 +9,81 @@
             <!-- 登陆框 -->
             <div class="main_login">
                 <div class="tit">
-                    <span><a class="more" href="#">忘记密码？</a></span>会员登录
+                    {% if user.is_anonymous %}
+                        <span><a class="more" href="#">忘记密码？</a></span>
+                    {% endif %}
+                    会员登录
                 </div>
-                <div class="con">
-                    <form method="POST" action="{% url login %}" id="login_form">
-                        {% csrf_token %}
-                        <fieldset>
-                            <div class="clearfix">
-                                <label></label>
-                                <div class="input">
-                                    {{ login_form.non_field_errors }}
+                {% if user.is_anonymous %}
+                    <div class="con">
+                        <form method="POST" action="{% url login %}" id="login_form">
+                            {% csrf_token %}
+                            <fieldset>
+                                <div class="clearfix">
+                                    <label></label>
+                                    <div class="input">
+                                        {{ login_form.non_field_errors }}
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="clearfix">
-                                <label for="username">用户名：</label>
-                                <div class="input">
-                                    {{ login_form.username }}
+                                <div class="clearfix">
+                                    <label for="username">用户名：</label>
+                                    <div class="input">
+                                        {{ login_form.username }}
+                                    </div>
+                                </div><!-- /clearfix -->
+                                <div class="clearfix">
+                                    <label for="passwd">密　码：</label>
+                                    <div class="input">
+                                        {{ login_form.password }}
+                                    </div>
+                                </div><!-- /clearfix -->
+                                <div class="clearfix">
+                                    <label for="code">验证码：</label>
+                                    <div class="input">
+                                        {{ login_form.verify_img }}
+                                        {{ login_form.verify_img.errors }}
+                                    </div>
+                                </div><!-- /clearfix -->
+                                <div class="clearfix">
+                                    <label id="type">类　型：</label>
+                                    <div class="input choice_radio">
+                                        {{ login_form.type }}
+                                    </div>
                                 </div>
-                            </div><!-- /clearfix -->
-                            <div class="clearfix">
-                                <label for="passwd">密　码：</label>
-                                <div class="input">
-                                    {{ login_form.password }}
+                                <div class="clearfix submit">
+                                    <button class="btn primary" type="submit">登陆</button>
+                                    <button class="btn primary" href="#" style="float: right; width: 90px">忘记密码</button>
                                 </div>
-                            </div><!-- /clearfix -->
-                            <div class="clearfix">
-                                <label for="code">验证码：</label>
-                                <div class="input">
-                                    {{ login_form.verify_img }}
-                                    {{ login_form.verify_img.errors }}
+                                <div class="actions">
+                                    <a href="/personal/register/" class="btn success" style="float:left">个人注册</a>
+                                    <a href="company/register.html" class="btn success" style="float:right">企业注册</a>
                                 </div>
-                            </div><!-- /clearfix -->
-                            <div class="clearfix">
-                                <label id="type">类　型：</label>
-                                <div class="input choice_radio">
-                                    {{ login_form.type }}
+                            </fieldset>
+                        </form>
+                    </div>
+                {% endif %}
+                {% if user.is_active and not user.is_staff and not user.is_superuser %}
+                    <div class="con">
+                        <ul style="text-align: center">
+                            <li class="real_name">{{ user.get_profile.real_name}}</li>
+                            <li>你好！欢迎使用吴江-招聘网</li>
+                            <li>
+                                <div class="clearfix submit">
+                                    <a class="more" href="#">>简历管理</a>
+                                    &nbsp;
+                                    <a class="more" href="#">>职位搜索</a>
                                 </div>
-                            </div>
-                            <div class="clearfix submit">
-                                <button class="btn primary" type="submit">登陆</button>
-                                <button class="btn primary" href="#" style="float: right; width: 90px">忘记密码</button>
-                            </div>
-                            <div class="actions">
-                                <a href="/personal/register/" class="btn success" style="float:left">个人注册</a>
-                                <a href="company/register.html" class="btn success" style="float:right">企业注册</a>
-                            </div>
-                        </fieldset>
-                    </form>
-                </div>
+                            </li>
+                            <li>
+                                <a class="btn success" href="#">控制面板</>
+                                <a class="btn" href="{% url logout %}" style="float:right;">退出</a>
+                            </li>
+                            <li>您当前的积分为：{{ user.get_profile.points_balance }}</li>
+                            <li>您最近登录的时间：</li>
+                            <li>{{ user.last_login|date:"Y年m月d日 H时i分" }}</li>
+                        </ul>
+                    </div>
+                {% endif %}
             </div>
             <!-- 搜索框 -->
             <div class="main_search">

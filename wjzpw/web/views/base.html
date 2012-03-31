@@ -42,8 +42,10 @@
                             <li style="padding-top:10px">|</li>
                             <li><a href="personal/dashboard/dashboard.html">控制面板</a></li>
                             <li style="padding-top:10px">|</li>
-                            <li><a href="company/addPosition.html">发布职位</a></li>
-                            <li style="padding-top:10px">|</li>
+                            {% if user.type == '1' %}
+                                <li><a href="company/addPosition.html">发布职位</a></li>
+                                <li style="padding-top:10px">|</li>
+                            {% endif %}
                             <li><a href="{% url logout %}">退出</a></li>
                         {% endif %}
                         {% if user.is_anonymous %}
