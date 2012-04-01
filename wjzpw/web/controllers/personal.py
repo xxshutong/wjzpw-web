@@ -1,7 +1,4 @@
-from django.contrib.auth import authenticate
-from django.contrib.auth.models import User
-from django.shortcuts import render, render_to_response, redirect
-from django.http import HttpResponseRedirect
+from django.shortcuts import  render_to_response
 from django.template.context import RequestContext
 from wjzpw.web.forms import PersonalRegForm
 from wjzpw.web.models import Province

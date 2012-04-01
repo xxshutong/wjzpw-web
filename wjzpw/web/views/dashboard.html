@@ -19,12 +19,14 @@
                         <form method="POST" action="{% url login %}" id="login_form">
                             {% csrf_token %}
                             <fieldset>
-                                <div class="clearfix">
-                                    <label></label>
-                                    <div class="input">
-                                        {{ login_form.non_field_errors }}
+                                {% if error %}
+                                    <div class="clearfix">
+                                        <label></label>
+                                        <div class="input" style="font-style: italic; color: red;">
+                                            {{ error }}
+                                        </div>
                                     </div>
-                                </div>
+                                {% endif %}
                                 <div class="clearfix">
                                     <label for="username">用户名：</label>
                                     <div class="input">
@@ -63,7 +65,7 @@
                     </div>
                 {% endif %}
                 {% if user.is_active and not user.is_staff and not user.is_superuser %}
-                    <div class="con">
+                    <div class="con main_login_success">
                         <ul style="text-align: center">
                             <li class="real_name">{{ user.get_profile.real_name}}</li>
                             <li>你好！欢迎使用吴江-招聘网</li>

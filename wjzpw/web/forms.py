@@ -1,13 +1,13 @@
 # coding: utf-8
 from django import forms
-from django.contrib.auth import authenticate
+
 from django.contrib.auth.models import User
 from django.forms.models import ModelChoiceField
 from django.utils.translation import ugettext_lazy as _
 from django.forms.widgets import TextInput,RadioSelect
 from django.forms.fields import  ChoiceField
 from django.forms.util import ErrorList
-from django.contrib.auth import login as djlogin
+
 #
 #
 from wjzpw import settings
@@ -41,21 +41,6 @@ class LoginForm(forms.Form):
         if verify_code == self.request.session.get(settings.NAME, ''):
             return verify_code
         raise forms.ValidationError(_(u'验证码错误。'))
-
-    def clean(self):
-        user = authenticate(username=self.cleaned_data['username'],
-            password=self.cleaned_data['password'])
-        if user:
-            if user.is_active:
-                if not user.is_staff and not user.is_superuser:
-                    djlogin(self.request, user)
-                    self.request.session.set_expiry(settings.SESSION_COOKIE_AGE)
-                else:
-                    raise forms.ValidationError(_(u'用户名或密码错误。'))
-            else:
-                raise forms.ValidationError(_(u'账户未被激活。'))
-        else:
-            raise forms.ValidationError(_(u'用户名或密码错误。'))
 
 
 class PersonalRegForm(forms.ModelForm):

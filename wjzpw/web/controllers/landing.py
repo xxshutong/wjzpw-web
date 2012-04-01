@@ -1,3 +1,4 @@
+# coding: utf-8
 from StringIO import StringIO
 import datetime
 from django.shortcuts import  render_to_response, redirect
@@ -11,7 +12,9 @@ from wjzpw.web.controllers.utils import Utils
 from wjzpw.web.forms import LoginForm, FeedbackForm
 from wjzpw.web.models import City, Captcha, Announcement, FriendlyLink
 from django.utils import simplejson
-from django.contrib.auth import logout as djlogout
+from django.contrib.auth import logout as djlogout, authenticate
+from django.contrib.auth import login as djlogin
+from django.utils.translation import ugettext_lazy as _
 
 dashboard_page = "../views/dashboard.html"
 feedback_page = "../views/feedback.html"
@@ -35,11 +38,25 @@ def login(request):
     """
     login_form = LoginForm(request.POST, request=request)
 
+    error = ''
     if login_form.is_valid():
-        pass
+        user = authenticate(username=login_form.cleaned_data.get('username', None),
+            password=login_form.cleaned_data.get('password', None))
+        if user:
+            if user.is_active:
+                if not user.is_staff and not user.is_superuser:
+                    djlogin(request, user)
+                    login_form.request.session.set_expiry(settings.SESSION_COOKIE_AGE)
+                else:
+                    error = _(u'用户名或密码错误。')
+            else:
+                error = _(u'账户未被激活。')
+        else:
+            error = _(u'用户名或密码错误。')
     return render_to_response(
         dashboard_page, {}, RequestContext(request, {
             'login_form':login_form,
+            'error': error
             }
         ),
     )
