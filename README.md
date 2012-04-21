@@ -9,26 +9,27 @@ THE STACK
 
 PREREQUISITE
 ------------
-These instructions are for Mac OSX only. sudo where necessary.
-* Install HomeBrew
-
-    > /usr/bin/ruby -e "$(curl -fsSL https://raw.github.com/gist/323731)"
-
+These instructions are for Ubuntu only. sudo where necessary.
 * Install Git
-
-    > brew install git
+    > sudo apt-get install git-core
 
 * Install Postgresql
+    > sudo apt-get install postgresql
+    > sudo passwd postgres(Change password for postgres)
 
-    > brew install postgresql
-    > initdb /usr/local/var/postgres
-    > mkdir -p ~/Library/LaunchAgents
-    > cp /usr/local/Cellar/postgresql/9.1.1/org.postgresql.postgres.plist ~/Library/LaunchAgents/
-    > launchctl load -w ~/Library/LaunchAgents/org.postgresql.postgres.plist
+* Install ruby gems
+    > apt-get install rubygems1.8
 
-* gem install heroku
 * gem install foreman(2.6.1)
+    Download 2.6.1 manually(http://rubygems.org/downloads/foreman-0.26.1.gem)
+    > wget http://rubygems.org/downloads/foreman-0.26.1.gem
+    > gem install foreman-0.26.1.gem
+
 * python
+
+* Install virtualenv
+    > apt-get install python-setuptools
+    > easy_install virtualenv
 
 
 QUICK START
@@ -36,9 +37,10 @@ QUICK START
 1. Get repository access from xxshutong@gmail.com.
 2. git clone git@github.com:xxshutong/wjzpw-web.git
 3. cd wjzpw-web
-4. ./setup.sh
-5. source .ve/bin/activate
-6. createdb wjzpw
+4. sudo apt-get install libpq-dev python-dev
+5. ./setup.sh
+6. source .ve/bin/activate
+7. createdb wjzpw
 8. ./wjzpw/manage.py syncdb
 9. ./wjzpw/manage.py migrate
 10. To start the server, you must run it from within the wjzpw-web directory.

@@ -105,6 +105,9 @@ class City(models.Model):
     """
     City info.
     """
+    class Meta:
+        verbose_name_plural = _(u"城市列表")
+
     CITY_TYPE = (
         (0, 'City'),
         (1, 'Area')
@@ -121,6 +124,9 @@ class Location(models.Model):
     """
     Location info.
     """
+    class Meta:
+        verbose_name_plural = _(u"工作地列表")
+
     spell = models.CharField(u'拼音', max_length=50, blank=False)
     name = models.CharField(u'名称', max_length=255, blank=False)
     order = models.IntegerField(u'顺序', max_length=2, default=0)
@@ -131,6 +137,9 @@ class Industry(models.Model):
     """
     Industry info
     """
+    class Meta:
+        verbose_name_plural = _(u"行业列表")
+
     spell = models.CharField('拼音', max_length=50, blank=True)
     name = models.CharField('名称', max_length=255, blank=False)
     def __unicode__(self):
@@ -140,6 +149,9 @@ class Position(models.Model):
     """
     Position info separated by industry
     """
+    class Meta:
+        verbose_name_plural = _(u"职位列表")
+
     industry = models.ForeignKey(Industry, name='industry')
     spell = models.CharField(_(u'拼音'), max_length=50, blank=True)
     name = models.CharField(_(u'职位名称'), max_length=255)
@@ -147,6 +159,9 @@ class Position(models.Model):
         return self.name
 
 class Service(models.Model):
+    class Meta:
+        verbose_name_plural = _(u"VIP服务列表")
+
     PERIOD_TYPE = (
         (0, 'Free'),
         (1, 'One month'),
@@ -163,6 +178,9 @@ class MajorType(models.Model):
     Major info
     """
     class Meta:
+        verbose_name_plural = _(u"专业列表")
+
+    class Meta:
         verbose_name = _(u"专业")
         verbose_name_plural = _(u"专业列表")
         ordering = ("name",)
@@ -178,6 +196,9 @@ class UserProfile(AbstractModel):
     Profile for any users with access to the system.
     Points are updated here but can be computed by the awarded points - redeemed points. For performance.
     """
+    class Meta:
+        verbose_name_plural = _(u"账户列表")
+
     USER_TYPE = (
         (0, _(u'个人用户')),
         (1, _(u'企业用户'))
@@ -263,17 +284,20 @@ class Resume(AbstractModel):
     """
     个人简历
     """
+    class Meta:
+        verbose_name_plural = _(u"简历列表")
+
     user_profile = models.ForeignKey(UserProfile, name='user_profile')
     resume_name = models.CharField(_(u'简历名称'), max_length=100, default=_(u'我的简历'))
-    job_type = models.IntegerField(_(u'职位类型'), max_length=2, choices=JOB_TYPE)
+    job_type = models.IntegerField(_(u'职位类型'), max_length=2, choices=JOB_TYPE, default=1)
     industry = models.ForeignKey(Industry, name='industry', help_text=_(u'期望行业'))
     positions = models.ManyToManyField(Position, help_text=_(u'期望职位'))
-    location = models.ForeignKey(Location, name='location', help_text=_(u'工作地点'), null=True, blank=True)
+    location = models.ForeignKey(Location, name='location', help_text=_(u'工作地点'))
     is_supply_house = models.BooleanField(_(u'是否提供住房'), default=False)
     salary = models.IntegerField(_(u'待遇要求'), choices=SALARY_TYPE, default=0)
     attendance_time = models.IntegerField(_(u'到岗时间'), choices=ATTENDANCE_TIME, default=1)
     avatar = models.ImageField(_(u'简历头像'), upload_to='upload/avatars', null=True, blank=True)
-    self_desc = models.CharField(_(u'自我评价'), max_length=2000, null=True)
+    self_desc = models.CharField(_(u'自我评价'), max_length=2000, null=True, blank=True)
 
     def __unicode__(self):
         return self.user_profile.user.username + "-" + self.resume_name
@@ -282,6 +306,9 @@ class EduExperience(AbstractModel):
     """
     教育背景，最高学历
     """
+    class Meta:
+        verbose_name_plural = _(u"教育背景列表")
+
     resume = models.ForeignKey(Resume, name='resume')
     start_date = models.DateField()
     end_date = models.DateField(null=True, blank=True)
@@ -299,6 +326,9 @@ class WorkExperience(AbstractModel):
     """
     工作经历
     """
+    class Meta:
+        verbose_name_plural = _(u"工作经验列表")
+
     resume = models.ForeignKey(Resume, name='resume')
     start_date = models.DateField()
     end_date = models.DateField(null=True, blank=True)
@@ -318,6 +348,9 @@ class Job(AbstractModel):
     """
     岗位实体
     """
+    class Meta:
+        verbose_name_plural = _(u"工作岗位列表")
+
     EXPERIENCE_TYPE = (
         (0, 'Unlimited'),
         (1, '1 year'),
@@ -363,6 +396,9 @@ class PictureAdv(AbstractModel):
     """
     Picture advertisement
     """
+    class Meta:
+        verbose_name_plural = _(u"图片广告列表")
+
     IMG_ADV_TYPE = (
         (0, _(u'未指定')),
         (1, _(u'显示在首页'))
@@ -385,6 +421,9 @@ class Feedback(AbstractModel):
     """
     Feedback from visitor or member
     """
+    class Meta:
+        verbose_name_plural = _(u"用户反馈列表")
+
     TYPE = (
         (0, 'Suggest'),
         (1, 'Consult'),
@@ -401,6 +440,9 @@ class Announcement(AbstractModel):
     """
     Announcement for show in dashboard
     """
+    class Meta:
+        verbose_name_plural = _(u"通知列表")
+
     subject = models.CharField('Subject', max_length=255)
     content = models.CharField('Content', max_length=10000)
     end_date = models.DateField('End Date', blank=True)
@@ -409,6 +451,9 @@ class FriendlyLink(AbstractModel):
     """
     Friend Link Model
     """
+    class Meta:
+        verbose_name_plural = _(u"友情链接列表")
+
     name = models.CharField(_(u'名称'), max_length=100)
     web_site = models.URLField(_(u'网站地址'), max_length=200)
     is_active = models.BooleanField(_(u'是否激活'), default=True)
@@ -422,6 +467,9 @@ class EventSearchPerson(AbstractModel):
 
 ### Configuration
 class Configuration(AbstractModel):
+    class Meta:
+        verbose_name_plural = _(u"配置信息")
+
     hot_line_one = models.CharField('Hot Line 1', max_length=20)
     hot_line_two = models.CharField('Hot Line 2', max_length=20, blank=True)
     qq = models.CharField('QQ', max_length=50)

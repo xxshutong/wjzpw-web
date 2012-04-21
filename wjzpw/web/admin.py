@@ -1,8 +1,11 @@
 # coding: utf-8
 from django.contrib import admin
-from wjzpw.web.models import Province, Industry, Location, City, UserProfile, Service, Job, PictureAdv, Announcement, Configuration, Feedback, FriendlyLink, MajorType
+from wjzpw.web.models import Province, Industry, Location, City, UserProfile, Service, Job, PictureAdv, Announcement, Configuration, Feedback, FriendlyLink, MajorType, Position, Resume
 
 class IndustryAdmin(admin.ModelAdmin):
+    pass
+
+class PositionAdmin(admin.ModelAdmin):
     pass
 
 class LocationAdmin(admin.ModelAdmin):
@@ -25,6 +28,9 @@ class UserProfileAdmin(admin.ModelAdmin):
     pass
 
 class ServiceAdmin(admin.ModelAdmin):
+    pass
+
+class ResumeAdmin(admin.ModelAdmin):
     pass
 
 class JobAdmin(admin.ModelAdmin):
@@ -58,3 +64,5 @@ admin.site.register(Configuration, ConfigAdmin)
 admin.site.register(Feedback, FeedbackAdmin)
 admin.site.register(FriendlyLink, FriendlyLinkAdmin)
 admin.site.register(MajorType, MajorAdmin)
+admin.site.register(Position, PositionAdmin)
+admin.site.register(Resume, ResumeAdmin)

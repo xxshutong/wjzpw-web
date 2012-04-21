@@ -36,23 +36,26 @@ def login(request):
     """
     Logs User in.
     """
-    login_form = LoginForm(request.POST, request=request)
-
     error = ''
-    if login_form.is_valid():
-        user = authenticate(username=login_form.cleaned_data.get('username', None),
-            password=login_form.cleaned_data.get('password', None))
-        if user:
-            if user.is_active:
-                if not user.is_staff and not user.is_superuser:
-                    djlogin(request, user)
-                    login_form.request.session.set_expiry(settings.SESSION_COOKIE_AGE)
+    if request.method == 'GET':
+        return redirect('/')
+    else:
+        login_form = LoginForm(request.POST, request=request)
+
+        if login_form.is_valid():
+            user = authenticate(username=login_form.cleaned_data.get('username', None),
+                password=login_form.cleaned_data.get('password', None))
+            if user:
+                if user.is_active:
+                    if not user.is_staff and not user.is_superuser:
+                        djlogin(request, user)
+                        login_form.request.session.set_expiry(settings.SESSION_COOKIE_AGE)
+                    else:
+                        error = _(u'用户名或密码错误。')
                 else:
-                    error = _(u'用户名或密码错误。')
+                    error = _(u'账户未被激活。')
             else:
-                error = _(u'账户未被激活。')
-        else:
-            error = _(u'用户名或密码错误。')
+                error = _(u'用户名或密码错误。')
     return render_to_response(
         dashboard_page, {}, RequestContext(request, {
             'login_form':login_form,

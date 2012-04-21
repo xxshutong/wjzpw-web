@@ -1,0 +1,22 @@
+[
+    {
+        "model" : "web.Position",
+        "pk" : 1,
+        "fields" :
+        {
+            "industry": 1,
+            "name": "软件工程师",
+            "spell": "ruanjiangongchengshi"
+        }
+    },
+    {
+        "model" : "web.Position",
+        "pk" : 2,
+        "fields" :
+        {
+            "industry": 1,
+            "name": "系统分析师",
+            "spell": "xitongfenxishi"
+        }
+    }
+]

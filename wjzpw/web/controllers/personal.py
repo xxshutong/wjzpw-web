@@ -1,14 +1,15 @@
 from django.shortcuts import  render_to_response
 from django.template.context import RequestContext
-from wjzpw.web.forms import PersonalRegForm
+from wjzpw.web.forms import PersonalRegForm, ResumeForm
 from wjzpw.web.models import Province
 
-register_page = "../views/personal/register.html"
+REGISTER_PAGE = "../views/personal/register.html"
+RESUME_DETAIL_PAGE = "../views/personal/register_detail.html"
 
-"""
-Personal registration
-"""
-def register(request):
+def personal_register(request):
+    """
+    Personal registration
+    """
     form = PersonalRegForm(request=request)
 
     if request.method == 'POST':
@@ -20,9 +21,25 @@ def register(request):
     # go to register page
     provinces = Province.objects.all()
     return render_to_response(
-        register_page, {}, RequestContext(request, {
+        REGISTER_PAGE, {}, RequestContext(request, {
             'form':form,
             'provinces':provinces
         }),
     )
 
+def resume_detail(request):
+    """
+    Resume detail
+    """
+    if request.method == 'GET':
+        resume_form = ResumeForm()
+    else:
+        resume_form = ResumeForm(request.POST)
+        if resume_form.is_valid():
+            resume_form.save()
+
+    return render_to_response(
+        RESUME_DETAIL_PAGE, {}, RequestContext(request, {
+            'resume_form': resume_form
+        }),
+    )

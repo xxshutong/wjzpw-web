@@ -1,0 +1,20 @@
+[
+    {
+        "model" : "web.Industry",
+        "pk" : 1,
+        "fields" :
+        {
+            "name": "计算机软件",
+            "spell": "jisuanjiruanjian"
+        }
+    },
+    {
+        "model" : "web.Industry",
+        "pk" : 2,
+        "fields" :
+        {
+            "name": "计算机硬件",
+            "spell": "jisuanjiyingjian"
+        }
+    }
+]

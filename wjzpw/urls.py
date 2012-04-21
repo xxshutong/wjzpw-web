@@ -21,7 +21,8 @@ urlpatterns = patterns('web.controllers.landing',
 #personal
 urlpatterns += patterns('web.controllers.personal',
     # Personal register page.
-    url(r'^personal/register/$', 'register', name='personal_register'),
+    url(r'^personal/register/$', 'personal_register', name='personal_register'),
+    url(r'^personal/resume_detail/$', 'resume_detail', name='resume_detail'),
 
 )
 

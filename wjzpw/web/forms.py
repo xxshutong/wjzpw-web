@@ -4,7 +4,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.forms.models import ModelChoiceField
 from django.utils.translation import ugettext_lazy as _
-from django.forms.widgets import TextInput,RadioSelect
+from django.forms.widgets import TextInput,RadioSelect, Textarea
 from django.forms.fields import  ChoiceField
 from django.forms.util import ErrorList
 
@@ -12,7 +12,7 @@ from django.forms.util import ErrorList
 #
 from wjzpw import settings
 from wjzpw.web.controllers.manager.UserProfileManager import create_user
-from wjzpw.web.models import UserProfile, City, Location, Feedback
+from wjzpw.web.models import UserProfile, City, Location, Feedback, Resume, Industry
 from wjzpw.web.widgets import CaptchaWidget
 
 class LoginForm(forms.Form):
@@ -171,6 +171,18 @@ class PersonalRegForm(forms.ModelForm):
         user_profile = create_user(**new_data)
         return user_profile
 
+
+class ResumeForm(forms.ModelForm):
+    """
+    Form for input resume
+    """
+    class Meta:
+        model = Resume
+        exclude = ('resume_name',)
+
+    industry = ModelChoiceField(Industry.objects.all(), empty_label=_(u'请选择'))
+    location = ModelChoiceField(Location.objects.all(), empty_label=None)
+    self_desc = forms.CharField(widget=Textarea(attrs={'rows': 3, 'class': 'xxlarge'}))
 
 class FeedbackForm(forms.ModelForm):
 

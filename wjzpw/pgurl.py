@@ -21,8 +21,8 @@ def get_db_settings():
         else:
             dbs['default'] = {
                 'NAME': 'wjzpw',
-                'USER': 'storypanda',
-                'PASSWORD': 'storypanda',
+                'USER': 'postgres',
+                'PASSWORD': 'postgres',
                 'HOST': 'localhost',
                 'PORT': '',
                 }
