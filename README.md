@@ -16,9 +16,13 @@ These instructions are for Ubuntu only. sudo where necessary.
 * Install Postgresql
     > sudo apt-get install postgresql
     > sudo passwd postgres(Change password for postgres)
+    > sudo -u postgres psql
+    > alter user postgres with password 'postgres'
 
-* Install ruby gems
-    > apt-get install rubygems1.8
+* Install ruby gems(Version must be bigger than 1.3.5)
+    > apt-get install ruby
+    > http://rubyforge.org/frs/?group_id=126(Download the latest version)
+    > ruby setup.rb
 
 * gem install foreman(2.6.1)
     Download 2.6.1 manually(http://rubygems.org/downloads/foreman-0.26.1.gem)

@@ -11,8 +11,9 @@ from django.forms.util import ErrorList
 #
 #
 from wjzpw import settings
+from wjzpw.web import constant
 from wjzpw.web.controllers.manager.UserProfileManager import create_user
-from wjzpw.web.models import UserProfile, City, Location, Feedback, Resume, Industry
+from wjzpw.web.models import UserProfile, City, Location, Feedback, Resume, Industry, EduExperience, WorkExperience
 from wjzpw.web.widgets import CaptchaWidget
 
 class LoginForm(forms.Form):
@@ -183,6 +184,30 @@ class ResumeForm(forms.ModelForm):
     industry = ModelChoiceField(Industry.objects.all(), empty_label=_(u'请选择'))
     location = ModelChoiceField(Location.objects.all(), empty_label=None)
     self_desc = forms.CharField(widget=Textarea(attrs={'rows': 3, 'class': 'xxlarge'}))
+
+class EduExperienceForm(forms.ModelForm):
+    """
+    Form for education experience
+    """
+    class Meta:
+        model = EduExperience
+        exclude = ('resume', 'start_date', 'end_date')
+
+    edu_from_year = forms.ChoiceField(choices=constant.YEAR_SCOPE)
+    edu_from_month = forms.ChoiceField(choices=constant.MONTH_SCOPE)
+    edu_to_year = forms.ChoiceField(choices=constant.YEAR_SCOPE)
+    edu_to_month = forms.ChoiceField(choices=constant.MONTH_SCOPE)
+    major_desc = forms.CharField(widget=forms.Textarea(attrs={'rows':3, 'class':'xxlarge'}))
+    is_foreign = forms.BooleanField(widget=forms.CheckboxInput(attrs={'style':'height:24px'}))
+
+class WorkExperienceForm(forms.ModelForm):
+    """
+    Form for work experience
+    """
+    class Meta:
+        model = WorkExperience
+        exclude = ('resume',)
+
 
 class FeedbackForm(forms.ModelForm):
 

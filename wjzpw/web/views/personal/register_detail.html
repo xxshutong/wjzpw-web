@@ -39,11 +39,11 @@
                                 <label for="xlInput"><span class="required_star">*</span>时　间：</label>
                                 <div class="input">
                                     <div class="inline-inputs">
-                                        <input type="text" value="" class="small">
-                                        <input type="text" value="" class="mini">
+                                        {{ edu_experience_form.edu_from_year }}
+                                        {{ edu_experience_form.edu_from_month }}
                                         到
-                                        <input type="text" value="" class="small">
-                                        <input name="s" type="text" value="" class="mini">
+                                        {{ edu_experience_form.edu_to_year }}
+                                        {{ edu_experience_form.edu_to_month }}
                                         <span class="help-block" style="display:block">注：后两项不填表示至今.</span>
                                     </div>
                                 </div>
@@ -52,74 +52,49 @@
                             <div class="clearfix">
                                 <label for="xlInput"><span class="required_star">*</span>学　校：</label>
                                 <div class="input">
-                                    <input type="text" size="30" name="xlInput" id="xlInput" class="middle">
+                                    {{ edu_experience_form.school }}
+                                    {{ edu_experience_form.school.errors }}
                                 </div>
                             </div>
                             <!-- /clearfix -->
                             <div class="clearfix">
                                 <label for="xlInput"><span class="required_star">*</span>专　业：</label>
                                 <div class="input">
-                                    <input type="text" size="30" name="xlInput" id="xlInput" class="middle">
+                                    {{ edu_experience_form.major }}
+                                    {{ edu_experience_form.major.errors }}
                                 </div>
                             </div>
                             <!-- /clearfix -->
                             <div class="clearfix">
                                 <label for="xlInput"><span class="required_star">*</span>专业类别：</label>
                                 <div class="input">
-                                    <select id="mediumSelect" name="mediumSelect" class="medium">
-                                        <option value="0">计算机类</option>
-                                        <option value="1">管理类</option>
-                                        <option value="2">行政管理</option>
-                                        <option value="3">财务</option>
-                                    </select>
+                                    {{ edu_experience_form.major_type }}
+                                    {{ edu_experience_form.major_type.errors }}
                                 </div>
                             </div>
                             <!-- /clearfix -->
                             <div class="clearfix">
                                 <label for="xlInput"><span class="required_star">*</span>学　历：</label>
                                 <div class="input">
-                                    <select id="mediumSelect" name="mediumSelect" class="medium">
-                                        <option value="">请选择</option>
-                                        <option value="1">初中</option>
-                                        <option value="2">高中</option>
-                                        <option value="3">中技</option>
-                                        <option value="4">中专</option>
-                                        <option value="5">大专</option
-                                        ><option value="6">本科</option>
-                                        <option value="-1">MBA</option>
-                                        <option value="7">硕士</option>
-                                        <option value="8">博士</option>
-                                        <option value="9">其他</option>
-                                    </select>
+                                    {{ edu_experience_form.edu_background }}
+                                    {{ edu_experience_form.edu_background.errors }}
                                 </div>
                             </div>
                             <!-- /clearfix -->
                             <div class="clearfix">
                                 <label for="xlInput">专业描述：</label>
                                 <div class="input">
-                                    <textarea rows="3" name="textarea2" id="textarea2" class="xxlarge"></textarea>
+                                    {{ edu_experience_form.major_desc }}
+                                    {{ edu_experience_form.major_desc.errors }}
                                     <span class="help-block">填写您所学专业包括什么课程，您的毕业设计等等</span>
                                     <span class="help-block">限2000个中文字，已输入<span style="color:red">0</span>个字</span>
                                 </div>
                             </div>
                             <!-- /clearfix -->
                             <div class="clearfix">
-                                <label id="optionsRadio" style="padding-top:8px;"><span class="required_star">*</span>海外经历：</label>
+                                <label id="optionsRadio" style="padding-top:8px;"><span class="required_star">*</span>海外经历(是)：</label>
                                 <div class="input">
-                                    <ul class="inputs-list">
-                                        <li>
-                                            <label>
-                                                <input type="radio" value="option1" name="optionsRadios" checked="">
-                                                <span>是</span>
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label>
-                                                <input type="radio" value="option2" name="optionsRadios">
-                                                <span>否</span>
-                                            </label>
-                                        </li>
-                                    </ul>
+                                    {{ edu_experience_form.is_foreign }}
                                 </div>
                             </div>
                             <!-- /clearfix -->

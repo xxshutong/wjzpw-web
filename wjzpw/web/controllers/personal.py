@@ -1,6 +1,6 @@
 from django.shortcuts import  render_to_response
 from django.template.context import RequestContext
-from wjzpw.web.forms import PersonalRegForm, ResumeForm
+from wjzpw.web.forms import PersonalRegForm, ResumeForm, EduExperienceForm, WorkExperienceForm
 from wjzpw.web.models import Province
 
 REGISTER_PAGE = "../views/personal/register.html"
@@ -33,6 +33,8 @@ def resume_detail(request):
     """
     if request.method == 'GET':
         resume_form = ResumeForm()
+        edu_experience_form = EduExperienceForm()
+        work_experience_form = WorkExperienceForm()
     else:
         resume_form = ResumeForm(request.POST)
         if resume_form.is_valid():
@@ -40,6 +42,8 @@ def resume_detail(request):
 
     return render_to_response(
         RESUME_DETAIL_PAGE, {}, RequestContext(request, {
-            'resume_form': resume_form
+            'resume_form': resume_form,
+            'edu_experience_form': edu_experience_form,
+            'work_experience_form': work_experience_form
         }),
     )

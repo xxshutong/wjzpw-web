@@ -1,0 +1,20 @@
+[
+    {
+        "model" : "web.MajorType",
+        "pk" : 1,
+        "fields" :
+        {
+            "name": "计算机类",
+            "spell": "jisuanjilei"
+        }
+    },
+    {
+        "model" : "web.MajorType",
+        "pk" : 2,
+        "fields" :
+        {
+            "name": "管理类",
+            "spell": "guanlilei"
+        }
+    }
+]

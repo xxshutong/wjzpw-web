@@ -6,23 +6,12 @@ from django.contrib.auth.models import User
 import datetime
 import random
 from wjzpw import settings
+from wjzpw.web.constant import EDUCATION_TYPE
 
 #  * Use south migration tool to generate the migration script.
 #        manage.py schemamigration web --auto
 #        manage.py migrate
 
-EDUCATION_TYPE = (
-    (1, 'Junior High School'),
-    (2, 'Senior High School'),
-    (3, 'Middle Technical School'),
-    (4, 'Technical Secondary School'),
-    (5, 'Junior College'),
-    (6, 'Undergraduates'),
-    (7, 'MBA'),
-    (8, 'Master'),
-    (9, 'Doctor'),
-    (10, 'Other')
-    )
 
 COMPANY_SCOPE_TYPE = (
     (1, '< 50'),
