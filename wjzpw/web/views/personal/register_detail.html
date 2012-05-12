@@ -28,6 +28,8 @@
                 <form method="POST" action="{% url resume_detail %}" id="resume_form">
                 {% csrf_token %}
                 {{ form.non_field_errors }}
+                <input type="hidden" name="submit_type" id="submit_type">
+                <input type="hidden" name="work_experience_num" value="{{ work_experience_num }}"/>
                 <!-- 教育经历 -->
                 <div class="main_login">
                     <div class="tit">
@@ -45,6 +47,7 @@
                                         {{ edu_experience_form.edu_to_year }}
                                         {{ edu_experience_form.edu_to_month }}
                                         <span class="help-block" style="display:block">注：后两项不填表示至今.</span>
+                                        {{ edu_experience_form.edu_from_year.errors }}
                                     </div>
                                 </div>
                             </div>
@@ -108,18 +111,20 @@
                         工作经历
                     </div>
                     <!-- 工作经历 -->
-                    <div class="work_experience">
+                    {% for work_experience_form in work_experience_forms %}
+                    <div class="work_experience" id="{{ forloop.counter }}">
                         <fieldset>
                             <div class="clearfix">
                                 <label for="xlInput"><span class="required_star">*</span>时　间：</label>
                                 <div class="input">
                                     <div class="inline-inputs">
-                                        <input type="text" value="" class="small">
-                                        <input type="text" value="" class="mini">
+                                        {{ work_experience_form.work_from_year }}
+                                        {{ work_experience_form.work_from_month }}
                                         到
-                                        <input type="text" value="" class="small">
-                                        <input name="s" type="text" value="" class="mini">
+                                        {{ work_experience_form.work_to_year }}
+                                        {{ work_experience_form.work_to_month }}
                                         <span class="help-block" style="display:block">注：后两项不填表示至今.</span>
+                                        {{ work_experience_form.work_from_year.errors }}
                                     </div>
                                 </div>
                             </div>
@@ -127,264 +132,58 @@
                             <div class="clearfix">
                                 <label for="xlInput"><span class="required_star">*</span>公　司：</label>
                                 <div class="sinput">
-                                    <input type="text" size="30" name="xlInput" id="xlInput" style="width:130px;">
+                                    {{ work_experience_form.company_name }}
+                                    {{ work_experience_form.company_name.errors }}
                                 </div>
                                 <label class="slabel" for="xlInput"><span class="required_star">*</span>行业类别：</label>
                                 <div class="sinput">
-                                    <select id="trade" size="1" name="trade" style="width:200px;">
-                                        <option value="">请选择行业</option>
-                                        <option value="1000">计算机软件</option>
-                                        <option value="1001">计算机硬件</option>
-                                        <option value="1002">计算机服务(系统、数据服务，维修)</option>
-                                        <option value="1003">通信/电信/网络设备</option>
-                                        <option value="1004">通信/电信运营、增值服务</option>
-                                        <option value="1005">互联网/电子商务</option>
-                                        <option value="1006">网络游戏</option>
-                                        <option value="1007">电子技术/半导体/集成电路</option>
-                                        <option value="1008">仪器仪表/工业自动化</option>
-                                        <option value="1009">会计/审计</option>
-                                        <option value="1010">金融/投资/证券</option>
-                                        <option value="1011">银行</option>
-                                        <option value="1012">保险</option>
-                                        <option value="1013">贸易/进出口</option>
-                                        <option value="1014">批发/零售</option>
-                                        <option value="1015">快速消费品(食品,饮料,化妆品)</option>
-                                        <option value="1016">服装/纺织/皮革</option>
-                                        <option value="1017">家具/家电/工艺品/玩具/珠宝</option>
-                                        <option value="1018">办公用品及设备</option>
-                                        <option value="1019">机械/设备/重工</option>
-                                        <option value="1020">汽车及零配件</option>
-                                        <option value="1021">制药/生物工程</option>
-                                        <option value="1022">医疗/护理/保健/卫生</option>
-                                        <option value="1023">医疗设备/器械</option>
-                                        <option value="1024">广告</option>
-                                        <option value="1025">公关/市场推广/会展</option>
-                                        <option value="1026">影视/媒体/艺术</option>
-                                        <option value="1027">文字媒体/出版</option>
-                                        <option value="1028">房地产开发</option>
-                                        <option value="1029">建筑与工程</option>
-                                        <option value="1030">家居/室内设计/装潢</option>
-                                        <option value="1031">物业管理/商业中心</option>
-                                        <option value="1032">中介服务</option>
-                                        <option value="1033">专业服务(咨询，人力资源)</option>
-                                        <option value="1034">外包服务</option>
-                                        <option value="1035">检测，认证</option>
-                                        <option value="1036">法律</option>
-                                        <option value="1037">教育/培训</option>
-                                        <option value="1038">学术/科研</option>
-                                        <option value="1039">餐饮业</option>
-                                        <option value="1040">酒店/旅游</option>
-                                        <option value="1041">娱乐/休闲/体育</option>
-                                        <option value="1042">美容/保健</option>
-                                        <option value="1043">生活服务</option>
-                                        <option value="1044">交通/运输/物流</option>
-                                        <option value="1045">航天/航空</option>
-                                        <option value="1046">石油/化工/矿产/地质</option>
-                                        <option value="1047">采掘业/冶炼</option>
-                                        <option value="1048">电力/水利</option>
-                                        <option value="1049">原材料和加工</option>
-                                        <option value="1050">政府</option>
-                                        <option value="1051">非盈利机构</option>
-                                        <option value="1052">环保</option>
-                                        <option value="1053">农业/渔业/林业</option>
-                                        <option value="1054">多元化业务集团公司</option>
-                                        <option value="1055">其他行业</option>
-                                    </select>
+                                    {{ work_experience_form.industry }}
+                                    {{ work_experience_form.industry.errors }}
                                 </div>
                             </div>
                             <!-- /clearfix -->
                             <div class="clearfix">
                                 <label for="xlInput">公司规模：</label>
                                 <div class="sinput">
-                                    <select id="companysize" name="companysize" style="width:130px;">
-                                        <option value="0">---请选择---</option>
-                                        <option value="1">少于50人</option>
-                                        <option value="2">50-150人</option>
-                                        <option value="3">150-500人</option>
-                                        <option value="4">500人以上</option>
-                                    </select>
+                                    {{ work_experience_form.scope }}
+                                    {{ work_experience_form.scope.errors }}
                                 </div>
                                 <label class="slabel" for="xlInput" style="margin-left:15px;"><span class="required_star">*</span>公司性质：</label>
                                 <div class="sinput">
-                                    <select id="CompanyType" name="CompanyType" style="width: 125px;">
-                                        <option value="">---请选择---</option>
-                                        <option value="01">外资(欧美)</option>
-                                        <option value="02">外资(非欧美)</option>
-                                        <option value="03">合资(欧美)</option>
-                                        <option value="04">合资(非欧美)</option>
-                                        <option value="05">国企</option>
-                                        <option value="06">民营公司</option>
-                                        <option value="07">外企代表处</option>
-                                        <option value="09">政府机关</option>
-                                        <option value="10">事业单位</option>
-                                        <option value="11">非盈利机构</option>
-                                        <option value="08">其它性质</option>
-                                    </select>
+                                    {{ work_experience_form.nature }}
+                                    {{ work_experience_form.nature.errors }}
                                 </div>
                             </div>
                             <!-- /clearfix -->
                             <div class="clearfix">
                                 <label for="xlInput"><span class="required_star">*</span>部　门：</label>
                                 <div class="sinput">
-                                    <input type="text" size="30" name="xlInput" id="xlInput" style="width:130px;">
+                                    {{ work_experience_form.department }}
+                                    {{ work_experience_form.department.errors }}
                                 </div>
                                 <label class="slabel" for="xlInput"><span class="required_star">*</span>职　位：</label>
                                 <div class="sinput">
-                                    <input type="text" size="30" name="xlInput" id="xlInput" class="small">
+                                    {{ work_experience_form.position }}
+                                    {{ work_experience_form.position.errors }}
                                 </div>
                             </div>
                             <!-- /clearfix -->
                             <div class="clearfix">
                                 <label for="xlInput"><span class="required_star">*</span>工作描述：</label>
                                 <div class="input">
-                                    <textarea rows="3" name="textarea2" id="textarea2" class="xxlarge"></textarea>
+                                    {{ work_experience_form.work_desc }}
+                                    {{ work_experience_form.work_desc.errors }}
                                     <span class="help-block">请详细描述您的职责范围、工作任务以及取得的成绩等</span>
                                     <span class="help-block">限2000个中文字，已输入<span style="color:red">0</span>个字</span>
+
                                 </div>
                             </div>
                             <!-- /clearfix -->
                         </fieldset>
                     </div>
+                    {% endfor %}
                     <!-- 工作经历 -->
-                    <!-- 工作经历 -->
-                    <div class="work_experience">
-                        <fieldset>
-                            <div class="clearfix">
-                                <label for="xlInput"><span class="required_star">*</span>时　间：</label>
-                                <div class="input">
-                                    <div class="inline-inputs">
-                                        <input type="text" value="" class="small">
-                                        <input type="text" value="" class="mini">
-                                        到
-                                        <input type="text" value="" class="small">
-                                        <input name="s" type="text" value="" class="mini">
-                                        <span class="help-block" style="display:block">注：后两项不填表示至今.</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /clearfix -->
-                            <div class="clearfix">
-                                <label for="xlInput"><span class="required_star">*</span>公　司：</label>
-                                <div class="sinput">
-                                    <input type="text" size="30" name="xlInput" id="xlInput" style="width:130px;">
-                                </div>
-                                <label class="slabel" for="xlInput"><span class="required_star">*</span>行业类别：</label>
-                                <div class="sinput">
-                                    <select id="trade" size="1" name="trade" style="width:200px;">
-                                        <option value="">请选择行业</option>
-                                        <option value="1000">计算机软件</option>
-                                        <option value="1001">计算机硬件</option>
-                                        <option value="1002">计算机服务(系统、数据服务，维修)</option>
-                                        <option value="1003">通信/电信/网络设备</option>
-                                        <option value="1004">通信/电信运营、增值服务</option>
-                                        <option value="1005">互联网/电子商务</option>
-                                        <option value="1006">网络游戏</option>
-                                        <option value="1007">电子技术/半导体/集成电路</option>
-                                        <option value="1008">仪器仪表/工业自动化</option>
-                                        <option value="1009">会计/审计</option>
-                                        <option value="1010">金融/投资/证券</option>
-                                        <option value="1011">银行</option>
-                                        <option value="1012">保险</option>
-                                        <option value="1013">贸易/进出口</option>
-                                        <option value="1014">批发/零售</option>
-                                        <option value="1015">快速消费品(食品,饮料,化妆品)</option>
-                                        <option value="1016">服装/纺织/皮革</option>
-                                        <option value="1017">家具/家电/工艺品/玩具/珠宝</option>
-                                        <option value="1018">办公用品及设备</option>
-                                        <option value="1019">机械/设备/重工</option>
-                                        <option value="1020">汽车及零配件</option>
-                                        <option value="1021">制药/生物工程</option>
-                                        <option value="1022">医疗/护理/保健/卫生</option>
-                                        <option value="1023">医疗设备/器械</option>
-                                        <option value="1024">广告</option>
-                                        <option value="1025">公关/市场推广/会展</option>
-                                        <option value="1026">影视/媒体/艺术</option>
-                                        <option value="1027">文字媒体/出版</option>
-                                        <option value="1028">房地产开发</option>
-                                        <option value="1029">建筑与工程</option>
-                                        <option value="1030">家居/室内设计/装潢</option>
-                                        <option value="1031">物业管理/商业中心</option>
-                                        <option value="1032">中介服务</option>
-                                        <option value="1033">专业服务(咨询，人力资源)</option>
-                                        <option value="1034">外包服务</option>
-                                        <option value="1035">检测，认证</option>
-                                        <option value="1036">法律</option>
-                                        <option value="1037">教育/培训</option>
-                                        <option value="1038">学术/科研</option>
-                                        <option value="1039">餐饮业</option>
-                                        <option value="1040">酒店/旅游</option>
-                                        <option value="1041">娱乐/休闲/体育</option>
-                                        <option value="1042">美容/保健</option>
-                                        <option value="1043">生活服务</option>
-                                        <option value="1044">交通/运输/物流</option>
-                                        <option value="1045">航天/航空</option>
-                                        <option value="1046">石油/化工/矿产/地质</option>
-                                        <option value="1047">采掘业/冶炼</option>
-                                        <option value="1048">电力/水利</option>
-                                        <option value="1049">原材料和加工</option>
-                                        <option value="1050">政府</option>
-                                        <option value="1051">非盈利机构</option>
-                                        <option value="1052">环保</option>
-                                        <option value="1053">农业/渔业/林业</option>
-                                        <option value="1054">多元化业务集团公司</option>
-                                        <option value="1055">其他行业</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <!-- /clearfix -->
-                            <div class="clearfix">
-                                <label for="xlInput">公司规模：</label>
-                                <div class="sinput">
-                                    <select id="companysize" name="companysize" style="width:130px;">
-                                        <option value="0">---请选择---</option>
-                                        <option value="1">少于50人</option>
-                                        <option value="2">50-150人</option>
-                                        <option value="3">150-500人</option>
-                                        <option value="4">500人以上</option>
-                                    </select>
-                                </div>
-                                <label class="slabel" for="xlInput" style="margin-left:15px;"><span class="required_star">*</span>公司性质：</label>
-                                <div class="sinput">
-                                    <select id="CompanyType" name="CompanyType" style="width: 125px;">
-                                        <option value="">---请选择---</option>
-                                        <option value="01">外资(欧美)</option>
-                                        <option value="02">外资(非欧美)</option>
-                                        <option value="03">合资(欧美)</option>
-                                        <option value="04">合资(非欧美)</option>
-                                        <option value="05">国企</option>
-                                        <option value="06">民营公司</option>
-                                        <option value="07">外企代表处</option>
-                                        <option value="09">政府机关</option>
-                                        <option value="10">事业单位</option>
-                                        <option value="11">非盈利机构</option>
-                                        <option value="08">其它性质</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <!-- /clearfix -->
-                            <div class="clearfix">
-                                <label for="xlInput"><span class="required_star">*</span>部　门：</label>
-                                <div class="sinput">
-                                    <input type="text" size="30" name="xlInput" id="xlInput" style="width:130px;">
-                                </div>
-                                <label class="slabel" for="xlInput"><span class="required_star">*</span>职　位：</label>
-                                <div class="sinput">
-                                    <input type="text" size="30" name="xlInput" id="xlInput" class="small">
-                                </div>
-                            </div>
-                            <!-- /clearfix -->
-                            <div class="clearfix">
-                                <label for="xlInput"><span class="required_star">*</span>工作描述：</label>
-                                <div class="input">
-                                    <textarea rows="3" name="textarea2" id="textarea2" class="xxlarge"></textarea>
-                                    <span class="help-block">请详细描述您的职责范围、工作任务以及取得的成绩等</span>
-                                    <span class="help-block">限2000个中文字，已输入<span style="color:red">0</span>个字</span>
-                                </div>
-                            </div>
-                            <!-- /clearfix -->
-                        </fieldset>
-                    </div>
-                    <!-- 工作经历 -->
+
                     <div style="padding-top:10px;">
                         <!-- /clearfix -->
                         <div class="clearfix">
@@ -515,8 +314,11 @@
     })
 
     $('#addNewWork').click(function() {
-        alert('a');
+        $('#submit_type').val('add_work_experience');
+        $('#resume_form').submit();
     });
+
+    window.location.href="{{ position }}";
 </script>
 <!-- 主体信息结束 -->
 {% endblock %}

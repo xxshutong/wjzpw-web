@@ -14,10 +14,10 @@ from wjzpw.web.constant import EDUCATION_TYPE
 
 
 COMPANY_SCOPE_TYPE = (
-    (1, '< 50'),
-    (2, '50 < 150'),
-    (3, '150 < 500'),
-    (4, '> 500')
+    (1, '大于50人'),
+    (2, '50至150之间'),
+    (3, '150至500之间'),
+    (4, '大于500')
     )
 
 COMPANY_NATURE = (

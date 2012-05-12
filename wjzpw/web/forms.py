@@ -1,4 +1,5 @@
 # coding: utf-8
+import datetime
 from django import forms
 
 from django.contrib.auth.models import User
@@ -200,6 +201,22 @@ class EduExperienceForm(forms.ModelForm):
     major_desc = forms.CharField(widget=forms.Textarea(attrs={'rows':3, 'class':'xxlarge'}))
     is_foreign = forms.BooleanField(widget=forms.CheckboxInput(attrs={'style':'height:24px'}))
 
+    def clean_edu_from_year(self):
+        """
+        Validate that the education time period
+
+        """
+        if self.data.get('edu_from_year') == '0' or self.data.get('edu_from_month') == '0':
+            raise forms.ValidationError(_(u'开始时间是必填项。'))
+        if self.data.get('edu_to_year') != '0' and self.data.get('edu_from_year') >= self.data.get('edu_to_year'):
+            raise forms.ValidationError(_(u'开始时间必须小于结束时间。'))
+        self.cleaned_data['start_date'] = datetime.date(int(self.data['edu_from_year']), int(self.data['edu_from_month']), 1)
+        if self.data['edu_to_year'] == '0' or self.data['edu_to_month'] == '0':
+            self.cleaned_data['end_date'] = None
+        else:
+            self.cleaned_data['end_date'] = datetime.date(int(self.data['edu_to_year']), int(self.data['edu_to_month']), 1)
+        return self.cleaned_data['edu_from_year']
+
 class WorkExperienceForm(forms.ModelForm):
     """
     Form for work experience
@@ -208,6 +225,27 @@ class WorkExperienceForm(forms.ModelForm):
         model = WorkExperience
         exclude = ('resume',)
 
+    work_from_year = forms.ChoiceField(choices=constant.YEAR_SCOPE)
+    work_from_month = forms.ChoiceField(choices=constant.MONTH_SCOPE)
+    work_to_year = forms.ChoiceField(choices=constant.YEAR_SCOPE)
+    work_to_month = forms.ChoiceField(choices=constant.MONTH_SCOPE)
+    work_desc = forms.CharField(widget=forms.Textarea(attrs={'rows':3, 'class':'xxlarge'}))
+
+    def clean_work_from_year(self):
+        """
+        Validate that the work experience time period
+
+        """
+        if self.data.get('work_from_year') == '0' or self.data.get('work_from_month') == '0':
+            raise forms.ValidationError(_(u'开始时间是必填项。'))
+        if self.data.get('work_to_year') != '0' and int(self.data.get('work_from_year')) >= int(self.data.get('work_to_year')):
+            raise forms.ValidationError(_(u'开始时间必须小于结束时间。'))
+        self.cleaned_data['start_date'] = datetime.date(int(self.data['work_from_year']), int(self.data['work_from_month']), 1)
+        if self.data['work_to_year'] == '0' or self.data['work_to_month'] == '0':
+            self.cleaned_data['end_date'] = None
+        else:
+            self.cleaned_data['end_date'] = datetime.date(int(self.data['work_to_year']), int(self.data['work_to_month']), 1)
+        return self.cleaned_data['work_from_year']
 
 class FeedbackForm(forms.ModelForm):
 
