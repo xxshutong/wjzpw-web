@@ -90,7 +90,7 @@
                                     {{ edu_experience_form.major_desc }}
                                     {{ edu_experience_form.major_desc.errors }}
                                     <span class="help-block">填写您所学专业包括什么课程，您的毕业设计等等</span>
-                                    <span class="help-block">限2000个中文字，已输入<span style="color:red">0</span>个字</span>
+                                    <span class="help-block">限2000个中文字，已输入<span id='edu_span_id' style="color:red">0</span>个字</span>
                                 </div>
                             </div>
                             <!-- /clearfix -->
@@ -274,6 +274,7 @@
                                 <label for="fileInput" style="margin-top:2px;">上传照片：</label>
                                 <div class="input">
                                     {{ resume_form.avatar }}
+                                    {{ resume_form.avatar.errors }}
                                     <span class="help-block" style="margin-top:3px;">
                                         <div class="main_newspic" style="width:135px; height:160px; margin:0px;">
                                             <img src="../../static/images/Person.gif" alt="" class="thumbnail" style="width:135px; height:160px;">
@@ -286,8 +287,9 @@
                                 <label for="xlInput"><span class="required_star">*</span>自我评价：</label>
                                 <div class="input">
                                     {{ resume_form.self_desc }}
-                                    <span class="help-block">限2000个中文字，已输入<span style="color:red">0</span>个字</span>
                                     {{ resume_form.self_desc.errors }}
+                                    <span class="help-block">请详细描述您的自我评价以让面试官对你有更深入的了解</span>
+                                    <span class="help-block">限2000个中文字，已输入<span style="color:red">0</span>个字</span>
                                 </div>
                             </div>
                         </fieldset>

@@ -118,5 +118,16 @@
     </div>
     <!-- 尾部信息结束 -->
 
+    <script type="text/javascript">
+        $(".char_area").keyup(function() {
+            var txtValue = $(this).val();//获取文本域的值
+            var span = $(this).next().next().find('span');
+            if (span.text() == '') {
+                span = $(this).next().next().next().find('span');
+            }
+            span.html(txtValue.length);
+        });
+        $(".char_area").trigger("keyup");
+    </script>
 </body>
 </html>

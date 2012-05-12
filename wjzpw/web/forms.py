@@ -184,7 +184,7 @@ class ResumeForm(forms.ModelForm):
 
     industry = ModelChoiceField(Industry.objects.all(), empty_label=_(u'请选择'))
     location = ModelChoiceField(Location.objects.all(), empty_label=None)
-    self_desc = forms.CharField(widget=Textarea(attrs={'rows': 3, 'class': 'xxlarge'}))
+    self_desc = forms.CharField(widget=Textarea(attrs={'rows': 3, 'class': 'xxlarge char_area'}), max_length=2000)
 
 class EduExperienceForm(forms.ModelForm):
     """
@@ -198,7 +198,7 @@ class EduExperienceForm(forms.ModelForm):
     edu_from_month = forms.ChoiceField(choices=constant.MONTH_SCOPE)
     edu_to_year = forms.ChoiceField(choices=constant.YEAR_SCOPE)
     edu_to_month = forms.ChoiceField(choices=constant.MONTH_SCOPE)
-    major_desc = forms.CharField(widget=forms.Textarea(attrs={'rows':3, 'class':'xxlarge'}))
+    major_desc = forms.CharField(widget=forms.Textarea(attrs={'rows':3, 'class':'xxlarge char_area'}), max_length=2000)
     is_foreign = forms.BooleanField(widget=forms.CheckboxInput(attrs={'style':'height:24px'}))
 
     def clean_edu_from_year(self):
@@ -229,7 +229,7 @@ class WorkExperienceForm(forms.ModelForm):
     work_from_month = forms.ChoiceField(choices=constant.MONTH_SCOPE)
     work_to_year = forms.ChoiceField(choices=constant.YEAR_SCOPE)
     work_to_month = forms.ChoiceField(choices=constant.MONTH_SCOPE)
-    work_desc = forms.CharField(widget=forms.Textarea(attrs={'rows':3, 'class':'xxlarge'}))
+    work_desc = forms.CharField(widget=forms.Textarea(attrs={'rows':3, 'class':'xxlarge char_area'}), max_length=2000)
 
     def clean_work_from_year(self):
         """
