@@ -7,12 +7,12 @@
     text-align: left;
   }
   
-  form .clearfix {
+  form .control-group, .form-horizontal .control-group {
     margin-bottom: 10px;
 	}
   
   form .sinput {
-    margin-left: 20px;
+    margin-left: 30px;
 	float:left;
   }
   
@@ -20,17 +20,21 @@
   	width:80px;
   }
   
-  fieldset {
+fieldset {
     margin-bottom: 0px;
+    padding-top: 18px;
 }
 
   p {
   	font-size:12px;
   }
   
-  label {
-  	padding-top:2px;
-  }
+label {
+    padding-top:2px;
+    width: 130px;
+    text-align: right;
+    float: left;
+}
   
   .value {
 	color:#0988CB;
@@ -52,14 +56,14 @@ a.selected {
   .container > footer p {
 	text-align: center; /* center align it with the container */
   }
-  .container {
+  .container, .navbar-fixed-top .container, .navbar-fixed-bottom .container {
 	width: 1000px; /* downsize our container to make the content feel a bit tighter and more cohesive. NOTE: this removes two full columns from the grid, meaning you only go to 14 columns and not 16. */
   }
   
   .btn {
   	text-shadow:none;
   }
-  .btn.primary {
+  .btn.btn-primary {
   	text-shadow:none;
   }
   
@@ -79,11 +83,11 @@ a.selected {
 	.view_fields {
 		margin-bottom: 18px;
 	}
-	.view_fields .clearfix {
+	.view_fields .control-group {
 		margin-bottom: 10px;
 	}
 	
-	.view_fields .input {
+	.view_fields .controls {
     margin-left: 150px;
 }
   /* The white background content wrapper */
@@ -96,11 +100,11 @@ a.selected {
 			box-shadow: 0 1px 2px rgba(0,0,0,.15);
   }
   
-  .tabs > li > a {
+  .nav-tabs > li > a {
     line-height: 28px;
 	font-weight:bold;
 	font-size: 14px;
-	
+    padding: 0 15px;
 	
 }
 
@@ -115,7 +119,7 @@ a {
 	a.more {
 		color: #0069D6;
 	}
-  .tabs {
+  .nav-tabs {
       margin: 0px;
   }
 
@@ -192,7 +196,6 @@ text-shadow:none;
      white-space: normal;
 }
 
-/* Form ���� */
 input, .uneditable-input {
 	height: 13px;
 	}
@@ -207,7 +210,7 @@ input, .uneditable-input {
 	 padding: 3px 14px;
 	}
 	
-	.right_layer .actions .btn {
+	.right_layer .form-actions .btn {
 		 padding: 5px 14px;
 		 width:auto;
 	}
@@ -300,17 +303,17 @@ margin-bottom:0px;
 margin-bottom:0px;
 }
 
-.con form .input {
+.con form .controls {
 margin-left:0px;
 float:left;
 }
 
 
-.con form .clearfix {
+.con form .control-group {
 margin-bottom: 10px;
 }
 
-.con .actions {
+.con .form-actions {
     -moz-border-radius: 0 0 3px 3px;
     background: none repeat scroll 0 0 #F5F5F5;
     border-top: 1px solid #DDDDDD;
@@ -340,7 +343,7 @@ text-align:center;
     padding-right:20px;
   }
   
-  .actions  .btn {
+  .form-actions  .btn {
   	width: 70px;
   }
 	/* Main page end */
@@ -397,15 +400,15 @@ text-align:center;
 		width: 275px;
 		height:140px;
 	}
-	
-	/* ͼƬ����б� */
+
 	.adv_list ul {
 	
 	}
 	
 	.adv_list ul li {
 	float:left;
-	margin-right:6px;
+	margin-right: 6px;
+    margin-bottom: 6px;
 	}
 	
 		.adv_list ul li img {
@@ -583,6 +586,30 @@ ul.errorlist li{
     background-position-y: -96px;
 }
 
-.datepicker html, body, table {
+.datepicker table {
     background-color: white;
+}
+
+.choice_radio input {
+    float: left;
+}
+
+.label-warning .label {
+    text-shadow: none;
+}
+
+.form-horizontal .help-block {
+    color: #BFBFBF;
+    margin-top: 0px;
+}
+
+.inputs-list label {
+    display: block;
+    float: none;
+    width: auto;
+    padding: 0;
+    line-height: 18px;
+    text-align: left;
+    white-space: normal;
+    margin-bottom: 0px;
 }
