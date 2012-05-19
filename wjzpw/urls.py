@@ -23,6 +23,7 @@ urlpatterns += patterns('web.controllers.personal',
     # Personal register page.
     url(r'^personal/register/$', 'personal_register', name='personal_register'),
     url(r'^personal/resume_detail/$', 'resume_detail', name='resume_detail'),
+    url(r'^personal/position/list/$', 'ajax_get_positions', name='ajax_get_positions'),
 
 )
 

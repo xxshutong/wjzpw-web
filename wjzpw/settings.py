@@ -129,7 +129,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'south',
     'gunicorn',
-    'web',
+    'wjzpw.web',
     'jsonrpc',
 )
 

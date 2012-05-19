@@ -2,6 +2,16 @@
 
 {% block title %}吴江-招聘网 | wj-zpw.com{% endblock %}
 
+{% block head %}
+<link rel="stylesheet" href="/static/css/jquery-ui-1.8.18.custom.css" type="text/css" media="all">
+<script src="/static/js/jquery-ui-1.8.18.custom.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    var keys = [];
+    var values = [];
+    var selected_keys = [];
+</script>
+{% endblock %}
+
 {% block content %}
 <!-- 主体信息开始 -->
 <div class="container">
@@ -30,6 +40,7 @@
                 {{ form.non_field_errors }}
                 <input type="hidden" name="submit_type" id="submit_type">
                 <input type="hidden" name="work_experience_num" value="{{ work_experience_num }}"/>
+                {{ resume_form.positions.as_hidden }}
                 <!-- 教育经历 -->
                 <div class="main_login">
                     <div class="tit">
@@ -220,8 +231,16 @@
                             <!-- /control-group -->
                             <div class="control-group">
                                 <label for="xlInput"><span class="required_star">*</span>期望职位：</label>
-                                <div class="controls">
-                                    {{ resume_form.positions }}
+                                <div class="controls" style="text-align:  left">
+                                    <input id="id_selected_position" type="text" placeholder="输入您的期望职位" class="input-medium" name="email">
+                                    &nbsp;
+                                    <a id="id_add_position" class="btn btn-primary">添加</a>
+                                    <br/>
+                                    <!-- HTML Codes by Quackit.com -->
+                                    <div class="mutiple_select well">
+                                        <ul id="selected_positions_list">
+                                        </ul>
+                                    </div>
                                     {{ resume_form.positions.errors }}
                                 </div>
                             </div>
@@ -315,12 +334,80 @@
         }
     })
 
+    window.onload = function() {
+        {% for position in selected_positions %}
+            selected_keys.push({{ position.id }});
+            $('#selected_positions_list').append("<li class='handle_ids' handle_id='" + "{{ position.id }}" + "'>" + "{{ position.name }}" + "<img id='id_" + "{{ position.id }}" + "' class='remove_icon' handle_id='" + "{{ position.id }}" + "' src='/static/img/remove.png'></img></li>");
+            $('img#id_' + "{{ position.id }}").click(function() {
+                if(!confirm("是否确定要删除这个职位?")) {
+                    return;
+                }
+                $(this).parent().remove();
+                selected_keys.splice($.inArray({{ position.id }}, selected_keys),1);
+        });
+        {% endfor %}
+
+    }
+
+
     $('#addNewWork').click(function() {
         $('#submit_type').val('add_work_experience');
         $('#resume_form').submit();
     });
 
+    $('#id_add_position').click(function() {
+        var value = $('#id_selected_position').val();
+        for(var i=0; i < values.length; i++) {
+            if(values[i] == value) {
+                var index = selected_keys.indexOf(keys[i]);
+                if (index >= 0) {
+                    alert("This author is already added.");
+                    return
+                }
+
+                $('#selected_positions_list').append("<li class='handle_ids' handle_id='" + keys[i] + "'>" + values[i] + "<img id='id_" + keys[i] + "' class='remove_icon icon-remove' handle_id='" + keys[i] + "' src='/static/img/remove.png'></img></li>");
+                selected_keys.push(keys[i]);
+                $('img#id_' + keys[i]).click(function() {
+                    if(!confirm("是否确定要删除这个职位?")) {
+                        return;
+                    }
+                    $(this).parent().remove();
+
+                    selected_keys.splice($.inArray(keys[i], selected_keys),1);
+                });
+                break;
+            }
+        }
+    });
+
+    function get_positions() {
+        var input_value = $('#id_selected_position').val();
+        var parm = "q=" + input_value;
+        $.ajax({
+            type:"GET",
+            async:false,
+            url:"/personal/position/list/",
+            data:parm,
+            dataType:"json",
+            success: function(data) {
+                /**Period Select**/
+                var data = eval(data);
+                values = data.values;
+                keys = data.keys;
+            }
+        });
+        return values;
+    };
+
+    $('#id_selected_position').keyup(function() {
+        $( "#id_selected_position" ).autocomplete({
+            source: get_positions()
+        });
+    });
+
     window.location.href="{{ position }}";
+
+
 </script>
 <!-- 主体信息结束 -->
 {% endblock %}

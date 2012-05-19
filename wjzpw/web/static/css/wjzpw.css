@@ -613,3 +613,11 @@ ul.errorlist li{
     white-space: normal;
     margin-bottom: 0px;
 }
+
+div.mutiple_select {
+    margin-top: 10px;
+    padding: 10px;
+    height:100px;
+    width:200px;
+    overflow:scroll;
+}

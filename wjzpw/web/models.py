@@ -280,7 +280,6 @@ class Resume(AbstractModel):
     resume_name = models.CharField(_(u'简历名称'), max_length=100, default=_(u'我的简历'))
     job_type = models.IntegerField(_(u'职位类型'), max_length=2, choices=JOB_TYPE, default=1)
     industry = models.ForeignKey(Industry, name='industry', help_text=_(u'期望行业'))
-    positions = models.ManyToManyField(Position, help_text=_(u'期望职位'))
     location = models.ForeignKey(Location, name='location', help_text=_(u'工作地点'))
     is_supply_house = models.BooleanField(_(u'是否提供住房'), default=False)
     salary = models.IntegerField(_(u'待遇要求'), choices=SALARY_TYPE, default=0)
@@ -290,6 +289,14 @@ class Resume(AbstractModel):
 
     def __unicode__(self):
         return self.user_profile.user.username + "-" + self.resume_name
+
+class ResumePositionR(AbstractModel):
+    """
+    Resume - position relation
+    """
+    resume = models.ForeignKey(Resume, name='resume')
+    position = models.ForeignKey(Position, name='position')
+
 
 class EduExperience(AbstractModel):
     """

@@ -185,6 +185,7 @@ class ResumeForm(forms.ModelForm):
     industry = ModelChoiceField(Industry.objects.all(), empty_label=_(u'请选择'))
     location = ModelChoiceField(Location.objects.all(), empty_label=None)
     self_desc = forms.CharField(widget=Textarea(attrs={'rows': 3, 'class': 'input-xxlarge char_area'}), max_length=2000)
+    positions = forms.CharField()
 
 class EduExperienceForm(forms.ModelForm):
     """
