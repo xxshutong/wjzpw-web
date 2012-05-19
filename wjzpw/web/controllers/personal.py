@@ -42,10 +42,15 @@ def resume_detail(request):
     work_experience_num = int(request.POST.get('work_experience_num', 0))
     # Show existing resume detail
     if request.method == 'GET':
-        resume = models.Resume.objects.get(user_profile=request.user.get_profile())
+        resume = models.Resume.objects.filter(user_profile=request.user.get_profile())
+        if resume:
+            resume_form = ResumeForm(instance=resume[0])
+        else:
+            resume = models.Resume(user_profile=request.user.get_profile())
+            resume_form = ResumeForm(instance=resume)
 
         work_experience_num = 1
-        resume_form = ResumeForm()
+
         edu_experience_form = EduExperienceForm()
         work_experience_form = WorkExperienceForm(prefix='1')
         work_experience_forms.append(work_experience_form)
@@ -70,8 +75,11 @@ def resume_detail(request):
                 and edu_experience_form.is_valid()\
                     and multiple_work_result:
                 resume_form.save()
-                edu_experience_form.save()
-                work_experience_form.save()
+                edu_experience_form.instance.resume = resume_form.instance
+                edu_experience_form.save(**edu_experience_form.cleaned_data)
+                for work_experience_form in work_experience_forms:
+                    work_experience_form.instance.resume = resume_form.instance
+                    work_experience_form.save(**work_experience_form.cleaned_data)
         # Add new work experience
         elif submit_type == 'add_work_experience':
             work_experience_num += 1

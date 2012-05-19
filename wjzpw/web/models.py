@@ -15,7 +15,7 @@ from wjzpw.web.constant import EDUCATION_TYPE
 
 COMPANY_SCOPE_TYPE = (
     (0, u'请选择'),
-    (1, u'大于50人'),
+    (1, u'小于50人'),
     (2, u'50至150之间'),
     (3, u'150至500之间'),
     (4, u'大于500')

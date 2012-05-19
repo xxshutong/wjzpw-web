@@ -41,6 +41,7 @@
                 <input type="hidden" name="submit_type" id="submit_type">
                 <input type="hidden" name="work_experience_num" value="{{ work_experience_num }}"/>
                 {{ resume_form.positions.as_hidden }}
+                {{ resume_form.user_profile.as_hidden }}
                 <!-- 教育经历 -->
                 <div class="main_login">
                     <div class="tit">
@@ -316,7 +317,7 @@
                 </div>
                 <div class="main_login" style="border:none; -moz-box-shadow:none">
                     <div class="form-actions">
-                        <button class="btn btn-primary" style="padding: 3px 14px;" type="submit">完成</button>
+                        <a class="btn btn-primary" id="submit" style="padding: 3px 14px;" type="submit">完成</a>
                         &nbsp;<a class="btn btn-success" href="resume.html" target="_blank">预览</a>&nbsp;<a class="btn" href="../index.html">取消</a>
                     </div>
                 </div>
@@ -337,6 +338,7 @@
     window.onload = function() {
         {% for position in selected_positions %}
             selected_keys.push({{ position.id }});
+            $('#id_positions').val(selected_keys + '');
             $('#selected_positions_list').append("<li class='handle_ids' handle_id='" + "{{ position.id }}" + "'>" + "{{ position.name }}" + "<img id='id_" + "{{ position.id }}" + "' class='remove_icon' handle_id='" + "{{ position.id }}" + "' src='/static/img/remove.png'></img></li>");
             $('img#id_' + "{{ position.id }}").click(function() {
                 if(!confirm("是否确定要删除这个职位?")) {
@@ -344,6 +346,7 @@
                 }
                 $(this).parent().remove();
                 selected_keys.splice($.inArray({{ position.id }}, selected_keys),1);
+                $('#id_positions').val(selected_keys + '');
         });
         {% endfor %}
 
@@ -355,18 +358,24 @@
         $('#resume_form').submit();
     });
 
+    $('#submit').click(function() {
+        $('#submit_type').val('submit');
+        $('#resume_form').submit();
+    });
+
     $('#id_add_position').click(function() {
         var value = $('#id_selected_position').val();
         for(var i=0; i < values.length; i++) {
             if(values[i] == value) {
                 var index = selected_keys.indexOf(keys[i]);
                 if (index >= 0) {
-                    alert("This author is already added.");
+                    alert("这个职位已经添加.");
                     return
                 }
 
                 $('#selected_positions_list').append("<li class='handle_ids' handle_id='" + keys[i] + "'>" + values[i] + "<img id='id_" + keys[i] + "' class='remove_icon icon-remove' handle_id='" + keys[i] + "' src='/static/img/remove.png'></img></li>");
                 selected_keys.push(keys[i]);
+                $('#id_positions').val(selected_keys + '');
                 $('img#id_' + keys[i]).click(function() {
                     if(!confirm("是否确定要删除这个职位?")) {
                         return;
@@ -374,6 +383,7 @@
                     $(this).parent().remove();
 
                     selected_keys.splice($.inArray(keys[i], selected_keys),1);
+                    $('#id_positions').val(selected_keys + '');
                 });
                 break;
             }

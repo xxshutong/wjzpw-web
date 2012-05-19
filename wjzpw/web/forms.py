@@ -187,6 +187,10 @@ class ResumeForm(forms.ModelForm):
     self_desc = forms.CharField(widget=Textarea(attrs={'rows': 3, 'class': 'input-xxlarge char_area'}), max_length=2000)
     positions = forms.CharField()
 
+    def save(self, **new_data):
+        instance = self.instance
+        instance.save()
+
 class EduExperienceForm(forms.ModelForm):
     """
     Form for education experience
@@ -219,13 +223,19 @@ class EduExperienceForm(forms.ModelForm):
             self.cleaned_data['end_date'] = datetime.date(int(self.data['edu_to_year']), int(self.data['edu_to_month']), 1)
         return self.cleaned_data['edu_from_year']
 
+    def save(self, **new_data):
+        instance = self.instance
+        instance.start_date = new_data['start_date']
+        instance.end_date = new_data['end_date']
+        instance.save()
+
 class WorkExperienceForm(forms.ModelForm):
     """
     Form for work experience
     """
     class Meta:
         model = WorkExperience
-        exclude = ('resume',)
+        exclude = ('resume', 'start_date', 'end_date')
 
     industry = ModelChoiceField(Industry.objects.all(), empty_label=_(u'请选择'))
     work_from_year = forms.ChoiceField(choices=constant.YEAR_SCOPE)
@@ -252,7 +262,13 @@ class WorkExperienceForm(forms.ModelForm):
             self.cleaned_data['end_date'] = None
         else:
             self.cleaned_data['end_date'] = datetime.date(int(self.data[work_to_year]), int(self.data[work_to_month]), 1)
-        return self.cleaned_data[work_from_year]
+        return self.cleaned_data['work_from_year']
+
+    def save(self, **new_data):
+        instance = self.instance
+        instance.start_date = new_data['start_date']
+        instance.end_date = new_data['end_date']
+        instance.save()
 
 class FeedbackForm(forms.ModelForm):
 
