@@ -14,7 +14,7 @@ from django.forms.util import ErrorList
 from wjzpw import settings
 from wjzpw.web import constant
 from wjzpw.web.controllers.manager.UserProfileManager import create_user
-from wjzpw.web.models import UserProfile, City, Location, Feedback, Resume, Industry, EduExperience, WorkExperience
+from wjzpw.web.models import UserProfile, City, Location, Feedback, Resume, Industry, EduExperience, WorkExperience, MajorType
 from wjzpw.web.widgets import CaptchaWidget
 
 class LoginForm(forms.Form):
@@ -195,6 +195,7 @@ class EduExperienceForm(forms.ModelForm):
         model = EduExperience
         exclude = ('resume', 'start_date', 'end_date')
 
+    major_type = ModelChoiceField(MajorType.objects.all(), empty_label=_(u'请选择'))
     edu_from_year = forms.ChoiceField(choices=constant.YEAR_SCOPE)
     edu_from_month = forms.ChoiceField(choices=constant.MONTH_SCOPE)
     edu_to_year = forms.ChoiceField(choices=constant.YEAR_SCOPE)
@@ -226,6 +227,7 @@ class WorkExperienceForm(forms.ModelForm):
         model = WorkExperience
         exclude = ('resume',)
 
+    industry = ModelChoiceField(Industry.objects.all(), empty_label=_(u'请选择'))
     work_from_year = forms.ChoiceField(choices=constant.YEAR_SCOPE)
     work_from_month = forms.ChoiceField(choices=constant.MONTH_SCOPE)
     work_to_year = forms.ChoiceField(choices=constant.YEAR_SCOPE)
@@ -237,16 +239,20 @@ class WorkExperienceForm(forms.ModelForm):
         Validate that the work experience time period
 
         """
-        if self.data.get('work_from_year') == '0' or self.data.get('work_from_month') == '0':
+        work_from_year = str(self.prefix) + '-' + 'work_from_year'
+        work_from_month = str(self.prefix) + '-' + 'work_from_month'
+        work_to_year = str(self.prefix) + '-' + 'work_to_year'
+        work_to_month = str(self.prefix) + '-' + 'work_to_month'
+        if self.data.get(work_from_year) == '0' or self.data.get(work_from_month) == '0':
             raise forms.ValidationError(_(u'开始时间是必填项。'))
-        if self.data.get('work_to_year') != '0' and int(self.data.get('work_from_year')) >= int(self.data.get('work_to_year')):
+        if self.data.get(work_to_year) != '0' and int(self.data.get(work_from_year)) >= int(self.data.get(work_to_year)):
             raise forms.ValidationError(_(u'开始时间必须小于结束时间。'))
-        self.cleaned_data['start_date'] = datetime.date(int(self.data['work_from_year']), int(self.data['work_from_month']), 1)
-        if self.data['work_to_year'] == '0' or self.data['work_to_month'] == '0':
+        self.cleaned_data['start_date'] = datetime.date(int(self.data[work_from_year]), int(self.data[work_from_month]), 1)
+        if self.data[work_to_year] == '0' or self.data[work_to_month] == '0':
             self.cleaned_data['end_date'] = None
         else:
-            self.cleaned_data['end_date'] = datetime.date(int(self.data['work_to_year']), int(self.data['work_to_month']), 1)
-        return self.cleaned_data['work_from_year']
+            self.cleaned_data['end_date'] = datetime.date(int(self.data[work_to_year]), int(self.data[work_to_month]), 1)
+        return self.cleaned_data[work_from_year]
 
 class FeedbackForm(forms.ModelForm):
 

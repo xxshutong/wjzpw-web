@@ -14,13 +14,15 @@ from wjzpw.web.constant import EDUCATION_TYPE
 
 
 COMPANY_SCOPE_TYPE = (
-    (1, '大于50人'),
-    (2, '50至150之间'),
-    (3, '150至500之间'),
-    (4, '大于500')
+    (0, u'请选择'),
+    (1, u'大于50人'),
+    (2, u'50至150之间'),
+    (3, u'150至500之间'),
+    (4, u'大于500')
     )
 
 COMPANY_NATURE = (
+    ('', u'请选择'),
     (1, _(u'外资(欧美)')),
     (2, _(u'外资(非欧美)')),
     (3, _(u'合资(欧美)')),
@@ -311,7 +313,7 @@ class EduExperience(AbstractModel):
     school = models.CharField(max_length=100)
     major = models.CharField(max_length=100)
     major_type = models.ForeignKey(MajorType, name='major_type')
-    edu_background = models.IntegerField(u'学历', max_length=2, choices=EDUCATION_TYPE)
+    edu_background = models.IntegerField(u'学历', max_length=2, choices=EDUCATION_TYPE, default=None)
     major_desc = models.CharField(max_length=2000, null=True, blank=True)
     is_foreign = models.BooleanField(u'是否是海外经历', default=False)
 
@@ -330,8 +332,8 @@ class WorkExperience(AbstractModel):
     end_date = models.DateField(null=True, blank=True)
     company_name = models.CharField(u'公司名', max_length=255)
     industry = models.ForeignKey(Industry, name='industry', help_text=_(u'行业'))
-    scope = models.IntegerField(u'公司规模', max_length=2, choices=COMPANY_SCOPE_TYPE, null=True, blank=True)
-    nature = models.IntegerField(u'公司性质', choices=COMPANY_NATURE)
+    scope = models.IntegerField(u'公司规模', max_length=2, choices=COMPANY_SCOPE_TYPE, default=0)
+    nature = models.IntegerField(u'公司性质', choices=COMPANY_NATURE, default=None)
     department = models.CharField(u'部门', max_length=250)
     position = models.CharField(u'职位', max_length=250)
     work_desc = models.CharField(u'工作描述', max_length=2000)

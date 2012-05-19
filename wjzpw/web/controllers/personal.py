@@ -63,9 +63,12 @@ def resume_detail(request):
 
         # Submit resume detail
         if submit_type == 'submit':
+            multiple_work_result = True
+            for work_experience_form in work_experience_forms:
+                multiple_work_result = multiple_work_result and work_experience_form.is_valid()
             if resume_form.is_valid()\
                 and edu_experience_form.is_valid()\
-                    and work_experience_form.is_valid():
+                    and multiple_work_result:
                 resume_form.save()
                 edu_experience_form.save()
                 work_experience_form.save()
