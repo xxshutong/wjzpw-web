@@ -297,7 +297,11 @@
                                     {{ resume_form.avatar.errors }}
                                     <span class="help-block" style="margin-top:3px;">
                                         <div class="main_newspic" style="width:135px; height:160px; margin:0px;">
-                                            <img src="{{ resume_form.instance.avatar.url }}" alt="" style="width:135px; height:160px;">
+                                            {% if resume_form.instance and resume_form.instance.avatar and resume_form.instance.avatar.url %}
+                                                <img src="{{ resume_form.instance.avatar.url }}" alt="" style="width:135px; height:160px;">
+                                            {% else %}
+                                                <img src="/files/static/images/Person.gif" alt="" style="width:135px; height:160px;">
+                                            {% endif %}
                                         </div>
                                     </span>
                                 </div>

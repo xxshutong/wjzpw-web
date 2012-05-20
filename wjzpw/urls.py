@@ -5,7 +5,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 #landing
-urlpatterns = patterns('web.controllers.landing',
+urlpatterns = patterns('wjzpw.web.controllers.landing',
     # Landing page.
     url(r'^$', 'dashboard', name='dashboard'),
     url(r'^login/$', 'login', name='login'),
@@ -19,7 +19,7 @@ urlpatterns = patterns('web.controllers.landing',
 )
 
 #personal
-urlpatterns += patterns('web.controllers.personal',
+urlpatterns += patterns('wjzpw.web.controllers.personal',
     # Personal register page.
     url(r'^personal/register/$', 'personal_register', name='personal_register'),
     url(r'^personal/resume_detail/$', 'resume_detail', name='resume_detail'),
