@@ -35,7 +35,7 @@
                     <img src="../../static/images/wizard_2_r.gif"/>
                     <img src="../../static/images/wizard_3_b.gif"/>
                 </div>
-                <form method="POST" class="form-horizontal" action="{% url resume_detail %}" id="resume_form">
+                <form method="POST" class="form-horizontal" action="{% url resume_detail %}" enctype="multipart/form-data" id="resume_form">
                 {% csrf_token %}
                 {{ form.non_field_errors }}
                 <input type="hidden" name="submit_type" id="submit_type">
@@ -292,12 +292,12 @@
                             <!-- /control-group -->
                             <div class="control-group">
                                 <label for="fileInput" style="margin-top:2px;">上传照片：</label>
-                                <div class="controls">
+                                <div class="controls upload_avatar">
                                     {{ resume_form.avatar }}
                                     {{ resume_form.avatar.errors }}
                                     <span class="help-block" style="margin-top:3px;">
                                         <div class="main_newspic" style="width:135px; height:160px; margin:0px;">
-                                            <img src="../../static/images/Person.gif" alt="" style="width:135px; height:160px;">
+                                            <img src="{{ resume_form.instance.avatar.url }}" alt="" style="width:135px; height:160px;">
                                         </div>
                                     </span>
                                 </div>
@@ -338,8 +338,7 @@
     window.onload = function() {
         {% for position in selected_positions %}
             selected_keys.push({{ position.id }});
-            $('#id_positions').val(selected_keys + '');
-            $('#selected_positions_list').append("<li class='handle_ids' handle_id='" + "{{ position.id }}" + "'>" + "{{ position.name }}" + "<img id='id_" + "{{ position.id }}" + "' class='remove_icon' handle_id='" + "{{ position.id }}" + "' src='/static/img/remove.png'></img></li>");
+            $('#selected_positions_list').append("<li class='handle_ids' handle_id='" + "{{ position.id }}" + "'>" + "{{ position.name }}" + "<img id='id_" + "{{ position.id }}" + "' class='remove_icon icon-remove' handle_id='" + "{{ position.id }}" + "' src='/static/img/remove.png'></img></li>");
             $('img#id_' + "{{ position.id }}").click(function() {
                 if(!confirm("是否确定要删除这个职位?")) {
                     return;
@@ -347,9 +346,9 @@
                 $(this).parent().remove();
                 selected_keys.splice($.inArray({{ position.id }}, selected_keys),1);
                 $('#id_positions').val(selected_keys + '');
-        });
+            });
         {% endfor %}
-
+        $('#id_positions').val(selected_keys + '');
     }
 
 

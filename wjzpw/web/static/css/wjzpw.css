@@ -621,3 +621,13 @@ div.mutiple_select {
     width:200px;
     overflow:scroll;
 }
+
+.upload_avatar #avatar-clear_id {
+}
+
+.upload_avatar label{
+    width: auto;
+    float: none;
+    text-align: left;
+    display: inline;
+}

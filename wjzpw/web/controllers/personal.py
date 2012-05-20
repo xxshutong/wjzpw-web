@@ -42,25 +42,51 @@ def resume_detail(request):
     work_experience_num = int(request.POST.get('work_experience_num', 0))
     # Show existing resume detail
     if request.method == 'GET':
-        resume = models.Resume.objects.filter(user_profile=request.user.get_profile())
-        if resume:
-            resume_form = ResumeForm(instance=resume[0])
+        # Resume
+        resumes = models.Resume.objects.filter(user_profile=request.user.get_profile())
+        if resumes:
+            resume_form = ResumeForm(instance=resumes[0])
         else:
             resume = models.Resume(user_profile=request.user.get_profile())
             resume_form = ResumeForm(instance=resume)
 
-        work_experience_num = 1
+        # EduExperience
+        edu_experiences = models.EduExperience.objects.filter(resume=resume_form.instance)
+        if edu_experiences:
+            edu_experience_form = EduExperienceForm(instance=edu_experiences[0])
+        else:
+            edu_experience = models.EduExperience(resume=resume_form.instance)
+            edu_experience_form = EduExperienceForm(instance=edu_experience)
 
-        edu_experience_form = EduExperienceForm()
-        work_experience_form = WorkExperienceForm(prefix='1')
-        work_experience_forms.append(work_experience_form)
-        selected_positions = [resume_position.position for resume_position in models.ResumePositionR.objects.filter(resume=resume)]
+        # WorkExperience
+        work_experiences = models.WorkExperience.objects.filter(resume=resume_form.instance).order_by('start_date')
+        if work_experiences:
+            work_experience_num = len(work_experiences)
+            for i,work_experience in enumerate(work_experiences):
+                work_experience_form = WorkExperienceForm(prefix=str(i+1), instance=work_experience)
+                work_experience_forms.append(work_experience_form)
+        else:
+            work_experience_num = 1
+            work_experience_form = WorkExperienceForm(prefix='1')
+            work_experience_forms.append(work_experience_form)
     # Update resume detail or add new work experience
     else:
         selected_positions = []
         submit_type = request.POST.get('submit_type','submit')
-        resume_form = ResumeForm(request.POST)
-        edu_experience_form = EduExperienceForm(request.POST)
+        # Resume
+        resumes = models.Resume.objects.filter(user_profile=request.user.get_profile())
+        if resumes:
+            resume_form = ResumeForm(request.POST, request.FILES, instance=resumes[0])
+        else:
+                resume_form = ResumeForm(request.POST, request.FILES)
+        # EduExperience
+        edu_experiences = models.EduExperience.objects.filter(resume=resume_form.instance)
+        if edu_experiences:
+            edu_experience_form = EduExperienceForm(request.POST, instance=edu_experiences[0])
+        else:
+            edu_experience_form = EduExperienceForm(request.POST)
+
+        # WorkExperience
         i = 0
         while i < work_experience_num:
             work_experience_forms.append(WorkExperienceForm(request.POST, prefix=i+1))
@@ -74,9 +100,10 @@ def resume_detail(request):
             if resume_form.is_valid()\
                 and edu_experience_form.is_valid()\
                     and multiple_work_result:
-                resume_form.save()
+                resume_form.save(**resume_form.cleaned_data)
                 edu_experience_form.instance.resume = resume_form.instance
                 edu_experience_form.save(**edu_experience_form.cleaned_data)
+                models.WorkExperience.objects.filter(resume=resume_form.instance).delete()
                 for work_experience_form in work_experience_forms:
                     work_experience_form.instance.resume = resume_form.instance
                     work_experience_form.save(**work_experience_form.cleaned_data)
@@ -86,6 +113,7 @@ def resume_detail(request):
             work_experience_forms.append(WorkExperienceForm(prefix=work_experience_num))
             position += str(work_experience_num-1)
 
+    selected_positions = [resume_position.position for resume_position in models.ResumePositionR.objects.filter(resume=resume_form.instance)]
     return render_to_response(
         RESUME_DETAIL_PAGE, {}, RequestContext(request, {
             'resume_form': resume_form,

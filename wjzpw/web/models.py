@@ -286,7 +286,7 @@ class Resume(AbstractModel):
     is_supply_house = models.BooleanField(_(u'是否提供住房'), default=False)
     salary = models.IntegerField(_(u'待遇要求'), choices=SALARY_TYPE, default=0)
     attendance_time = models.IntegerField(_(u'到岗时间'), choices=ATTENDANCE_TIME, default=1)
-    avatar = models.ImageField(_(u'简历头像'), upload_to='upload/avatars', null=True, blank=True)
+    avatar = models.ImageField(_(u'简历头像'), upload_to='static/upload/avatars', null=True, blank=True)
     self_desc = models.CharField(_(u'自我评价'), max_length=2000, null=True, blank=True)
 
     def __unicode__(self):

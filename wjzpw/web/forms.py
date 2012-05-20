@@ -1,8 +1,10 @@
 # coding: utf-8
 import datetime
+from strop import strip
 from django import forms
 
 from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
 from django.forms.models import ModelChoiceField
 from django.utils.translation import ugettext_lazy as _
 from django.forms.widgets import TextInput,RadioSelect, Textarea
@@ -12,7 +14,7 @@ from django.forms.util import ErrorList
 #
 #
 from wjzpw import settings
-from wjzpw.web import constant
+from wjzpw.web import constant, models
 from wjzpw.web.controllers.manager.UserProfileManager import create_user
 from wjzpw.web.models import UserProfile, City, Location, Feedback, Resume, Industry, EduExperience, WorkExperience, MajorType
 from wjzpw.web.widgets import CaptchaWidget
@@ -191,6 +193,15 @@ class ResumeForm(forms.ModelForm):
         instance = self.instance
         instance.save()
 
+        # Saving positions
+        position_list = [strip(position_id) for position_id in new_data['positions'].split(',')]
+        models.ResumePositionR.objects.filter(resume=instance).delete()
+        for position_id in position_list:
+            if position_id != '':
+                position_obj = models.Position.objects.get(id=position_id)
+                resume_position_r = models.ResumePositionR(resume=instance, position=position_obj)
+                resume_position_r.save()
+
 class EduExperienceForm(forms.ModelForm):
     """
     Form for education experience
@@ -198,6 +209,17 @@ class EduExperienceForm(forms.ModelForm):
     class Meta:
         model = EduExperience
         exclude = ('resume', 'start_date', 'end_date')
+
+    def __init__(self, data=None, files=None, auto_id='id_%s', prefix=None,\
+                 initial=None, error_class=ErrorList, label_suffix=':',\
+                 empty_permitted=False, instance=None):
+        super(EduExperienceForm, self).__init__(data, files, auto_id, prefix, initial,\
+            error_class, label_suffix, empty_permitted, instance)
+        if instance:
+            self.fields['edu_from_year'].initial = str(instance.start_date.year if instance.start_date else 0)
+            self.fields['edu_from_month'].initial = str(instance.start_date.month if instance.start_date else 0)
+            self.fields['edu_to_year'].initial = str(instance.end_date.year if instance.end_date else 0)
+            self.fields['edu_to_month'].initial = str(instance.end_date.month if instance.end_date else 0)
 
     major_type = ModelChoiceField(MajorType.objects.all(), empty_label=_(u'请选择'))
     edu_from_year = forms.ChoiceField(choices=constant.YEAR_SCOPE)
@@ -236,6 +258,17 @@ class WorkExperienceForm(forms.ModelForm):
     class Meta:
         model = WorkExperience
         exclude = ('resume', 'start_date', 'end_date')
+
+    def __init__(self, data=None, files=None, auto_id='id_%s', prefix=None,\
+                 initial=None, error_class=ErrorList, label_suffix=':',\
+                 empty_permitted=False, instance=None):
+        super(WorkExperienceForm, self).__init__(data, files, auto_id, prefix, initial,\
+            error_class, label_suffix, empty_permitted, instance)
+        if instance:
+            self.fields['work_from_year'].initial = str(instance.start_date.year if instance.start_date else 0)
+            self.fields['work_from_month'].initial = str(instance.start_date.month if instance.start_date else 0)
+            self.fields['work_to_year'].initial = str(instance.end_date.year if instance.end_date else 0)
+            self.fields['work_to_month'].initial = str(instance.end_date.month if instance.end_date else 0)
 
     industry = ModelChoiceField(Industry.objects.all(), empty_label=_(u'请选择'))
     work_from_year = forms.ChoiceField(choices=constant.YEAR_SCOPE)

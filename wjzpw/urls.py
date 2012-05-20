@@ -27,5 +27,4 @@ urlpatterns += patterns('web.controllers.personal',
 
 )
 
-staticdir= settings.PROJECT_DIR + settings.WEBVERSE_DIR + "/static"
-urlpatterns += patterns('', url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': staticdir}),)
+urlpatterns += patterns('', url(r'^files/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),)
