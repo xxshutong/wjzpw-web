@@ -4,13 +4,13 @@ from django import forms
 from django.contrib.auth.models import User
 from django.forms.models import ModelChoiceField
 from django.utils.translation import ugettext_lazy as _
-from django.forms.widgets import TextInput,RadioSelect, Textarea
-from django.forms.fields import  ChoiceField
+from django.forms.widgets import TextInput, Textarea
 from django.forms.util import ErrorList
 
 from wjzpw import settings
+from wjzpw.web import constant
 from wjzpw.web.controllers.manager.UserProfileManager import create_user
-from wjzpw.web.models import UserProfile, City, Location
+from wjzpw.web.models import UserProfile, Location, Industry, Service
 from wjzpw.web.widgets import CaptchaWidget
 
 class CompanyRegForm(forms.ModelForm):
@@ -33,9 +33,9 @@ class CompanyRegForm(forms.ModelForm):
                     'cp_scope','cp_intro','cp_address','cp_postcode','cp_contact','cp_telephone','cp_mobile_phone','cp_fax',
                         'qq', 'cp_website', 'cp_service')
         widgets = {
+            'cp_name': TextInput(attrs={'size': 40}),
             'cp_postcode': TextInput(attrs={'size': 15}),
             'cp_mobile_phone': TextInput(attrs={'size': 30}),
-            'cp_telephone': TextInput(attrs={'size': 30}),
             'cp_address': TextInput(attrs={'size': 50}),
             'qq': TextInput(attrs={'size': 15}),
             'cp_intro': Textarea(attrs={'rows': 3, 'class': 'input-xxlarge char_area'})
@@ -45,14 +45,16 @@ class CompanyRegForm(forms.ModelForm):
     username = forms.RegexField(label=_(u"用户名"), max_length=30, regex=r'^[\w.@+-]+$',
         error_messages = {'invalid': _(u"用户名只能包含字母、数字和下划线等字符.")})
     email = forms.EmailField(_(u'电子邮件'), widget=TextInput(attrs={'size': 25}))
-#    gender = ChoiceField(widget=RadioSelect(attrs={'style':'width:auto;'}), choices=UserProfile.GENDER)
-#    job_type = ChoiceField(widget=RadioSelect(attrs={'style':'width:auto;', 'class':'job_type'}), choices=UserProfile.JOB_TYPE_TYPE)
-#    mobile_phone = forms.RegexField(label=_(u"手机(电话)"), max_length=15, regex=r'^\d+$',
-#        error_messages = {'invalid': _(u"请输入正确的手机号(电话)。")})
-#    qq = forms.RegexField(label=_(u"QQ"), max_length=15, regex=r'^[1-9][0-9]{4,}$',
-#        error_messages = {'invalid': _(u"QQ格式不正确。")})
-#    census = ModelChoiceField(City.objects.all(), empty_label=_(u'请选择'))
-#    location = ModelChoiceField(Location.objects.all(), empty_label=_(u'请选择'))
+    cp_industry = ModelChoiceField(Industry.objects.all(), empty_label=_(u'请选择'))
+    location = ModelChoiceField(Location.objects.all(), empty_label=None)
+    cp_nature = forms.ChoiceField(choices=constant.COMPANY_NATURE)
+    cp_telephone = forms.RegexField(label=_(u"联系电话"), max_length=15, regex=r'^\d+$',
+        error_messages = {'invalid': _(u"请输入正确的电话号码。")})
+    cp_mobile_phone = forms.RegexField(label=_(u"手机"), max_length=15, regex=r'^\d+$',
+        error_messages = {'invalid': _(u"请输入正确的手机号。")}, required=False)
+    qq = forms.RegexField(label=_(u"QQ"), max_length=15, regex=r'^[1-9][0-9]{4,}$',
+        error_messages = {'invalid': _(u"QQ格式不正确。")}, required=False)
+    cp_service = ModelChoiceField(Service.objects.all(), empty_label=_(u'请选择'))
 
     #Additional
     password = forms.CharField(widget=forms.PasswordInput(render_value=False, attrs={'class': 'middle', 'size': 20}))

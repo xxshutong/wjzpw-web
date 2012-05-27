@@ -12,11 +12,11 @@ def company_register(request):
     error = ''
     form = CompanyRegForm(request=request)
 
-#    if request.method == 'POST':
-#        # post register user
-#        form = PersonalRegForm(request.POST, request=request)
-#        if form.is_valid():
-#            user_profile = form.save(**form.cleaned_data)
+    if request.method == 'POST':
+        # post register company
+        form = CompanyRegForm(request.POST, request=request)
+        if form.is_valid():
+            user_profile = form.save(**form.cleaned_data)
 #
 #            # Login automatically
 #            user = authenticate(username=user_profile.user.username,
@@ -35,7 +35,6 @@ def company_register(request):
 #                error = u'用户名或密码错误。'
 
     # go to register page
-#    provinces = Province.objects.all()
     return render_to_response(
         REGISTER_PAGE, {}, RequestContext(request, {
             'form':form,

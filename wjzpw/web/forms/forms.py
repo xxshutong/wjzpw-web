@@ -79,7 +79,7 @@ class PersonalRegForm(forms.ModelForm):
     mobile_phone = forms.RegexField(label=_(u"手机(电话)"), max_length=15, regex=r'^\d+$',
         error_messages = {'invalid': _(u"请输入正确的手机号(电话)。")})
     qq = forms.RegexField(label=_(u"QQ"), max_length=15, regex=r'^[1-9][0-9]{4,}$',
-        error_messages = {'invalid': _(u"QQ格式不正确。")})
+        error_messages = {'invalid': _(u"QQ格式不正确。")}, required=False)
     census = ModelChoiceField(City.objects.all(), empty_label=_(u'请选择'))
     location = ModelChoiceField(Location.objects.all(), empty_label=_(u'请选择'))
 
