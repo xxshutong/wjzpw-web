@@ -8,7 +8,7 @@ from django.template.context import RequestContext
 from django.utils import simplejson
 from wjzpw import settings
 from wjzpw.web import models
-from wjzpw.web.forms import PersonalRegForm, ResumeForm, EduExperienceForm, WorkExperienceForm
+from wjzpw.web.forms.forms import PersonalRegForm, ResumeForm, EduExperienceForm, WorkExperienceForm
 from wjzpw.web.models import Province
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as djlogin

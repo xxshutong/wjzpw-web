@@ -4,7 +4,7 @@ from django.contrib import admin
 
 admin.autodiscover()
 
-#landing
+# Landing
 urlpatterns = patterns('wjzpw.web.controllers.landing',
     # Landing page.
     url(r'^$', 'dashboard', name='dashboard'),
@@ -18,13 +18,16 @@ urlpatterns = patterns('wjzpw.web.controllers.landing',
     url(r'^admin/', include(admin.site.urls)),
 )
 
-#personal
+# Personal
 urlpatterns += patterns('wjzpw.web.controllers.personal',
-    # Personal register page.
     url(r'^personal/register/$', 'personal_register', name='personal_register'),
     url(r'^personal/resume_detail/$', 'resume_detail', name='resume_detail'),
     url(r'^personal/position/list/$', 'ajax_get_positions', name='ajax_get_positions'),
+)
 
+# Company
+urlpatterns += patterns('wjzpw.web.controllers.company',
+    url(r'^company/register/$', 'company_register', name='company_register'),
 )
 
 urlpatterns += patterns('', url(r'^files/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),)

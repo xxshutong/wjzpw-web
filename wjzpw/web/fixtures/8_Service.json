@@ -1,0 +1,12 @@
+[
+    {
+        "model" : "web.Service",
+        "pk" : 1,
+        "fields" :
+        {
+            "period": 0,
+            "price": 0,
+            "name": "免费服务(可免费发布5个职位)"
+        }
+    }
+]

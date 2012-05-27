@@ -9,7 +9,7 @@ import Image
 import ImageDraw
 from wjzpw import settings
 from wjzpw.web.controllers.utils import Utils
-from wjzpw.web.forms import LoginForm, FeedbackForm
+from wjzpw.web.forms.forms import LoginForm, FeedbackForm
 from wjzpw.web.models import City, Captcha, Announcement, FriendlyLink
 from django.utils import simplejson
 from django.contrib.auth import logout as djlogout, authenticate

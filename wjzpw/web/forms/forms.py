@@ -4,15 +4,12 @@ from strop import strip
 from django import forms
 
 from django.contrib.auth.models import User
-from django.core.exceptions import ObjectDoesNotExist
 from django.forms.models import ModelChoiceField
 from django.utils.translation import ugettext_lazy as _
 from django.forms.widgets import TextInput,RadioSelect, Textarea
 from django.forms.fields import  ChoiceField
 from django.forms.util import ErrorList
 
-#
-#
 from wjzpw import settings
 from wjzpw.web import constant, models
 from wjzpw.web.controllers.manager.UserProfileManager import create_user

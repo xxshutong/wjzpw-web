@@ -164,6 +164,9 @@ class Service(models.Model):
     price = models.IntegerField(u'价格', default=0)
     name = models.CharField(u'名称', max_length=255, blank=False)
 
+    def __unicode__(self):
+        return self.name
+
 class MajorType(models.Model):
     """
     Major info
@@ -251,7 +254,7 @@ class UserProfile(AbstractModel):
     cp_industry = models.ForeignKey(Industry, name='cp_industry', null=True, blank=True)
     cp_nature = models.IntegerField(u'公司性质', choices=COMPANY_NATURE, null=True, blank=True)
     cp_scope = models.IntegerField('Company Scope', max_length=2, choices=COMPANY_SCOPE_TYPE, default=0)
-    cp_intro = models.CharField('Company Intro', max_length=50, null=True)
+    cp_intro = models.CharField('公司简介', max_length=2000, null=True)
     cp_address = models.CharField('Company Address', max_length=2000, null=True)
     cp_postcode = models.CharField('Address Postcode', max_length=10, null=True)
     cp_contact = models.CharField('Contact Name', max_length=50, null=True)
