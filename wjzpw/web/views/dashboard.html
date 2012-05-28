@@ -67,7 +67,7 @@
                 {% if user.is_active and not user.is_staff and not user.is_superuser %}
                     <div class="con main_login_success">
                         <ul style="text-align: center">
-                            <li class="real_name">{{ user.get_profile.real_name}}</li>
+                            <li class="real_name">{% firstof user.get_profile.real_name user.get_profile.cp_name %}</li>
                             <li>你好！欢迎使用吴江-招聘网</li>
                             <li>
                                 <div class="control-group submit">
@@ -77,7 +77,7 @@
                                 </div>
                             </li>
                             <li>
-                                <a class="btn btn-success" href="#">控制面板</>
+                                <a class="btn btn-success" href="#">控制面板<a/>
                                 <a class="btn" href="{% url logout %}" style="float:right;">退出</a>
                             </li>
                             <li>您当前的积分为：{{ user.get_profile.points_balance }}</li>

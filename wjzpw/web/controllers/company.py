@@ -1,7 +1,11 @@
 # coding: utf-8
-from django.shortcuts import render_to_response
+from django.contrib.auth import authenticate
+from django.shortcuts import render_to_response, redirect
 from django.template.context import RequestContext
+from wjzpw import settings
 from wjzpw.web.forms.company import CompanyRegForm
+
+from django.contrib.auth import login as djlogin
 
 REGISTER_PAGE = "../views/company/register.html"
 
@@ -17,22 +21,16 @@ def company_register(request):
         form = CompanyRegForm(request.POST, request=request)
         if form.is_valid():
             user_profile = form.save(**form.cleaned_data)
-#
-#            # Login automatically
-#            user = authenticate(username=user_profile.user.username,
-#                password=form.cleaned_data.get('password', None))
-#            if user:
-#                if user.is_active:
-#                    if not user.is_staff and not user.is_superuser:
-#                        djlogin(request, user)
-#                        form.request.session.set_expiry(settings.SESSION_COOKIE_AGE)
-#                        return redirect('/personal/resume_detail/')
-#                    else:
-#                        error = u'用户名或密码错误。'
-#                else:
-#                    error = u'账户未被激活。'
-#            else:
-#                error = u'用户名或密码错误。'
+
+            # Login automatically
+            user = authenticate(username=user_profile.user.username,
+                password=form.cleaned_data.get('password', None))
+            if user.is_active:
+                djlogin(request, user)
+                form.request.session.set_expiry(settings.SESSION_COOKIE_AGE)
+                return redirect('/')
+            else:
+                error = u'账户未被激活。'
 
     # go to register page
     return render_to_response(

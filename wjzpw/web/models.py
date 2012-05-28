@@ -237,9 +237,9 @@ class UserProfile(AbstractModel):
     real_name = models.CharField(u'真实姓名', max_length=50, null=True, blank=False)
     gender = models.IntegerField(u'性别', max_length=2, choices=GENDER, default=2)
     birthday = models.DateField(u'生日', null=True, blank=True)
-    census = models.ForeignKey(City, name='census')
-    location = models.ForeignKey(Location, name='location')
-    mobile_phone = models.CharField(u'手机/电话', max_length=20)
+    census = models.ForeignKey(City, name='census', null=True, blank=True)
+    location = models.ForeignKey(Location, name='location', null=True, blank=True)
+    mobile_phone = models.CharField(u'手机/电话', max_length=20, default='')
     qq = models.CharField('QQ', max_length=20, null=True, blank=True)
     wedding = models.IntegerField(u'婚姻状况', max_length=2, choices=WEDDING_TYPE, default=0)
     stature = models.IntegerField(u'身高', null=True, blank=True)
@@ -270,6 +270,7 @@ class UserProfile(AbstractModel):
     expires = models.IntegerField(null=True, blank=True)
 
     #    objects = UserProfileManager()
+    def is_company(self): return self.type == 1
 
     def __unicode__(self):
         return self.user.username + "-" + self.user.email

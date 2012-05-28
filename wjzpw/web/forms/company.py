@@ -9,7 +9,7 @@ from django.forms.util import ErrorList
 
 from wjzpw import settings
 from wjzpw.web import constant
-from wjzpw.web.controllers.manager.UserProfileManager import create_user
+from wjzpw.web.controllers.manager.UserProfileManager import  create_company
 from wjzpw.web.models import UserProfile, Location, Industry, Service
 from wjzpw.web.widgets import CaptchaWidget
 
@@ -129,6 +129,6 @@ class CompanyRegForm(forms.ModelForm):
         return self.cleaned_data
 
     def save(self, **new_data):
-        #create user
-        user_profile = create_user(**new_data)
+        #create company
+        user_profile = create_company(**new_data)
         return user_profile
