@@ -1,3 +1,4 @@
+# coding: utf-8
 from os import path
 import sys, os
 # Django settings for wjzpw project.
@@ -203,12 +204,13 @@ LENGTH = 5
 #######################################################################################################################
 # MAIL SERVER SETTINGS
 #######################################################################################################################
-EMAIL_USE_TLS = False
-EMAIL_HOST = 'smtp.126.com'
-EMAIL_HOST_USER = 'digiod_no_reply@126.com'
-EMAIL_HOST_PASSWORD = 'Mercury'
-EMAIL_PORT = 25
-EMAIL_FROM_USER = 'digiod_no_reply@126.com'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'xxshutong@gmail.com'
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_FROM_USER = u'吴江-招聘网wj-zpw.com'
+EMAIL_CC_TO = 'xxshutong@gmail.com'
 
 #######################################################################################################################
 # USER PROFILE
