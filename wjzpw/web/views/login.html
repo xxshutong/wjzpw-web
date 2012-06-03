@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+
+{% block title %}吴江-招聘网 | 登陆{% endblock %}
+
+{% block head %}
+<script type='text/javascript' src="/static/js/bootstrap.min.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="content">
+        <h2 align="center" style="margin-top: 10px; margin-bottom: 18px;">登陆 吴江-招聘网</h2>
+        <div style="width: auto; max-width: 400px; margin-left: auto;margin-right: auto;">
+            <form method="POST" action="{% url login %}" id="login_form" class="form-horizontal">
+                <input type="hidden" name="next" value="{{ next }}">
+                {% csrf_token %}
+                {% if info %}
+                <div class="alert alert-info">
+                    {{ info }}
+                </div>
+                {% endif %}
+
+                {% if error %}
+                <div class="alert alert-error">
+                    {{ error }}
+                </div>
+                {% endif %}
+
+                <div id="alert_container" class="alert alert-info" style="display: none;">
+
+                </div>
+                <fieldset style="padding-top: 0px">
+                    <div class="control-group" align="center">
+                        <label for="code">用户名：</label>
+                        <div class="middle_form_width" style="text-align:  left">
+                            {{ login_form.username }}
+                            {{ login_form.username.errors }}
+                        </div>
+                    </div>
+                    <div class="control-group" align="center">
+                        <label for="code">密码：</label>
+                        <div class="middle_form_width" style="text-align:  left">
+                            {{ login_form.password }}
+                            {{ login_form.password.errors }}
+                        </div>
+                    </div>
+                    <div class="control-group" align="center">
+                        <label id="type">类　型：</label>
+                        <div class="middle_form_width choice_radio"  style="text-align:  left">
+                            {{ login_form.type }}
+                        </div>
+                    </div>
+                    <div class="control-group" align="center">
+                        <label for="code">验证码：</label>
+                        <div class="middle_form_width" style="text-align:  left">
+                            {{ login_form.verify_img }}
+                            {{ login_form.verify_img.errors }}
+                        </div>
+                    </div>
+                    <div class="control-group" align="center">
+                        <label>&nbsp;</label>
+                        <div class="middle_form_width" style="text-align:  left">
+                            <button type="submit" class="btn btn-primary">登陆</button>
+                            <a style="cursor: pointer" data-toggle="modal" onclick="$('#forgot_modal').modal('show');"  >忘记密码?</a>
+                        </div>
+
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--forgot password modal-->
+<div class="modal hide fade" id="forgot_modal">
+    <div class="modal-header">
+        <a class="close" data-dismiss="modal">×</a>
+        <h3>找回你的吴江-招聘网密码</h3>
+    </div>
+    <div class="modal-body">
+        <form id="forget_form" class="form-horizontal " style="margin-bottom: 0px;">
+            {% csrf_token %}
+            <div id="div_forgot_error" class="alert alert-error" style="display: none;">
+            </div>
+
+            <div class="control-group">
+                <label><i class="icon-envelope"></i>&nbsp;输入您的注册邮箱</label>
+                <div class="controls">
+                    <input size="30" id="id_email_address" name="email_address" placeholder="你注册时的邮件地址" type="text"/>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="modal-footer">
+        <a onclick="submit_user_info()" class="btn btn-primary" id='send_email_button'>发送邮件</a>
+        <a class="btn success" href="#" data-dismiss="modal">取消</a>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $('#forgot_modal').on('hidden', function () {
+        $('#id_email_address').val("");
+        $('#div_forgot_error').html("");
+        $('#div_forgot_error').hide();
+    });
+
+    function submit_user_info(){
+        $('#div_forgot_error').html('');
+        $('#div_forgot_error').hide();
+        add_button_load('send_email_button');
+        $.ajax({
+            type:"GET",
+            async:true,
+            url:"{% url ajax_forget_password %}",
+            dataType:"json",
+            data:$('#forget_form').serialize(),
+            success: function(data) {
+                remove_button_load('send_email_button');
+                if(!data){
+                    $('#forgot_modal').modal('hide');
+                    $('#id_email_address').val("");
+                    $('#alert_container').html("邮件已经发送到您的邮箱中，请尽快确认。");
+                    $('#alert_container').show();
+                }
+                else{
+                    $('#div_forgot_error').html(data);
+                    $('#div_forgot_error').show();
+                    $('#alert_container').hide();
+                }
+            }
+        });
+    }
+
+    function add_button_load(button_id){
+        button_id = '#'+button_id;
+        $(button_id).text('发送中...');
+        $(button_id).attr('class', 'btn btn-primary disabled');
+        $(button_id).attr('disabled', 'disabled');
+    }
+
+    function remove_button_load(button_id){
+        button_id = '#'+button_id;
+        $(button_id).text('发送邮件');
+        $(button_id).attr('class', 'btn btn-primary');
+        $(button_id).removeAttr('disabled');
+    }
+</script>
+{% endblock %}

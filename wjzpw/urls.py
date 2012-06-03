@@ -13,6 +13,8 @@ urlpatterns = patterns('wjzpw.web.controllers.landing',
     url(r'^feedback/$', 'feedback', name='feedback'),
     url(r'^ajax_get_city_by_province/(\d+)/$', 'ajax_get_city_by_province', name='ajax_get_city_by_province'),
     url(r'^verify_image/$', 'verify_image', name='verify_image'),
+    url(r'^ajax_forget_password/', 'ajax_forget_password', name='ajax_forget_password'),
+    url(r'^activated_password/(?P<token>\w+)/', 'activated_password', name='activated_password'),
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),

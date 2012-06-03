@@ -10,7 +10,7 @@
             <div class="main_login">
                 <div class="tit">
                     {% if user.is_anonymous %}
-                        <span><a class="more" href="#">忘记密码？</a></span>
+                        <span><a class="more" href="{% url login %}">忘记密码？</a></span>
                     {% endif %}
                     会员登录
                 </div>
@@ -52,9 +52,8 @@
                                         {{ login_form.type }}
                                     </div>
                                 </div>
-                                <div class="control-group submit">
+                                <div class="control-group submit" style="text-align: right">
                                     <button class="btn btn-primary" type="submit">登陆</button>
-                                    <button class="btn btn-primary" href="#" style="float: right; width: 90px">忘记密码</button>
                                 </div>
                                 <div class="form-actions">
                                     <a href="/personal/register/" class="btn btn-success" style="float:left">个人注册</a>
@@ -302,4 +301,5 @@
         </div>
     </div>
 </div>
+
 {% endblock %}

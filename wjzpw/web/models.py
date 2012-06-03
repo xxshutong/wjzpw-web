@@ -460,6 +460,15 @@ class FriendlyLink(AbstractModel):
     web_site = models.URLField(_(u'网站地址'), max_length=200)
     is_active = models.BooleanField(_(u'是否激活'), default=True)
 
+class ActiveToken(AbstractModel):
+    """
+    Store email tokens sent when user registers or changes email .
+    """
+    user = models.ForeignKey(User, null=True)
+    token = models.CharField(max_length=256, null=True)
+    new_email = models.EmailField(null=True, blank=True)
+    password = models.CharField(_('password'), null=True, max_length=128, help_text=_("Use '[algo]$[salt]$[hexdigest]' or use the <a href=\"password/\">change password form</a>."))
+
 ### Events summarize
 class EventSearchJob(AbstractModel):
     pass
