@@ -39,12 +39,12 @@
                 <a class="brand" href="/">吴江-招聘网</a>
                 <div class="nav-collapse">
                     <ul class="nav">
-                        <li class="active"><a href="#">首页</a></li>
+                        <li {%if menu == 'dashboard'%}class="active"{%endif%}><a href="/">首页</a></li>
                         <li><a href="personal/searchJob.html">找工作</a></li>
                         <li><a href="company/searchPerson.html">找人才</a></li>
                         <li><a href="#">高级人才</a></li>
                         <li><a href="#" style="display:none">兼职人才</a></li>
-                        <li><a href="{% url feedback %}">留言反馈</a></li>
+                        <li {%if menu == 'feedback'%}class="active"{%endif%}><a href="{% url feedback %}">留言反馈</a></li>
                         <li><a href="#" style="color:orange">相关服务</a></li>
                     </ul>
                 </div>

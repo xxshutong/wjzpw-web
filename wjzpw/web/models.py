@@ -427,16 +427,17 @@ class Feedback(AbstractModel):
         verbose_name_plural = _(u"用户反馈列表")
 
     TYPE = (
-        (0, 'Suggest'),
-        (1, 'Consult'),
-        (2, 'Complain')
+        (0, u'建议'),
+        (1, u'咨询'),
+        (2, u'投诉')
         )
 
-    sender = models.CharField('Sender', max_length=50)
-    email = models.EmailField(_(u'电子邮件'), blank=True)
-    type = models.IntegerField('Type', max_length=2, choices=TYPE, default=0)
-    subject = models.CharField('Subject', max_length=255)
-    content = models.CharField('Content', max_length=2000, blank=True)
+    sender = models.CharField(u'发送者', max_length=50)
+    email = models.EmailField(u'电子邮件', blank=True)
+    mobile = models.CharField(u'手机号', max_length=50, null=True, blank=True)
+    type = models.IntegerField(u'类型', max_length=2, choices=TYPE, default=0)
+    subject = models.CharField(u'主题', max_length=255)
+    content = models.CharField(u'内容', max_length=2000, blank=True)
 
 class Announcement(AbstractModel):
     """

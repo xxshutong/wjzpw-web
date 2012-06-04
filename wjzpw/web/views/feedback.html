@@ -13,9 +13,6 @@
             </div>
             <div class="right_layer" style="padding-top:0px;">
                 <div>
-                    {% if success %}
-                        success
-                    {% endif %}
                     <form method="POST" class="form-horizontal" action="{% url feedback %}" id="feedback_form" style="margin:0px;">
                         {% csrf_token %}
                         {{ feedback_from.non_field_errors }}
@@ -24,13 +21,17 @@
                             <div class="tit">
                                 在线提交留言内容
                             </div>
+                            {% if success %}
+                            <div class="alert alert-success" style="margin: 18px 10px 0px 10px;">
+                                您的留言已成功，感谢您的反馈。
+                            </div>
+                            {% endif %}
                             <div>
                                 <fieldset>
                                     <!-- /control-group -->
                                     <div class="control-group">
                                         <label for="xlInput"><span class="required_star">*</span>用户名/昵称：</label>
                                         <div class="controls">
-                                            <input type="text" size="30" name="xlInput" id="xlInput" class="middle">
                                             {{ feedback_from.sender }}
                                             {{ feedback_from.sender.errors }}
                                         </div>
@@ -45,14 +46,17 @@
                                     </div>
                                     <!-- /control-group -->
                                     <div class="control-group">
+                                        <label for="xlInput">手机：</label>
+                                        <div class="controls">
+                                            {{ feedback_from.mobile }}
+                                            {{ feedback_from.mobile.errors }}
+                                        </div>
+                                    </div>
+                                    <!-- /control-group -->
+                                    <div class="control-group">
                                         <label for="xlInput">类型：</label>
                                         <div class="controls">
                                             <div class="inline-inputs">
-                                                <select id="companysize" name="companysize" style="width:100px;">
-                                                    <option value="0">建议</option>
-                                                    <option value="1">咨询</option>
-                                                    <option value="2">投诉</option>
-                                                </select>
                                                 {{ feedback_from.type }}
                                                 {{ feedback_from.type.errors }}
                                             </div>
@@ -62,31 +66,31 @@
                                     <div class="control-group">
                                         <label for="xlInput"><span class="required_star">*</span>留言主题：</label>
                                         <div class="controls">
-                                            <input type="text" size="30" name="xlInput" id="xlInput" class="xlarge">
                                             {{ feedback_from.subject }}
                                             {{ feedback_from.subject.errors }}
                                         </div>
                                     </div>
                                     <!-- /control-group -->
                                     <div class="control-group">
-                                        <label for="xlInput">留言内容：</label>
+                                        <label for="xlInput"><span class="required_star">*</span>留言内容：</label>
                                         <div class="controls">
-                                            <textarea rows="5" name="textarea2" id="textarea2" class="xxlarge"></textarea>
                                             {{ feedback_from.content }}
+                                            {{ feedback_from.content.errors }}
                                             <span class="help-block">请详细填写，我们将对您的意见、建议作出及时回复。</span>
                                             <span class="help-block">限2000个中文字，已输入<span style="color:red">0</span>个字</span>
-                                            {{ feedback_from.content.errors }}
+
                                         </div>
                                     </div>
                                 </fieldset>
                             </div>
                         </div>
-                    </form>
-                    <div class="main_login" style="border:none; -moz-box-shadow:none">
-                        <div class="form-actions">
-                            <button type="submit" class="btn btn-primary">提交</button>&nbsp;<a class="btn" href="index.html">重置</a>
+
+                        <div class="main_login" style="border:none; -moz-box-shadow:none">
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">提交</button>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>

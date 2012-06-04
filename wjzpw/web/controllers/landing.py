@@ -14,7 +14,7 @@ from wjzpw import settings
 from wjzpw.web import models
 from wjzpw.web.controllers.utils import Utils, send_forgot_password_email
 from wjzpw.web.forms.forms import LoginForm, FeedbackForm
-from wjzpw.web.models import City, Captcha, Announcement, FriendlyLink
+from wjzpw.web.models import City, Captcha, Announcement, FriendlyLink, Feedback
 from django.utils import simplejson
 from django.contrib.auth import logout as djlogout, authenticate
 from django.contrib.auth import login as djlogin
@@ -33,7 +33,8 @@ def dashboard(request):
         DASHBOARD_PAGE, {}, RequestContext(request, {
             'login_form':login_form,
             'announce_list':announce_list,
-            'link_list':link_list
+            'link_list':link_list,
+            'menu': 'dashboard'
         }),
     )
 
@@ -86,17 +87,26 @@ def logout(request):
 
 def feedback(request):
     """ Renders Feedback page. """
+    success = False
     if request.method == 'GET':
-        feedback_from = FeedbackForm()
-        success = False
+        if request.user.is_active:
+            user_profile = request.user.get_profile()
+            kwargs = {'sender':(user_profile.real_name or user_profile.cp_name),'email':request.user.email}
+            instance = Feedback(**kwargs)
+            feedback_from = FeedbackForm(instance=instance)
+        else:
+            feedback_from = FeedbackForm()
     else:
         feedback_from = FeedbackForm(request.POST)
-        success = True
+        if feedback_from.is_valid():
+            feedback_from.save(**feedback_from.cleaned_data)
+            success = True
 
     return render_to_response(
         FEEDBACK_PAGE, {}, RequestContext(request, {
-            'feedback_from':feedback_from,
-            'success':success
+            'feedback_from': feedback_from,
+            'success': success,
+            'menu': 'feedback'
             }),
     )
 

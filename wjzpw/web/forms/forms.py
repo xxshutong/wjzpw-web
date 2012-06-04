@@ -304,18 +304,12 @@ class FeedbackForm(forms.ModelForm):
 
     class Meta:
         model = Feedback
+        widgets = {
+            'email': TextInput(attrs={'size': 30}),
+        }
 
-    verify_img = forms.CharField(widget=CaptchaWidget())
+    content = forms.CharField(widget=forms.Textarea(attrs={'rows':3, 'class':'input-xxlarge char_area'}), max_length=2000)
 
-    def clean_verify_img(self):
-        """
-        Validate that the verify code is valid.
-
-        """
-        verify_code = self.cleaned_data.get('verify_img', '')
-        if verify_code == self.request.session.get(settings.NAME, ''):
-            return verify_code
-        raise forms.ValidationError(_(u'验证码错误。'))
-
-    def clean(self):
-        pass
+    def save(self, **cleaned_data):
+        instance = Feedback(**cleaned_data)
+        instance.save()
