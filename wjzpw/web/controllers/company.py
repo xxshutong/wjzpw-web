@@ -1,13 +1,15 @@
 # coding: utf-8
 from django.contrib.auth import authenticate
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response, redirect
 from django.template.context import RequestContext
 from wjzpw import settings
-from wjzpw.web.forms.company import CompanyRegForm
+from wjzpw.web.forms.company import CompanyRegForm, JobForm
 
 from django.contrib.auth import login as djlogin
 
 REGISTER_PAGE = "../views/company/register.html"
+ADD_JOB_PAGE = "../views/company/add_job.html"
 
 def company_register(request):
     """
@@ -37,5 +39,26 @@ def company_register(request):
         REGISTER_PAGE, {}, RequestContext(request, {
             'form':form,
             'error': error
+        }),
+    )
+
+@login_required
+def add_job(request):
+    '''
+    Add new job for company
+    '''
+    error = ''
+    if request.method == 'GET':
+        form = JobForm()
+    else:
+        form = JobForm(request.POST)
+        if form.is_valid():
+            form.save(request.user.get_profile(), **form.cleaned_data)
+            #TODO redirect to job view page in future
+    return render_to_response(
+        ADD_JOB_PAGE, {}, RequestContext(request, {
+            'form':form,
+            'error': error,
+            'menu': 'add_job'
         }),
     )

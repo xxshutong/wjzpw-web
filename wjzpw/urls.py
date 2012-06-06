@@ -30,6 +30,7 @@ urlpatterns += patterns('wjzpw.web.controllers.personal',
 # Company
 urlpatterns += patterns('wjzpw.web.controllers.company',
     url(r'^company/register/$', 'company_register', name='company_register'),
+    url(r'^company/add_job/$', 'add_job', name='add_job'),
 )
 
 urlpatterns += patterns('', url(r'^files/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),)

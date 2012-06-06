@@ -354,41 +354,41 @@ class Job(AbstractModel):
         verbose_name_plural = _(u"工作岗位列表")
 
     EXPERIENCE_TYPE = (
-        (0, 'Unlimited'),
-        (1, '1 year'),
-        (2, '2 years'),
-        (3, '3-5 years'),
-        (4, '5-10 years'),
-        (5, '10+ years')
+        (0, u'不限'),
+        (1, u'1年以上'),
+        (2, u'2年以上'),
+        (3, u'3-5年'),
+        (4, u'5-10年'),
+        (5, u'10年以上')
         )
 
     AGE_SCOPE = (
-        (0, 'Unlimited'),
-        (1, '< 20'),
-        (2, '20 < 30'),
-        (3, '30 < 35'),
-        (4, '35 <')
+        (0, u'不限'),
+        (1, u'小于20'),
+        (2, u'20至30'),
+        (3, u'30至35'),
+        (4, u'35以上')
         )
 
     SEX_TYPE = (
-        (0, 'Unlimited'),
-        (1, 'Male'),
-        (2, 'Female')
+        (0, u'不限'),
+        (1, u'男'),
+        (2, u'女')
         )
 
     company = models.ForeignKey(UserProfile, name='Company')
-    name = models.CharField('Job Name', max_length=255)
-    job_type = models.IntegerField(u'职位类型', max_length=2, choices=JOB_TYPE)
+    name = models.CharField(u'职位名称', max_length=255)
+    job_type = models.IntegerField(u'职位类型', max_length=2, choices=JOB_TYPE, default=1)
     salary = models.IntegerField(_(u'薪水'), choices=SALARY_TYPE, default=0)
-    department = models.CharField('Department', max_length=255)
-    number = models.IntegerField('Number Of People', default=1)
-    end_date = models.DateField('End Date', null=True, blank=True)
+    department = models.CharField(u'部门', max_length=255, null=True, blank=True)
+    number = models.IntegerField(u'招聘人数', null=True, blank=True)
+    end_date = models.DateField(u'结束日期', null=True, blank=True)
     location = models.ForeignKey(Location, help_text=_(u'工作地点'), name='location')
-    edu_background = models.IntegerField('Education Background', max_length=2, choices=EDUCATION_TYPE)
-    work_experience = models.IntegerField('Work Experience', max_length=2, choices=EXPERIENCE_TYPE, default=0)
-    age = models.IntegerField('Age Scope', max_length=2, choices=AGE_SCOPE, default=0)
-    sex = models.IntegerField('Sex', max_length=2, choices=SEX_TYPE, default=0)
-    description = models.CharField('Description', max_length=2000)
+    edu_background = models.IntegerField(u'教育背景', max_length=2, choices=EDUCATION_TYPE, default='')
+    work_experience = models.IntegerField(u'工作经验', max_length=2, choices=EXPERIENCE_TYPE, default=0)
+    age = models.IntegerField(u'年龄要求', max_length=2, choices=AGE_SCOPE, default=0)
+    sex = models.IntegerField(u'性别', max_length=2, choices=SEX_TYPE, default=0)
+    description = models.CharField(u'描述', max_length=2000)
 
     def __unicode__(self):
         return str(self.user.id) + '-' + self.user.email + '-' + self.activity.name

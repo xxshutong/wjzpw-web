@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+
+{% block title %}吴江-招聘网 | 发布职位{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="/static/css/datepicker.css">
+    <script type='text/javascript' src="/static/js/bootstrap-datepicker.js"></script>
+{% endblock %}
+
+{% block content %}
+<!-- 公司头部图片 -->
+<div class="container">
+    <div class="content" style="padding-bottom:0px;">
+        <img src="../../static/images/zpym_bj.gif" width="1020px" height="100px">
+        <span style="position:absolute; margin-left:480px; margin-top:-70px; color:#FF0000; font-size:36px; font-weight:bold">{{ user.get_profile.cp_name }}</span>
+    </div>
+</div>
+
+<!-- 主体信息开始 -->
+<div class="container">
+    <div class="content">
+        <div class="row">
+            <div class="left_layer position_list">
+                <p class="title">为什么要发布</p>
+                <p>本站拥有大量注册人才信息，您发布的职位信息将在最短的时间内被充分了解，为企业招聘节约大量时间及人力成本。</p>
+            </div>
+            <div class="right_layer" style="padding-top:0px;">
+                <div>
+                    <form style="margin:0px;" class="form-horizontal" action="{% url add_job %}" method="POST">
+                        {% csrf_token %}
+                        {{ form.non_field_errors }}
+                        <!-- 基本资料 -->
+                        <div class="main_login" style="margin-top:0px;">
+                            <div class="tit">
+                                发布职位
+                            </div>
+                            <div class="multi_view">
+                                <fieldset>
+                                    <!-- /control-group -->
+                                    <div class="control-group">
+                                        <label for="xlInput"><span class="required_star">*</span>职位名称：</label>
+                                        <div class="sinput">
+                                            {{ form.name }}
+                                            {{ form.name.errors }}
+                                        </div>
+                                    </div>
+                                    <!-- /control-group -->
+                                    <div class="control-group">
+                                        <label for="xlInput"><span class="required_star">*</span>职位类型：</label>
+                                        <div class="sinput">
+                                            {{ form.job_type }}
+                                            {{ form.job_type.errors }}
+                                        </div>
+                                        <label for="xlInput" class="slabel">参考月薪：</label>
+                                        <div class="sinput">
+                                            {{ form.salary }}
+                                            {{ form.salary.errors }}
+                                        </div>
+                                    </div>
+                                    <!-- /control-group -->
+                                    <div class="control-group">
+                                        <label for="xlInput">招聘部门：</label>
+                                        <div class="sinput">
+                                            {{ form.department }}
+                                            {{ form.department.errors }}
+                                        </div>
+                                        <label for="xlInput" class="slabel">招聘人数：</label>
+                                        <div class="sinput">
+                                            {{ form.number }}&nbsp;人
+                                            {{ form.number.errors }}
+                                            <span class="help-block"><strong>注：</strong>不填表示不限</span>
+                                        </div>
+                                    </div>
+                                    <!-- /control-group -->
+                                    <div class="control-group">
+                                        <label for="xlInput">截止日期：</label>
+                                        <div class="controls">
+                                            {{ form.end_date }}
+                                            {{ form.end_date.errors }}
+                                            <span class="help-block"><strong>注：</strong>不填表示一直有效</span>
+                                        </div>
+                                    </div>
+                                    <!-- /control-group -->
+                                    <div class="control-group">
+                                        <label for="xlInput"><span class="required_star">*</span>工作地区：</label>
+                                        <div class="controls">
+                                            {{ form.location }}
+                                            镇/开发区
+                                            {{ form.location.errors }}
+                                        </div>
+                                    </div>
+                                    <!-- /control-group -->
+                                    <div class="control-group">
+                                        <label for="xlInput"><span class="required_star">*</span>学历要求：</label>
+                                        <div class="sinput">
+                                            {{ form.edu_background }}
+                                            {{ form.edu_background.errors }}
+                                        </div>
+                                        <label for="xlInput" class="slabel">工作经验：</label>
+                                        <div class="sinput">
+                                            {{ form.work_experience }}
+                                            {{ form.work_experience.errors }}
+                                        </div>
+                                    </div>
+                                    <!-- /control-group -->
+                                    <div class="control-group">
+                                        <label for="xlInput">年龄要求：</label>
+                                        <div class="sinput">
+                                            {{ form.age }}
+                                            {{ form.age.errors }}
+                                        </div>
+                                        <label for="xlInput" class="slabel">性别要求：</label>
+                                        <div class="sinput">
+                                            {{ form.sex }}
+                                            {{ form.sex.errors }}
+                                        </div>
+                                    </div>
+                                    <!-- /control-group -->
+                                    <div class="control-group">
+                                        <label for="xlInput"><span class="required_star">*</span>职位描述：</label>
+                                        <div class="controls">
+                                            {{ form.description }}
+                                            {{ form.description.errors }}
+                                            <span class="help-block">请尽量详细填写，往往应聘者比较关注此项信息。</span>
+                                            <span class="help-block">限2000个中文字，已输入<span style="color:red">0</span>个字</span>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+
+                        <div class="main_login" style="border:none; -moz-box-shadow:none">
+                            <div class="form-actions">
+                                <button class="btn btn-primary" type="submit">立即发布</button>&nbsp;&nbsp;<a class="btn" href="#">取消</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    window.prettyPrint && prettyPrint();
+    $('#id_end_date').datepicker({
+        format: 'yyyy-mm-dd'
+    })
+            .on('changeDate', function(ev){
+                $('#id_end_date').datepicker('hide');
+            });
+    $('#id_end_date').click(function() {
+        $('#id_end_date').datepicker('show');
+    });
+</script>
+{% endblock %}

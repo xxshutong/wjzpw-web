@@ -62,8 +62,8 @@
                                 <li style="padding-top:10px">|</li>
                                 <li><a href="personal/dashboard/dashboard.html">控制面板</a></li>
                                 <li style="padding-top:10px">|</li>
-                                {% if user.type == '1' %}
-                                    <li><a href="company/addPosition.html">发布职位</a></li>
+                                {% if user.get_profile.type == 1 %}
+                                    <li {%if menu == 'add_job'%}class="active"{%endif%}><a href="{% url add_job %}">发布职位</a></li>
                                     <li style="padding-top:10px">|</li>
                                 {% endif %}
                                 <li><a href="{% url logout %}">退出</a></li>
@@ -143,6 +143,14 @@
     <!-- 尾部信息结束 -->
 
     <script type="text/javascript">
+        $(document).ready(function() {
+            right_height = $('.right_layer').height();
+            left_height = $('.left_layer').height();
+            if(right_height > left_height) {
+                $('.left_layer').height(right_height );
+            }
+        })
+
         $(".char_area").keyup(function() {
             var txtValue = $(this).val();//获取文本域的值
             var span = $(this).next().next().find('span');
