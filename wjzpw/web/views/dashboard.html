@@ -162,7 +162,7 @@
                 <div class="con">
                     <div class="t1"><img width="59" height="56" src="../static/images/t1.gif"></div>
                     <div class="anouncement">
-                        <marquee scrollAmount=1 direction=up height="56">
+                        <marquee scrollAmount=1 direction=up height="76">
                             <ul>
                                 {% if announce_list %}
                                     {% for announce in announce_list %}
@@ -177,7 +177,7 @@
             <!-- 图片或者视频 -->
             <div class="main_newspic">
                 <a href="#">
-                    <img alt="" src="http://placehold.it/210x150">
+                    <img alt="" src="{{ configuration.dashboard_image_1.url }}">
                 </a>
             </div>
         </div>

@@ -2,7 +2,6 @@
 from os import path
 import sys, os
 # Django settings for wjzpw project.
-import urlparse
 
 # Register database schemes in URLs.
 import pgurl
@@ -163,6 +162,11 @@ LOGGING = {
         },
     }
 }
+
+#######################################################################################################################
+# WJZPW APPLICATION SETTINGS
+#######################################################################################################################
+ANNOUNCEMENT_LIMIT_SIZE = 5
 
 #######################################################################################################################
 # SESSION EXPIRATION SETTINGS

@@ -2,8 +2,8 @@
 from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response, redirect
-from django.template.context import RequestContext
 from wjzpw import settings
+from wjzpw.web.component import RequestContext
 from wjzpw.web.forms.company import CompanyRegForm, JobForm
 
 from django.contrib.auth import login as djlogin

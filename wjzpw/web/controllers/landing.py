@@ -5,16 +5,16 @@ from django.contrib.auth.models import User
 from django.db.models.query_utils import Q
 from django.shortcuts import  render_to_response, redirect
 from django.http import  HttpResponse
-from django.template.context import RequestContext
 from random import choice
 import Image
 import ImageDraw
 import json
 from wjzpw import settings
 from wjzpw.web import models
+from wjzpw.web.component import RequestContext
 from wjzpw.web.controllers.utils import Utils, send_forgot_password_email
 from wjzpw.web.forms.forms import LoginForm, FeedbackForm
-from wjzpw.web.models import City, Captcha, Announcement, FriendlyLink, Feedback
+from wjzpw.web.models import City, Captcha, Announcement, FriendlyLink, Feedback, Configuration
 from django.utils import simplejson
 from django.contrib.auth import logout as djlogout, authenticate
 from django.contrib.auth import login as djlogin
@@ -27,8 +27,13 @@ FEEDBACK_PAGE = "../views/feedback.html"
 def dashboard(request):
     """ Renders Dashboard/Home page. """
     login_form = LoginForm(request=request)
-    announce_list = Announcement.objects.filter(end_date__gte=datetime.datetime.today()).order_by('-updated_at')
+
+    # 公告
+    announce_list = Announcement.objects.filter(Q(end_date__gte=datetime.datetime.today()) | Q(end_date=None)).order_by('-updated_at')[:settings.ANNOUNCEMENT_LIMIT_SIZE]
+
+    # 友情链接
     link_list = FriendlyLink.objects.filter(is_active=True).order_by('updated_at')
+
     return render_to_response(
         DASHBOARD_PAGE, {}, RequestContext(request, {
             'login_form':login_form,

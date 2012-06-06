@@ -4,10 +4,10 @@ from django.db import transaction
 from django.db.models.query_utils import Q
 from django.http import HttpResponse
 from django.shortcuts import  render_to_response, redirect
-from django.template.context import RequestContext
 from django.utils import simplejson
 from wjzpw import settings
 from wjzpw.web import models
+from wjzpw.web.component import RequestContext
 from wjzpw.web.forms.forms import PersonalRegForm, ResumeForm, EduExperienceForm, WorkExperienceForm
 from wjzpw.web.models import Province
 from django.contrib.auth import authenticate
