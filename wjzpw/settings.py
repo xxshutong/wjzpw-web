@@ -1,10 +1,10 @@
 # coding: utf-8
 from os import path
 import sys, os
+import dj_database_url
 # Django settings for wjzpw project.
 
 # Register database schemes in URLs.
-import pgurl
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -18,7 +18,7 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-DATABASES = pgurl.get_db_settings()
+DATABASES = {'default': dj_database_url.config(default='postgres://postgres:postgres@localhost/wjzpw')}
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
