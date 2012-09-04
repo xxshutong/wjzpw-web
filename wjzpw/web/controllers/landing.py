@@ -12,9 +12,10 @@ import json
 from wjzpw import settings
 from wjzpw.web import models
 from wjzpw.web.component import RequestContext
-from wjzpw.web.controllers.utils import Utils, send_forgot_password_email
+from wjzpw.web.constant import EDUCATION_TYPE
+from wjzpw.web.controllers.utils import Utils, send_forgot_password_email, get_tuple_value_from_key
 from wjzpw.web.forms.forms import LoginForm, FeedbackForm
-from wjzpw.web.models import City, Captcha, Announcement, FriendlyLink, Feedback, Configuration
+from wjzpw.web.models import City, Captcha, Announcement, FriendlyLink, Feedback, Configuration, Job, UserProfile, Resume
 from django.utils import simplejson
 from django.contrib.auth import logout as djlogout, authenticate
 from django.contrib.auth import login as djlogin
@@ -34,11 +35,26 @@ def dashboard(request):
     # 友情链接
     link_list = FriendlyLink.objects.filter(is_active=True).order_by('updated_at')
 
+    # VIP企业招聘
+    #vip_job_list = Job.objects.filter(company__cp_service__period__gt=0).order_by('-created_at')[:settings.DASHBOARD_VIP_SIZE]
+    #TODO refer to 最新企业招聘
+
+    # 最新企业招聘
+    company_list = UserProfile.objects.filter(type=1).order_by('-cp_job_last_updated')[:settings.DASHBOARD_JOB_SIZE]
+    job_list = Job.objects.filter(company__in=company_list).order_by('-company__cp_job_last_updated', '-updated_at')
+    company_job_list = gather_job_info(job_list)
+
+    # 最新人才信息
+    person_list = UserProfile.objects.filter(type=0, id__in=Resume.objects.all().values('user_profile__id')).order_by('-created_at')[:settings.DASHBOARD_PERSON_SIZE]
+    person_obj_list = gather_person_info(person_list)
+
     return render_to_response(
         DASHBOARD_PAGE, {}, RequestContext(request, {
             'login_form':login_form,
             'announce_list':announce_list,
             'link_list':link_list,
+            'company_job_list':company_job_list,
+            'person_obj_list': person_obj_list,
             'menu': 'dashboard'
         }),
     )
@@ -61,13 +77,7 @@ def login(request, info=None):
                     if not user.is_staff and not user.is_superuser:
                         djlogin(request, user)
                         login_form.request.session.set_expiry(settings.SESSION_COOKIE_AGE)
-                        return render_to_response(
-                            DASHBOARD_PAGE, {}, RequestContext(request, {
-                                'login_form':login_form,
-                                'error': error
-                            }
-                            ),
-                        )
+                        return redirect('/')
                     else:
                         error = _(u'用户名或密码错误。')
                 else:
@@ -198,3 +208,44 @@ def activated_password(request, token=None):
 
     else:
         return render_to_response('404.html', {}, RequestContext(request, {}))
+
+def gather_job_info(job_list):
+    """
+    Group jobs by company one by one
+    """
+    company_job_list = []
+    job_obj = {}
+    prefix_company = None
+    for job in job_list:
+        if job.company == prefix_company:
+            job_obj['job_list'].append(job)
+        else:
+            if prefix_company:
+                job_obj['odd'] = len(company_job_list)/3%2 == 0
+                company_job_list.append(job_obj)
+            job_obj['name'] = job.company.cp_name
+            job_obj['id'] = job.company.id
+            job_obj['job_list'] = []
+            job_obj['job_list'].append(job)
+        prefix_company = job.company
+    job_obj['odd'] = len(company_job_list)/3%2 == 0
+    company_job_list.append(job_obj)
+    return company_job_list
+
+
+def gather_person_info(person_list):
+    """
+    封装最新人才信息，供前台首页显示
+    """
+    person_obj_list = []
+    person_obj = {}
+    for person in person_list:
+        person_obj['name'] = person.real_name
+        person_obj['id'] = person.id
+        edu_background = person.resume_set.all()[0].eduexperience_set.all()[0]
+        person_obj['education'] = get_tuple_value_from_key(EDUCATION_TYPE, edu_background.edu_background)
+        person_obj['major'] = edu_background.major
+        person_obj_list.append(person_obj);
+        person_obj['odd'] = len(person_obj_list)/3%2 == 0
+        person_obj = {}
+    return person_obj_list

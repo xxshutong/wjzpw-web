@@ -261,6 +261,7 @@ class UserProfile(AbstractModel):
     cp_website = models.CharField('Web Site', max_length=50, null=True, blank=True)
     cp_service = models.ForeignKey(Service, name='Service', null=True, blank=True)
     cp_service_begin = models.DateField(null=True, blank=True)
+    cp_job_last_updated = models.DateField(null=True, blank=True)
 
     #For Restful
     access_token = models.CharField(max_length=1024, unique=True, null=True, blank=True)

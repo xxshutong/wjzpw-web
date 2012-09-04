@@ -80,6 +80,15 @@ def send_html_mail(subject, message, from_email, recipient_list,
     email_message.content_subtype = "html"
     return email_message.send()
 
+def get_tuple_value_from_key(tuple_value, key):
+    '''
+    根据传入的元祖和KEY获取元祖中KEY对应的VALUE值
+    '''
+    for obj in tuple_value:
+        if obj[0] == key:
+            return obj[1]
+    return None
+
 forgot_password_mail_template = u'''
     <html>
     <head>

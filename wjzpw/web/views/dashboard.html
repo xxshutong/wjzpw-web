@@ -234,28 +234,47 @@
                 </div>
                 <div class="con suggest_list">
                     <ul>
-                        <li class="tjli"><img src="../static/images/dot.gif"><a href="company/company.html">义乌坤禾光学眼镜有限公司</a><span class="employ_font">聘</span><a href="company/position.html">业务员 阿里巴巴运营..</a></li>
-                        <li class="tjli"><img src="../static/images/dot.gif"><a href="company/company.html">义乌坤禾光学眼镜有限公司</a><span class="employ_font">聘</span><a href="company/position.html">业务员 阿里巴巴运营..</a></li>
-                        <li class="tjli"><img src="../static/images/dot.gif"><a href="company/company.html">义乌坤禾光学眼镜有限公司</a><span class="employ_font">聘</span><a href="company/position.html">业务员 阿里巴巴运营..</a></li>
-                        <li class="tjliA"><img src="../static/images/dot.gif"><a href="company/company.html">义乌坤禾光学眼镜有限公司</a><span class="employ_font">聘</span><a href="company/position.html">业务员 阿里巴巴运营..</a></li>
-                        <li class="tjliA"><img src="../static/images/dot.gif"><a href="company/company.html">义乌坤禾光学眼镜有限公司</a><span class="employ_font">聘</span><a href="company/position.html">业务员 阿里巴巴运营..</a></li>
-                        <li class="tjliA"><img src="../static/images/dot.gif"><a href="company/company.html">义乌坤禾光学眼镜有限公司</a><span class="employ_font">聘</span><a href="company/position.html">业务员 阿里巴巴运营..</a></li>
-                        <li class="tjli"><img src="../static/images/dot.gif"><a href="company/company.html">义乌坤禾光学眼镜有限公司</a><span class="employ_font">聘</span><a href="company/position.html">业务员 阿里巴巴运营..</a></li>
-                        <li class="tjli"><img src="../static/images/dot.gif"><a href="company/company.html">义乌坤禾光学眼镜有限公司</a><span class="employ_font">聘</span><a href="company/position.html">业务员 阿里巴巴运营..</a></li>
-                        <li class="tjli"><img src="../static/images/dot.gif"><a href="company/company.html">义乌坤禾光学眼镜有限公司</a><span class="employ_font">聘</span><a href="company/position.html">业务员 阿里巴巴运营..</a></li>
-                        <li class="tjliA"><img src="../static/images/dot.gif"><a href="company/company.html">义乌坤禾光学眼镜有限公司</a><span class="employ_font">聘</span><a href="company/position.html">业务员 阿里巴巴运营..</a></li>
-                        <li class="tjliA"><img src="../static/images/dot.gif"><a href="company/company.html">义乌坤禾光学眼镜有限公司</a><span class="employ_font">聘</span><a href="company/position.html">业务员 阿里巴巴运营..</a></li>
-                        <li class="tjliA"><img src="../static/images/dot.gif"><a href="company/company.html">义乌坤禾光学眼镜有限公司</a><span class="employ_font">聘</span><a href="company/position.html">业务员 阿里巴巴运营..</a></li>
-                        <li class="tjli"><img src="../static/images/dot.gif"><a href="company/company.html">义乌坤禾光学眼镜有限公司</a><span class="employ_font">聘</span><a href="company/position.html">业务员 阿里巴巴运营..</a></li>
-                        <li class="tjli"><img src="../static/images/dot.gif"><a href="company/company.html">义乌坤禾光学眼镜有限公司</a><span class="employ_font">聘</span><a href="company/position.html">业务员 阿里巴巴运营..</a></li>
-                        <li class="tjli"><img src="../static/images/dot.gif"><a href="company/company.html">义乌坤禾光学眼镜有限公司</a><span class="employ_font">聘</span><a href="company/position.html">业务员 阿里巴巴运营..</a></li>
-                        <li class="tjliA"><img src="../static/images/dot.gif"><a href="company/company.html">义乌坤禾光学眼镜有限公司</a><span class="employ_font">聘</span><a href="company/position.html">业务员 阿里巴巴运营..</a></li>
-                        <li class="tjliA"><img src="../static/images/dot.gif"><a href="company/company.html">义乌坤禾光学眼镜有限公司</a><span class="employ_font">聘</span><a href="company/position.html">业务员 阿里巴巴运营..</a></li>
+                        {% for company_job in company_job_list %}
+                            <li class="{% if company_job.odd %}tjli{% else %}tjliA{% endif %}">
+                                <img src="../static/images/dot.gif">
+                                <a href="company/company.html">{{ company_job.name }}</a>
+                                <span class="employ_font">聘</span>
+                                {% for job in company_job.job_list %}
+                                    <a href="company/position.html">{{ job.name }}</a>&nbsp;
+                                {% endfor %}
+                            </li>
+                        {% endfor %}
+
                     </ul>
                 </div>
             </div>
         </div>
 
+        <!-- 最新人才信息 -->
+        <div class="row">
+            <div class="main_login" style="width:1020px">
+                <div class="tit">
+                    <span><a class="more" href="#">更多>></a></span>最新人才信息
+                </div>
+                <div class="con suggest_list">
+                    <ul>
+                        {% for person in person_obj_list %}
+                        <li class="{% if person.odd %}tjli{% else %}tjliA{% endif %}">
+                            <img src="../static/images/dot.gif">
+                            <a href="company/company.html">
+                                {{ person.name }}
+                                -
+                                {{ person.education }}
+                                -
+                                {{ person.major }}
+                            </a>
+                        </li>
+                        {% endfor %}
+
+                    </ul>
+                </div>
+            </div>
+        </div>
 
         <!-- 友情链接 -->
         <div class="row">

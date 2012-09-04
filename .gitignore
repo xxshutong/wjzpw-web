@@ -4,3 +4,4 @@
 *.pyc
 *.DS_Store
 wjzpw/web/static/upload/avatars/*.*
+wjzpw/web/static/upload/config/*.*

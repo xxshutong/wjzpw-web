@@ -167,6 +167,9 @@ LOGGING = {
 # WJZPW APPLICATION SETTINGS
 #######################################################################################################################
 ANNOUNCEMENT_LIMIT_SIZE = 5
+DASHBOARD_VIP_SIZE = 20
+DASHBOARD_JOB_SIZE = 20
+DASHBOARD_PERSON_SIZE = 20
 
 #######################################################################################################################
 # SESSION EXPIRATION SETTINGS
@@ -222,7 +225,6 @@ EMAIL_EXPIRE_TIME = 7
 # USER PROFILE
 #######################################################################################################################
 AUTH_PROFILE_MODULE = 'web.UserProfile'
-
 
 PROJECT_ROOT = path.abspath(path.dirname(__file__))
 sys.path.append(path.join(PROJECT_ROOT, 'config'))
