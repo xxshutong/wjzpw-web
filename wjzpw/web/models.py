@@ -459,6 +459,9 @@ class FriendlyLink(AbstractModel):
     web_site = models.URLField(_(u'网站地址'), max_length=200)
     is_active = models.BooleanField(_(u'是否激活'), default=True)
 
+    def __unicode__(self):
+        return self.name
+
 class ActiveToken(AbstractModel):
     """
     Store email tokens sent when user registers or changes email .

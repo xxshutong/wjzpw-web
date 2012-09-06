@@ -149,8 +149,6 @@ def verify_image(request):
         canvas = ImageDraw.Draw(image)
 
         for i in range(0, len(captcha_text)):
-            # font = ImageFont.truetype(choice(captcha.FONTS), captcha.FONT_SIZE)
-            # canvas.text((captcha.FONT_SIZE*i+2, -4), captcha_text[i], font = font, fill = choice(captcha.COLOURS))
             horizon = 1; verticality  = -1
             if i>0: horizon = (settings.FONT_SIZE - 5) * i
             if i%2 == 0: verticality = 2
