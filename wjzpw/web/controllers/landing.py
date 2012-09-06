@@ -36,8 +36,9 @@ def dashboard(request):
     link_list = FriendlyLink.objects.filter(is_active=True).order_by('updated_at')
 
     # VIP企业招聘
-    #vip_job_list = Job.objects.filter(company__cp_service__period__gt=0).order_by('-created_at')[:settings.DASHBOARD_VIP_SIZE]
-    #TODO refer to 最新企业招聘
+    vip_company_list = UserProfile.objects.filter(type=1).exclude(cp_service__period=0).order_by('-cp_job_last_updated')[:settings.DASHBOARD_VIP_SIZE]
+    vip_job_list = Job.objects.filter(company__in=vip_company_list).order_by('-company__cp_job_last_updated', '-updated_at')
+    vip_company_job_list = gather_job_info(vip_job_list)
 
     # 最新企业招聘
     company_list = UserProfile.objects.filter(type=1).order_by('-cp_job_last_updated')[:settings.DASHBOARD_JOB_SIZE]
@@ -53,6 +54,7 @@ def dashboard(request):
             'login_form':login_form,
             'announce_list':announce_list,
             'link_list':link_list,
+            'vip_company_job_list':vip_company_job_list,
             'company_job_list':company_job_list,
             'person_obj_list': person_obj_list,
             'menu': 'dashboard'
@@ -216,20 +218,21 @@ def gather_job_info(job_list):
     company_job_list = []
     job_obj = {}
     prefix_company = None
-    for job in job_list:
-        if job.company == prefix_company:
-            job_obj['job_list'].append(job)
-        else:
-            if prefix_company:
-                job_obj['odd'] = len(company_job_list)/3%2 == 0
-                company_job_list.append(job_obj)
-            job_obj['name'] = job.company.cp_name
-            job_obj['id'] = job.company.id
-            job_obj['job_list'] = []
-            job_obj['job_list'].append(job)
-        prefix_company = job.company
-    job_obj['odd'] = len(company_job_list)/3%2 == 0
-    company_job_list.append(job_obj)
+    if job_list:
+        for job in job_list:
+            if job.company == prefix_company:
+                job_obj['job_list'].append(job)
+            else:
+                if prefix_company:
+                    job_obj['odd'] = len(company_job_list)/3%2 == 0
+                    company_job_list.append(job_obj)
+                job_obj['name'] = job.company.cp_name
+                job_obj['id'] = job.company.id
+                job_obj['job_list'] = []
+                job_obj['job_list'].append(job)
+            prefix_company = job.company
+        job_obj['odd'] = len(company_job_list)/3%2 == 0
+        company_job_list.append(job_obj)
     return company_job_list
 
 
