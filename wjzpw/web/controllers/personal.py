@@ -158,21 +158,33 @@ def search_job(request):
     找工作
     """
     job_list = None
+    jobs = None
     if request.method == 'GET':
         search_form = SearchJobForm()
         job_list = Job.objects.filter(end_date__gt=datetime.datetime.now()).order_by('-updated_at')
-        pass
     else:
-        pass
+        search_form = SearchJobForm(request.POST)
+        if search_form.is_valid():
+            filters = {'end_date__gt': datetime.datetime.now()}
+            if search_form.cleaned_data['industry']:
+                filters['company__cp_industry'] = search_form.cleaned_data['industry']
+            if search_form.cleaned_data['location'] and search_form.cleaned_data['location'].id != 1:
+                filters['location'] = search_form.cleaned_data['location']
+            if search_form.cleaned_data['type'] == '0':
+                filters['name__contains'] = search_form.cleaned_data['filter_str']
+            else:
+                filters['company__cp_name__contains'] = search_form.cleaned_data['filter_str']
+            job_list = Job.objects.filter(**filters).order_by('-updated_at')
 
-    paginator = Paginator(job_list, SEARCH_JOB_SIZE)
-    page = request.GET.get('page', 1)
-    try:
-        jobs = paginator.page(page)
-    except PageNotAnInteger:
-        jobs = paginator.page(1)
-    except EmptyPage:
-        jobs = paginator.page(paginator.num_pages)
+    if job_list:
+        paginator = Paginator(job_list, SEARCH_JOB_SIZE)
+        page = request.GET.get('page', 1)
+        try:
+            jobs = paginator.page(page)
+        except PageNotAnInteger:
+            jobs = paginator.page(1)
+        except EmptyPage:
+            jobs = paginator.page(paginator.num_pages)
 
     return render_to_response(
         SEARCH_JOB_PAGE, {}, RequestContext(request, {

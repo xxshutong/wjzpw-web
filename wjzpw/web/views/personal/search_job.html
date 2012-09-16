@@ -23,7 +23,8 @@
                         职位搜索
                     </div>
                     <div class="con">
-                        <form class="form-horizontal">
+                        <form class="form-horizontal" action="/personal/search_job/" method="post">
+                            {% csrf_token %}
                             <fieldset>
                                 <div class="control-group">
                                     <label for="industry">行　业：</label>
@@ -52,7 +53,7 @@
                                         {{ search_form.filter_str }}
                                         {{ search_form.filter_str.errors }}
                                     </div>
-                                    <a style="float: left; height: 20px; width: 60px; margin-left:20px;" class="btn btn-primary" href="#">搜索</a>
+                                    <button type="submit" style="float: left;height: 28px; width: 60px; margin-left:20px;" class="btn btn-primary">搜索</button>
                                 </div>
                                 <!-- Search custom style without css file End-->
                                 <div style=" padding:5px;" class="keylist actions">
@@ -92,6 +93,7 @@
                             </tr>
                             </thead>
                             <tbody>
+                            {% if jobs%}
                             {% for job in jobs.object_list %}
                                 <tr>
                                     <td>{{ job.name }}</td>
@@ -104,10 +106,13 @@
                                     <td><a href="#">申请该职位</a>&nbsp;<a href="#">收藏</a></td>
                                 </tr>
                             {% endfor %}
+                            {% endif %}
 
                             </tbody>
                         </table>
-                        {% include 'pagination_footer.html' %}
+                        {% if jobs %}
+                            {% include 'pagination_footer.html' %}
+                        {% endif %}
                     </div>
                 </div>
             </div>
