@@ -13,9 +13,9 @@ from wjzpw import settings
 from wjzpw.web import models
 from wjzpw.web.component import RequestContext
 from wjzpw.web.constant import EDUCATION_TYPE
-from wjzpw.web.controllers.utils import Utils, send_forgot_password_email, get_tuple_value_from_key
+from wjzpw.web.controllers.utils import Utils, get_tuple_value_from_key, send_html_mail, generate_valid_string, generate_password
 from wjzpw.web.forms.forms import LoginForm, FeedbackForm
-from wjzpw.web.models import City, Captcha, Announcement, FriendlyLink, Feedback, Configuration, Job, UserProfile, Resume
+from wjzpw.web.models import City, Captcha, Announcement, FriendlyLink, Feedback, Job, UserProfile, Resume
 from django.utils import simplejson
 from django.contrib.auth import logout as djlogout, authenticate
 from django.contrib.auth import login as djlogin
@@ -250,3 +250,51 @@ def gather_person_info(person_list):
         person_obj['odd'] = len(person_obj_list)/3%2 == 0
         person_obj = {}
     return person_obj_list
+
+def send_forgot_password_email(user, request):
+    '''
+    Send forget password email
+    '''
+    token = generate_valid_string()
+    password = generate_password()
+    user.set_password(password)
+    hash_password = user.password
+    url = "http://"+ request.META["HTTP_HOST"]+'/activated_password/%s/' % token
+    try:
+        send_html_mail(
+            u'密码重置-吴江招聘网',
+            (forgot_password_mail_template % ((user.get_profile().real_name if user.get_profile().real_name else user.get_profile().cp_name), password, url, settings.ADMIN_EMAIL)),
+            settings.EMAIL_FROM_USER,
+            [user.email,]
+        )
+    except Exception, e:
+        print 'Send email failed-> %s' % e
+        return False
+    models.ActiveToken.objects.filter(Q(user=user), ~Q(password=None)).delete()
+    kwargs = {}
+    kwargs.update(token=token)
+    kwargs.update(user=user)
+    kwargs.update(password=hash_password)
+    models.ActiveToken.objects.create(**kwargs)
+    return True
+
+forgot_password_mail_template = u'''
+    <html>
+    <head>
+    </head>
+        <body>
+            <p>
+                你好 %s, <br><br>
+                这是你在吴江-招聘网的新密码.<br>
+                新密码: %s<br>
+                请点击下面的链接以激活你的新密码，并在激活后立马登陆修改成你想要的密码.<br>
+                %s<br><br>
+                如果你有任何疑问, 请联系 %s.<br><br>
+
+                吴江-招聘网<br/><br/>
+
+                本邮件由系统自动生成，请勿回复.
+            </p>
+        </body>
+    </html>
+'''

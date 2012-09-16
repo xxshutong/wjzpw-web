@@ -170,6 +170,7 @@ ANNOUNCEMENT_LIMIT_SIZE = 5
 DASHBOARD_VIP_SIZE = 20
 DASHBOARD_JOB_SIZE = 20
 DASHBOARD_PERSON_SIZE = 20
+SEARCH_JOB_SIZE = 10
 
 #######################################################################################################################
 # SESSION EXPIRATION SETTINGS

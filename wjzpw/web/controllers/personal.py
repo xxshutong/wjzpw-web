@@ -1,15 +1,18 @@
 # coding: utf-8
+import datetime
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db import transaction
 from django.db.models.query_utils import Q
 from django.http import HttpResponse
 from django.shortcuts import  render_to_response, redirect
 from django.utils import simplejson
 from wjzpw import settings
+from wjzpw.settings import SEARCH_JOB_SIZE
 from wjzpw.web import models
 from wjzpw.web.component import RequestContext
-from wjzpw.web.forms.forms import PersonalRegForm, ResumeForm, EduExperienceForm, WorkExperienceForm
-from wjzpw.web.models import Province
+from wjzpw.web.forms.forms import PersonalRegForm, ResumeForm, EduExperienceForm, WorkExperienceForm, SearchJobForm
+from wjzpw.web.models import Province, Job
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as djlogin
 
@@ -154,13 +157,27 @@ def search_job(request):
     """
     找工作
     """
+    job_list = None
     if request.method == 'GET':
-
+        search_form = SearchJobForm()
+        job_list = Job.objects.filter(end_date__gt=datetime.datetime.now()).order_by('-updated_at')
         pass
     else:
         pass
+
+    paginator = Paginator(job_list, SEARCH_JOB_SIZE)
+    page = request.GET.get('page', 1)
+    try:
+        jobs = paginator.page(page)
+    except PageNotAnInteger:
+        jobs = paginator.page(1)
+    except EmptyPage:
+        jobs = paginator.page(paginator.num_pages)
+
     return render_to_response(
         SEARCH_JOB_PAGE, {}, RequestContext(request, {
+            'jobs': jobs,
+            'search_form': search_form,
             'menu': 'search_job'
         }
         ),

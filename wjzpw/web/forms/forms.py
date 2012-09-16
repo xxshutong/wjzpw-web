@@ -12,6 +12,7 @@ from django.forms.util import ErrorList
 
 from wjzpw import settings
 from wjzpw.web import constant, models
+from wjzpw.web.constant import SEARCH_TYPE
 from wjzpw.web.controllers.manager.UserProfileManager import create_user
 from wjzpw.web.models import UserProfile, City, Location, Feedback, Resume, Industry, EduExperience, WorkExperience, MajorType
 from wjzpw.web.widgets import CaptchaWidget
@@ -313,3 +314,15 @@ class FeedbackForm(forms.ModelForm):
     def save(self, **cleaned_data):
         instance = Feedback(**cleaned_data)
         instance.save()
+
+class SearchJobForm(forms.Form):
+    """
+    Form for input search job condition
+    """
+    industry = ModelChoiceField(Industry.objects.all(), empty_label=_(u'请选择'))
+    location = ModelChoiceField(Location.objects.all(), empty_label=_(u'请选择'))
+    type = ChoiceField(widget=RadioSelect(attrs={'style':'width:auto;'}), initial=0, choices=SEARCH_TYPE)
+    filter_str = forms.CharField(widget=forms.TextInput(attrs={'style':'width: 200px; height: 20px; border-color: rgb(238, 95, 91);', 'size':16}), max_length=255)
+
+    def save(self, **new_data):
+        pass

@@ -28,26 +28,20 @@
                                 <div class="control-group">
                                     <label for="industry">行　业：</label>
                                     <div class="controls">
-                                        <input type="text" id="industry" name="industry">
-                                    </div>
-                                    <label for="position">岗　位：</label>
-                                    <div class="controls">
-                                        <input type="text" id="position" name="position">
+                                        {{ search_form.industry }}
+                                        {{ search_form.industry.errors }}
                                     </div>
                                     <label for="place">工作地：</label>
                                     <div class="controls">
-                                        <input type="text" id="place" name="place">
+                                        {{ search_form.location }}
+                                        {{ search_form.location.errors }}
                                     </div>
                                 </div><!-- /clearfix -->
                                 <div class="control-group">
-                                    <label for="date">日　期：</label>
-                                    <div class="controls">
-                                        <input type="text" id="date" name="date">
-                                    </div>
                                     <label id="type">类　型：</label>
-                                    <div class="controls">
-                                        <input type="radio" style="width: auto;" checked="checked" name="type" value="personal">职位
-                                        <input type="radio" style="width: auto;" name="type" value="company">公司名
+                                    <div class="controls choice_radio">
+                                        {{ search_form.type }}
+                                        {{ search_form.type.errors }}
                                     </div>
                                 </div><!-- /clearfix -->
                                 <!-- Search custom style without css file Begin-->
@@ -55,7 +49,8 @@
                                     <label style="padding-top: 5px;" id="key">关键字：</label>
                                     <div style="float: left;" class="input-prepend">
                                         <span style="height: 20px; border-color: rgb(238, 95, 91);" class="add-on"><img src="../../static/images/search.png" style="width: 20px; height: 20px;"></span>
-                                        <input type="text" style="width: 200px; height: 20px; border-color: rgb(238, 95, 91);" id="prependedInput" name="prependedInput" size="16" class="error">
+                                        {{ search_form.filter_str }}
+                                        {{ search_form.filter_str.errors }}
                                     </div>
                                     <a style="float: left; height: 20px; width: 60px; margin-left:20px;" class="btn btn-primary" href="#">搜索</a>
                                 </div>
@@ -83,7 +78,7 @@
                         搜索结果
                     </div>
                     <div class="con">
-                        <table class="table table-bordered" style="margin-bottom:10px;">
+                        <table class="table table-bordered table-striped" style="margin-bottom:10px;">
                             <thead>
                             <tr>
                                 <th class="yellow">职位名称</th>
@@ -97,69 +92,22 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td class="odd">会计</td>
-                                <td class="odd">吴江化纤制造厂</td>
-                                <td class="odd">不限</td>
-                                <td class="odd">盛泽</td>
-                                <td class="odd">不限</td>
-                                <td class="odd">不限</td>
-                                <td class="odd">2011-11-23</td>
-                                <td class="odd"><a href="#">申请该职位</a>&nbsp;<a href="#">收藏</a></td>
-                            </tr>
-                            <tr>
-                                <td>会计</td>
-                                <td>吴江盛虹集团</td>
-                                <td>不限</td>
-                                <td>不限</td>
-                                <td>女</td>
-                                <td>2000-3000</td>
-                                <td>2011-11-23</td>
-                                <td><a href="#">申请该职位</a></td>
-                            </tr>
-                            <tr>
-                                <td class="odd">会计</td>
-                                <td class="odd">吴江化纤制造厂</td>
-                                <td class="odd">不限</td>
-                                <td class="odd">盛泽</td>
-                                <td class="odd">女</td>
-                                <td class="odd">不限</td>
-                                <td class="odd">2011-11-23</td>
-                                <td class="odd"><a href="#">申请该职位</a></td>
-                            </tr>
-                            <tr>
-                                <td>软件工程师</td>
-                                <td>吴江化纤制造厂</td>
-                                <td>不限</td>
-                                <td>盛泽</td>
-                                <td>女</td>
-                                <td>5000-7000</td>
-                                <td>2011-11-23</td>
-                                <td><a href="#">申请该职位</a></td>
-                            </tr>
-                            <tr>
-                                <td class="odd">会计</td>
-                                <td class="odd">吴江化纤制造厂</td>
-                                <td class="odd">不限</td>
-                                <td class="odd">盛泽</td>
-                                <td class="odd">女</td>
-                                <td class="odd">2000-3000</td>
-                                <td class="odd">2011-11-23</td>
-                                <td class="odd"><a href="#">申请该职位</a></td>
-                            </tr>
+                            {% for job in jobs.object_list %}
+                                <tr>
+                                    <td>{{ job.name }}</td>
+                                    <td>{{ job.company.cp_name }}</td>
+                                    <td>{{ job.work_experience_str }}</td>
+                                    <td>{{ job.location.name }}</td>
+                                    <td>{{ job.sex_str }}</td>
+                                    <td>{{ job.salary_str }}</td>
+                                    <td>{{ job.updated_at|date:"Y年n月d日" }}</td>
+                                    <td><a href="#">申请该职位</a>&nbsp;<a href="#">收藏</a></td>
+                                </tr>
+                            {% endfor %}
+
                             </tbody>
                         </table>
-                        <div class="pagination">
-                            <ul>
-                                <li class="prev disabled"><a href="#">< < 上一页</a></li>
-                                <li class="active"><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
-                                <li class="next"><a href="#">下一页 > ></a></li>
-                            </ul>
-                        </div>
+                        {% include 'pagination_footer.html' %}
                     </div>
                 </div>
             </div>

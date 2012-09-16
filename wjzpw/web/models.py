@@ -6,11 +6,12 @@ from django.contrib.auth.models import User
 import datetime
 import random
 from wjzpw import settings
-from wjzpw.web.constant import EDUCATION_TYPE
+from wjzpw.web.constant import EDUCATION_TYPE, EXPERIENCE_TYPE, SEX_TYPE, SALARY_TYPE
 
 #  * Use south migration tool to generate the migration script.
 #        manage.py schemamigration web --auto
 #        manage.py migrate
+from wjzpw.web.controllers.utils import get_tuple_value_from_key
 
 
 COMPANY_SCOPE_TYPE = (
@@ -41,18 +42,6 @@ JOB_TYPE = (
     (2, _(u'兼职')),
     (3, _(u'实习')),
     (4, _(u'全职/兼职'))
-    )
-
-SALARY_TYPE = (
-    (0, _(u'-面议-')),
-    (1, u'1500以下'),
-    (2, u'1500-2000'),
-    (3, u'2001-3000'),
-    (4, u'3001-4000'),
-    (5, u'4001-6000'),
-    (6, u'6001-10000'),
-    (7, u'10000-20000'),
-    (8, u'20000以上'),
     )
 
 ATTENDANCE_TIME = (
@@ -351,27 +340,12 @@ class Job(AbstractModel):
     class Meta:
         verbose_name_plural = _(u"公司-工作职位列表")
 
-    EXPERIENCE_TYPE = (
-        (0, u'不限'),
-        (1, u'1年以上'),
-        (2, u'2年以上'),
-        (3, u'3-5年'),
-        (4, u'5-10年'),
-        (5, u'10年以上')
-        )
-
     AGE_SCOPE = (
         (0, u'不限'),
         (1, u'小于20'),
         (2, u'20至30'),
         (3, u'30至35'),
         (4, u'35以上')
-        )
-
-    SEX_TYPE = (
-        (0, u'不限'),
-        (1, u'男'),
-        (2, u'女')
         )
 
     company = models.ForeignKey(UserProfile, name='Company')
@@ -390,6 +364,15 @@ class Job(AbstractModel):
 
     def __unicode__(self):
         return str(self.user.id) + '-' + self.user.email + '-' + self.activity.name
+
+    def work_experience_str(self):
+        return get_tuple_value_from_key(EXPERIENCE_TYPE, self.work_experience)
+
+    def sex_str(self):
+        return get_tuple_value_from_key(SEX_TYPE, self.sex)
+
+    def salary_str(self):
+        return get_tuple_value_from_key(SALARY_TYPE, self.salary)
 
 ### Vip service
 class PictureAdv(AbstractModel):
