@@ -19,7 +19,51 @@
   label.slabel {
   	width:80px;
   }
-  
+
+ .table .yellow {
+     color: #FFC40D;
+     border-bottom-color: #FFC40D;
+     border-bottom-width: 1px;
+     border-bottom-style: solid;
+ }
+
+.table .blue {
+    color: #049cdb;
+    border-bottom-color: #049cdb;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+}
+.table .green {
+    color: #46a546;
+    border-bottom-color: #46a546;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+}
+.table .red {
+    color: #9d261d;
+    border-bottom-color: #9d261d;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+}
+.table .yellow {
+    color: #ffc40d;
+    border-bottom-color: #ffc40d;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+}
+.table .orange {
+    color: #f89406;
+    border-bottom-color: #f89406;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+}
+.table .purple {
+    color: #7a43b6;
+    border-bottom-color: #7a43b6;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+}
+
 fieldset {
     margin-bottom: 0px;
     padding-top: 18px;
@@ -504,7 +548,7 @@ input, textarea, select, .uneditable-input {
     width: auto;
 }
 
-table th, table td {
+.table th, table td {
     line-height: 18px;
     padding: 6px 6px 5px;
     text-align: left;
@@ -519,7 +563,7 @@ table th, table td {
     line-height: 30px;
 }
 
-table tr td.odd {
+.table tr td.odd {
     background-color: #F9F9F9;
 }
 

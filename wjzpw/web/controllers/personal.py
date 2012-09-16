@@ -15,6 +15,7 @@ from django.contrib.auth import login as djlogin
 
 REGISTER_PAGE = "../views/personal/register.html"
 RESUME_DETAIL_PAGE = "../views/personal/register_detail.html"
+SEARCH_JOB_PAGE = "../views/personal/search_job.html"
 
 def personal_register(request):
     """
@@ -147,6 +148,22 @@ def resume_detail(request):
             'work_experience_num': work_experience_num,
             'selected_positions': selected_positions
         }),
+    )
+
+def search_job(request):
+    """
+    找工作
+    """
+    if request.method == 'GET':
+
+        pass
+    else:
+        pass
+    return render_to_response(
+        SEARCH_JOB_PAGE, {}, RequestContext(request, {
+            'menu': 'search_job'
+        }
+        ),
     )
 
 def ajax_get_positions(request):
