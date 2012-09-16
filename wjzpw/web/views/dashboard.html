@@ -96,33 +96,26 @@
                 </div>
                 <div class="tab-content">
                     <div class="con tab-pane active" id="tab1">
-                        <form method="post" class="form-horizontal" action="#">
+                        <form method="post" class="form-horizontal" action="/personal/search_job/">
+                            {% csrf_token %}
                             <fieldset>
                                 <div class="control-group">
                                     <label for="industry">行　业：</label>
                                     <div class="controls">
-                                        <input type="text" name="industry" id="industry">
+                                        {{ search_job_form.industry }}
+                                        {{ search_job_form.industry.errors }}
                                     </div>
-                                    <label for="position">岗　位：</label>
-                                    <div class="controls">
-                                        <input type="text" name="position" id="position">
-                                    </div>
-                                </div><!-- /control-group -->
-                                <div class="control-group">
                                     <label for="place">工作地：</label>
                                     <div class="controls">
-                                        <input type="text" name="place" id="place">
-                                    </div>
-                                    <label for="date">日　期：</label>
-                                    <div class="controls">
-                                        <input type="text" name="date" id="date">
+                                        {{ search_job_form.location }}
+                                        {{ search_job_form.location.errors }}
                                     </div>
                                 </div><!-- /control-group -->
                                 <div class="control-group">
                                     <label id="type">类　型：</label>
-                                    <div class="controls">
-                                        <input type="radio" value="personal" name="type" checked="checked" style="width:auto">职位
-                                        <input type="radio" value="company" name="type" style="width:auto">公司名
+                                    <div class="controls choice_radio">
+                                        {{ search_job_form.type }}
+                                        {{ search_job_form.type.errors }}
                                     </div>
                                 </div>
                                 <!-- Search custom style without css file Begin-->
@@ -130,9 +123,10 @@
                                     <label id="type" style="padding-top: 5px;">关键字：</label>
                                     <div class="input-prepend" style="float:left">
                                         <span class="add-on" style="height:20px; border-color: #EE5F5B;"><img  style=" width:20px; height:20px;" src="../static/images/search.png"/></span>
-                                        <input type="text" class="error" size="16" name="prependedInput" id="prependedInput" style="width:200px; height:20px;border-color: #EE5F5B;">
+                                        {{ search_job_form.filter_str }}
+                                        {{ search_job_form.filter_str.errors }}
                                     </div>
-                                    <a href="#" class="btn btn-primary" style="float:right; height:20px; width:60px;">搜索</a>
+                                    <button type="submit" style="float: left;height: 28px; width: 60px; margin-left:20px;" class="btn btn-primary">搜索</button>
                                 </div>
                                 <!-- Search custom style without css file End-->
                                 <div class="keylist form-actions" style="height:auto">
