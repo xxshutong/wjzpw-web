@@ -1,6 +1,6 @@
 from django.conf.urls.defaults import patterns, url, include
-from django.conf import settings
 from django.contrib import admin
+from wjzpw import settings
 
 admin.autodiscover()
 
@@ -34,4 +34,4 @@ urlpatterns += patterns('wjzpw.web.controllers.company',
     url(r'^company/add_job/$', 'add_job', name='add_job'),
 )
 
-urlpatterns += patterns('', url(r'^files/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),)
+urlpatterns += patterns('', url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT + "/static"}),)
