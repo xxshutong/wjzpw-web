@@ -124,6 +124,11 @@ SEARCH_TYPE = (
     (1, u'公司名')
 )
 
+SEARCH_PERSON_TYPE = (
+    (0, u'职位名'),
+    (1, u'姓名')
+)
+
 EXPERIENCE_TYPE = (
     (0, u'不限'),
     (1, u'1年以上'),

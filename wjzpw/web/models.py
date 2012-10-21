@@ -273,12 +273,28 @@ class Resume(AbstractModel):
     resume_name = models.CharField(_(u'简历名称'), max_length=100, default=_(u'我的简历'))
     job_type = models.IntegerField(_(u'职位类型'), max_length=2, choices=JOB_TYPE, default=1)
     industry = models.ForeignKey(Industry, name='industry', help_text=_(u'期望行业'))
-    location = models.ForeignKey(Location, name='location', help_text=_(u'工作地点'))
+    location = models.ForeignKey(Location, name='location', help_text=_(u'期望工作地点'))
     is_supply_house = models.BooleanField(_(u'是否提供住房'), default=False)
     salary = models.IntegerField(_(u'待遇要求'), choices=SALARY_TYPE, default=0)
     attendance_time = models.IntegerField(_(u'到岗时间'), choices=ATTENDANCE_TIME, default=1)
     avatar = models.ImageField(_(u'简历头像'), upload_to='static/upload/avatars', null=True, blank=True)
     self_desc = models.CharField(_(u'自我评价'), max_length=2000, null=True, blank=True)
+
+    def sex_str(self):
+        return get_tuple_value_from_key(SEX_TYPE, self.user_profile.gender)
+
+    def salary_str(self):
+        return get_tuple_value_from_key(SALARY_TYPE, self.salary)
+
+    def edu_background_str(self):
+        return get_tuple_value_from_key(EDUCATION_TYPE, self.eduexperience_set.get().edu_background)
+
+    def position_str(self):
+        temp = "";
+        for position in self.resumepositionr_set.all():
+            temp = (", " if temp else "") + position.position.name
+        return temp
+
 
     def __unicode__(self):
         return self.user_profile.user.username + "-" + self.resume_name

@@ -170,10 +170,11 @@ def search_job(request):
                 filters['company__cp_industry'] = search_form.cleaned_data['industry']
             if search_form.cleaned_data['location'] and search_form.cleaned_data['location'].id != 1:
                 filters['location'] = search_form.cleaned_data['location']
-            if search_form.cleaned_data['type'] == '0':
-                filters['name__contains'] = search_form.cleaned_data['filter_str']
-            else:
-                filters['company__cp_name__contains'] = search_form.cleaned_data['filter_str']
+            if search_form.cleaned_data['filter_str']:
+                if search_form.cleaned_data['type'] == '0':
+                    filters['name__contains'] = search_form.cleaned_data['filter_str']
+                else:
+                    filters['company__cp_name__contains'] = search_form.cleaned_data['filter_str']
             job_list = Job.objects.filter(**filters).order_by('-updated_at')
 
     if job_list:

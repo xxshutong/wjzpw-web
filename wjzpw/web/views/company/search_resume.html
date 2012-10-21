@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+
+{% block title %}找工作 | 吴江-招聘网 | wj-zpw.com{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="/static/css/jquery-ui-1.8.18.custom.css" type="text/css" media="all">
+<script src="/static/js/jquery-ui-1.8.18.custom.min.js" type="text/javascript"></script>
+{% endblock %}
+
+{% block content %}
+<!-- 主体信息开始 -->
+<div class="container">
+    <div class="content">
+        <div class="row">
+            <div class="left_layer">
+                <p class="title">职位搜索</p>
+                <p>可以在这添加一些推荐的关键字，镇区选择等等</p>
+            </div>
+            <div class="right_layer" style="padding-top:0px;">
+                <!-- 搜索框 -->
+                <div class="main_login" style="margin-top:0px;">
+                    <div class="tit">
+                        职位搜索
+                    </div>
+                    <div class="con">
+                        <form class="form-horizontal" action="/company/search_person/" method="post">
+                            {% csrf_token %}
+                            <fieldset>
+                                <div class="control-group">
+                                    <label for="industry">行　业：</label>
+                                    <div class="controls">
+                                        {{ search_form.industry }}
+                                        {{ search_form.industry.errors }}
+                                    </div>
+                                    <label for="location" style="width: 100px">期望工作地：</label>
+                                    <div class="controls">
+                                        {{ search_form.location }}
+                                        {{ search_form.location.errors }}
+                                    </div>
+                                </div><!-- /clearfix -->
+                                <div class="control-group">
+                                    <label for="attendance_time">到岗时间：</label>
+                                    <div class="controls">
+                                        {{ search_form.attendance_time }}
+                                        {{ search_form.attendance_time.errors }}
+                                    </div>
+                                    <label for="job_type" style="width: 80px">职位类型：</label>
+                                    <div class="controls">
+                                        {{ search_form.job_type }}
+                                        {{ search_form.job_type.errors }}
+                                    </div>
+                                </div><!-- /clearfix -->
+                                <div class="control-group">
+                                    <label id="type">类　型：</label>
+                                    <div class="controls choice_radio">
+                                        {{ search_form.type }}
+                                        {{ search_form.type.errors }}
+                                    </div>
+                                </div><!-- /clearfix -->
+                                <!-- Search custom style without css file Begin-->
+                                <div style="padding-right: 20px;" class="clearfix">
+                                    <label style="padding-top: 5px;" id="key">关键字：</label>
+                                    <div style="float: left;" class="input-prepend">
+                                        <span style="height: 20px; border-color: rgb(238, 95, 91);" class="add-on"><img src="../../static/images/search.png" style="width: 20px; height: 20px;"></span>
+                                        {{ search_form.filter_str }}
+                                        {{ search_form.filter_str.errors }}
+                                    </div>
+                                    <button type="submit" style="float: left;height: 28px; width: 60px; margin-left:20px;" class="btn btn-primary">搜索</button>
+                                </div>
+                                <!-- Search custom style without css file End-->
+                                <div style=" padding:5px;" class="keylist actions">
+                                    <ul style="height:22px;">
+                                        <li class="label label-warning"><a href="#">跟单员</a></li>
+                                        <li class="label label-warning"><a href="#">软件工程师</a></li>
+                                        <li class="label label-warning"><a href="#">业务员</a></li>
+                                        <li class="label label-warning"><a href="#">外贸销售</a></li>
+                                        <li class="label label-warning"><a href="#">总经理</a></li>
+                                        <li class="label label-warning"><a href="#">项目经理</a></li>
+                                        <li class="label label-warning"><a href="#">外派工程师</a></li>
+                                        <li class="label label-warning"><a href="#">数据库工程师</a></li>
+                                    </ul>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- 搜索结果框 -->
+                <div class="main_login">
+                    <div class="tit">
+                        搜索结果
+                    </div>
+                    <div class="con">
+                        <table class="table table-bordered table-striped" style="margin-bottom:10px;">
+                            <thead>
+                            <tr>
+                                <th class="yellow">姓名</th>
+                                <th class="blue">意向求职</th>
+                                <th class="orange">学历</th>
+                                <th class="green">性别</th>
+                                <th class="blue">期望工作地点</th>
+                                <th class="purple">期望月薪</th>
+                                <th class="orange">更新时间</th>
+                                <th class="red">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% if resumes%}
+                            {% for resume in resumes.object_list %}
+                                <tr>
+                                    <td>{{ resume.user_profile.real_name }}</td>
+                                    <td>{{ resume.position_str }}</td>
+                                    <td>{{ resume.edu_background_str }}</td>
+                                    <td>{{ resume.sex_str }}</td>
+                                    <td>{{ resume.location }}</td>
+                                    <td>{{ resume.salary_str }}</td>
+                                    <td>{{ resume.updated_at|date:"Y年n月d日" }}</td>
+                                    <td><a href="#">发送邀请</a>&nbsp;<a href="#">收藏</a></td>
+                                </tr>
+                            {% endfor %}
+                            {% endif %}
+
+                            </tbody>
+                        </table>
+                        {% if jobs %}
+                            {% include 'pagination_footer.html' %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script language="javascript">
+    $(document).ready(function() {
+        right_height = $('.right_layer').height();
+        left_height = $('.left_layer').height();
+        if(right_height > left_height) {
+            $('.left_layer').height(right_height );
+        }
+    })
+</script>
+<!-- 主体信息结束 -->
+{% endblock %}

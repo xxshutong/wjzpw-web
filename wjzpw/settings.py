@@ -171,6 +171,7 @@ DASHBOARD_VIP_SIZE = 20
 DASHBOARD_JOB_SIZE = 20
 DASHBOARD_PERSON_SIZE = 20
 SEARCH_JOB_SIZE = 10
+SEARCH_RESUME_SIZE = 10
 
 #######################################################################################################################
 # SESSION EXPIRATION SETTINGS

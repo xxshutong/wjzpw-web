@@ -12,9 +12,9 @@ from django.forms.util import ErrorList
 
 from wjzpw import settings
 from wjzpw.web import constant, models
-from wjzpw.web.constant import SEARCH_TYPE
+from wjzpw.web.constant import SEARCH_TYPE, SEARCH_PERSON_TYPE
 from wjzpw.web.controllers.manager.UserProfileManager import create_user
-from wjzpw.web.models import UserProfile, City, Location, Feedback, Resume, Industry, EduExperience, WorkExperience, MajorType
+from wjzpw.web.models import UserProfile, City, Location, Feedback, Resume, Industry, EduExperience, WorkExperience, MajorType, ATTENDANCE_TIME, JOB_TYPE
 from wjzpw.web.widgets import CaptchaWidget
 
 class LoginForm(forms.Form):
@@ -319,7 +319,19 @@ class SearchJobForm(forms.Form):
     """
     Form for input search job condition
     """
-    industry = ModelChoiceField(Industry.objects.all(), empty_label=_(u'请选择'), required=False)
+    industry = ModelChoiceField(Industry.objects.all(), empty_label=_(u'不限'), required=False)
     location = ModelChoiceField(Location.objects.all(), empty_label=_(u'请选择'), required=False)
     type = ChoiceField(widget=RadioSelect(attrs={'style':'width:auto;'}), initial=0, choices=SEARCH_TYPE)
-    filter_str = forms.CharField(widget=forms.TextInput(attrs={'style':'width: 200px; height: 20px; border-color: rgb(238, 95, 91);', 'size':16}), max_length=255)
+    filter_str = forms.CharField(widget=forms.TextInput(attrs={'style':'width: 200px; height: 20px; border-color: rgb(238, 95, 91);', 'size':16}), max_length=255, required=False)
+
+class SearchResumeForm(forms.Form):
+    """
+    Form for input search person condition
+    """
+    industry = ModelChoiceField(Industry.objects.all(), empty_label=_(u'不限'), required=False)
+    location = ModelChoiceField(Location.objects.all(), empty_label=_(u'请选择'), required=False)
+    attendance_time = ChoiceField(choices=ATTENDANCE_TIME, required=False)
+    job_type = ChoiceField(choices=JOB_TYPE, required=False)
+    type = ChoiceField(widget=RadioSelect(attrs={'style':'width:auto;'}), initial=0, choices=SEARCH_PERSON_TYPE)
+    filter_str = forms.CharField(widget=forms.TextInput(attrs={'style':'width: 200px; height: 20px; border-color: rgb(238, 95, 91);', 'size':16}), max_length=255, required=False)
+
