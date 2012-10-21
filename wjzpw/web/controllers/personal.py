@@ -106,7 +106,7 @@ def resume_detail(request):
         if resumes:
             resume_form = ResumeForm(request.POST, request.FILES, instance=resumes[0])
         else:
-                resume_form = ResumeForm(request.POST, request.FILES)
+            resume_form = ResumeForm(request.POST, request.FILES)
         # EduExperience
         edu_experiences = models.EduExperience.objects.filter(resume=resume_form.instance)
         if edu_experiences:

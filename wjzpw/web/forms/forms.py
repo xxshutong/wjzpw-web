@@ -225,7 +225,7 @@ class EduExperienceForm(forms.ModelForm):
     edu_to_year = forms.ChoiceField(choices=constant.YEAR_SCOPE)
     edu_to_month = forms.ChoiceField(choices=constant.MONTH_SCOPE)
     major_desc = forms.CharField(widget=forms.Textarea(attrs={'rows':3, 'class':'input-xxlarge char_area'}), max_length=2000)
-    is_foreign = forms.BooleanField(widget=forms.CheckboxInput(attrs={'style':'height:24px'}))
+    is_foreign = forms.BooleanField(widget=forms.CheckboxInput(attrs={'style':'height:24px'}), required=False)
 
     def clean_edu_from_year(self):
         """
