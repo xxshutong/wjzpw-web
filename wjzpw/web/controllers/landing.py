@@ -14,7 +14,7 @@ from wjzpw.web import models
 from wjzpw.web.component import RequestContext
 from wjzpw.web.constant import EDUCATION_TYPE
 from wjzpw.web.controllers.utils import Utils, get_tuple_value_from_key, send_html_mail, generate_valid_string, generate_password
-from wjzpw.web.forms.forms import LoginForm, FeedbackForm, SearchJobForm
+from wjzpw.web.forms.forms import LoginForm, FeedbackForm, SearchJobForm, SearchResumeForm
 from wjzpw.web.models import City, Captcha, Announcement, FriendlyLink, Feedback, Job, UserProfile, Resume
 from django.utils import simplejson
 from django.contrib.auth import logout as djlogout, authenticate
@@ -29,6 +29,7 @@ def dashboard(request):
     """ Renders Dashboard/Home page. """
     login_form = LoginForm(request=request)
     search_job_form = SearchJobForm()
+    search_resume_form = SearchResumeForm()
 
     # 公告
     announce_list = Announcement.objects.filter(Q(end_date__gte=datetime.datetime.today()) | Q(end_date=None)).order_by('-updated_at')[:settings.ANNOUNCEMENT_LIMIT_SIZE]
@@ -54,6 +55,7 @@ def dashboard(request):
         DASHBOARD_PAGE, {}, RequestContext(request, {
             'login_form':login_form,
             'search_job_form': search_job_form,
+            'search_resume_form': search_resume_form,
             'announce_list':announce_list,
             'link_list':link_list,
             'vip_company_job_list':vip_company_job_list,
