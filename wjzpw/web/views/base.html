@@ -42,7 +42,7 @@
                         <li {%if menu == 'dashboard'%}class="active"{%endif%}><a href="/">首页</a></li>
                         <li {%if menu == 'search_job'%}class="active"{%endif%}><a href="/personal/search_job/">找工作</a></li>
                         <li {%if menu == 'search_person'%}class="active"{%endif%}><a href="/company/search_person/">找人才</a></li>
-                        <li><a href="#">高级人才</a></li>
+                        <!--<li><a href="#">高级人才</a></li>-->
                         <li><a href="#" style="display:none">兼职人才</a></li>
                         <li {%if menu == 'feedback'%}class="active"{%endif%}><a href="{% url feedback %}">留言反馈</a></li>
                         <li><a href="#" style="color:orange">相关服务</a></li>
@@ -69,9 +69,9 @@
                                 <li><a href="{% url logout %}">退出</a></li>
                             {% endif %}
                             {% if user.is_anonymous %}
-                                <li><a href="#">注册</a></li>
+                                <li><a href="/personal/register/">注册</a></li>
                                 <li style="padding-top:10px">|</li>
-                                <li><a href="#">登陆</a></li>
+                                <li><a href="{%url login%}">登陆</a></li>
                             {% endif %}
                         </ul>
                     </div>
