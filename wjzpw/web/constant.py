@@ -155,3 +155,13 @@ SALARY_TYPE = (
     (7, u'10000-20000'),
     (8, u'20000以上'),
 )
+
+PERSON_ACTION_TYPE = (
+    ('store', u'收藏'),
+    ('apply', u'申请'),
+)
+
+COMPANY_ACTION_TYPE = (
+    ('store', u'收藏'),
+    ('invite', u'邀请'),
+)

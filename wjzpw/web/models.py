@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 import datetime
 import random
 from wjzpw import settings
-from wjzpw.web.constant import EDUCATION_TYPE, EXPERIENCE_TYPE, SEX_TYPE, SALARY_TYPE
+from wjzpw.web.constant import EDUCATION_TYPE, EXPERIENCE_TYPE, SEX_TYPE, SALARY_TYPE, PERSON_ACTION_TYPE, COMPANY_ACTION_TYPE
 
 #  * Use south migration tool to generate the migration script.
 #        manage.py schemamigration web --auto
@@ -52,6 +52,8 @@ ATTENDANCE_TIME = (
     (5, _(u'三个月内')),
     (6, _(u'待定'))
     )
+
+
 
 class AbstractModel(models.Model):
     class Meta:
@@ -389,6 +391,28 @@ class Job(AbstractModel):
 
     def salary_str(self):
         return get_tuple_value_from_key(SALARY_TYPE, self.salary)
+
+class UserJobR(AbstractModel):
+    """
+    用户收藏或者投递的工作列表
+    """
+    class Meta:
+        verbose_name_plural = _(u"用户-收藏或者投递的工作列表")
+
+    user_profile = models.ForeignKey(UserProfile, name='user_profile')
+    job = models.ForeignKey(Job, name='job')
+    type = models.CharField(_(u'类型'), choices=PERSON_ACTION_TYPE, max_length=20)
+
+class CompanyResumeR(AbstractModel):
+    """
+    公司收藏或者邀请的简历列表
+    """
+    class Meta:
+        verbose_name_plural = _(u"公司-收藏或者邀请的简历列表")
+
+    user_profile = models.ForeignKey(UserProfile, name='user_profile')
+    resume = models.ForeignKey(Resume, name='resume')
+    type = models.CharField(_(u'类型'), choices=COMPANY_ACTION_TYPE, max_length=20)
 
 ### Vip service
 class PictureAdv(AbstractModel):
