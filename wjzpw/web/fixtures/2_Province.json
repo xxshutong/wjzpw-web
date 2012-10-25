@@ -1,13 +1,273 @@
-[
-    {
+[ { "fields" : { "code" : "",
+    "name" : "北京",
+    "spell" : "beijing",
+    "type" : 1
+},
+    "model" : "web.Province",
+    "pk" : 1
+},
+    { "fields" : { "code" : "",
+        "name" : "天津",
+        "spell" : "tianjin",
+        "type" : 1
+    },
         "model" : "web.Province",
-        "pk" : 1,
-        "fields" :
-        {
-            "name" : "江苏",
-            "spell": "jiangsu",
-            "code": "",
-            "type": 0
-        }
+        "pk" : 2
+    },
+    { "fields" : { "code" : "",
+        "name" : "河北",
+        "spell" : "hebei",
+        "type" : 0
+    },
+        "model" : "web.Province",
+        "pk" : 3
+    },
+    { "fields" : { "code" : "",
+        "name" : "山西",
+        "spell" : "shanxi",
+        "type" : 0
+    },
+        "model" : "web.Province",
+        "pk" : 4
+    },
+    { "fields" : { "code" : "",
+        "name" : "内蒙古",
+        "spell" : "neimenggu",
+        "type" : 0
+    },
+        "model" : "web.Province",
+        "pk" : 5
+    },
+    { "fields" : { "code" : "",
+        "name" : "辽宁",
+        "spell" : "liaoning",
+        "type" : 0
+    },
+        "model" : "web.Province",
+        "pk" : 6
+    },
+    { "fields" : { "code" : "",
+        "name" : "吉林",
+        "spell" : "jilin",
+        "type" : 0
+    },
+        "model" : "web.Province",
+        "pk" : 7
+    },
+    { "fields" : { "code" : "",
+        "name" : "黑龙江",
+        "spell" : "heilongjiang",
+        "type" : 0
+    },
+        "model" : "web.Province",
+        "pk" : 8
+    },
+    { "fields" : { "code" : "",
+        "name" : "上海",
+        "spell" : "shanghai",
+        "type" : 1
+    },
+        "model" : "web.Province",
+        "pk" : 9
+    },
+    { "fields" : { "code" : "",
+        "name" : "江苏",
+        "spell" : "jiangsu",
+        "type" : 0
+    },
+        "model" : "web.Province",
+        "pk" : 10
+    },
+    { "fields" : { "code" : "",
+        "name" : "浙江",
+        "spell" : "zhejiang",
+        "type" : 0
+    },
+        "model" : "web.Province",
+        "pk" : 11
+    },
+    { "fields" : { "code" : "",
+        "name" : "安徽",
+        "spell" : "anhui",
+        "type" : 0
+    },
+        "model" : "web.Province",
+        "pk" : 12
+    },
+    { "fields" : { "code" : "",
+        "name" : "福建",
+        "spell" : "fujian",
+        "type" : 0
+    },
+        "model" : "web.Province",
+        "pk" : 13
+    },
+    { "fields" : { "code" : "",
+        "name" : "江西",
+        "spell" : "jiangxi",
+        "type" : 0
+    },
+        "model" : "web.Province",
+        "pk" : 14
+    },
+    { "fields" : { "code" : "",
+        "name" : "山东",
+        "spell" : "shandong",
+        "type" : 0
+    },
+        "model" : "web.Province",
+        "pk" : 15
+    },
+    { "fields" : { "code" : "",
+        "name" : "河南",
+        "spell" : "henan",
+        "type" : 0
+    },
+        "model" : "web.Province",
+        "pk" : 16
+    },
+    { "fields" : { "code" : "",
+        "name" : "湖北",
+        "spell" : "hubei",
+        "type" : 0
+    },
+        "model" : "web.Province",
+        "pk" : 17
+    },
+    { "fields" : { "code" : "",
+        "name" : "湖南",
+        "spell" : "hunan",
+        "type" : 0
+    },
+        "model" : "web.Province",
+        "pk" : 18
+    },
+    { "fields" : { "code" : "",
+        "name" : "广东",
+        "spell" : "guangdong",
+        "type" : 0
+    },
+        "model" : "web.Province",
+        "pk" : 19
+    },
+    { "fields" : { "code" : "",
+        "name" : "广西",
+        "spell" : "guangxi",
+        "type" : 0
+    },
+        "model" : "web.Province",
+        "pk" : 20
+    },
+    { "fields" : { "code" : "",
+        "name" : "海南",
+        "spell" : "hainan",
+        "type" : 0
+    },
+        "model" : "web.Province",
+        "pk" : 21
+    },
+    { "fields" : { "code" : "",
+        "name" : "重庆",
+        "spell" : "chongqing",
+        "type" : 1
+    },
+        "model" : "web.Province",
+        "pk" : 22
+    },
+    { "fields" : { "code" : "",
+        "name" : "四川",
+        "spell" : "sichuan",
+        "type" : 0
+    },
+        "model" : "web.Province",
+        "pk" : 23
+    },
+    { "fields" : { "code" : "",
+        "name" : "贵州",
+        "spell" : "guizhou",
+        "type" : 0
+    },
+        "model" : "web.Province",
+        "pk" : 24
+    },
+    { "fields" : { "code" : "",
+        "name" : "云南",
+        "spell" : "yunnan",
+        "type" : 0
+    },
+        "model" : "web.Province",
+        "pk" : 25
+    },
+    { "fields" : { "code" : "",
+        "name" : "西藏",
+        "spell" : "xizang",
+        "type" : 0
+    },
+        "model" : "web.Province",
+        "pk" : 26
+    },
+    { "fields" : { "code" : "",
+        "name" : "陕西",
+        "spell" : "shanxi",
+        "type" : 0
+    },
+        "model" : "web.Province",
+        "pk" : 27
+    },
+    { "fields" : { "code" : "",
+        "name" : "甘肃",
+        "spell" : "gansu",
+        "type" : 0
+    },
+        "model" : "web.Province",
+        "pk" : 28
+    },
+    { "fields" : { "code" : "",
+        "name" : "青海",
+        "spell" : "qinghai",
+        "type" : 0
+    },
+        "model" : "web.Province",
+        "pk" : 29
+    },
+    { "fields" : { "code" : "",
+        "name" : "宁夏",
+        "spell" : "ningxia",
+        "type" : 0
+    },
+        "model" : "web.Province",
+        "pk" : 30
+    },
+    { "fields" : { "code" : "",
+        "name" : "新疆",
+        "spell" : "xinjiang",
+        "type" : 0
+    },
+        "model" : "web.Province",
+        "pk" : 31
+    },
+    { "fields" : { "code" : "",
+        "name" : "香港",
+        "spell" : "xianggang",
+        "type" : 1
+    },
+        "model" : "web.Province",
+        "pk" : 32
+    },
+    { "fields" : { "code" : "",
+        "name" : "澳门",
+        "spell" : "aomen",
+        "type" : 1
+    },
+        "model" : "web.Province",
+        "pk" : 33
+    },
+    { "fields" : { "code" : "",
+        "name" : "台湾",
+        "spell" : "taiwan",
+        "type" : 0
+    },
+        "model" : "web.Province",
+        "pk" : 34
     }
 ]

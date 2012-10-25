@@ -13,8 +13,80 @@
         "pk" : 2,
         "fields" :
         {
-            "name": "吴江经济技术开发区",
-            "spell": "wujiangjingjijishukaifaqu"
+            "name": "盛泽",
+            "spell": "shengze"
+        }
+    },
+    {
+        "model" : "web.Location",
+        "pk" : 3,
+        "fields" :
+        {
+            "name": "桃源",
+            "spell": "taoyuan"
+        }
+    },
+    {
+        "model" : "web.Location",
+        "pk" : 4,
+        "fields" :
+        {
+            "name": "平望",
+            "spell": "pingwang"
+        }
+    },
+    {
+        "model" : "web.Location",
+        "pk" : 5,
+        "fields" :
+        {
+            "name": "震泽",
+            "spell": "zhenze"
+        }
+    },
+    {
+        "model" : "web.Location",
+        "pk" : 6,
+        "fields" :
+        {
+            "name": "汾湖",
+            "spell": "fenghu"
+        }
+    },
+    {
+        "model" : "web.Location",
+        "pk" : 7,
+        "fields" :
+        {
+            "name": "横扇",
+            "spell": "hengshan"
+        }
+    },
+    {
+        "model" : "web.Location",
+        "pk" : 8,
+        "fields" :
+        {
+            "name": "松陵",
+            "spell": "songling"
+        }
+    },
+    {
+        "model" : "web.Location",
+        "pk" : 9,
+        "fields" :
+        {
+            "name": "同里",
+            "spell": "tongli"
+        }
+    },
+    {
+        "model" : "web.Location",
+        "pk" : 10,
+        "fields" :
+        {
+            "name": "七都",
+            "spell": "qidu"
         }
     }
 ]
