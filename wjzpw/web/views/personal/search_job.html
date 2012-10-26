@@ -5,6 +5,7 @@
 {% block head %}
 <link rel="stylesheet" href="/static/css/jquery-ui-1.8.18.custom.css" type="text/css" media="all">
 <script src="/static/js/jquery-ui-1.8.18.custom.min.js" type="text/javascript"></script>
+<script src="/static/js/bootstrap.min.js" type="text/javascript"></script>
 {% endblock %}
 
 {% block content %}
@@ -103,7 +104,7 @@
                                     <td>{{ job.sex_str }}</td>
                                     <td>{{ job.salary_str }}</td>
                                     <td>{{ job.updated_at|date:"Y年n月d日" }}</td>
-                                    <td><a href="#">申请该职位</a>&nbsp;<a href="#">收藏</a></td>
+                                    <td><a id="apply" onclick="javascript:applyJob('{{ job.id }}');return false" href="#">申请该职位</a>&nbsp;<a href="#">收藏</a></td>
                                 </tr>
                             {% endfor %}
                             {% endif %}
@@ -127,6 +128,30 @@
             $('.left_layer').height(right_height );
         }
     })
+
+    function applyJob(job_id) {
+        $.ajax({
+            type:"GET",
+            async:false,
+            url:"/personal/apply/"+job_id,
+            dataType:"json",
+            success: function(data) {
+                if(data){
+                    if (data.result == 'login_required') {
+                        window.location = '{% url login%}';
+                    } else if(data.result == 'conflict') {
+                        alert("对不起，该工作您已经申请过了。")
+                    } else {
+                        alert("恭喜你，申请已成功发出。");
+                    }
+                }
+                else{
+                    alert("服务器错误，请联系网站管理员!");
+                }
+                return true;
+            }
+        });
+    }
 </script>
 <!-- 主体信息结束 -->
 {% endblock %}

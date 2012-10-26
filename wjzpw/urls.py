@@ -26,6 +26,7 @@ urlpatterns += patterns('wjzpw.web.controllers.personal',
     url(r'^personal/resume_detail/$', 'resume_detail', name='resume_detail'),
     url(r'^personal/position/list/$', 'ajax_get_positions', name='ajax_get_positions'),
     url(r'^personal/search_job/$', 'search_job', name='search_job'),
+    url(r'^personal/apply/(?P<job_id>\d+)/$', 'ajax_apply_job', name='ajax_apply_job'),
 )
 
 # Company

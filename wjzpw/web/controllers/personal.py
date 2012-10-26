@@ -196,6 +196,24 @@ def search_job(request):
         ),
     )
 
+def ajax_apply_job(request, job_id):
+    """
+    Apply a job by job ID
+    """
+    login_user = request.user
+    if login_user and login_user.id:
+        try:
+            models.UserJobR.objects.get(user_profile=login_user.get_profile(), job=job_id, type='apply')
+            data = {'result':'conflict'}
+        except models.UserJobR.DoesNotExist:
+            user_job_r = models.UserJobR(user_profile=login_user.get_profile(), job_id=job_id, type='apply')
+            user_job_r.save()
+            #TODO Send apply email to company
+            data = {'result':'success'}
+    else:
+        data = {'result':'login_required'}
+    return HttpResponse(simplejson.dumps(data))
+
 def ajax_get_positions(request):
     """
     returns data displayed at autocomplete list -

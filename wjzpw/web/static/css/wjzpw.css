@@ -64,6 +64,10 @@
     border-bottom-style: solid;
 }
 
+.table a {
+    text-decoration: underline;
+}
+
 fieldset {
     margin-bottom: 0px;
     padding-top: 18px;
