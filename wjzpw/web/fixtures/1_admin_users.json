@@ -57,7 +57,7 @@
         "password" : "sha1$2b70a$d0c5af89c56b27eec1bfc089f7565a543fb8559d",
         "user_permissions" : [  ],
         "username" : "analyst"
-    },
+    },  
         "model" : "auth.user",
         "pk" : 3
     }
