@@ -126,16 +126,19 @@ def ajax_invite_resume(request, resume_id, is_store=False):
     action_type = "store" if is_store else "invite";
     login_user = request.user
     if login_user and login_user.id:
-        try:
-            models.CompanyResumeR.objects.get(user_profile=login_user.get_profile(), resume=resume_id, type=action_type)
-            data = {'result':'conflict'}
-        except models.CompanyResumeR.DoesNotExist:
-            company_resume_r = models.CompanyResumeR(user_profile=login_user.get_profile(), resume_id=resume_id, type=action_type)
-            company_resume_r.save()
-            if not is_store:
-                #TODO Send invite email to person
-                pass
-            data = {'result':'success'}
+        if login_user.get_profile().type == 0:
+            data = {'result':'type_error'}
+        else:
+            try:
+                models.CompanyResumeR.objects.get(user_profile=login_user.get_profile(), resume=resume_id, type=action_type)
+                data = {'result':'conflict'}
+            except models.CompanyResumeR.DoesNotExist:
+                company_resume_r = models.CompanyResumeR(user_profile=login_user.get_profile(), resume_id=resume_id, type=action_type)
+                company_resume_r.save()
+                if not is_store:
+                    #TODO Send invite email to person
+                    pass
+                data = {'result':'success'}
     else:
         data = {'result':'login_required'}
     return HttpResponse(simplejson.dumps(data))

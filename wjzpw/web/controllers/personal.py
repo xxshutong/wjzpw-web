@@ -203,16 +203,19 @@ def ajax_apply_job(request, job_id, is_store=False):
     action_type = "store" if is_store else "apply";
     login_user = request.user
     if login_user and login_user.id:
-        try:
-            models.UserJobR.objects.get(user_profile=login_user.get_profile(), job=job_id, type=action_type)
-            data = {'result':'conflict'}
-        except models.UserJobR.DoesNotExist:
-            user_job_r = models.UserJobR(user_profile=login_user.get_profile(), job_id=job_id, type=action_type)
-            user_job_r.save()
-            if not is_store:
-                #TODO Send apply email to company
-                pass
-            data = {'result':'success'}
+        if login_user.get_profile().type == 1:
+            data = {'result':'type_error'} # Company cannot apply a job
+        else:
+            try:
+                models.UserJobR.objects.get(user_profile=login_user.get_profile(), job=job_id, type=action_type)
+                data = {'result':'conflict'}
+            except models.UserJobR.DoesNotExist:
+                user_job_r = models.UserJobR(user_profile=login_user.get_profile(), job_id=job_id, type=action_type)
+                user_job_r.save()
+                if not is_store:
+                    #TODO Send apply email to company
+                    pass
+                data = {'result':'success'}
     else:
         data = {'result':'login_required'}
     return HttpResponse(simplejson.dumps(data))

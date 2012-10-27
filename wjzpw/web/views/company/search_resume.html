@@ -156,6 +156,8 @@
                         window.location = '{% url login%}';
                     } else if(data.result == 'conflict') {
                         alert("对不起，该简历您已经邀请过了。")
+                    } else if(data.result == 'type_error') {
+                        alert("对不起，个人用户不能执行此操作。")
                     } else {
                         alert("恭喜你，邀请已成功发出。");
                     }
@@ -180,6 +182,8 @@
                         window.location = '{% url login%}';
                     } else if(data.result == 'conflict') {
                         alert("对不起，该简历您已经收藏过了。")
+                    } else if(data.result == 'type_error') {
+                        alert("对不起，个人用户不能执行此操作。")
                     } else {
                         alert("收藏成功。");
                     }
