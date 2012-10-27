@@ -35,6 +35,8 @@ urlpatterns += patterns('wjzpw.web.controllers.company',
     url(r'^company/register/$', 'company_register', name='company_register'),
     url(r'^company/add_job/$', 'add_job', name='add_job'),
     url(r'^company/search_person/$', 'search_person', name='search_person'),
+    url(r'^company/invite/(?P<resume_id>\d+)/$', 'ajax_invite_resume', name='ajax_invite_resume'),
+    url(r'^company/store/(?P<resume_id>\d+)/$', 'ajax_store_resume', name='ajax_store_resume'),
 )
 
 urlpatterns += patterns('', url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT + "/static"}),)

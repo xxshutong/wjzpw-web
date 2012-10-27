@@ -115,7 +115,11 @@
                                     <td>{{ resume.location }}</td>
                                     <td>{{ resume.salary_str }}</td>
                                     <td>{{ resume.updated_at|date:"Y年n月d日" }}</td>
-                                    <td><a href="#">发送邀请</a>&nbsp;<a href="#">收藏</a></td>
+                                    <td>
+                                        <a onclick="javascript:inviteResume('{{ resume.id }}');return false" href="#">发送邀请</a>
+                                        &nbsp;
+                                        <a onclick="javascript:storeResume('{{ resume.id }}');return false" href="#">收藏</a>
+                                    </td>
                                 </tr>
                             {% endfor %}
                             {% endif %}
@@ -139,6 +143,54 @@
             $('.left_layer').height(right_height );
         }
     })
+
+    function inviteResume(resume_id) {
+        $.ajax({
+            type:"GET",
+            async:false,
+            url:"/company/invite/"+resume_id,
+            dataType:"json",
+            success: function(data) {
+                if(data){
+                    if (data.result == 'login_required') {
+                        window.location = '{% url login%}';
+                    } else if(data.result == 'conflict') {
+                        alert("对不起，该简历您已经邀请过了。")
+                    } else {
+                        alert("恭喜你，邀请已成功发出。");
+                    }
+                }
+                else{
+                    alert("服务器错误，请联系网站管理员!");
+                }
+                return true;
+            }
+        });
+    }
+
+    function storeResume(resume_id) {
+        $.ajax({
+            type:"GET",
+            async:false,
+            url:"/company/store/"+resume_id,
+            dataType:"json",
+            success: function(data) {
+                if(data){
+                    if (data.result == 'login_required') {
+                        window.location = '{% url login%}';
+                    } else if(data.result == 'conflict') {
+                        alert("对不起，该简历您已经收藏过了。")
+                    } else {
+                        alert("收藏成功。");
+                    }
+                }
+                else{
+                    alert("服务器错误，请联系网站管理员!");
+                }
+                return true;
+            }
+        });
+    }
 </script>
 <!-- 主体信息结束 -->
 {% endblock %}

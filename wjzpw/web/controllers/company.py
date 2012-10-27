@@ -2,9 +2,12 @@
 from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.http import HttpResponse
 from django.shortcuts import render_to_response, redirect
+from django.utils import simplejson
 from wjzpw import settings
 from wjzpw.settings import SEARCH_RESUME_SIZE
+from wjzpw.web import models
 from wjzpw.web.component import RequestContext
 from wjzpw.web.forms.company import CompanyRegForm, JobForm
 
@@ -116,3 +119,29 @@ def search_person(request):
         ),
     )
 
+def ajax_invite_resume(request, resume_id, is_store=False):
+    """
+    Invite a resume by resume ID
+    """
+    action_type = "store" if is_store else "invite";
+    login_user = request.user
+    if login_user and login_user.id:
+        try:
+            models.CompanyResumeR.objects.get(user_profile=login_user.get_profile(), resume=resume_id, type=action_type)
+            data = {'result':'conflict'}
+        except models.CompanyResumeR.DoesNotExist:
+            company_resume_r = models.CompanyResumeR(user_profile=login_user.get_profile(), resume_id=resume_id, type=action_type)
+            company_resume_r.save()
+            if not is_store:
+                #TODO Send invite email to person
+                pass
+            data = {'result':'success'}
+    else:
+        data = {'result':'login_required'}
+    return HttpResponse(simplejson.dumps(data))
+
+def ajax_store_resume(request, resume_id):
+    """
+    Store a resume by resume ID
+    """
+    return ajax_invite_resume(request, resume_id, is_store=True)
