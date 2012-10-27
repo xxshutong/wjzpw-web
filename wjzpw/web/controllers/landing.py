@@ -51,6 +51,9 @@ def dashboard(request):
     person_list = UserProfile.objects.filter(type=0, id__in=Resume.objects.all().values('user_profile__id')).order_by('-created_at')[:settings.DASHBOARD_PERSON_SIZE]
     person_obj_list = gather_person_info(person_list)
 
+    # 尾部条目信息 TODO
+
+
     return render_to_response(
         DASHBOARD_PAGE, {}, RequestContext(request, {
             'login_form':login_form,

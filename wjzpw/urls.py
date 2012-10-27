@@ -39,4 +39,9 @@ urlpatterns += patterns('wjzpw.web.controllers.company',
     url(r'^company/store/(?P<resume_id>\d+)/$', 'ajax_store_resume', name='ajax_store_resume'),
 )
 
+# System
+urlpatterns += patterns('wjzpw.web.controllers.system',
+    url(r'^system/foot_item/(?P<item_id>\d+)/$', 'get_foot_item', name='get_foot_item'),
+)
+
 urlpatterns += patterns('', url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT + "/static"}),)

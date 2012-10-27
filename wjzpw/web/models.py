@@ -511,6 +511,19 @@ class Configuration(AbstractModel):
     qq = models.CharField('QQ', max_length=50)
     dashboard_image_1 = models.ImageField(u'首页图片1', upload_to='static/upload/config', help_text=u'首页公告下方的图片广告，建议275*140')
 
+class FootItem(AbstractModel):
+    '''
+    用于显示页面尾部条目信息
+    '''
+    class Meta:
+        verbose_name_plural = _(u"系统-尾部条目")
+
+    name = models.CharField('条目名称', max_length=20)
+    content = models.CharField('条目内容', max_length=10000)
+    is_display = models.BooleanField('是否显示', default=True)
+    order = models.IntegerField('排序号')
+
+
 ### Others
 class Captcha:
     """
