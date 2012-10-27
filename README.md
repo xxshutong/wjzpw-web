@@ -12,6 +12,7 @@ PREREQUISITE
 These instructions are for Ubuntu only. sudo where necessary.
 * Install Git
     > sudo apt-get install git-core
+    > Configure for your github account in local machine, refer to https://help.github.com/articles/set-up-git
 
 * Install Postgresql
     > sudo apt-get install postgresql
@@ -20,20 +21,21 @@ These instructions are for Ubuntu only. sudo where necessary.
     > alter user postgres with password 'postgres'
 
 * Install ruby gems(Version must be bigger than 1.3.5)
-    > apt-get install ruby
+    > sudo apt-get install ruby
     > http://rubyforge.org/frs/?group_id=126(Download the latest version)
-    > ruby setup.rb
+    > sudo ruby setup.rb
+    > sudo apt-get install rubygems
 
 * gem install foreman(2.6.1)
     Download 2.6.1 manually(http://rubygems.org/downloads/foreman-0.26.1.gem)
     > wget http://rubygems.org/downloads/foreman-0.26.1.gem
-    > gem install foreman-0.26.1.gem
+    > sudo gem install foreman-0.26.1.gem
 
 * python
 
 * Install virtualenv
-    > apt-get install python-setuptools
-    > easy_install virtualenv
+    > sudo apt-get install python-setuptools
+    > sudo easy_install virtualenv
 
 
 QUICK START
@@ -55,11 +57,11 @@ QUICK START
 
         or
 
-        > python metaverse/manage.py runserver
+        > python wjzpw/manage.py runserver
 
-11. Load admin user
+11. Load initialized data
 
-    >python ./wjzpw/manage.py loaddata ./wjzpw/webverse/fixtures/admin_users.json
+    >python ./wjzpw/manage.py loaddata ./wjzpw/web/fixtures/*
     
 
 **Note:** Default user name and password are admin/asdf
