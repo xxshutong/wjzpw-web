@@ -104,7 +104,11 @@
                                     <td>{{ job.sex_str }}</td>
                                     <td>{{ job.salary_str }}</td>
                                     <td>{{ job.updated_at|date:"Y年n月d日" }}</td>
-                                    <td><a id="apply" onclick="javascript:applyJob('{{ job.id }}');return false" href="#">申请该职位</a>&nbsp;<a href="#">收藏</a></td>
+                                    <td>
+                                        <a onclick="javascript:applyJob('{{ job.id }}');return false" href="#">申请该职位</a>
+                                        &nbsp;
+                                        <a onclick="javascript:storeJob('{{ job.id }}');return false" href="#">收藏</a>
+                                    </td>
                                 </tr>
                             {% endfor %}
                             {% endif %}
@@ -143,6 +147,30 @@
                         alert("对不起，该工作您已经申请过了。")
                     } else {
                         alert("恭喜你，申请已成功发出。");
+                    }
+                }
+                else{
+                    alert("服务器错误，请联系网站管理员!");
+                }
+                return true;
+            }
+        });
+    }
+
+    function storeJob(job_id) {
+        $.ajax({
+            type:"GET",
+            async:false,
+            url:"/personal/store/"+job_id,
+            dataType:"json",
+            success: function(data) {
+                if(data){
+                    if (data.result == 'login_required') {
+                        window.location = '{% url login%}';
+                    } else if(data.result == 'conflict') {
+                        alert("对不起，该工作您已经收藏过了。")
+                    } else {
+                        alert("收藏成功。");
                     }
                 }
                 else{

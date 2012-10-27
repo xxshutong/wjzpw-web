@@ -196,23 +196,33 @@ def search_job(request):
         ),
     )
 
-def ajax_apply_job(request, job_id):
+def ajax_apply_job(request, job_id, is_store=False):
     """
     Apply a job by job ID
     """
+    action_type = "store" if is_store else "apply";
     login_user = request.user
     if login_user and login_user.id:
         try:
-            models.UserJobR.objects.get(user_profile=login_user.get_profile(), job=job_id, type='apply')
+            models.UserJobR.objects.get(user_profile=login_user.get_profile(), job=job_id, type=action_type)
             data = {'result':'conflict'}
         except models.UserJobR.DoesNotExist:
-            user_job_r = models.UserJobR(user_profile=login_user.get_profile(), job_id=job_id, type='apply')
+            user_job_r = models.UserJobR(user_profile=login_user.get_profile(), job_id=job_id, type=action_type)
             user_job_r.save()
-            #TODO Send apply email to company
+            if not is_store:
+                #TODO Send apply email to company
+                pass
             data = {'result':'success'}
     else:
         data = {'result':'login_required'}
     return HttpResponse(simplejson.dumps(data))
+
+def ajax_store_job(request, job_id):
+    """
+    Store a job by job ID
+    """
+    return ajax_apply_job(request, job_id, is_store=True)
+
 
 def ajax_get_positions(request):
     """
