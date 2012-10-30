@@ -117,12 +117,11 @@
         <div class="main_links">
 
             {% for item in foot_items %}
-                {% if item.is_display %}
-                    |
-                    <a href="/system/foot_item/{{ item.order }}">{{ item.name }}</a>
-                {% endif %}
+                |
+                <a href="/system/foot_item/{{ item.id }}">{{ item.name }}</a>
+                |
             {% endfor %}
-            |
+
 
             <!--
             |

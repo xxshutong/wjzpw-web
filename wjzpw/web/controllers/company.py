@@ -14,7 +14,6 @@ from wjzpw.web.forms.company import CompanyRegForm, JobForm
 from django.contrib.auth import login as djlogin
 from wjzpw.web.forms.forms import SearchResumeForm
 from wjzpw.web.models import Resume, ResumePositionR
-
 REGISTER_PAGE = "../views/company/register.html"
 ADD_JOB_PAGE = "../views/company/add_job.html"
 SEARCH_RESUME_PAGE = "../views/company/search_resume.html"
