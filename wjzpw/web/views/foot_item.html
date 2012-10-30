@@ -109,24 +109,21 @@
     <!-- 主体顶部信息结束 -->
 
     <!-- 主体信息开始 -->
-    {% block content %}{% endblock %}
+    <!--{% block content %}{% endblock %}-->
+    <div>
+        <pre>
+            {{ items.content }}
+        </pre>
+    </div>
     <!-- 主体信息结束 -->
 
     <!-- 尾部信息开始 -->
     <div class="container" style="padding-top:7px;">
         <div class="main_links">
-
-            {% for item in foot_items %}
             |
-                <a href="/system/foot_item/{{ item.order }}">{{ item.name }}</a>
-            {% endfor %}
+            <a href="/common.php?cid=1">关于我们</a>
             |
-
-            <!--
-            |
-            <a href="/system/foot_item/1">关于我们</a>
-            |
-            <a href="/system/foot_item/9">会员服务</a>
+            <a href="/common.php?cid=9">会员服务</a>
             |
             <a href="/common.php?cid=8">会员协议</a>
             |
@@ -140,11 +137,10 @@
             |
             <a href="/common.php?cid=3">法律声明</a>
             |
-            <a href="/system/foot_item/2">服务条款</a>
+            <a href="/common.php?cid=2">服务条款</a>
             |
             <a href="/common.php?cid=10">付款方式</a>
             |
-            -->
         </div>
         <footer>
             <p>&copy; 吴江招聘网 2011</p>

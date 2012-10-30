@@ -15,7 +15,7 @@ from wjzpw.web.component import RequestContext
 from wjzpw.web.constant import EDUCATION_TYPE
 from wjzpw.web.controllers.utils import Utils, get_tuple_value_from_key, send_html_mail, generate_valid_string, generate_password
 from wjzpw.web.forms.forms import LoginForm, FeedbackForm, SearchJobForm, SearchResumeForm
-from wjzpw.web.models import City, Captcha, Announcement, FriendlyLink, Feedback, Job, UserProfile, Resume
+from wjzpw.web.models import City, Captcha, Announcement, FriendlyLink, Feedback, Job, UserProfile, Resume, FootItem
 from django.utils import simplejson
 from django.contrib.auth import logout as djlogout, authenticate
 from django.contrib.auth import login as djlogin
@@ -52,6 +52,7 @@ def dashboard(request):
     person_obj_list = gather_person_info(person_list)
 
     # 尾部条目信息 TODO
+    foot_items = FootItem.objects.order_by('order')
 
 
     return render_to_response(
@@ -64,7 +65,8 @@ def dashboard(request):
             'vip_company_job_list':vip_company_job_list,
             'company_job_list':company_job_list,
             'person_obj_list': person_obj_list,
-            'menu': 'dashboard'
+            'menu': 'dashboard',
+            'foot_items':foot_items
         }),
     )
 

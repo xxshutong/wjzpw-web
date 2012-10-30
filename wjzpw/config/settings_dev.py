@@ -1,4 +1,4 @@
-__author__ = 'zhoule'
+__author__ = 'zhoulei'
 
 DATABASES = {
     'default': {
