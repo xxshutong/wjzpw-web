@@ -1,3 +1,4 @@
+
 __author__ = 'zhoulei'
 
 DATABASES = {
@@ -8,6 +9,7 @@ DATABASES = {
         'PASSWORD': 'postgres',
         'HOST': 'localhost',
         'PORT': '5432',
+
     }
 }
   

@@ -24,7 +24,7 @@ from django.utils.translation import ugettext_lazy as _
 DASHBOARD_PAGE = "../views/dashboard.html"
 LOGIN_PAGE = "../views/login.html"
 FEEDBACK_PAGE = "../views/feedback.html"
-foot_items = FootItem.objects.filter(is_display='true').order_by('id')
+
 def dashboard(request):
     """ Renders Dashboard/Home page. """
     login_form = LoginForm(request=request)
@@ -52,7 +52,7 @@ def dashboard(request):
     person_obj_list = gather_person_info(person_list)
 
     # 尾部条目信息 - global var
-    #foot_items = FootItem.objects.filter(is_display='true').order_by('id')
+    #foot_items = FootItem.objects.filter(is_display='true').order_by('order')
 
 
     return render_to_response(
@@ -66,7 +66,7 @@ def dashboard(request):
             'company_job_list':company_job_list,
             'person_obj_list': person_obj_list,
             'menu': 'dashboard',
-            'foot_items':foot_items
+
         }),
     )
 

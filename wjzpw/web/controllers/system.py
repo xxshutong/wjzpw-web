@@ -3,8 +3,8 @@ from django.shortcuts import render_to_response
 from wjzpw.web.component import RequestContext
 from django.http import Http404
 from wjzpw.web.models import FootItem
-from wjzpw.web import models
-import landing #引入landing.py里的foot_items
+
+
 FOOT_ITEM_PAGE = "../views/foot_item.html"
 
 def get_foot_item(request, item_id):
@@ -16,7 +16,6 @@ def get_foot_item(request, item_id):
     return render_to_response(
     FOOT_ITEM_PAGE, {}, RequestContext(request, {
             'item':item,
-            'foot_items':landing.foot_items
         }),
     )
 

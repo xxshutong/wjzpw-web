@@ -1,6 +1,6 @@
 # coding: utf-8
 from django.template.context import Context, get_standard_processors
-from wjzpw.web.models import Configuration
+from wjzpw.web.models import Configuration, FootItem
 
 class RequestContext(Context):
     """
@@ -19,7 +19,11 @@ class RequestContext(Context):
         if configuration:
             dict['configuration'] = configuration[0]
 
-
+        # ‘公共’尾部信息
+        foot_items = FootItem.objects.filter(is_display='true').order_by('order')
+        if foot_items:
+            dict['foot_items'] = foot_items
+            
         Context.__init__(self, dict, current_app=current_app, use_l10n=use_l10n)
         if processors is None:
             processors = ()
