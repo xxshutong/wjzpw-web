@@ -20,7 +20,7 @@ class RequestContext(Context):
             dict['configuration'] = configuration[0]
 
         # ‘公共’尾部信息
-        foot_items = FootItem.objects.filter(is_display='true').order_by('order')
+        foot_items = FootItem.objects.filter(is_display=True).order_by('order')
         if foot_items:
             dict['foot_items'] = foot_items
             
