@@ -522,7 +522,8 @@ class FootItem(AbstractModel):
     content = models.CharField('条目内容', max_length=10000)
     is_display = models.BooleanField('是否显示', default=True)
     order = models.IntegerField('排序号')
-
+    def __unicode__(self):
+        return self.name
 
 ### Others
 class Captcha:
