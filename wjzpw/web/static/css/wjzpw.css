@@ -448,20 +448,6 @@ text-align:center;
 		width: 275px;
 		height:140px;
 	}
-
-	.adv_list ul {
-	
-	}
-	
-	.adv_list ul li {
-	float:left;
-	margin-right: 6px;
-    margin-bottom: 6px;
-	}
-	
-		.adv_list ul li img {
-		height:60px;
-		}
 		
 		/* �����Ƽ���Ƹ�б�*/
 	.suggest_list ul {
@@ -678,4 +664,35 @@ div.mutiple_select {
     float: none;
     text-align: left;
     display: inline;
+}
+
+.span_wj2 {
+    margin-left: 10px;
+    margin-bottom: 12px;
+    float: left;
+    width: 161.5px;
+    height: 60px;
+}
+
+.span_wj4 {
+     margin-left: 10px;
+     margin-bottom: 12px;
+     float: left;
+     width: 333px;
+     height: 60px;
+ }
+
+.span_wj10 {
+    margin-left: 10px;
+    margin-bottom: 12px;
+    float: left;
+    width: 1019px;
+    height: 60px;
+}
+
+.adv_list img {
+    min-width:100%;
+    max-width: 100%;
+    min-height: 100%;
+    max-height:100%;
 }
