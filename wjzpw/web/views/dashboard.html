@@ -239,30 +239,15 @@
 
         <!-- 图片广告 -->
         <div class="row adv_list">
-            <div class="span_wj10" style="margin-left: 0px">
-                <a href="#"><img src="../static/images/long_adv.gif" width="1019px" title="足不出户"/></a>
 
-            </div>
+            {% for img_adv in img_adv_list %}
+                    {% if img_adv.span == 6 %}<div class="span_wj10" {% if img_adv.is_move_margin %} style="margin-left: 0px" {% endif %}>{% endif %}
+                    {% if img_adv.span == 2 %}<div class="span_wj4" {% if img_adv.is_move_margin %} style="margin-left: 0px" {% endif %}>{% endif %}
+                    {% if img_adv.span == 1 %}<div class="span_wj2" {% if img_adv.is_move_margin %} style="margin-left: 0px" {% endif %}>{% endif %}
+                    <a href="{{ img_adv.url }}"><img src="{{ img_adv.img }}" title="{{ img_adv.title }}"/></a>
+                </div>
+            {% endfor %}
 
-            <div class="span_wj2" style="margin-left: 0px">
-                <a href="#"><img src="../static/images/temp/adv_3.gif" title="足不出户"/></a>
-            </div>
-            <div class="span_wj2">
-                <a href="#"><img src="../static/images/temp/adv_4.gif" title="足不出户"/></a>
-            </div>
-            <div class="span_wj4">
-                <a href="#"><img src="../static/images/temp/adv_5.gif" title="足不出户"/></a>
-            </div>
-
-            <div class="span_wj4">
-                <a href="#"><img src="../static/images/temp/adv_6.gif" title="足不出户"/></a>
-            </div>
-            <div class="span_wj4" style="margin-left: 0px">
-                <a href="#"><img src="../static/images/temp/adv_1.gif" title="足不出户"/></a>
-            </div>
-            <div class="span_wj4">
-                <a href="#"><img src="../static/images/temp/adv_2.gif" title="足不出户"/></a>
-            </div>
         </div>
 
         <!-- 推荐企业招聘-->

@@ -5,3 +5,4 @@
 *.DS_Store
 wjzpw/web/static/upload/avatars/*.*
 wjzpw/web/static/upload/config/*.*
+wjzpw/web/static/upload/adv_images/*.*

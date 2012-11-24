@@ -18,6 +18,27 @@ class Utils:
         result = {'value':value_array, 'label':label_array}
         return result
 
+    @staticmethod
+    def process_main_page_img_adv(img_adv_list):
+        current_total = 0
+        for img_adv in img_adv_list:
+            if current_total % 6 == 0:
+                img_adv.is_move_margin = True
+            else:
+                img_adv.is_move_margin = False
+            if img_adv.width == 1019:
+                img_adv.span = 6
+                current_total += 6
+            elif img_adv.width == 333:
+                img_adv.span = 2
+                current_total += 2
+            elif img_adv.width == 161:
+                img_adv.span = 1
+                current_total += 1
+            else:
+                raise Exception('Unsupported Main Page Image Advertisement Width')
+        return img_adv_list
+
 def generate_valid_string():
     chars = letters + digits
     val_str = ''
@@ -55,5 +76,8 @@ def get_tuple_value_from_key(tuple_value, key):
         if obj[0] == key:
             return obj[1]
     return None
+
+
+
 
 

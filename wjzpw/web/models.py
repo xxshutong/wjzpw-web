@@ -433,7 +433,7 @@ class PictureAdv(AbstractModel):
     start_date = models.DateField(_(u'起始日期'), default=datetime.datetime.today())
     end_date = models.DateField(_(u'结束日期'))
     img = models.ImageField(_(u'上传图片'), upload_to='static/upload/adv_images')
-    width = models.IntegerField(_(u'图片宽度'), null=True, blank=True)
+    width = models.IntegerField(_(u'图片宽度'), null=True, blank=True, help_text=_(u'首页图片广告宽度尺寸分三种：161.5, 333, 1019'))
     height = models.IntegerField(_(u'图片高度'), null=True, blank=True)
     url = models.URLField(_(u'链接网址'), help_text=_(u'若为空，则自动跳转到当前公司的招聘主页'))
     order = models.IntegerField(_(u'显示顺序'), default=0)

@@ -15,7 +15,7 @@ from wjzpw.web.component import RequestContext
 from wjzpw.web.constant import EDUCATION_TYPE
 from wjzpw.web.controllers.utils import Utils, get_tuple_value_from_key, send_html_mail, generate_valid_string, generate_password
 from wjzpw.web.forms.forms import LoginForm, FeedbackForm, SearchJobForm, SearchResumeForm
-from wjzpw.web.models import City, Captcha, Announcement, FriendlyLink, Feedback, Job, UserProfile, Resume, FootItem
+from wjzpw.web.models import City, Captcha, Announcement, FriendlyLink, Feedback, Job, UserProfile, Resume, FootItem, PictureAdv
 from django.utils import simplejson
 from django.contrib.auth import logout as djlogout, authenticate
 from django.contrib.auth import login as djlogin
@@ -51,9 +51,10 @@ def dashboard(request):
     person_list = UserProfile.objects.filter(type=0, id__in=Resume.objects.all().values('user_profile__id')).order_by('-created_at')[:settings.DASHBOARD_PERSON_SIZE]
     person_obj_list = gather_person_info(person_list)
 
-    # 尾部条目信息 - global var
-    #foot_items = FootItem.objects.filter(is_display='true').order_by('order')
-
+    # 首页图片广告
+    img_adv_list = PictureAdv.objects.filter(type=1, start_date__lte=datetime.date.today(),
+        end_date__gte=datetime.date.today()).order_by('order')
+    img_adv_list = Utils.process_main_page_img_adv(img_adv_list)
 
     return render_to_response(
         DASHBOARD_PAGE, {}, RequestContext(request, {
@@ -61,12 +62,12 @@ def dashboard(request):
             'search_job_form': search_job_form,
             'search_resume_form': search_resume_form,
             'announce_list':announce_list,
+            'img_adv_list':img_adv_list,
             'link_list':link_list,
             'vip_company_job_list':vip_company_job_list,
             'company_job_list':company_job_list,
             'person_obj_list': person_obj_list,
             'menu': 'dashboard',
-
         }),
     )
 
