@@ -6,3 +6,4 @@ pil==1.1.7
 simplejson==2.2.1
 django-json-rpc==0.6.1
 dj-database-url==0.2.1
+django-tinymce==1.5.1b4

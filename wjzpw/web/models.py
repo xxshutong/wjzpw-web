@@ -5,6 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
 import datetime
 import random
+from tinymce.models import HTMLField
 from wjzpw import settings
 from wjzpw.web.constant import EDUCATION_TYPE, EXPERIENCE_TYPE, SEX_TYPE, SALARY_TYPE, PERSON_ACTION_TYPE, COMPANY_ACTION_TYPE
 
@@ -519,7 +520,7 @@ class FootItem(AbstractModel):
         verbose_name_plural = _(u"系统-尾部条目")
 
     name = models.CharField('条目名称', max_length=20)
-    content = models.CharField('条目内容', max_length=10000)
+    content = HTMLField('条目内容', max_length=10000)
     is_display = models.BooleanField('是否显示', default=True)
     order = models.IntegerField('排序号')
     def __unicode__(self):
