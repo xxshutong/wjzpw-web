@@ -185,7 +185,7 @@ class ResumeForm(forms.ModelForm):
     industry = ModelChoiceField(Industry.objects.all(), empty_label=_(u'请选择'))
     location = ModelChoiceField(Location.objects.all(), empty_label=None)
     self_desc = forms.CharField(widget=Textarea(attrs={'rows': 3, 'class': 'input-xxlarge char_area'}), max_length=2000)
-    positions = forms.CharField()
+    positions = forms.CharField(required=False)
 
     def save(self, **new_data):
         instance = self.instance
@@ -219,12 +219,12 @@ class EduExperienceForm(forms.ModelForm):
             self.fields['edu_to_year'].initial = str(instance.end_date.year if instance.end_date else 0)
             self.fields['edu_to_month'].initial = str(instance.end_date.month if instance.end_date else 0)
 
-    major_type = ModelChoiceField(MajorType.objects.all(), empty_label=_(u'请选择'))
+    major_type = ModelChoiceField(MajorType.objects.all(), empty_label=_(u'请选择'), required=False)
     edu_from_year = forms.ChoiceField(choices=constant.YEAR_SCOPE)
     edu_from_month = forms.ChoiceField(choices=constant.MONTH_SCOPE)
     edu_to_year = forms.ChoiceField(choices=constant.YEAR_SCOPE)
     edu_to_month = forms.ChoiceField(choices=constant.MONTH_SCOPE)
-    major_desc = forms.CharField(widget=forms.Textarea(attrs={'rows':3, 'class':'input-xxlarge char_area'}), max_length=2000)
+    major_desc = forms.CharField(widget=forms.Textarea(attrs={'rows':3, 'class':'input-xxlarge char_area'}), max_length=2000, required=False)
     is_foreign = forms.BooleanField(widget=forms.CheckboxInput(attrs={'style':'height:24px'}), required=False)
 
     def clean_edu_from_year(self):
