@@ -74,7 +74,12 @@
                             <li>你好！欢迎使用吴江-招聘网</li>
                             <li>
                                 <div class="control-group submit">
-                                    <a class="more" href="{% url resume_detail %}">>简历管理</a>
+                                    {% if user.get_profile.type == 0 %}
+                                        <a class="more" href="{% url resume_detail %}">>简历管理</a>
+                                    {% endif %}
+                                    {% if user.get_profile.type == 1 %}
+                                        <a class="more" href="{% url resume_detail %}">>信息管理</a>
+                                    {% endif %}
                                     &nbsp;
                                     <a class="more" href="#">>职位搜索</a>
                                 </div>
