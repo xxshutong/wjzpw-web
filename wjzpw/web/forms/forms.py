@@ -187,6 +187,16 @@ class ResumeForm(forms.ModelForm):
     self_desc = forms.CharField(widget=Textarea(attrs={'rows': 3, 'class': 'input-xxlarge char_area'}), max_length=2000)
     positions = forms.CharField(required=False)
 
+    # Add some custom validation to our image field
+    def clean_avatar(self):
+        avatar = self.cleaned_data.get('avatar',False)
+        if avatar:
+            if avatar._size > 2*1024*1024:
+                raise forms.ValidationError(_(u'上传图片尺寸过大( 大于2M )'))
+            return avatar
+        else:
+            raise forms.ValidationError(_(u"您上传的图片不能识别，请重试"))
+
     def save(self, **new_data):
         instance = self.instance
         instance.save()
