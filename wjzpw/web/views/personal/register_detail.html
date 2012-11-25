@@ -233,7 +233,7 @@
                             <div class="control-group">
                                 <label for="xlInput"><span class="required_star">*</span>期望职位：</label>
                                 <div class="controls" style="text-align:  left">
-                                    <input id="id_selected_position" type="text" placeholder="输入您的期望职位" class="input-medium" name="email">
+                                    <input id="id_selected_position" type="text" placeholder="输入您的期望职位" class="input-medium">
                                     &nbsp;
                                     <a id="id_add_position" class="btn btn-primary">添加</a>
                                     <br/>
@@ -403,7 +403,7 @@
             data:parm,
             dataType:"json",
             success: function(data) {
-                /**Period Select**/
+                /**Position Select**/
                 var data = eval(data);
                 values = data.values;
                 keys = data.keys;
