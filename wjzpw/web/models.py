@@ -469,8 +469,11 @@ class Announcement(AbstractModel):
         verbose_name_plural = _(u"系统-公告列表")
 
     subject = models.CharField(u'主题', max_length=255)
-    content = models.CharField(u'内容', max_length=10000)
-    end_date = models.DateField(u'结束日期', blank=True, null=True)
+    content = HTMLField(u'内容', max_length=10000)
+    end_date = models.DateField(u'结束日期', blank=True, null=True, help_text=_(u'不填表示无失效日期'))
+
+    def __unicode__(self):
+        return self.subject
 
 class FriendlyLink(AbstractModel):
     """
