@@ -217,7 +217,7 @@
             <!-- 公告框 -->
             <div class="main_ann">
                 <div class="tit">
-                    <span><a class="more" href="#">更多>></a></span>网站公告
+                    <span><a class="more" href="/system/announcement/0/">更多>></a></span>网站公告
                 </div>
                 <div class="con">
                     <div class="t1"><img width="59" height="56" src="../static/images/t1.gif"></div>
@@ -226,7 +226,7 @@
                             <ul>
                                 {% if announce_list %}
                                     {% for announce in announce_list %}
-                                        <li><a href="#">{{ announce.subject }}</a></li>
+                                        <li><a href="/system/announcement/{{ announce.id }}/">{{ announce.subject }}</a></li>
                                     {% endfor %}
                                 {% endif %}
                             </ul>

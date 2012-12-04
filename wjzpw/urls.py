@@ -42,6 +42,7 @@ urlpatterns += patterns('wjzpw.web.controllers.company',
 # System
 urlpatterns += patterns('wjzpw.web.controllers.system',
     url(r'^system/foot_item/(?P<item_id>\d+)/$', 'get_foot_item', name='get_foot_item'),
+    url(r'^system/announcement/(?P<announcement_id>\d+)/$', 'get_announce_list', name='get_announce_list'),
 
 )
 
