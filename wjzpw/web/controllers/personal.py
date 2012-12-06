@@ -53,11 +53,12 @@ def personal_register(request):
     provinces = Province.objects.all()
     return render_to_response(
         REGISTER_PAGE, {}, RequestContext(request, {
-            'form':form,
-            'provinces':provinces,
+            'form': form,
+            'provinces': provinces,
             'error': error
         }),
     )
+
 
 @login_required
 @transaction.commit_on_success
@@ -90,8 +91,8 @@ def resume_detail(request):
         work_experiences = models.WorkExperience.objects.filter(resume=resume_form.instance).order_by('start_date')
         if work_experiences:
             work_experience_num = len(work_experiences)
-            for i,work_experience in enumerate(work_experiences):
-                work_experience_form = WorkExperienceForm(prefix=str(i+1), instance=work_experience)
+            for i, work_experience in enumerate(work_experiences):
+                work_experience_form = WorkExperienceForm(prefix=str(i + 1), instance=work_experience)
                 work_experience_forms.append(work_experience_form)
         else:
             work_experience_num = 1
@@ -100,14 +101,14 @@ def resume_detail(request):
     # Update resume detail or add new work experience
     else:
         selected_positions = []
-        submit_type = request.POST.get('submit_type','submit')
+        submit_type = request.POST.get('submit_type', 'submit')
         # Resume
         resumes = models.Resume.objects.filter(user_profile=request.user.get_profile())
         if resumes:
             resume_form = ResumeForm(request.POST, request.FILES, instance=resumes[0])
         else:
             resume_form = ResumeForm(request.POST, request.FILES)
-        # EduExperience
+            # EduExperience
         edu_experiences = models.EduExperience.objects.filter(resume=resume_form.instance)
         if edu_experiences:
             edu_experience_form = EduExperienceForm(request.POST, instance=edu_experiences[0])
@@ -117,7 +118,7 @@ def resume_detail(request):
         # WorkExperience
         i = 0
         while i < work_experience_num:
-            work_experience_forms.append(WorkExperienceForm(request.POST, prefix=i+1))
+            work_experience_forms.append(WorkExperienceForm(request.POST, prefix=i + 1))
             i += 1
 
         # Submit resume detail
@@ -126,8 +127,8 @@ def resume_detail(request):
             for work_experience_form in work_experience_forms:
                 multiple_work_result = multiple_work_result and work_experience_form.is_valid()
             if resume_form.is_valid()\
-                and edu_experience_form.is_valid()\
-                    and multiple_work_result:
+               and edu_experience_form.is_valid()\
+            and multiple_work_result:
                 resume_form.save(**resume_form.cleaned_data)
                 edu_experience_form.instance.resume = resume_form.instance
                 edu_experience_form.save(**edu_experience_form.cleaned_data)
@@ -139,9 +140,10 @@ def resume_detail(request):
         elif submit_type == 'add_work_experience':
             work_experience_num += 1
             work_experience_forms.append(WorkExperienceForm(prefix=work_experience_num))
-            position += str(work_experience_num-1)
+            position += str(work_experience_num - 1)
 
-    selected_positions = [resume_position.position for resume_position in models.ResumePositionR.objects.filter(resume=resume_form.instance)]
+    selected_positions = [resume_position.position for resume_position in
+                          models.ResumePositionR.objects.filter(resume=resume_form.instance)]
     return render_to_response(
         RESUME_DETAIL_PAGE, {}, RequestContext(request, {
             'resume_form': resume_form,
@@ -153,14 +155,14 @@ def resume_detail(request):
         }),
     )
 
-def search_job(request):
+def search_job(request, is_vip=''):
     """
     找工作
     """
     job_list = None
     jobs = None
     if request.method == 'GET':
-        search_form = SearchJobForm()
+        search_form = SearchJobForm(initial={'is_vip': ('true' if is_vip else 'false')})
         job_list = Job.objects.filter(end_date__gt=datetime.datetime.now()).order_by('-updated_at')
     else:
         search_form = SearchJobForm(request.POST)
@@ -170,6 +172,8 @@ def search_job(request):
                 filters['company__cp_industry'] = search_form.cleaned_data['industry']
             if search_form.cleaned_data['location'] and search_form.cleaned_data['location'].id != 1:
                 filters['location'] = search_form.cleaned_data['location']
+            if search_form.cleaned_data['is_vip'] and search_form.cleaned_data['is_vip'] == 'true':
+                filters['company__cp_service__period__gt'] = 0
             if search_form.cleaned_data['filter_str']:
                 if search_form.cleaned_data['type'] == '0':
                     filters['name__contains'] = search_form.cleaned_data['filter_str']
@@ -196,6 +200,7 @@ def search_job(request):
         ),
     )
 
+
 def ajax_apply_job(request, job_id, is_store=False):
     """
     Apply a job by job ID
@@ -204,21 +209,22 @@ def ajax_apply_job(request, job_id, is_store=False):
     login_user = request.user
     if login_user and login_user.id:
         if login_user.get_profile().type == 1:
-            data = {'result':'type_error'} # Company cannot apply a job
+            data = {'result': 'type_error'} # Company cannot apply a job
         else:
             try:
                 models.UserJobR.objects.get(user_profile=login_user.get_profile(), job=job_id, type=action_type)
-                data = {'result':'conflict'}
+                data = {'result': 'conflict'}
             except models.UserJobR.DoesNotExist:
                 user_job_r = models.UserJobR(user_profile=login_user.get_profile(), job_id=job_id, type=action_type)
                 user_job_r.save()
                 if not is_store:
                     #TODO Send apply email to company
                     pass
-                data = {'result':'success'}
+                data = {'result': 'success'}
     else:
-        data = {'result':'login_required'}
+        data = {'result': 'login_required'}
     return HttpResponse(simplejson.dumps(data))
+
 
 def ajax_store_job(request, job_id):
     """
@@ -236,7 +242,8 @@ def ajax_get_positions(request):
     query = request.GET.get('q', None)
     # it is up to you how query looks
 
-    instances = models.Position.objects.filter(Q(name__icontains=query) | Q(spell__icontains=query)).order_by('name')[:limit]
+    instances = models.Position.objects.filter(Q(name__icontains=query) | Q(spell__icontains=query)).order_by('name')[
+                :limit]
 
     data = {}
     data['keys'] = [position.id for position in instances]

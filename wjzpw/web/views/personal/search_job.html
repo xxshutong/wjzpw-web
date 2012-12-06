@@ -26,6 +26,7 @@
                     <div class="con">
                         <form class="form-horizontal" action="/personal/search_job/" method="post">
                             {% csrf_token %}
+                            {{ search_form.is_vip }}
                             <fieldset>
                                 <div class="control-group">
                                     <label for="industry">行　业：</label>

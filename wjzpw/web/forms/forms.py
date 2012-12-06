@@ -333,6 +333,7 @@ class SearchJobForm(forms.Form):
     location = ModelChoiceField(Location.objects.all(), empty_label=_(u'请选择'), required=False)
     type = ChoiceField(widget=RadioSelect(attrs={'style':'width:auto;'}), initial=0, choices=SEARCH_TYPE)
     filter_str = forms.CharField(widget=forms.TextInput(attrs={'style':'width: 200px; height: 20px; border-color: rgb(238, 95, 91);', 'size':16}), max_length=255, required=False)
+    is_vip = forms.CharField(widget=forms.HiddenInput(), required=False)
 
 class SearchResumeForm(forms.Form):
     """
