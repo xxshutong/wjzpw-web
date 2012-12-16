@@ -174,6 +174,8 @@ SEARCH_JOB_SIZE = 10
 SEARCH_RESUME_SIZE = 10
 # 上传简历头像大小限制 byte
 AVATAR_SIZE_LIMIT = 2*1024*1024
+# 简历编号的生成格式
+RESUME_NUMBER_FORMAT = 'RN%010d'
 
 #######################################################################################################################
 # SESSION EXPIRATION SETTINGS

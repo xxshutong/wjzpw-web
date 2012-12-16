@@ -167,9 +167,11 @@ def resume_view(request, resume_id):
     预览、展示简历
     """
     resume = get_object_or_404(models.Resume, pk=resume_id)
+    edu_experience = get_object_or_404(models.EduExperience, resume=resume)
     return render_to_response(
         RESUME_VIEW_PAGE, {}, RequestContext(request, {
             'resume': resume,
+            'edu_experience': edu_experience
         }
         ),
     )

@@ -7,7 +7,8 @@ import datetime
 import random
 from tinymce.models import HTMLField
 from wjzpw import settings
-from wjzpw.web.constant import EDUCATION_TYPE, EXPERIENCE_TYPE, SEX_TYPE, SALARY_TYPE, PERSON_ACTION_TYPE, COMPANY_ACTION_TYPE
+from wjzpw.settings import RESUME_NUMBER_FORMAT
+from wjzpw.web.constant import EDUCATION_TYPE, EXPERIENCE_TYPE, SEX_TYPE, SALARY_TYPE, PERSON_ACTION_TYPE, COMPANY_ACTION_TYPE, JOB_STATE_TYPE
 
 #  * Use south migration tool to generate the migration script.
 #        manage.py schemamigration web --auto
@@ -200,16 +201,8 @@ class UserProfile(AbstractModel):
         (3, _(u'离异'))
         )
 
-    JOB_STATE_TYPE = (
-        (0, _(u'目前处于离职状态，可立即上岗')),
-        (1, _(u'目前在职，正考虑换个环境')),
-        (2, _(u'对现有工作很满意，有更好机会才考虑')),
-        (3, _(u'应届生')),
-        (4, _(u'目前暂无跳槽打算'))
-        )
-
     JOB_TYPE_TYPE = (
-        (0, _(u'有工作经验的社会人才')),
+        (0, _(u'有工作经验的社会人士')),
         (1, _(u'在校生或者应届毕业生'))
         )
 
@@ -297,6 +290,9 @@ class Resume(AbstractModel):
         for position in self.resumepositionr_set.all():
             temp = (", " if temp else "") + position.position.name
         return temp
+
+    def NO_str(self):
+        return RESUME_NUMBER_FORMAT % self.id
 
 
     def __unicode__(self):

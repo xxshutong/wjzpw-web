@@ -22,33 +22,33 @@
 	<div class="body">
 		<!-- 头部 -->
 		<div class="head">
-			<span class="head_text">Resume 简历</span>
+			<span class="head_text">{{ resume.resume_name }}</span>
 		</div>
 
 		<!-- 标题 -->
 		<div class="title">
 			<strong class="title_name">
-				<span>罗小姐-&nbsp;</span>
-				个人简历
+				<span>{{ resume.user_profile.real_name }}-&nbsp;</span>
+				{{ resume.resume_name }}
 			</strong>
-			<span class="navy">（编号: VR1000111348）</span>
+			<span class="navy">（编号: {{ resume.NO_str }}）</span>
 		</div>
 
 		<!-- 基本信息 -->
 		<div class="meta">
 			<div class="meta_status">
 				<span style="color:red;">目前供职情况：</span>
-				我目前处于离职状态（或还未就业状态），可立即上岗。
+				{{ resume.user_profile.get_job_state_display }}。
 			</div>
 			<div class="meta_other">
 				[更新日期]：
-				<span class="value">2011-11-19</span>
+				<span class="value">{{ resume.updated_at|date:"Y年m月d日" }}</span>
 				&nbsp;&nbsp;
-				[浏览次数]：
+				<!--[浏览次数]：
 				<span class="value">23 次 </span>
 				&nbsp;&nbsp;
 				[查询时间]：
-				<span class="value">2011-11-19 20:43:18</span>
+				<span class="value">2011-11-19 20:43:18</span>-->
 			</div>
 		</div>
 
@@ -70,60 +70,66 @@
               		</tr>
               		<tr>
 						<td bgcolor="#ffffff" width="80">姓　　名：</td>
-						<td bgcolor="#ffffff" width="170" class="value">张先生</td>
+						<td bgcolor="#ffffff" width="170" class="value">{{ resume.user_profile.real_name }}</td>
 						<td bgcolor="#ffffff" width="80">性　　别：</td>
-						<td bgcolor="#ffffff" class="value">男</td>
-						<td bgcolor="#ffffff" valign="top" rowspan="8">
+						<td bgcolor="#ffffff" class="value">{{ resume.user_profile.get_gender_display }}</td>
+						<td bgcolor="#ffffff" valign="top" rowspan="9">
 						  <!--个人照片-->
 						  <table cellspacing="0" border="0" width="100%" style="width:auto">
 							<tbody><tr>
-							  <td align="center"><img height="160" width="135" src="/static/images/Person.gif"></td>
+							  <td align="center"><img height="160" width="135" src="{{ resume.avatar.url }}"></td>
 							</tr>
 						  </tbody></table>
 						  <!--个人照片结束-->
 						</td>
               		</tr>
-			  		<tr>
-						<td bgcolor="#ffffff" width="80">民　　族：</td>
-						<td bgcolor="#ffffff" width="170" class="value">汉族</td>
-						<td bgcolor="#ffffff" width="80">出生年月：</td>
-						<td bgcolor="#ffffff" class="value">1987年1月23日</td>
-					</tr>
 					<tr>
-						<td bgcolor="#ffffff" width="80">证件号码：</td>
-						<td bgcolor="#ffffff" width="170" class="value">仅企业会员查看</td>
+						<td bgcolor="#ffffff" width="80">出生日期：</td>
+						<td bgcolor="#ffffff" class="value">{{ resume.user_profile.birthday|date:"Y年m月d日" }}</td>
 						<td bgcolor="#ffffff" width="80">婚姻状况：</td>
-						<td bgcolor="#ffffff" class="value">未婚</td>
+						<td bgcolor="#ffffff" class="value">{{ resume.user_profile.get_wedding_display }}</td>
 					</tr>
 					<tr>
 						<td bgcolor="#ffffff" width="80">身　　高：</td>
-						<td bgcolor="#ffffff" width="170" class="value">176cm</td>
+						<td bgcolor="#ffffff" width="170" class="value">{{ resume.user_profile.stature|default_if_none:"" }}CM</td>
 						<td bgcolor="#ffffff" width="80">体　　重：</td>
-						<td bgcolor="#ffffff" class="value">71kg</td>
+						<td bgcolor="#ffffff" class="value">{{ resume.user_profile.weight|default_if_none:"" }}KG</td>
 					</tr>
 					<tr>
 						<td bgcolor="#ffffff" width="80">户　　籍：</td>
-						<td bgcolor="#ffffff" width="170" class="value">江苏江阴</td>
+						<td bgcolor="#ffffff" width="170" class="value">{{ resume.user_profile.census.province }} - {{ resume.user_profile.census }}</td>
 						<td bgcolor="#ffffff" width="80">现所在地：</td>
-						<td bgcolor="#ffffff" class="value">浙江义乌市</td>
+						<td bgcolor="#ffffff" class="value">{{ resume.user_profile.location }}</td>
 					</tr>
 					<tr>
 						<td bgcolor="#ffffff" width="80">毕业学校：</td>
-						<td bgcolor="#ffffff" width="170" class="value">江苏省江阴市南华职业高级中学</td>
+						<td bgcolor="#ffffff" width="170" class="value">{{ edu_experience.school }}</td>
 						<td bgcolor="#ffffff" width="80">学　　历：</td>
-						<td bgcolor="#ffffff" class="value">中专</td>
+						<td bgcolor="#ffffff" class="value">{{ edu_experience.get_edu_background_display }}</td>
 					</tr>
 					<tr>
 						<td bgcolor="#ffffff" width="80">专业名称：</td>
-						<td bgcolor="#ffffff" width="170" class="value">&nbsp;</td>
+						<td bgcolor="#ffffff" width="170" class="value">{{ edu_experience.major|default_if_none:"" }}</td>
 						<td bgcolor="#ffffff" width="80">毕业年份：</td>
-						<td bgcolor="#ffffff" class="value">2005年</td>
+						<td bgcolor="#ffffff" class="value">{{ edu_experience.end_date|date:"Y年" }}</td>
 					</tr>
 					<tr>
 						<td bgcolor="#ffffff" width="80">工作经验：</td>
-						<td bgcolor="#ffffff" width="170" class="value">五年以上</td>
-						<td bgcolor="#ffffff" width="80">最高职称：</td>
-						<td bgcolor="#ffffff" class="value">中级职称</td>
+						<td bgcolor="#ffffff" width="170" class="value">{{ resume.user_profile.get_work_years_display }}</td>
+						<td bgcolor="#ffffff" width="80">求职类型：</td>
+						<td bgcolor="#ffffff" class="value">{{ resume.get_job_type_display }}</td>
+					</tr>
+                    <tr>
+						<td bgcolor="#ffffff" width="80">期望行业：</td>
+						<td bgcolor="#ffffff" width="170" class="value">{{ resume.industry }}</td>
+						<td bgcolor="#ffffff" width="80">期望工作地点：</td>
+						<td bgcolor="#ffffff" class="value">{{ resume.location }}</td>
+					</tr>
+                    <tr>
+						<td bgcolor="#ffffff" width="80">待遇要求：</td>
+						<td bgcolor="#ffffff" width="170" class="value">{{ resume.get_salary_display }}</td>
+						<td bgcolor="#ffffff" width="80">到岗时间：</td>
+						<td bgcolor="#ffffff" class="value">{{ resume.get_attendance_time_display }}</td>
 					</tr>
             	</tbody>
 			</table>
