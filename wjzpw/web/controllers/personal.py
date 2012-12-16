@@ -168,10 +168,12 @@ def resume_view(request, resume_id):
     """
     resume = get_object_or_404(models.Resume, pk=resume_id)
     edu_experience = get_object_or_404(models.EduExperience, resume=resume)
+    resume_position_r = models.ResumePositionR.objects.filter(resume=resume)
     return render_to_response(
         RESUME_VIEW_PAGE, {}, RequestContext(request, {
             'resume': resume,
-            'edu_experience': edu_experience
+            'edu_experience': edu_experience,
+            'resume_position_r': resume_position_r
         }
         ),
     )
@@ -179,7 +181,7 @@ def resume_view(request, resume_id):
 
 def search_job(request, is_vip=''):
     """
-    找工作
+    找工作，is_vip主要用于页面点击更多VIP招聘的时候传输过来的
     """
     job_list = None
     jobs = None

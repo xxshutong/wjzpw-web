@@ -70,10 +70,8 @@
               		</tr>
               		<tr>
 						<td bgcolor="#ffffff" width="80">姓　　名：</td>
-						<td bgcolor="#ffffff" width="170" class="value">{{ resume.user_profile.real_name }}</td>
-						<td bgcolor="#ffffff" width="80">性　　别：</td>
-						<td bgcolor="#ffffff" class="value">{{ resume.user_profile.get_gender_display }}</td>
-						<td bgcolor="#ffffff" valign="top" rowspan="9">
+						<td bgcolor="#ffffff" width="170" class="value" colspan="3">{{ resume.user_profile.real_name }}</td>
+						<td bgcolor="#ffffff" valign="top" rowspan="8">
 						  <!--个人照片-->
 						  <table cellspacing="0" border="0" width="100%" style="width:auto">
 							<tbody><tr>
@@ -85,9 +83,15 @@
               		</tr>
 					<tr>
 						<td bgcolor="#ffffff" width="80">出生日期：</td>
-						<td bgcolor="#ffffff" class="value">{{ resume.user_profile.birthday|date:"Y年m月d日" }}</td>
+						<td bgcolor="#ffffff" class="value" colspan="3">{{ resume.user_profile.birthday|date:"Y年m月d日" }}</td>
+                    </tr>
+                    <tr>
+                        <td bgcolor="#ffffff" width="80">性　　别：</td>
+						<td bgcolor="#ffffff" class="value" colspan="3">{{ resume.user_profile.get_gender_display }}</td>
+					</tr>
+                      <tr>
 						<td bgcolor="#ffffff" width="80">婚姻状况：</td>
-						<td bgcolor="#ffffff" class="value">{{ resume.user_profile.get_wedding_display }}</td>
+						<td bgcolor="#ffffff" class="value" colspan="3">{{ resume.user_profile.get_wedding_display }}</td>
 					</tr>
 					<tr>
 						<td bgcolor="#ffffff" width="80">身　　高：</td>
@@ -97,39 +101,15 @@
 					</tr>
 					<tr>
 						<td bgcolor="#ffffff" width="80">户　　籍：</td>
-						<td bgcolor="#ffffff" width="170" class="value">{{ resume.user_profile.census.province }} - {{ resume.user_profile.census }}</td>
-						<td bgcolor="#ffffff" width="80">现所在地：</td>
-						<td bgcolor="#ffffff" class="value">{{ resume.user_profile.location }}</td>
+						<td bgcolor="#ffffff" width="170" colspan="3" class="value">{{ resume.user_profile.census.province }} - {{ resume.user_profile.census }}</td>
 					</tr>
-					<tr>
-						<td bgcolor="#ffffff" width="80">毕业学校：</td>
-						<td bgcolor="#ffffff" width="170" class="value">{{ edu_experience.school }}</td>
-						<td bgcolor="#ffffff" width="80">学　　历：</td>
-						<td bgcolor="#ffffff" class="value">{{ edu_experience.get_edu_background_display }}</td>
-					</tr>
-					<tr>
-						<td bgcolor="#ffffff" width="80">专业名称：</td>
-						<td bgcolor="#ffffff" width="170" class="value">{{ edu_experience.major|default_if_none:"" }}</td>
-						<td bgcolor="#ffffff" width="80">毕业年份：</td>
-						<td bgcolor="#ffffff" class="value">{{ edu_experience.end_date|date:"Y年" }}</td>
+                    <tr>
+                        <td bgcolor="#ffffff" width="80">现所在地：</td>
+						<td bgcolor="#ffffff" class="value" colspan="3">{{ resume.user_profile.location }}</td>
 					</tr>
 					<tr>
 						<td bgcolor="#ffffff" width="80">工作经验：</td>
-						<td bgcolor="#ffffff" width="170" class="value">{{ resume.user_profile.get_work_years_display }}</td>
-						<td bgcolor="#ffffff" width="80">求职类型：</td>
-						<td bgcolor="#ffffff" class="value">{{ resume.get_job_type_display }}</td>
-					</tr>
-                    <tr>
-						<td bgcolor="#ffffff" width="80">期望行业：</td>
-						<td bgcolor="#ffffff" width="170" class="value">{{ resume.industry }}</td>
-						<td bgcolor="#ffffff" width="80">期望工作地点：</td>
-						<td bgcolor="#ffffff" class="value">{{ resume.location }}</td>
-					</tr>
-                    <tr>
-						<td bgcolor="#ffffff" width="80">待遇要求：</td>
-						<td bgcolor="#ffffff" width="170" class="value">{{ resume.get_salary_display }}</td>
-						<td bgcolor="#ffffff" width="80">到岗时间：</td>
-						<td bgcolor="#ffffff" class="value">{{ resume.get_attendance_time_display }}</td>
+						<td bgcolor="#ffffff" width="170" class="value" colspan="3">{{ resume.user_profile.get_work_years_display }}</td>
 					</tr>
             	</tbody>
 			</table>
@@ -147,31 +127,35 @@
               		</tr>
               		<tr bgcolor="#ffffff">
                 		<td width="80">工作性质：</td>
-                		<td class="value">全 职</td>
+                		<td class="value">{{ resume.get_job_type_display }}</td>
               		</tr>
               		<tr bgcolor="#ffffff">
                 		<td width="80">期望行业：</td>
-                		<td class="value">销售人员<br>市场/营销/电子商务<br>房地产<br></td>
+                		<td class="value">{{ resume.industry }}</td>
               		</tr>
               		<tr bgcolor="#ffffff">
                 		<td width="80">期望职位：</td>
-                		<td class="value">销售人员 ; </td>
+                		<td class="value">
+                            {% for resume_position in resume_position_r %}
+                                {{ resume_position.position }};&nbsp;
+                            {% endfor %}
+                        </td>
               		</tr>
               		<tr bgcolor="#ffffff">
                 		<td width="80">工作地区：</td>
-                		<td class="value">浙江-金华义乌市 ; </td>
+                		<td class="value">{{ resume.location }}</td>
               		</tr>
               		<tr bgcolor="#ffffff">
                 		<td width="80">待遇要求：</td>
-                		<td class="value">（面谈）元/月  可面议 ; 不需要提供住房</td>
+                		<td class="value">{{ resume.get_salary_display }}</td>
               		</tr>
 					<tr bgcolor="#ffffff">
                 		<td width="80">提供住房：</td>
-                		<td class="value">是</td>
+                		<td class="value">{% if resume.is_supply_house %}是{% else %}否{% endif %}</td>
               		</tr>
               		<tr bgcolor="#ffffff">
                 		<td width="80">到岗时间：</td>
-                		<td class="value">可随时到岗</td>
+                		<td class="value">{{ resume.get_attendance_time_display }}</td>
               		</tr>
             	</tbody>
 			</table>
@@ -189,27 +173,27 @@
               		</tr>
               		<tr bgcolor="#ffffff">
                 		<td width="80">时　　间：</td>
-                		<td class="value">2008年9月 - 2012年7月</td>
+                		<td class="value">{{ edu_experience.start_date|date:"Y年m月" }} - {{ edu_experience.end_date|date:"Y年m月" }}</td>
               		</tr>
               		<tr bgcolor="#ffffff">
                 		<td width="80">学　　校：</td>
-                		<td class="value">苏州大学</td>
+                		<td class="value">{{ edu_experience.school }}</td>
               		</tr>
               		<tr bgcolor="#ffffff">
                 		<td width="80">专　　业：</td>
-                		<td class="value">信息与计算科学</td>
+                		<td class="value">{{ edu_experience.major|default_if_none:"" }}</td>
               		</tr>
               		<tr bgcolor="#ffffff">
                 		<td width="80">学　　历：</td>
-                		<td class="value">本科</td>
+                		<td class="value">{{ edu_experience.get_edu_background_display }}</td>
               		</tr>
               		<tr bgcolor="#ffffff">
                 		<td width="80">专业描述：</td>
-                		<td class="value">（面谈）元/月  可面议 ; 不需要提供住（面谈）元/月  可面议  不需要提</td>
+                		<td class="value">{{ edu_experience.major_desc }}</td>
               		</tr>
 					<tr bgcolor="#ffffff">
                 		<td width="80">海外学历：</td>
-                		<td class="value">否</td>
+                		<td class="value">{% if edu_experience.is_foreign %}是{% else %}否{% endif %}</td>
               		</tr>
             	</tbody>
 			</table>
