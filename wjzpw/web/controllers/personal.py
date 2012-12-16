@@ -169,11 +169,19 @@ def resume_view(request, resume_id):
     resume = get_object_or_404(models.Resume, pk=resume_id)
     edu_experience = get_object_or_404(models.EduExperience, resume=resume)
     resume_position_r = models.ResumePositionR.objects.filter(resume=resume)
+    work_experiences = models.WorkExperience.objects.filter(resume=resume).order_by('-start_date')
+    # 判断是否可以访问简历的联系方式
+    have_access_contact = False
+    if request.user.is_active and (request.user.get_profile() == resume.user_profile
+        or request.user.get_profile().cp_service):
+        have_access_contact = True
     return render_to_response(
         RESUME_VIEW_PAGE, {}, RequestContext(request, {
             'resume': resume,
             'edu_experience': edu_experience,
-            'resume_position_r': resume_position_r
+            'resume_position_r': resume_position_r,
+            'work_experiences': work_experiences,
+            'have_access_contact': have_access_contact
         }
         ),
     )

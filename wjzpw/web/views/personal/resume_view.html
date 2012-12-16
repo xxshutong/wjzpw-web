@@ -209,89 +209,52 @@
 						</td>
 						<td></td>
               		</tr>
-              		<tr bgcolor="#ffffff">
-                		<td width="80">　</td>
-						<td>
-						  	<table width="100%" cellspacing="1" cellpadding="3" border="0" bgcolor="#cccccc" class="table_work">
-								<tbody>
-									<tr bgcolor="#efefef">
-							  			<td width="77">所在公司：</td>
-							  			<td class="value">诸暨菲达酒店</td>
-									</tr>
-									<tr bgcolor="#ffffff">
-									  	<td width="77">时间范围：</td>
-									  	<td class="value">2010年8月 - 2010年9月</td>
-									</tr>
-									<tr bgcolor="#ffffff">
-									  	<td width="77">公司性质：</td>
-									  	<td class="value">民营/私营公司</td>
-									</tr>
-									<tr bgcolor="#ffffff">
-									  	<td width="77">公司规模：</td>
-									  	<td class="value">500人</td>
-									</tr>
-									<tr bgcolor="#ffffff">
-									 	<td width="77">所属行业：</td>
-									  	<td class="value">餐饮、娱乐、酒店</td>
-									</tr>
-									<tr bgcolor="#ffffff">
-									  	<td width="77">工作部门：</td>
-									  	<td class="value">生产部</td>
-									</tr>
-									<tr bgcolor="#ffffff">
-									  	<td width="77">担任职位：</td>
-									  	<td class="value">经理助理</td>
-									</tr>
-									<tr bgcolor="#ffffff">
-									  	<td width="77">工作描述：</td>
-									  	<td class="value">为经理整理资料，安排会议，通知相关工作人员，制定短期计划。</td>
-									</tr>
-						  		</tbody>
-							</table>
-						</td>
-					 </tr>
-
-              		<tr bgcolor="#ffffff">
-                		<td width="80">　</td>
-                		<td>
-                  			<table width="100%" cellspacing="1" cellpadding="3" border="0" bgcolor="#cccccc" class="table_work">
-								<tbody>
-									<tr bgcolor="#efefef">
-							  			<td width="77">所在公司：</td>
-							  			<td class="value">诸暨菲达酒店</td>
-									</tr>
-									<tr bgcolor="#ffffff">
-									  	<td width="77">时间范围：</td>
-									  	<td class="value">2010年8月 - 2010年9月</td>
-									</tr>
-									<tr bgcolor="#ffffff">
-									  	<td width="77">公司性质：</td>
-									  	<td class="value">民营/私营公司</td>
-									</tr>
-									<tr bgcolor="#ffffff">
-									  	<td width="77">公司规模：</td>
-									  	<td class="value">500人</td>
-									</tr>
-									<tr bgcolor="#ffffff">
-									 	<td width="77">所属行业：</td>
-									  	<td class="value">餐饮、娱乐、酒店</td>
-									</tr>
-									<tr bgcolor="#ffffff">
-									  	<td width="77">工作部门：</td>
-									  	<td class="value">生产部</td>
-									</tr>
-									<tr bgcolor="#ffffff">
-									  	<td width="77">担任职位：</td>
-									  	<td class="value">经理助理</td>
-									</tr>
-									<tr bgcolor="#ffffff">
-									  	<td width="77">工作描述：</td>
-									  	<td class="value">为经理整理资料，安排会议，通知相关工作人员，制定短期计划。</td>
-									</tr>
-						  		</tbody>
-							</table>
-						</td>
-              		</tr>
+                    {% for work_experience in work_experiences %}
+                        <tr bgcolor="#ffffff">
+                            <td width="80">　</td>
+							<td>
+							    <table width="100%" cellspacing="1" cellpadding="3" border="0" bgcolor="#cccccc" class="table_work">
+									<tbody>
+										<tr bgcolor="#efefef">
+								            <td width="77">所在公司：</td>
+								            <td class="value">{{ work_experience.company_name }}</td>
+										</tr>
+										<tr bgcolor="#ffffff">
+										    <td width="77">时间范围：</td>
+										    <td class="value">
+                                                {{ work_experience.start_date|date:"Y年m月" }} -
+                                                {% if work_experience.end_date %}{{ work_experience.end_date|date:"Y年m月" }}{% else %}至今{% endif %}
+                                            </td>
+										</tr>
+										<tr bgcolor="#ffffff">
+										    <td width="77">公司性质：</td>
+										    <td class="value">{{ work_experience.get_nature_display }}</td>
+										</tr>
+										<tr bgcolor="#ffffff">
+										    <td width="77">公司规模：</td>
+										    <td class="value">{{ work_experience.get_scope_display }}</td>
+										</tr>
+										<tr bgcolor="#ffffff">
+										    <td width="77">所属行业：</td>
+										    <td class="value">{{ work_experience.industry }}</td>
+										</tr>
+										<tr bgcolor="#ffffff">
+										    <td width="77">工作部门：</td>
+										    <td class="value">{{ work_experience.department }}</td>
+										</tr>
+										<tr bgcolor="#ffffff">
+										    <td width="77">担任职位：</td>
+										    <td class="value">{{ work_experience.position }}</td>
+										</tr>
+										<tr bgcolor="#ffffff">
+										    <td width="77">工作描述：</td>
+										    <td class="value">{{ work_experience.work_desc }}</td>
+										</tr>
+							        </tbody>
+								</table>
+							</td>
+                        </tr>
+                    {% endfor %}
             	</tbody>
 			</table>
 
@@ -309,7 +272,7 @@
               		</tr>
               		<tr bgcolor="#ffffff">
                 		<td width="80">自我评价：</td>
-                		<td class="value">活泼开朗、乐观向上、兴趣广泛、适应力强、勤奋好学、脚踏实地、认真负责、坚毅不拔、吃苦耐劳、勇于迎接新挑战。有较强的组织能力、活动策划能力，公关能力和语言表达能力。较好掌握英语知识和语言能力，具备一定的听、说、读、写、译的能力，能在一般的交际和涉外业务中进行交流。</td>
+                		<td class="value">{{ resume.self_desc }}</td>
               		</tr>
             	</tbody>
 			</table>
@@ -322,17 +285,21 @@
 					<tr bgcolor="#f6f6f6">
                 		<td width="80">
 							<img height="7" width="7" align="absmiddle" src="/static/images/ar.gif">
-                  			<b>联系方式（这里的话，如果是非注册用户或者超过了免费次数后变成不可查看）</b>
+                  			<b>联系方式</b>
 						</td>
                 		<td></td>
               		</tr>
               		<tr bgcolor="#ffffff">
                 		<td width="80">手机(电话)：</td>
-                		<td class="value">15051504639</td>
+                		<td class="value">{% if have_access_contact %}{{ resume.user_profile.mobile_phone }}{% else %}对不起，您没有权限查看，具体请联系客服{% endif %}</td>
               		</tr>
 					<tr bgcolor="#ffffff">
                 		<td width="80">QQ号码：</td>
-                		<td class="value">262238056</td>
+                		<td class="value">{% if have_access_contact %}{{ resume.user_profile.qq|default_if_none:"无" }}{% else %}对不起，您没有权限查看，具体请联系客服{% endif %}</td>
+              		</tr>
+                    <tr bgcolor="#ffffff">
+                		<td width="80">电子邮箱：</td>
+                		<td class="value">{% if have_access_contact %}{{ resume.user_profile.user.email|default_if_none:"无" }}{% else %}对不起，您没有权限查看，具体请联系客服{% endif %}</td>
               		</tr>
             	</tbody>
 			</table>
