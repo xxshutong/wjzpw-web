@@ -19,6 +19,7 @@ from django.contrib.auth import login as djlogin
 REGISTER_PAGE = "../views/personal/register.html"
 RESUME_DETAIL_PAGE = "../views/personal/register_detail.html"
 SEARCH_JOB_PAGE = "../views/personal/search_job.html"
+RESUME_VIEW_PAGE = "../views/personal/resume_view.html"
 
 def personal_register(request):
     """
@@ -110,7 +111,7 @@ def resume_detail(request):
             resume_form = ResumeForm(request.POST, request.FILES, instance=resumes[0])
         else:
             resume_form = ResumeForm(request.POST, request.FILES)
-        # EduExperience
+            # EduExperience
         edu_experiences = models.EduExperience.objects.filter(resume=resume_form.instance)
         if edu_experiences:
             edu_experience_form = EduExperienceForm(request.POST, instance=edu_experiences[0])
@@ -130,7 +131,7 @@ def resume_detail(request):
                 multiple_work_result = multiple_work_result and work_experience_form.is_valid()
             if resume_form.is_valid()\
                and edu_experience_form.is_valid()\
-                    and multiple_work_result:
+            and multiple_work_result:
                 resume_form.save(**resume_form.cleaned_data)
                 edu_experience_form.instance.resume = resume_form.instance
                 edu_experience_form.save(**edu_experience_form.cleaned_data)
@@ -160,12 +161,19 @@ def resume_detail(request):
         }),
     )
 
+
 def resume_view(request, resume_id):
     """
     预览、展示简历
     """
     resume = get_object_or_404(models.Resume, pk=resume_id)
-    pass
+    return render_to_response(
+        RESUME_VIEW_PAGE, {}, RequestContext(request, {
+            'resume': resume,
+        }
+        ),
+    )
+
 
 def search_job(request, is_vip=''):
     """
