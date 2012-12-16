@@ -6,11 +6,12 @@ from django import forms
 from django.contrib.auth.models import User
 from django.forms.models import ModelChoiceField
 from django.utils.translation import ugettext_lazy as _
-from django.forms.widgets import TextInput,RadioSelect, Textarea
+from django.forms.widgets import TextInput, RadioSelect, Textarea
 from django.forms.fields import  ChoiceField
 from django.forms.util import ErrorList
 
 from wjzpw import settings
+from wjzpw.settings import AVATAR_SIZE_LIMIT
 from wjzpw.web import constant, models
 from wjzpw.web.constant import SEARCH_TYPE, SEARCH_PERSON_TYPE
 from wjzpw.web.controllers.manager.UserProfileManager import create_user
@@ -32,7 +33,7 @@ class LoginForm(forms.Form):
     username = forms.CharField(label=_(u"用户名"), max_length=30)
     password = forms.CharField(widget=forms.PasswordInput(render_value=False, attrs={'class': 'middle', 'size': 20}))
     verify_img = forms.CharField(widget=CaptchaWidget())
-    type = ChoiceField(widget=RadioSelect(attrs={'style':'width:auto;'}), initial=0, choices=UserProfile.USER_TYPE)
+    type = ChoiceField(widget=RadioSelect(attrs={'style': 'width:auto;'}), initial=0, choices=UserProfile.USER_TYPE)
 
     def clean_verify_img(self):
         """
@@ -52,6 +53,7 @@ class PersonalRegForm(forms.ModelForm):
     Validates that the requested username is not already in use, and
     requires the password to be entered twice to catch typos.
     """
+
     def __init__(self, data=None, files=None, auto_id='id_%s', prefix=None,\
                  initial=None, error_class=ErrorList, label_suffix=':',\
                  empty_permitted=False, instance=None, request=None):
@@ -61,8 +63,8 @@ class PersonalRegForm(forms.ModelForm):
 
     class Meta:
         model = UserProfile
-        fields = ('real_name','email','gender','birthday','census','location',
-                  'mobile_phone','qq','wedding','stature','weight','job_state','job_type','work_years')
+        fields = ('real_name', 'email', 'gender', 'birthday', 'census', 'location',
+                  'mobile_phone', 'qq', 'wedding', 'stature', 'weight', 'job_state', 'job_type', 'work_years')
         widgets = {
             'mobile_phone': TextInput(attrs={'size': 30}),
             'qq': TextInput(attrs={'size': 15}),
@@ -72,15 +74,16 @@ class PersonalRegForm(forms.ModelForm):
 
     #Override
     username = forms.RegexField(label=_(u"用户名"), max_length=30, regex=r'^[\w.@+-]+$',
-        error_messages = {'invalid': _(u"用户名只能包含字母、数字和下划线等字符.")})
+        error_messages={'invalid': _(u"用户名只能包含字母、数字和下划线等字符.")})
     email = forms.EmailField(_(u'电子邮件'), widget=TextInput(attrs={'size': 25}))
     birthday = forms.DateField(label=_(u'生日'), widget=TextInput(attrs={'readonly': 'true'}))
-    gender = ChoiceField(widget=RadioSelect(attrs={'style':'width:auto;'}), choices=UserProfile.GENDER)
-    job_type = ChoiceField(widget=RadioSelect(attrs={'style':'width:auto;', 'class':'job_type'}), choices=UserProfile.JOB_TYPE_TYPE)
+    gender = ChoiceField(widget=RadioSelect(attrs={'style': 'width:auto;'}), choices=UserProfile.GENDER)
+    job_type = ChoiceField(widget=RadioSelect(attrs={'style': 'width:auto;', 'class': 'job_type'}),
+        choices=UserProfile.JOB_TYPE_TYPE)
     mobile_phone = forms.RegexField(label=_(u"手机(电话)"), max_length=15, regex=r'^\d+$',
-        error_messages = {'invalid': _(u"请输入正确的手机号(电话)。")})
+        error_messages={'invalid': _(u"请输入正确的手机号(电话)。")})
     qq = forms.RegexField(label=_(u"QQ"), max_length=15, regex=r'^[1-9][0-9]{4,}$',
-        error_messages = {'invalid': _(u"QQ格式不正确。")}, required=False)
+        error_messages={'invalid': _(u"QQ格式不正确。")}, required=False)
     census = ModelChoiceField(City.objects.all(), empty_label=_(u'请选择'))
     location = ModelChoiceField(Location.objects.all(), empty_label=_(u'请选择'))
 
@@ -178,6 +181,7 @@ class ResumeForm(forms.ModelForm):
     """
     Form for input resume
     """
+
     class Meta:
         model = Resume
         exclude = ('resume_name',)
@@ -189,9 +193,9 @@ class ResumeForm(forms.ModelForm):
 
     # Add some custom validation to our image field
     def clean_avatar(self):
-        avatar = self.cleaned_data.get('avatar',False)
+        avatar = self.cleaned_data.get('avatar', False)
         if avatar:
-            if avatar._size > 2*1024*1024:
+            if avatar.size > AVATAR_SIZE_LIMIT:
                 raise forms.ValidationError(_(u'上传图片尺寸过大( 大于2M )'))
             return avatar
         else:
@@ -210,10 +214,12 @@ class ResumeForm(forms.ModelForm):
                 resume_position_r = models.ResumePositionR(resume=instance, position=position_obj)
                 resume_position_r.save()
 
+
 class EduExperienceForm(forms.ModelForm):
     """
     Form for education experience
     """
+
     class Meta:
         model = EduExperience
         exclude = ('resume', 'start_date', 'end_date')
@@ -234,8 +240,9 @@ class EduExperienceForm(forms.ModelForm):
     edu_from_month = forms.ChoiceField(choices=constant.MONTH_SCOPE)
     edu_to_year = forms.ChoiceField(choices=constant.YEAR_SCOPE)
     edu_to_month = forms.ChoiceField(choices=constant.MONTH_SCOPE)
-    major_desc = forms.CharField(widget=forms.Textarea(attrs={'rows':3, 'class':'input-xxlarge char_area'}), max_length=2000, required=False)
-    is_foreign = forms.BooleanField(widget=forms.CheckboxInput(attrs={'style':'height:24px'}), required=False)
+    major_desc = forms.CharField(widget=forms.Textarea(attrs={'rows': 3, 'class': 'input-xxlarge char_area'}),
+        max_length=2000, required=False)
+    is_foreign = forms.BooleanField(widget=forms.CheckboxInput(attrs={'style': 'height:24px'}), required=False)
 
     def clean_edu_from_year(self):
         """
@@ -246,11 +253,13 @@ class EduExperienceForm(forms.ModelForm):
             raise forms.ValidationError(_(u'开始时间是必填项。'))
         if self.data.get('edu_to_year') != '0' and self.data.get('edu_from_year') >= self.data.get('edu_to_year'):
             raise forms.ValidationError(_(u'开始时间必须小于结束时间。'))
-        self.cleaned_data['start_date'] = datetime.date(int(self.data['edu_from_year']), int(self.data['edu_from_month']), 1)
+        self.cleaned_data['start_date'] = datetime.date(int(self.data['edu_from_year']),
+            int(self.data['edu_from_month']), 1)
         if self.data['edu_to_year'] == '0' or self.data['edu_to_month'] == '0':
             self.cleaned_data['end_date'] = None
         else:
-            self.cleaned_data['end_date'] = datetime.date(int(self.data['edu_to_year']), int(self.data['edu_to_month']), 1)
+            self.cleaned_data['end_date'] = datetime.date(int(self.data['edu_to_year']), int(self.data['edu_to_month']),
+                1)
         return self.cleaned_data['edu_from_year']
 
     def save(self, **new_data):
@@ -259,10 +268,12 @@ class EduExperienceForm(forms.ModelForm):
         instance.end_date = new_data['end_date']
         instance.save()
 
+
 class WorkExperienceForm(forms.ModelForm):
     """
     Form for work experience
     """
+
     class Meta:
         model = WorkExperience
         exclude = ('resume', 'start_date', 'end_date')
@@ -283,7 +294,8 @@ class WorkExperienceForm(forms.ModelForm):
     work_from_month = forms.ChoiceField(choices=constant.MONTH_SCOPE)
     work_to_year = forms.ChoiceField(choices=constant.YEAR_SCOPE)
     work_to_month = forms.ChoiceField(choices=constant.MONTH_SCOPE)
-    work_desc = forms.CharField(widget=forms.Textarea(attrs={'rows':3, 'class':'input-xxlarge char_area'}), max_length=2000)
+    work_desc = forms.CharField(widget=forms.Textarea(attrs={'rows': 3, 'class': 'input-xxlarge char_area'}),
+        max_length=2000)
 
     def clean_work_from_year(self):
         """
@@ -296,13 +308,16 @@ class WorkExperienceForm(forms.ModelForm):
         work_to_month = str(self.prefix) + '-' + 'work_to_month'
         if self.data.get(work_from_year) == '0' or self.data.get(work_from_month) == '0':
             raise forms.ValidationError(_(u'开始时间是必填项。'))
-        if self.data.get(work_to_year) != '0' and int(self.data.get(work_from_year)) >= int(self.data.get(work_to_year)):
+        if self.data.get(work_to_year) != '0' and int(self.data.get(work_from_year)) >= int(
+            self.data.get(work_to_year)):
             raise forms.ValidationError(_(u'开始时间必须小于结束时间。'))
-        self.cleaned_data['start_date'] = datetime.date(int(self.data[work_from_year]), int(self.data[work_from_month]), 1)
+        self.cleaned_data['start_date'] = datetime.date(int(self.data[work_from_year]), int(self.data[work_from_month]),
+            1)
         if self.data[work_to_year] == '0' or self.data[work_to_month] == '0':
             self.cleaned_data['end_date'] = None
         else:
-            self.cleaned_data['end_date'] = datetime.date(int(self.data[work_to_year]), int(self.data[work_to_month]), 1)
+            self.cleaned_data['end_date'] = datetime.date(int(self.data[work_to_year]), int(self.data[work_to_month]),
+                1)
         return self.cleaned_data['work_from_year']
 
     def save(self, **new_data):
@@ -311,19 +326,21 @@ class WorkExperienceForm(forms.ModelForm):
         instance.end_date = new_data['end_date']
         instance.save()
 
-class FeedbackForm(forms.ModelForm):
 
+class FeedbackForm(forms.ModelForm):
     class Meta:
         model = Feedback
         widgets = {
             'email': TextInput(attrs={'size': 30}),
         }
 
-    content = forms.CharField(widget=forms.Textarea(attrs={'rows':3, 'class':'input-xxlarge char_area'}), max_length=2000)
+    content = forms.CharField(widget=forms.Textarea(attrs={'rows': 3, 'class': 'input-xxlarge char_area'}),
+        max_length=2000)
 
     def save(self, **cleaned_data):
         instance = Feedback(**cleaned_data)
         instance.save()
+
 
 class SearchJobForm(forms.Form):
     """
@@ -331,9 +348,12 @@ class SearchJobForm(forms.Form):
     """
     industry = ModelChoiceField(Industry.objects.all(), empty_label=_(u'不限'), required=False)
     location = ModelChoiceField(Location.objects.all(), empty_label=_(u'请选择'), required=False)
-    type = ChoiceField(widget=RadioSelect(attrs={'style':'width:auto;'}), initial=0, choices=SEARCH_TYPE)
-    filter_str = forms.CharField(widget=forms.TextInput(attrs={'style':'width: 200px; height: 20px; border-color: rgb(238, 95, 91);', 'size':16}), max_length=255, required=False)
+    type = ChoiceField(widget=RadioSelect(attrs={'style': 'width:auto;'}), initial=0, choices=SEARCH_TYPE)
+    filter_str = forms.CharField(widget=forms.TextInput(
+        attrs={'style': 'width: 200px; height: 20px; border-color: rgb(238, 95, 91);', 'size': 16}), max_length=255,
+        required=False)
     is_vip = forms.CharField(widget=forms.HiddenInput(), required=False)
+
 
 class SearchResumeForm(forms.Form):
     """
@@ -343,6 +363,8 @@ class SearchResumeForm(forms.Form):
     location = ModelChoiceField(Location.objects.all(), empty_label=_(u'请选择'), required=False)
     attendance_time = ChoiceField(choices=ATTENDANCE_TIME, required=False)
     job_type = ChoiceField(choices=JOB_TYPE, required=False)
-    type = ChoiceField(widget=RadioSelect(attrs={'style':'width:auto;'}), initial=0, choices=SEARCH_PERSON_TYPE)
-    filter_str = forms.CharField(widget=forms.TextInput(attrs={'style':'width: 200px; height: 20px; border-color: rgb(238, 95, 91);', 'size':16}), max_length=255, required=False)
+    type = ChoiceField(widget=RadioSelect(attrs={'style': 'width:auto;'}), initial=0, choices=SEARCH_PERSON_TYPE)
+    filter_str = forms.CharField(widget=forms.TextInput(
+        attrs={'style': 'width: 200px; height: 20px; border-color: rgb(238, 95, 91);', 'size': 16}), max_length=255,
+        required=False)
 

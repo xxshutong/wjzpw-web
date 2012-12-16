@@ -172,6 +172,8 @@ DASHBOARD_JOB_SIZE = 20
 DASHBOARD_PERSON_SIZE = 20
 SEARCH_JOB_SIZE = 10
 SEARCH_RESUME_SIZE = 10
+# 上传简历头像大小限制 byte
+AVATAR_SIZE_LIMIT = 2*1024*1024
 
 #######################################################################################################################
 # SESSION EXPIRATION SETTINGS
