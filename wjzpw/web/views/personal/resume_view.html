@@ -307,13 +307,13 @@
 
 		<!-- 操作 -->
 		<div class="action">
-			<input type="button" value="加入企业人才库" class="btn"></input>
+			<input type="button" onclick="javascript:storeResume('{{ resume.id }}');return false" value="加入企业人才库" class="btn"></input>
 			&nbsp;
-			<input type="button" value="邀请参加面试" class="btn"></input>
+			<input type="button" onclick="javascript:inviteResume('{{ resume.id }}');return false" value="邀请参加面试" class="btn"></input>
 			&nbsp;
-			<input type="button" value="打印简历" class="btn"></input>
+			<input type="button" onclick="javascrīpt:window.print()" value="打印简历" class="btn"></input>
 			&nbsp;
-			<input type="button" value="关闭窗口" class="btn"></input>
+			<input type="button" onclick="javascript:closeWindow();" value="关闭窗口" class="btn"></input>
 		</div>
 
 		<!-- copyright -->
@@ -322,5 +322,62 @@
 		</div>
 	</div>
 
+<script type="text/javascript">
+    function inviteResume(resume_id) {
+        $.ajax({
+            type:"GET",
+            async:false,
+            url:"/company/invite/"+resume_id,
+            dataType:"json",
+            success: function(data) {
+                if(data){
+                    if (data.result == 'login_required') {
+                        window.location = '{% url login%}';
+                    } else if(data.result == 'conflict') {
+                        alert("对不起，该简历您已经邀请过了。")
+                    } else if(data.result == 'type_error') {
+                        alert("对不起，个人用户不能执行此操作。")
+                    } else {
+                        alert("恭喜你，邀请已成功发出。");
+                    }
+                }
+                else{
+                    alert("服务器错误，请联系网站管理员!");
+                }
+                return true;
+            }
+        });
+    }
+
+    function storeResume(resume_id) {
+        $.ajax({
+            type:"GET",
+            async:false,
+            url:"/company/store/"+resume_id,
+            dataType:"json",
+            success: function(data) {
+                if(data){
+                    if (data.result == 'login_required') {
+                        window.location = '{% url login%}';
+                    } else if(data.result == 'conflict') {
+                        alert("对不起，该简历您已经收藏过了。")
+                    } else if(data.result == 'type_error') {
+                        alert("对不起，个人用户不能执行此操作。")
+                    } else {
+                        alert("收藏成功。");
+                    }
+                }
+                else{
+                    alert("服务器错误，请联系网站管理员!");
+                }
+                return true;
+            }
+        });
+    }
+
+    function closeWindow() {
+        window.close();
+    }
+</script>
 </body>
 </html>
