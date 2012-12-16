@@ -5,7 +5,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db import transaction
 from django.db.models.query_utils import Q
 from django.http import HttpResponse
-from django.shortcuts import  render_to_response, redirect
+from django.shortcuts import  render_to_response, redirect, get_object_or_404
 from django.utils import simplejson
 from wjzpw import settings
 from wjzpw.settings import SEARCH_JOB_SIZE
@@ -161,6 +161,10 @@ def resume_detail(request):
     )
 
 def resume_view(request, resume_id):
+    """
+    预览、展示简历
+    """
+    resume = get_object_or_404(models.Resume, pk=resume_id)
     pass
 
 def search_job(request, is_vip=''):

@@ -430,7 +430,7 @@
     window.location.href="{{ position }}";
 
     {% if is_view %}
-        window.open("/personal/resume_view/{{ resume_form.id }}/");
+        window.open("/personal/resume_view/{{ resume_form.instance.id }}/");
     {% endif %}
 
 
