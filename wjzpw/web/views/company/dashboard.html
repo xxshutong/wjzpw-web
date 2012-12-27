@@ -25,7 +25,30 @@
 				            <p style="font-size: 14px; color: #ff0000">很抱歉，公司资料暂时不能修改，本公司将尽快完善此功能，敬请期待。</p>
 				        </div>
 				        <div class="tab-pane" id="tab2">
-				            <p>Howdy, I'm in Section 2.</p>
+				            <table class="table table-striped">
+				                <thead>
+				                    <tr>
+					                    <th>#id</th>
+					                    <th>姓名</th>
+					                    <th>性别</th>
+					                    <th>学历</th>
+	                                    <th>意向求职</th>
+	                                    <th>期望工作地点</th>
+				                    </tr>
+				                </thead>
+				            <tbody>
+                                {% for store_entity in store_list %}
+                                    <tr>
+                                        <td>{{ store_entity.id }}</td>
+	                                    <td><a href="#">{{ store_entity.resume.user_profile.real_name }}</a></td>
+	                                    <td>{{ store_entity.resume.user_profile.get_gender_display }}</td>
+	                                    <td>{{ store_entity.resume.edu_background_str }}</td>
+	                                    <td>{{ store_entity.resume.position_str|default_if_none:"无" }}</td>
+	                                    <td>{{ store_entity.resume.location }}</td>
+                                    </tr>
+                                {% endfor %}
+				              </tbody>
+				            </table>
 				        </div>
                         <div class="tab-pane" id="tab3">
 				            <p>Howdy, I'm in Section 3.</p>

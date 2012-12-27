@@ -289,7 +289,7 @@ class Resume(AbstractModel):
         temp = "";
         for position in self.resumepositionr_set.all():
             temp = (", " if temp else "") + position.position.name
-        return temp
+        return temp if temp else None
 
     def NO_str(self):
         return RESUME_NUMBER_FORMAT % self.id
