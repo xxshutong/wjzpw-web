@@ -85,7 +85,7 @@
                                 </div>
                             </li>
                             <li>
-                                <a class="btn btn-success" href="#">控制面板<a/>
+                                <a class="btn btn-success" href="{% if user.get_profile.type == 1 %}{% url company_dashboard %}{% else %}{% url personal_dashboard %}{% endif %}">控制面板<a/>
                                 <a class="btn" href="{% url logout %}" style="float:right;">退出</a>
                             </li>
                             <li>您当前的积分为：{{ user.get_profile.points_balance }}</li>

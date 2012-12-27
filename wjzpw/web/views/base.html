@@ -60,7 +60,11 @@
                             {% if user.is_active and not user.is_staff and not user.is_superuser %}
                                 <li><span style="float:left; padding-top:10px;">欢迎</span><a href="#" style="float:left">{{ user.username }}</a></li>
                                 <li style="padding-top:10px">|</li>
-                                <li><a href="personal/dashboard/dashboard.html">控制面板</a></li>
+                                {% if user.get_profile.type == 1 %}
+                                    <li><a href="{% url company_dashboard %}">控制面板</a></li>
+                                {% else %}
+                                    <li><a href="{% url personal_dashboard %}">控制面板</a></li>
+                                {% endif %}
                                 <li style="padding-top:10px">|</li>
                                 {% if user.get_profile.type == 1 %}
                                     <li {%if menu == 'add_job'%}class="active"{%endif%}><a href="{% url add_job %}">发布职位</a></li>

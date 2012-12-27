@@ -2,7 +2,7 @@
 from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.shortcuts import render_to_response, redirect
 from django.utils import simplejson
 from wjzpw import settings
@@ -14,9 +14,11 @@ from wjzpw.web.forms.company import CompanyRegForm, JobForm
 from django.contrib.auth import login as djlogin
 from wjzpw.web.forms.forms import SearchResumeForm
 from wjzpw.web.models import Resume, ResumePositionR
+
 REGISTER_PAGE = "../views/company/register.html"
 ADD_JOB_PAGE = "../views/company/add_job.html"
 SEARCH_RESUME_PAGE = "../views/company/search_resume.html"
+COMPANY_DASHBOARD_PAGE = "../views/company/dashboard.html"
 
 def company_register(request):
     """
@@ -44,16 +46,17 @@ def company_register(request):
     # go to register page
     return render_to_response(
         REGISTER_PAGE, {}, RequestContext(request, {
-            'form':form,
+            'form': form,
             'error': error
         }),
     )
 
+
 @login_required
 def add_job(request):
-    '''
+    """
     Add new job for company
-    '''
+    """
     error = ''
     if request.method == 'GET':
         form = JobForm()
@@ -64,7 +67,7 @@ def add_job(request):
             #TODO redirect to job view page in future
     return render_to_response(
         ADD_JOB_PAGE, {}, RequestContext(request, {
-            'form':form,
+            'form': form,
             'error': error,
             'menu': 'add_job'
         }),
@@ -94,7 +97,8 @@ def search_person(request):
                 filters['job_type'] = search_form.cleaned_data['job_type']
             if search_form.cleaned_data['filter_str']:
                 if search_form.cleaned_data['type'] == '0':
-                    filters['id__in'] = ResumePositionR.objects.filter(position__name__contains=search_form.cleaned_data['filter_str']).values("resume_id")
+                    filters['id__in'] = ResumePositionR.objects.filter(
+                        position__name__contains=search_form.cleaned_data['filter_str']).values("resume_id")
                 else:
                     filters['user_profile__real_name__contains'] = search_form.cleaned_data['filter_str']
             resume_list = Resume.objects.filter(**filters).order_by('-updated_at')
@@ -118,6 +122,7 @@ def search_person(request):
         ),
     )
 
+
 def ajax_invite_resume(request, resume_id, is_store=False):
     """
     Invite a resume by resume ID
@@ -126,24 +131,49 @@ def ajax_invite_resume(request, resume_id, is_store=False):
     login_user = request.user
     if login_user and login_user.id:
         if login_user.get_profile().type == 0:
-            data = {'result':'type_error'}
+            data = {'result': 'type_error'}
         else:
             try:
-                models.CompanyResumeR.objects.get(user_profile=login_user.get_profile(), resume=resume_id, type=action_type)
-                data = {'result':'conflict'}
+                models.CompanyResumeR.objects.get(user_profile=login_user.get_profile(), resume=resume_id,
+                    type=action_type)
+                data = {'result': 'conflict'}
             except models.CompanyResumeR.DoesNotExist:
-                company_resume_r = models.CompanyResumeR(user_profile=login_user.get_profile(), resume_id=resume_id, type=action_type)
+                company_resume_r = models.CompanyResumeR(user_profile=login_user.get_profile(), resume_id=resume_id,
+                    type=action_type)
                 company_resume_r.save()
                 if not is_store:
                     #TODO Send invite email to person
                     pass
-                data = {'result':'success'}
+                data = {'result': 'success'}
     else:
-        data = {'result':'login_required'}
+        data = {'result': 'login_required'}
     return HttpResponse(simplejson.dumps(data))
+
 
 def ajax_store_resume(request, resume_id):
     """
     Store a resume by resume ID
     """
     return ajax_invite_resume(request, resume_id, is_store=True)
+
+
+@login_required
+def dashboard(request):
+    """
+    Navigate to company dashboard page
+    """
+    login_user = request.user
+    if login_user and login_user.id:
+        if login_user.get_profile().type == 1:
+            store_list = models.CompanyResumeR.objects.filter(user_profile=login_user.get_profile(),
+                type='store').order_by('-updated_at')
+            invite_list = models.CompanyResumeR.objects.filter(user_profile=login_user.get_profile(),
+                type='invite').order_by('-updated_at')
+            return render_to_response(
+                COMPANY_DASHBOARD_PAGE, {}, RequestContext(request, {
+                    'store_list': store_list,
+                    'invite_list': invite_list
+                }
+                ),
+            )
+    raise Http404
