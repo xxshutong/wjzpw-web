@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}吴江-招聘网 | 公司注册{% endblock %}
+{% block title %}吴江-招聘网 | 控制面板{% endblock %}
 
 {% block head %}
     <style type="text/css">
@@ -36,7 +36,7 @@
 	                                    <th>期望工作地点</th>
 				                    </tr>
 				                </thead>
-				            <tbody>
+				                <tbody>
                                 {% for store_entity in store_list %}
                                     <tr>
                                         <td>{{ store_entity.id }}</td>
@@ -47,11 +47,36 @@
 	                                    <td>{{ store_entity.resume.location }}</td>
                                     </tr>
                                 {% endfor %}
-				              </tbody>
+				                </tbody>
 				            </table>
 				        </div>
                         <div class="tab-pane" id="tab3">
-				            <p>Howdy, I'm in Section 3.</p>
+				            <table class="table table-striped">
+				                <thead>
+				                    <tr>
+					                    <th>#id</th>
+					                    <th>姓名</th>
+					                    <th>性别</th>
+					                    <th>学历</th>
+	                                    <th>意向求职</th>
+	                                    <th>期望工作地点</th>
+                                        <th>邀请时间</th>
+				                    </tr>
+				                </thead>
+				                <tbody>
+                                {% for store_entity in invite_list %}
+                                    <tr>
+                                        <td>{{ store_entity.id }}</td>
+	                                    <td><a href="#">{{ store_entity.resume.user_profile.real_name }}</a></td>
+	                                    <td>{{ store_entity.resume.user_profile.get_gender_display }}</td>
+	                                    <td>{{ store_entity.resume.edu_background_str }}</td>
+	                                    <td>{{ store_entity.resume.position_str|default_if_none:"无" }}</td>
+	                                    <td>{{ store_entity.resume.location }}</td>
+                                        <td>{{ store_entity.created_at|date:"Y年n月d日" }}</td>
+                                    </tr>
+                                {% endfor %}
+				                </tbody>
+				            </table>
 				        </div>
 				    </div>
 				</div>
