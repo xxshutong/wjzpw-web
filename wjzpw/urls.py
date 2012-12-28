@@ -30,6 +30,7 @@ urlpatterns += patterns('wjzpw.web.controllers.personal',
     url(r'^personal/search_job/$', 'search_job', name='search_job'),
     url(r'^personal/apply/(?P<job_id>\d+)/$', 'ajax_apply_job', name='ajax_apply_job'),
     url(r'^personal/store/(?P<job_id>\d+)/$', 'ajax_store_job', name='ajax_store_job'),
+    url(r'^personal/dashboard/$', 'dashboard', name='personal_dashboard')
 )
 
 # Company

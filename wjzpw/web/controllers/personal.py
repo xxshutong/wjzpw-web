@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db import transaction
 from django.db.models.query_utils import Q
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.shortcuts import  render_to_response, redirect, get_object_or_404
 from django.utils import simplejson
 from wjzpw import settings
@@ -20,6 +20,7 @@ REGISTER_PAGE = "../views/personal/register.html"
 RESUME_DETAIL_PAGE = "../views/personal/register_detail.html"
 SEARCH_JOB_PAGE = "../views/personal/search_job.html"
 RESUME_VIEW_PAGE = "../views/personal/resume_view.html"
+PERSONAL_DASHBOARD_PAGE = "../views/personal/dashboard.html"
 
 def personal_register(request):
     """
@@ -173,7 +174,7 @@ def resume_view(request, resume_id):
     # 判断是否可以访问简历的联系方式
     have_access_contact = False
     if request.user.is_active and (request.user.get_profile() == resume.user_profile
-        or request.user.get_profile().cp_service):
+                                   or request.user.get_profile().cp_service):
         have_access_contact = True
     return render_to_response(
         RESUME_VIEW_PAGE, {}, RequestContext(request, {
@@ -284,3 +285,25 @@ def ajax_get_positions(request):
     data = simplejson.dumps(data)
     print data
     return HttpResponse(data, 'application/json')
+
+
+@login_required
+def dashboard(request):
+    """
+    Navigate to company dashboard page
+    """
+    login_user = request.user
+    if login_user and login_user.id:
+        if login_user.get_profile().type == 0:
+            store_list = models.UserJobR.objects.filter(user_profile=login_user.get_profile(),
+                type='store').order_by('-updated_at')
+            apply_list = models.UserJobR.objects.filter(user_profile=login_user.get_profile(),
+                type='apply').order_by('-updated_at')
+            return render_to_response(
+                PERSONAL_DASHBOARD_PAGE, {}, RequestContext(request, {
+                    'store_list': store_list,
+                    'apply_list': apply_list
+                }
+                ),
+            )
+    raise Http404

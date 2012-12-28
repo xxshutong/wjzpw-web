@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}吴江-招聘网 | 控制面板{% endblock %}
+
+{% block head %}
+    <style type="text/css">
+        .tab-pane {
+            padding: 20px;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="content">
+            <div class="row">
+		        <div class="tabbable"> <!-- Only required for left/right tabs -->
+				    <ul class="nav nav-tabs">
+				        <li class="active"><a href="#tab1" data-toggle="tab">个人资料</a></li>
+				        <li><a href="#tab2" data-toggle="tab">收藏的工作</a></li>
+                        <li><a href="#tab3" data-toggle="tab">申请的工作</a></li>
+				    </ul>
+				    <div class="tab-content">
+				        <div class="tab-pane active" id="tab1">
+				            <p style="font-size: 14px; color: #ff0000">很抱歉，个人资料暂时不能修改，本公司将尽快完善此功能，敬请期待。</p>
+				        </div>
+				        <div class="tab-pane" id="tab2">
+				            <table class="table table-striped">
+				                <thead>
+				                    <tr>
+					                    <th>#id</th>
+					                    <th>职位名</th>
+                                        <th>公司名</th>
+					                    <th>工作地点</th>
+	                                    <th>收藏时间</th>
+				                    </tr>
+				                </thead>
+				                <tbody>
+                                {% for store_entity in store_list %}
+                                    <tr>
+                                        <td>{{ store_entity.id }}</td>
+	                                    <td><a href="#">{{ store_entity.job.name }}</a></td>
+	                                    <td>{{ store_entity.job.company.cp_name }}</td>
+	                                    <td>{{ store_entity.job.location }}</td>
+	                                    <td>{{ store_entity.created_at|date:"Y年n月d日" }}</td>
+                                    </tr>
+                                {% endfor %}
+				                </tbody>
+				            </table>
+				        </div>
+                        <div class="tab-pane" id="tab3">
+				            <table class="table table-striped">
+				                <thead>
+				                    <tr>
+					                    <th>#id</th>
+					                    <th>职位名</th>
+                                        <th>公司名</th>
+					                    <th>工作地点</th>
+	                                    <th>收藏时间</th>
+				                    </tr>
+				                </thead>
+				                <tbody>
+                                {% for apply_entity in apply_list %}
+                                    <tr>
+                                        <td>{{ apply_entity.id }}</td>
+	                                    <td><a href="#">{{ apply_entity.job.name }}</a></td>
+	                                    <td>{{ apply_entity.job.company.cp_name }}</td>
+	                                    <td>{{ apply_entity.job.location }}</td>
+	                                    <td>{{ apply_entity.created_at|date:"Y年n月d日" }}</td>
+                                    </tr>
+                                {% endfor %}
+				                </tbody>
+				            </table>
+				        </div>
+				    </div>
+				</div>
+            </div>
+        </div>
+	</div>
+    <script type='text/javascript' src="/static/js/bootstrap.min.js"></script>
+{% endblock %}
