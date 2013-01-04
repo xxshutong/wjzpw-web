@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+
+{% block title %}{{ company.cp_name }}{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="/static/css/datepicker.css">
+    <script type='text/javascript' src="/static/js/bootstrap-datepicker.js"></script>
+{% endblock %}
+
+{% block content %}
+<!-- 公司头部图片 -->
+<div class="container">
+    <div class="content" style="padding-bottom:0px;">
+        <img src="/static/images/zpym_bj.gif" width="1020px" height="100px">
+        <span style="position:absolute; margin-left:480px; margin-top:-70px; color:#FF0000; font-size:36px; font-weight:bold">{{ company.cp_name }}</span>
+    </div>
+</div>
+
+<!-- 主体信息开始 -->
+<div class="container">
+	<div class="content">
+		<div class="row">
+			<div class="left_layer position_list">
+				<p class="title"><a href="company.html" class="btn" style="font-size:14px;">公司简介</a></p>
+				<ul>
+					<li><img src="/static/images/job_leftdianline.gif"/><a href="position.html">会计</a></li>
+					<li><img src="/static/images/job_leftdianline.gif"/><a href="position.html">软件工程师</a></li>
+					<li><img src="/static/images/job_leftdianline.gif"/><a href="position.html">跟单员</a></li>
+					<li><img src="/static/images/job_leftdianline.gif"/><a href="position.html">销售</a></li>
+					<li><img src="/static/images/job_leftdianline.gif"/><a href="position.html">出纳</a></li>
+				</ul>
+			</div>
+			<div class="right_layer" style="padding-top:0px;">
+				<div>
+					<form style="margin:0px;">
+					<!-- 基本资料 -->
+					<div class="main_login" style="margin-top:0px;">
+						<div class="tit">
+							公司信息
+						</div>
+						<div>
+							<fieldset>
+								<!-- /clearfix -->
+								<div class="clearfix">
+									<label for="xlInput">公司名称：</label>
+									<span class="value">吴江恒力集团</span>
+								</div>
+								<!-- /clearfix -->
+								<div class="clearfix">
+									<label for="xlInput">所属行业：</label>
+									<span class="value">服装/纺织/皮革</span>
+								</div>
+								<!-- /clearfix -->
+								<div class="clearfix">
+									<label for="xlInput">所在地：</label>
+									<span class="value">吴江 - 铜锣</span>
+								</div>
+								<!-- /clearfix -->
+								<div class="clearfix">
+									<label for="xlInput">公司性质：</label>
+									<span class="value">民营公司</span>
+								</div>
+								<!-- /clearfix -->
+								<div class="clearfix">
+									<label for="xlInput">公司规模：</label>
+									<span class="value">500人以上</span>
+								</div>
+								<!-- /clearfix -->
+								<div class="clearfix">
+									<label for="xlInput" style="font-weight:bold">公司简介：</label>
+									<span class="value" style="width:640px;">
+										<p>
+											恒力集团有限公司始建于1994年，是全球最大的织造企业、全球最大的超亮光丝和工业丝生产基地，企业名列"中国化纤行业竞争力排名第一"，产品品牌价值居全行业首位。
+<br/>
+　　恒力集团现有总资产312亿元，员工36000多人，2010年销售收入325亿元，利税总额51亿元，领跑民营经济发展，现位列中国500强企业 241位、为中国百强民营企业，先后被评为"中国化纤行业环境友好企业"、"全国纺织工业先进集体"、"全国企业文化建设先进单位"。企业多项产品被评为"中国名牌"、"国家免检"、"全国用户满意产品"等称号。
+										</p>
+									</span>
+								</div>
+								<!-- /clearfix -->
+							</fieldset>
+						</div>
+					</div>
+
+					<!-- 账户信息 -->
+					<div class="main_login">
+						<div class="tit">
+							联系方式
+						</div>
+						<div>
+							<fieldset>
+								<!-- /clearfix -->
+								<div class="clearfix">
+									<label for="xlInput">联系人：</label>
+									<span class="value">王先生</span>
+								</div>
+								<!-- /clearfix -->
+								<div class="clearfix">
+									<label for="xlInput">联系电话：</label>
+									<span class="value">051263888952</span>
+								</div>
+								<!-- /clearfix -->
+								<div class="clearfix">
+									<label for="xlInput">手机：</label>
+									<span class="value">15251545236</span>
+								</div>
+								<!-- /clearfix -->
+								<div class="clearfix">
+									<label for="xlInput">传真号码：</label>
+									<span class="value">051263888955</span>
+								</div>
+								<!-- /clearfix -->
+								<div class="clearfix">
+									<label for="xlInput">邮箱地址：</label>
+									<span class="value">xxshutong@gmail.com</span>
+								</div>
+								<!-- /clearfix -->
+								<div class="clearfix">
+									<label for="xlInput">公司主页：</label>
+									<span class="value">www.wj-zpw.com</span>
+								</div>
+								<!-- /clearfix -->
+								<div class="clearfix">
+									<label for="xlInput">邮政编码：</label>
+									<span class="value">215000</span>
+								</div>
+								<!-- /clearfix -->
+								<div class="clearfix">
+									<label for="xlInput">通讯地址：</label>
+									<span class="value">江苏苏州娄葑锦城之星7栋1107</span>
+								</div>
+							</fieldset>
+						</div>
+					</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script language="javascript">
+	$(document).ready(function() {
+        right_height = $('.right_layer').height();
+        left_height = $('.left_layer').height();
+        if(right_height > left_height) {
+            $('.left_layer').height(right_height );
+        }
+    })
+</script>
+<!-- 主体信息结束 -->
+{% endblock %}

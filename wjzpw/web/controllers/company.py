@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponse, Http404
-from django.shortcuts import render_to_response, redirect
+from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.utils import simplejson
 from wjzpw import settings
 from wjzpw.settings import SEARCH_RESUME_SIZE
@@ -19,6 +19,7 @@ REGISTER_PAGE = "../views/company/register.html"
 ADD_JOB_PAGE = "../views/company/add_job.html"
 SEARCH_RESUME_PAGE = "../views/company/search_resume.html"
 COMPANY_DASHBOARD_PAGE = "../views/company/dashboard.html"
+COMPANY_DETAIL_PAGE = "../views/company/company_detail.html"
 
 def company_register(request):
     """
@@ -177,3 +178,16 @@ def dashboard(request):
                 ),
             )
     raise Http404
+
+def company_detail(request, company_id):
+    """
+    Navigate to company detail page
+    """
+    filter = {'pk': company_id, 'type': 1}
+    company = get_object_or_404(models.UserProfile, **filter)
+
+    return render_to_response(
+        COMPANY_DETAIL_PAGE, {}, RequestContext(request, {
+            'company': company
+        }),
+    )
