@@ -41,7 +41,8 @@ urlpatterns += patterns('wjzpw.web.controllers.company',
     url(r'^company/invite/(?P<resume_id>\d+)/$', 'ajax_invite_resume', name='ajax_invite_resume'),
     url(r'^company/store/(?P<resume_id>\d+)/$', 'ajax_store_resume', name='ajax_store_resume'),
     url(r'^company/dashboard/$', 'dashboard', name='company_dashboard'),
-    url(r'^company/detail/(?P<company_id>\d+)/$', 'company_detail', name='company_detail')
+    url(r'^company/detail/(?P<company_id>\d+)/$', 'company_detail', name='company_detail'),
+    url(r'^company/job/(?P<job_id>\d+)/$', 'job_detail', name='job_detail')
 )
 
 # System

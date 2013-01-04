@@ -185,9 +185,10 @@ def company_detail(request, company_id):
     """
     filter = {'pk': company_id, 'type': 1}
     company = get_object_or_404(models.UserProfile, **filter)
-
+    job_list = models.Job.objects.filter(company=company_id).order_by('-updated_at')
     return render_to_response(
         COMPANY_DETAIL_PAGE, {}, RequestContext(request, {
-            'company': company
+            'company': company,
+            'job_list': job_list
         }),
     )

@@ -23,11 +23,9 @@
 			<div class="left_layer position_list">
 				<p class="title"><a href="/company/detail/{{ company.id }}" class="btn" style="font-size:14px;">公司简介</a></p>
 				<ul>
-					<li><img src="/static/images/job_leftdianline.gif"/><a href="position.html">会计</a></li>
-					<li><img src="/static/images/job_leftdianline.gif"/><a href="position.html">软件工程师</a></li>
-					<li><img src="/static/images/job_leftdianline.gif"/><a href="position.html">跟单员</a></li>
-					<li><img src="/static/images/job_leftdianline.gif"/><a href="position.html">销售</a></li>
-					<li><img src="/static/images/job_leftdianline.gif"/><a href="position.html">出纳</a></li>
+                    {% for job in job_list %}
+                        <li><img src="/static/images/job_leftdianline.gif"/><a href="/company/job/{{ job.id }}">{{ job.name }}</a></li>
+                    {% endfor %}
 				</ul>
 			</div>
 			<div class="right_layer" style="padding-top:0px;">
