@@ -378,7 +378,7 @@ class Job(AbstractModel):
     description = models.CharField(u'描述', max_length=2000)
 
     def __unicode__(self):
-        return str(self.user.id) + '-' + self.user.email + '-' + self.activity.name
+        return str(self.company.cp_name) + '-' + self.name
 
     def work_experience_str(self):
         return get_tuple_value_from_key(EXPERIENCE_TYPE, self.work_experience)

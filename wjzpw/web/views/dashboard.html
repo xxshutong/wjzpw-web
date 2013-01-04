@@ -265,8 +265,8 @@
                     <ul>
                         {% for company_job in vip_company_job_list %}
                         <li class="{% if company_job.odd %}tjli{% else %}tjliA{% endif %}">
-                            <img src="../static/images/dot.gif">
-                            <a href="company/company.html">{{ company_job.name }}</a>
+                            <img src="/static/images/dot.gif">
+                            <a href="/company/detail/{{ company_job.id }}">{{ company_job.name }}</a>
                             <span class="employ_font">聘</span>
                             {% for job in company_job.job_list %}
                             <a href="company/position.html">{{ job.name }}</a>&nbsp;
@@ -289,8 +289,8 @@
                     <ul>
                         {% for company_job in company_job_list %}
                             <li class="{% if company_job.odd %}tjli{% else %}tjliA{% endif %}">
-                                <img src="../static/images/dot.gif">
-                                <a href="company/company.html">{{ company_job.name }}</a>
+                                <img src="/static/images/dot.gif">
+                                <a href="/company/detail/{{ company_job.id }}">{{ company_job.name }}</a>
                                 <span class="employ_font">聘</span>
                                 {% for job in company_job.job_list %}
                                     <a href="company/position.html">{{ job.name }}</a>&nbsp;
