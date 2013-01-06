@@ -171,7 +171,7 @@
 					</form>
 					<div class="main_login" style="border:none; -moz-box-shadow:none">
 						<div class="actions">
-							<a class="btn primary" href="#">立即申请</a>&nbsp;&nbsp;<a class="btn success" href="index.html">填写简历</a>
+							<a class="btn btn-primary" onclick="javascript:applyJob('{{ job.id }}', '{% url login%}');return false" href="#">立即申请</a>
 						</div>
 					</div>
 				</div>
@@ -188,5 +188,6 @@
         }
     })
 </script>
+<script type="text/javascript" src="/static/js/wjzpw.js"></script>
 <!-- 主体信息结束 -->
 {% endblock %}
