@@ -20,6 +20,7 @@ ADD_JOB_PAGE = "../views/company/add_job.html"
 SEARCH_RESUME_PAGE = "../views/company/search_resume.html"
 COMPANY_DASHBOARD_PAGE = "../views/company/dashboard.html"
 COMPANY_DETAIL_PAGE = "../views/company/company_detail.html"
+JOB_DETAIL_PAGE = "../views/company/job_detail.html"
 
 def company_register(request):
     """
@@ -191,4 +192,17 @@ def company_detail(request, company_id):
             'company': company,
             'job_list': job_list
         }),
+    )
+
+def job_detail(request, job_id):
+    """
+    Navigate to job detail page
+    """
+    job = get_object_or_404(models.Job, pk=job_id)
+    job_list = models.Job.objects.filter(company=job.company.id).order_by('-updated_at')
+    return render_to_response(
+        JOB_DETAIL_PAGE, {}, RequestContext(request, {
+            'job': job,
+            'job_list': job_list
+        })
     )

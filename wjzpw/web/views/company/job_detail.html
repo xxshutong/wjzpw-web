@@ -1,0 +1,192 @@
+{% extends "base.html" %}
+
+{% block title %}{{ job.company.cp_name }} - {{ job.name }}{% endblock %}
+
+{% block head %}
+<style type="text/css">
+    form .control-group, .form-horizontal .control-group {
+        margin-bottom: 10px;
+        display: table;
+    }
+</style>
+
+{% endblock %}
+{% block content %}
+<!-- 公司头部图片 -->
+<div class="container">
+    <div class="content" style="padding-bottom:0px;">
+        <img src="/static/images/zpym_bj.gif" width="1020px" height="100px">
+        <span style="position:absolute; margin-left:480px; margin-top:-70px; color:#FF0000; font-size:36px; font-weight:bold">{{ job.company.cp_name }}</span>
+    </div>
+</div>
+
+<!-- 主体信息开始 -->
+<div class="container">
+	<div class="content">
+		<div class="row">
+			<div class="left_layer position_list">
+				<p class="title"><a href="/company/detail/{{ job.company.id }}" class="btn" style="font-size:14px;">公司简介</a></p>
+				<ul>
+                    {% for job in job_list %}
+                        <li><img src="/static/images/job_leftdianline.gif"/><a href="/company/job/{{ job.id }}">{{ job.name }}</a></li>
+                    {% endfor %}
+				</ul>
+			</div>
+			<div class="right_layer" style="padding-top:0px;">
+				<div>
+					<form style="margin:0px;">
+					<!-- 基本资料 -->
+					<div class="main_login" style="margin-top:0px;">
+						<div class="tit">
+							招聘职位： {{ job.name }}
+						</div>
+						<div class="multi_view">
+							<fieldset>
+								<!-- /clearfix -->
+								<div class="control-group">
+									<label for="xlInput">职位类型：</label>
+									<div class="sinput">
+										<div class="value">{{ job.get_job_type_display }}</div>
+									</div>
+									<label for="xlInput" class="slabel">参考月薪：</label>
+									<div class="sinput">
+										<div class="value">{{ job.get_salary_display }}</div>
+									</div>
+								</div>
+								<!-- /clearfix -->
+								<div class="control-group">
+									<label for="xlInput">招聘部门：</label>
+									<div class="sinput">
+										<div class="value">{{ job.department }}</div>
+									</div>
+									<label for="xlInput" class="slabel">招聘人数：</label>
+									<div class="sinput">
+										<div class="value">{{ job.number }}</div>
+									</div>
+								</div>
+								<!-- /clearfix -->
+								<div class="control-group">
+									<label for="xlInput">发布日期：</label>
+									<div class="sinput">
+										<div class="value">{{ job.created_at|date:'Y年m月d日' }}</div>
+									</div>
+									<label for="xlInput" class="slabel">截止日期：</label>
+									<div class="sinput">
+										<div class="value">{{ job.end_date|date:'Y年m月d日' }}</div>
+									</div>
+								</div>
+								<!-- /clearfix -->
+								<div class="control-group">
+									<label for="xlInput">工作地区：</label>
+									<div class="sinput">
+										<div class="value">{{ job.location }}</div>
+									</div>
+								</div>
+								<!-- /clearfix -->
+								<div class="control-group">
+									<label for="xlInput">学历要求：</label>
+									<div class="sinput">
+										<div class="value">{{ job.get_edu_background_display }}</div>
+									</div>
+									<label for="xlInput" class="slabel">工作经验：</label>
+									<div class="sinput">
+										<div class="value">{{ job.get_work_experience_display }}</div>
+									</div>
+								</div>
+								<!-- /clearfix -->
+								<div class="control-group">
+									<label for="xlInput">年龄要求：</label>
+									<div class="sinput">
+										<div class="value">{{ job.get_age_display }}</div>
+									</div>
+									<label for="xlInput" class="slabel">性别要求：</label>
+									<div class="sinput">
+										<div class="value">{{ job.get_sex_display }}</div>
+									</div>
+								</div>
+								<!-- /clearfix -->
+								<div class="control-group">
+									<label for="xlInput">职位描述：</label>
+									<div class="sinput" style="float: left; width: 600px;">
+										<div class="value">{{ job.description|safe }}</div>
+									</div>
+								</div>
+								<!-- /clearfix -->
+							</fieldset>
+						</div>
+					</div>
+                    <div class="main_login" style="margin-top:10px;">
+						<div class="tit">
+							联系方式
+						</div>
+						<div class="multi_view">
+							<fieldset>
+								<!-- /clearfix -->
+								<div class="control-group">
+									<label for="xlInput">联系人：</label>
+									<div class="sinput">
+										<div class="value">{{ job.company.cp_contact }}</div>
+									</div>
+									<label for="xlInput" class="slabel">电话/手机：</label>
+									<div class="sinput">
+										<div class="value">{{ job.company.cp_telephone|default:"无" }}/{{ job.company.cp_mobile_phone|default:"无" }}</div>
+									</div>
+								</div>
+								<!-- /clearfix -->
+								<div class="control-group">
+									<label for="xlInput">传真号码：</label>
+									<div class="sinput">
+										<div class="value">{{ job.company.cp_fax|default:"无" }}</div>
+									</div>
+									<label for="xlInput" class="slabel">邮编号码：</label>
+									<div class="sinput">
+										<div class="value">{{ job.company.cp_postcode|default:"无" }}</div>
+									</div>
+								</div>
+								<!-- /clearfix -->
+								<div class="control-group">
+									<label for="xlInput">在线QQ：</label>
+									<div class="sinput">
+										<div class="value">{{ job.company.qq|default:"无" }}</div>
+									</div>
+								</div>
+								<!-- /clearfix -->
+								<div class="control-group">
+									<label for="xlInput">邮箱地址：</label>
+									<div class="sinput" style="float: left; width: 600px;">
+										<div class="value">{{ job.company.user.email }} &nbsp; <a href="mailto:{{ job.company.user.email }}" style="text-decoration:underline">发送邮件</a></div>
+									</div>
+								</div>
+								<!-- /clearfix -->
+								<div class="control-group">
+									<label for="xlInput">联系地址：</label>
+									<div class="sinput">
+										<div class="value">{{ job.company.cp_address }}</div>
+									</div>
+								</div>
+								<!-- /clearfix -->
+							</fieldset>
+						</div>
+					</div>
+					</form>
+					<div class="main_login" style="border:none; -moz-box-shadow:none">
+						<div class="actions">
+							<a class="btn primary" href="#">立即申请</a>&nbsp;&nbsp;<a class="btn success" href="index.html">填写简历</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script language="javascript">
+	$(document).ready(function() {
+        right_height = $('.right_layer').height();
+        left_height = $('.left_layer').height();
+        if(right_height > left_height) {
+            $('.left_layer').height(right_height );
+        }
+    })
+</script>
+<!-- 主体信息结束 -->
+{% endblock %}

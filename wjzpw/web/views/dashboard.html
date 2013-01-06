@@ -269,7 +269,7 @@
                             <a href="/company/detail/{{ company_job.id }}">{{ company_job.name }}</a>
                             <span class="employ_font">聘</span>
                             {% for job in company_job.job_list %}
-                            <a href="company/position.html">{{ job.name }}</a>&nbsp;
+                            <a href="/company/job/{{ job.id }}">{{ job.name }}</a>&nbsp;
                             {% endfor %}
                         </li>
                         {% endfor %}
@@ -293,7 +293,7 @@
                                 <a href="/company/detail/{{ company_job.id }}">{{ company_job.name }}</a>
                                 <span class="employ_font">聘</span>
                                 {% for job in company_job.job_list %}
-                                    <a href="company/position.html">{{ job.name }}</a>&nbsp;
+                                    <a href="/company/job/{{ job.id }}">{{ job.name }}</a>&nbsp;
                                 {% endfor %}
                             </li>
                         {% endfor %}
