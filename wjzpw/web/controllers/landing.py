@@ -258,6 +258,9 @@ def gather_person_info(person_list):
         person_obj['major'] = edu_background.major
         person_obj_list.append(person_obj);
         person_obj['odd'] = len(person_obj_list)/3%2 == 0
+        #resume
+        resume_id = person.resume_set.all()[0].id
+        person_obj['resume_id'] = resume_id
         person_obj = {}
     return person_obj_list
 
