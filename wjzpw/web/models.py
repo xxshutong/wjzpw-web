@@ -101,7 +101,7 @@ class City(models.Model):
     code = models.CharField(u'代码', max_length=5, blank=True)
     spell = models.CharField(u'拼音', max_length=50, blank=False)
     name = models.CharField(u'名称', max_length=255, blank=False)
-    province = models.ForeignKey(Province, name='province')
+    province = models.ForeignKey(Province, name='province', verbose_name="省份")
     def __unicode__(self):
         return self.name
 
@@ -140,7 +140,7 @@ class Position(models.Model):
         verbose_name_plural = _(u"基础信息-职位列表")
         verbose_name = _(u"职位")
 
-    industry = models.ForeignKey(Industry, name='industry')
+    industry = models.ForeignKey(Industry, name='industry', verbose_name=u"行业类别")
     spell = models.CharField(_(u'拼音'), max_length=50, blank=True)
     name = models.CharField(_(u'职位名称'), max_length=255)
     def __unicode__(self):
@@ -152,11 +152,11 @@ class Service(models.Model):
         verbose_name = _(u"VIP服务")
 
     PERIOD_TYPE = (
-        (0, 'Free'),
-        (1, 'One month'),
-        (2, 'One quarter'),
-        (3, 'Half a year'),
-        (4, 'One year')
+        (0, u'免费'),
+        (1, u'一个月'),
+        (2, u'一个季度'),
+        (3, u'半年'),
+        (4, u'一年')
         )
     period = models.IntegerField(u'服务期限', max_length=2, choices=PERIOD_TYPE, default=0)
     price = models.IntegerField(u'价格', default=0)
@@ -220,13 +220,13 @@ class UserProfile(AbstractModel):
         (4, _(u'10年以上'))
         )
 
-    user = OneToOneField(User)
-    type = models.IntegerField('User Type', max_length=2, choices=USER_TYPE, default=0, help_text=_(u'0:个人用户 1:企业用户 '))
+    user = OneToOneField(User, verbose_name=u'Django用户')
+    type = models.IntegerField(u'用户类型', max_length=2, choices=USER_TYPE, default=0, help_text=_(u'0:个人用户 1:企业用户 '))
     real_name = models.CharField(u'真实姓名', max_length=50, null=True, blank=False)
     gender = models.IntegerField(u'性别', max_length=2, choices=GENDER, default=2)
     birthday = models.DateField(u'生日', null=True, blank=True)
-    census = models.ForeignKey(City, name='census', null=True, blank=True)
-    location = models.ForeignKey(Location, name='location', null=True, blank=True)
+    census = models.ForeignKey(City, name='census', null=True, blank=True, verbose_name=u'户籍')
+    location = models.ForeignKey(Location, name='location', null=True, blank=True, verbose_name=u'所在地')
     mobile_phone = models.CharField(u'手机/电话', max_length=20, default='')
     qq = models.CharField('QQ', max_length=20, null=True, blank=True)
     wedding = models.IntegerField(u'婚姻状况', max_length=2, choices=WEDDING_TYPE, default=0)
@@ -236,23 +236,23 @@ class UserProfile(AbstractModel):
     job_type = models.IntegerField(u'类型', max_length=2, choices=JOB_TYPE_TYPE, default=0)
     work_years = models.IntegerField(u'工作经验', max_length=2, choices=WORK_YEARS_TYPE, default=0, null=True, blank=True)
     points_balance = models.IntegerField(u'点数', default=0)
-    cp_accept_notice = models.BooleanField('Accept Notice', default=True)
-    cp_name = models.CharField('Company Name', max_length=255, null=True)
-    cp_license = models.CharField('Business License', max_length=255, null=True, blank=True)
-    cp_industry = models.ForeignKey(Industry, name='cp_industry', null=True, blank=True)
+    cp_accept_notice = models.BooleanField(u'是否同意接收网站邮件', default=True)
+    cp_name = models.CharField(u'公司名称', max_length=255, null=True)
+    cp_license = models.CharField(u'营业执照', max_length=255, null=True, blank=True)
+    cp_industry = models.ForeignKey(Industry, name='cp_industry', null=True, blank=True, verbose_name=u'公司所属行业')
     cp_nature = models.IntegerField(u'公司性质', choices=COMPANY_NATURE, null=True, blank=True)
-    cp_scope = models.IntegerField('Company Scope', max_length=2, choices=COMPANY_SCOPE_TYPE, default=0)
-    cp_intro = models.CharField('公司简介', max_length=2000, null=True)
-    cp_address = models.CharField('Company Address', max_length=2000, null=True, blank=True)
-    cp_postcode = models.CharField('Address Postcode', max_length=10, null=True, blank=True)
-    cp_contact = models.CharField('Contact Name', max_length=50, null=True)
-    cp_telephone = models.CharField('Contact Telephone', max_length=15, null=True)
-    cp_mobile_phone = models.CharField('Contact Mobile Phone', max_length=15, null=True, blank=True)
-    cp_fax = models.CharField('Contact Fax', max_length=15, null=True, blank=True)
-    cp_website = models.CharField('Web Site', max_length=50, null=True, blank=True)
-    cp_service = models.ForeignKey(Service, name='Service', null=True, blank=True)
-    cp_service_begin = models.DateField(null=True, blank=True)
-    cp_job_last_updated = models.DateField(null=True, blank=True)
+    cp_scope = models.IntegerField(u'公司规模', max_length=2, choices=COMPANY_SCOPE_TYPE, default=0)
+    cp_intro = models.CharField(u'公司简介', max_length=2000, null=True)
+    cp_address = models.CharField(u'公司地址', max_length=2000, null=True, blank=True)
+    cp_postcode = models.CharField(u'公司邮编', max_length=10, null=True, blank=True)
+    cp_contact = models.CharField(u'联系人', max_length=50, null=True)
+    cp_telephone = models.CharField(u'联系电话', max_length=15, null=True)
+    cp_mobile_phone = models.CharField(u'联系人手机', max_length=15, null=True, blank=True)
+    cp_fax = models.CharField(u'传真', max_length=15, null=True, blank=True)
+    cp_website = models.CharField(u'网址', max_length=50, null=True, blank=True)
+    cp_service = models.ForeignKey(Service, name='Service', null=True, blank=True, verbose_name=u'订购的服务')
+    cp_service_begin = models.DateField(null=True, blank=True, verbose_name=u'服务开始时间')
+    cp_job_last_updated = models.DateField(u'发布工作最后更新时间', null=True, blank=True, help_text=u'检查代码中是否每次更新JOB的时候都更新了该字段')
 
     #For Restful
     access_token = models.CharField(max_length=1024, unique=True, null=True, blank=True)
@@ -262,7 +262,7 @@ class UserProfile(AbstractModel):
     def is_company(self): return self.type == 1
 
     def __unicode__(self):
-        return self.user.username + "-" + self.user.email
+        return self.user.username + "-" + self.user.email + "-" + (u'公司' if self.is_company() else u'求职者')
 
 class Resume(AbstractModel):
     """
@@ -272,11 +272,11 @@ class Resume(AbstractModel):
         verbose_name_plural = _(u"用户-简历列表")
         verbose_name = _(u"简历")
 
-    user_profile = models.ForeignKey(UserProfile, name='user_profile')
+    user_profile = models.ForeignKey(UserProfile, name='user_profile', verbose_name=u"求职者")
     resume_name = models.CharField(_(u'简历名称'), max_length=100, default=_(u'我的简历'))
     job_type = models.IntegerField(_(u'职位类型'), max_length=2, choices=JOB_TYPE, default=1)
-    industry = models.ForeignKey(Industry, name='industry', help_text=_(u'期望行业'))
-    location = models.ForeignKey(Location, name='location', help_text=_(u'期望工作地点'))
+    industry = models.ForeignKey(Industry, name='industry', help_text=_(u'期望行业'), verbose_name=u"行业")
+    location = models.ForeignKey(Location, name='location', help_text=_(u'期望工作地点'), verbose_name=u"工作地")
     is_supply_house = models.BooleanField(_(u'是否提供住房'), default=False)
     salary = models.IntegerField(_(u'待遇要求'), choices=SALARY_TYPE, default=0)
     attendance_time = models.IntegerField(_(u'到岗时间'), choices=ATTENDANCE_TIME, default=1)
@@ -373,14 +373,14 @@ class Job(AbstractModel):
         (4, u'35以上')
         )
 
-    company = models.ForeignKey(UserProfile, name='Company')
+    company = models.ForeignKey(UserProfile, name='Company', verbose_name=u"公司")
     name = models.CharField(u'职位名称', max_length=255)
     job_type = models.IntegerField(u'职位类型', max_length=2, choices=JOB_TYPE, default=1)
     salary = models.IntegerField(_(u'薪水'), choices=SALARY_TYPE, default=0)
     department = models.CharField(u'部门', max_length=255, null=True, blank=True)
     number = models.IntegerField(u'招聘人数', null=True, blank=True)
     end_date = models.DateField(u'结束日期', null=True, blank=True)
-    location = models.ForeignKey(Location, help_text=_(u'工作地点'), name='location')
+    location = models.ForeignKey(Location, help_text=_(u'工作地点'), name='location', verbose_name=u"工作地点")
     edu_background = models.IntegerField(u'教育背景', max_length=2, choices=EDUCATION_TYPE, default='')
     work_experience = models.IntegerField(u'工作经验', max_length=2, choices=EXPERIENCE_TYPE, default=0)
     age = models.IntegerField(u'年龄要求', max_length=2, choices=AGE_SCOPE, default=0)
@@ -407,9 +407,12 @@ class UserJobR(AbstractModel):
         verbose_name_plural = _(u"用户-收藏或者投递的工作列表")
         verbose_name = _(u"收藏或者投递的工作")
 
-    user_profile = models.ForeignKey(UserProfile, name='user_profile')
-    job = models.ForeignKey(Job, name='job')
+    user_profile = models.ForeignKey(UserProfile, name='user_profile', verbose_name=u"收藏者")
+    job = models.ForeignKey(Job, name='job', verbose_name=u"收藏的工作")
     type = models.CharField(_(u'类型'), choices=PERSON_ACTION_TYPE, max_length=20)
+
+    def __unicode__(self):
+        return self.user_profile.user.username + ' - ' + self.job.name
 
 class CompanyResumeR(AbstractModel):
     """
@@ -438,7 +441,7 @@ class PictureAdv(AbstractModel):
         )
 
     title = models.CharField(_(u'主题'), max_length=255)
-    company = models.ForeignKey(UserProfile, name='Company', help_text=_(u'必须选择公司而非个人'))
+    company = models.ForeignKey(UserProfile, name='Company', help_text=_(u'必须选择公司而非个人'), verbose_name=u'公司')
     type = models.IntegerField(_(u'广告用途'), max_length=2, choices=IMG_ADV_TYPE, default=0)
     start_date = models.DateField(_(u'起始日期'), default=datetime.datetime.today())
     end_date = models.DateField(_(u'结束日期'))
