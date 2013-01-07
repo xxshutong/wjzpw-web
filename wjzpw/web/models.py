@@ -91,6 +91,7 @@ class City(models.Model):
     """
     class Meta:
         verbose_name_plural = _(u"基础信息-城市列表")
+        verbose_name = _(u"城市")
 
     CITY_TYPE = (
         (0, 'City'),
@@ -110,6 +111,7 @@ class Location(models.Model):
     """
     class Meta:
         verbose_name_plural = _(u"基础信息-工作地列表")
+        verbose_name = _(u"工作地")
 
     spell = models.CharField(u'拼音', max_length=50, blank=False)
     name = models.CharField(u'名称', max_length=255, blank=False)
@@ -123,6 +125,7 @@ class Industry(models.Model):
     """
     class Meta:
         verbose_name_plural = _(u"基础信息-行业列表")
+        verbose_name = _(u"行业")
 
     spell = models.CharField('拼音', max_length=50, blank=True)
     name = models.CharField('名称', max_length=255, blank=False)
@@ -135,6 +138,7 @@ class Position(models.Model):
     """
     class Meta:
         verbose_name_plural = _(u"基础信息-职位列表")
+        verbose_name = _(u"职位")
 
     industry = models.ForeignKey(Industry, name='industry')
     spell = models.CharField(_(u'拼音'), max_length=50, blank=True)
@@ -145,6 +149,7 @@ class Position(models.Model):
 class Service(models.Model):
     class Meta:
         verbose_name_plural = _(u"公司-VIP服务列表")
+        verbose_name = _(u"VIP服务")
 
     PERIOD_TYPE = (
         (0, 'Free'),
@@ -181,7 +186,8 @@ class UserProfile(AbstractModel):
     Points are updated here but can be computed by the awarded points - redeemed points. For performance.
     """
     class Meta:
-        verbose_name_plural = _(u"系统-账户列表")
+        verbose_name_plural = _(u"系统-账户/公司列表")
+        verbose_name = _(u"账户/公司")
 
     USER_TYPE = (
         (0, _(u'个人用户')),
@@ -264,6 +270,7 @@ class Resume(AbstractModel):
     """
     class Meta:
         verbose_name_plural = _(u"用户-简历列表")
+        verbose_name = _(u"简历")
 
     user_profile = models.ForeignKey(UserProfile, name='user_profile')
     resume_name = models.CharField(_(u'简历名称'), max_length=100, default=_(u'我的简历'))
@@ -312,6 +319,7 @@ class EduExperience(AbstractModel):
     """
     class Meta:
         verbose_name_plural = _(u"用户-教育背景列表")
+        verbose_name = _(u"教育背景")
 
     resume = models.ForeignKey(Resume, name='resume')
     start_date = models.DateField()
@@ -332,6 +340,7 @@ class WorkExperience(AbstractModel):
     """
     class Meta:
         verbose_name_plural = _(u"用户-工作经验列表")
+        verbose_name = _(u"工作经验")
 
     resume = models.ForeignKey(Resume, name='resume')
     start_date = models.DateField()
@@ -353,7 +362,8 @@ class Job(AbstractModel):
     岗位实体
     """
     class Meta:
-        verbose_name_plural = _(u"公司-工作职位列表")
+        verbose_name_plural = _(u"公司-发布职位列表")
+        verbose_name = _(u"发布的职位")
 
     AGE_SCOPE = (
         (0, u'不限'),
@@ -378,7 +388,7 @@ class Job(AbstractModel):
     description = models.CharField(u'描述', max_length=2000)
 
     def __unicode__(self):
-        return str(self.company.cp_name) + '-' + self.name
+        return self.company.cp_name + u'-' + self.name
 
     def work_experience_str(self):
         return get_tuple_value_from_key(EXPERIENCE_TYPE, self.work_experience)
@@ -395,6 +405,7 @@ class UserJobR(AbstractModel):
     """
     class Meta:
         verbose_name_plural = _(u"用户-收藏或者投递的工作列表")
+        verbose_name = _(u"收藏或者投递的工作")
 
     user_profile = models.ForeignKey(UserProfile, name='user_profile')
     job = models.ForeignKey(Job, name='job')
@@ -406,6 +417,7 @@ class CompanyResumeR(AbstractModel):
     """
     class Meta:
         verbose_name_plural = _(u"公司-收藏或者邀请的简历列表")
+        verbose_name = _(u"收藏或者邀请的简历")
 
     user_profile = models.ForeignKey(UserProfile, name='user_profile')
     resume = models.ForeignKey(Resume, name='resume')
@@ -418,6 +430,7 @@ class PictureAdv(AbstractModel):
     """
     class Meta:
         verbose_name_plural = _(u"公司-图片广告列表")
+        verbose_name = _(u"图片广告")
 
     IMG_ADV_TYPE = (
         (0, _(u'未指定')),
@@ -443,6 +456,7 @@ class Feedback(AbstractModel):
     """
     class Meta:
         verbose_name_plural = _(u"系统-用户反馈列表")
+        verbose_name = _(u"用户反馈")
 
     TYPE = (
         (0, u'建议'),
@@ -463,6 +477,7 @@ class Announcement(AbstractModel):
     """
     class Meta:
         verbose_name_plural = _(u"系统-公告列表")
+        verbose_name = _(u"公告")
 
     subject = models.CharField(u'主题', max_length=255)
     content = HTMLField(u'内容', max_length=10000)
@@ -477,6 +492,7 @@ class FriendlyLink(AbstractModel):
     """
     class Meta:
         verbose_name_plural = _(u"系统-友情链接列表")
+        verbose_name = _(u"友情链接")
 
     name = models.CharField(_(u'名称'), max_length=100)
     web_site = models.URLField(_(u'网站地址'), max_length=200)
@@ -505,6 +521,7 @@ class EventSearchPerson(AbstractModel):
 class Configuration(AbstractModel):
     class Meta:
         verbose_name_plural = _(u"系统-配置信息")
+        verbose_name = _(u"配置")
 
     hot_line_one = models.CharField('Hot Line 1', max_length=20)
     hot_line_two = models.CharField('Hot Line 2', max_length=20, blank=True)
@@ -517,6 +534,7 @@ class FootItem(AbstractModel):
     '''
     class Meta:
         verbose_name_plural = _(u"系统-尾部条目")
+        verbose_name = _(u"尾部条目")
 
     name = models.CharField('条目名称', max_length=20)
     content = HTMLField('条目内容', max_length=10000)
