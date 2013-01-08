@@ -39,7 +39,7 @@
                                 {% for store_entity in store_list %}
                                     <tr>
                                         <td>{{ store_entity.id }}</td>
-	                                    <td><a href="#">{{ store_entity.job.name }}</a></td>
+	                                    <td><a href="/company/job/{{ store_entity.job.id }}" target="_blank">{{ store_entity.job.name }}</a></td>
 	                                    <td>{{ store_entity.job.company.cp_name }}</td>
 	                                    <td>{{ store_entity.job.location }}</td>
 	                                    <td>{{ store_entity.created_at|date:"Y年n月d日" }}</td>
@@ -63,7 +63,7 @@
                                 {% for apply_entity in apply_list %}
                                     <tr>
                                         <td>{{ apply_entity.id }}</td>
-	                                    <td><a href="#">{{ apply_entity.job.name }}</a></td>
+	                                    <td><a href="/company/job/{{ apply_entity.job.id }}" target="_blank">{{ apply_entity.job.name }}</a></td>
 	                                    <td>{{ apply_entity.job.company.cp_name }}</td>
 	                                    <td>{{ apply_entity.job.location }}</td>
 	                                    <td>{{ apply_entity.created_at|date:"Y年n月d日" }}</td>

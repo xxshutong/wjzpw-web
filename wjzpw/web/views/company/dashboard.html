@@ -40,7 +40,7 @@
                                 {% for store_entity in store_list %}
                                     <tr>
                                         <td>{{ store_entity.id }}</td>
-	                                    <td><a href="#">{{ store_entity.resume.user_profile.real_name }}</a></td>
+	                                    <td><a href="/personal/resume_view/{{ store_entity.resume.id }}" target="_blank">{{ store_entity.resume.user_profile.real_name }}</a></td>
 	                                    <td>{{ store_entity.resume.user_profile.get_gender_display }}</td>
 	                                    <td>{{ store_entity.resume.edu_background_str }}</td>
 	                                    <td>{{ store_entity.resume.position_str|default_if_none:"无" }}</td>
@@ -67,7 +67,7 @@
                                 {% for store_entity in invite_list %}
                                     <tr>
                                         <td>{{ store_entity.id }}</td>
-	                                    <td><a href="#">{{ store_entity.resume.user_profile.real_name }}</a></td>
+	                                    <td><a href="/personal/resume_view/{{ store_entity.resume.id }}" target="_blank">{{ store_entity.resume.user_profile.real_name }}</a></td>
 	                                    <td>{{ store_entity.resume.user_profile.get_gender_display }}</td>
 	                                    <td>{{ store_entity.resume.edu_background_str }}</td>
 	                                    <td>{{ store_entity.resume.position_str|default_if_none:"无" }}</td>
