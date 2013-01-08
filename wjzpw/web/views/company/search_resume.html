@@ -108,7 +108,7 @@
                             {% if resumes%}
                             {% for resume in resumes.object_list %}
                                 <tr>
-                                    <td>{{ resume.user_profile.real_name }}</td>
+                                    <td><a href="/personal/resume_view/{{ resume.id }}" target="_blank">{{ resume.user_profile.real_name }}</a></td>
                                     <td>{{ resume.position_str }}</td>
                                     <td>{{ resume.edu_background_str }}</td>
                                     <td>{{ resume.sex_str }}</td>

@@ -73,6 +73,10 @@ label.slabel {
     text-decoration: underline;
 }
 
+.table a:hover {
+    text-decoration: none;
+}
+
 fieldset {
     margin-bottom: 0px;
     padding-top: 18px;

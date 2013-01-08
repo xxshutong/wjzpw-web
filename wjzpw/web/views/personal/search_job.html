@@ -98,8 +98,8 @@
                             {% if jobs%}
                             {% for job in jobs.object_list %}
                                 <tr>
-                                    <td>{{ job.name }}</td>
-                                    <td>{{ job.company.cp_name }}</td>
+                                    <td><a href="/company/job/{{ job.id }}">{{ job.name }}</a></td>
+                                    <td><a href="/company/detail/{{ job.company.id }}">{{ job.company.cp_name }}</a></td>
                                     <td>{{ job.work_experience_str }}</td>
                                     <td>{{ job.location.name }}</td>
                                     <td>{{ job.sex_str }}</td>
