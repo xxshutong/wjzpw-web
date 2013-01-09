@@ -55,5 +55,4 @@ urlpatterns += patterns('wjzpw.web.controllers.system',
 urlpatterns += patterns('',
     url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT + "/static"}),
     url(r'^tinymce/', include('tinymce.urls')),
-    url(r'^favicon\.ico$', 'django.views.generic.simple.redirect_to', {'url': '/static/images/favicon.ico'}),
 )
