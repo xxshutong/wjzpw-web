@@ -9,6 +9,8 @@ from random import choice
 import Image
 import ImageDraw
 import json
+from django.template import loader
+from django.utils.html import strip_tags
 from wjzpw import settings
 from wjzpw.web import models
 from wjzpw.web.component import RequestContext
@@ -24,6 +26,7 @@ from django.utils.translation import ugettext_lazy as _
 DASHBOARD_PAGE = "../views/dashboard.html"
 LOGIN_PAGE = "../views/login.html"
 FEEDBACK_PAGE = "../views/feedback.html"
+EMAIL_FORGET_PASSWORD = "../views/email/forget_email.html"
 
 def dashboard(request):
     """ Renders Dashboard/Home page. """
@@ -272,14 +275,28 @@ def send_forgot_password_email(user, request):
     password = generate_password()
     user.set_password(password)
     hash_password = user.password
-    url = "http://"+ request.META["HTTP_HOST"]+'/activated_password/%s/' % token
+    url = u"http://"+ request.META["HTTP_HOST"]+'/activated_password/%s/' % token
+    html_content = loader.render_to_string(EMAIL_FORGET_PASSWORD,
+        {
+            'real_name': (user.get_profile().real_name if user.get_profile().real_name else user.get_profile().cp_name),
+            'new_pwd': password,
+            'url': url,
+            'admin_email': settings.ADMIN_EMAIL
+        }
+    )
+    text_content = strip_tags(html_content)
+#    html_content = (forgot_password_mail_template % (, password, url, settings.ADMIN_EMAIL))
     try:
-        send_html_mail(
+        result = send_html_mail(
             u'密码重置-吴江招聘网',
-            (forgot_password_mail_template % ((user.get_profile().real_name if user.get_profile().real_name else user.get_profile().cp_name), password, url, settings.ADMIN_EMAIL)),
+#            u'<html>aaa</html>',
+            text_content,
+            html_content,
             settings.EMAIL_FROM_USER,
             [user.email,]
         )
+        if result != 1:
+            raise Exception('Send email failed.');
     except Exception, e:
         print 'Send email failed-> %s' % e
         return False
@@ -290,24 +307,3 @@ def send_forgot_password_email(user, request):
     kwargs.update(password=hash_password)
     models.ActiveToken.objects.create(**kwargs)
     return True
-
-forgot_password_mail_template = u'''
-    <html>
-    <head>
-    </head>
-        <body>
-            <p>
-                你好 %s, <br><br>
-                这是你在吴江-招聘网的新密码.<br>
-                新密码: %s<br>
-                请点击下面的链接以激活你的新密码，并在激活后立马登陆修改成你想要的密码.<br>
-                %s<br><br>
-                如果你有任何疑问, 请联系 %s.<br><br>
-
-                吴江-招聘网<br/><br/>
-
-                本邮件由系统自动生成，请勿回复.
-            </p>
-        </body>
-    </html>
-'''

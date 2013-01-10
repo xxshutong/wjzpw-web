@@ -1,8 +1,7 @@
 # coding: utf-8
 import random
 import string
-from django.core.mail import get_connection
-from django.core.mail.message import EmailMessage
+from django.core.mail import EmailMessage, EmailMultiAlternatives
 
 digits = '0123456789'
 letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -53,20 +52,18 @@ def generate_password():
         new_password = new_password + random.choice(chars)
     return new_password
 
-def send_html_mail(subject, message, from_email, recipient_list,
-              fail_silently=False, auth_user=None, auth_password=None,
-              connection=None):
+def send_html_mail(subject, text_content,  html_content, from_email, recipient_list):
     """
     Easy wrapper for sending a single html message to a recipient list.
     """
-    connection = connection or get_connection(username=auth_user,
-        password=auth_password,
-        fail_silently=fail_silently)
 
-    email_message = EmailMessage(subject, message, from_email, recipient_list,
-        connection=connection)
-    email_message.content_subtype = "html"
-    return email_message.send()
+#    email_message = EmailMessage(subject, html_content, from_email, to=recipient_list)
+#    email_message.content_subtype = "html"
+#    return email_message.send()
+
+    msg = EmailMultiAlternatives(subject, text_content, from_email, to=recipient_list)
+    msg.attach_alternative(html_content, "text/html")
+    return msg.send()
 
 def get_tuple_value_from_key(tuple_value, key):
     '''
