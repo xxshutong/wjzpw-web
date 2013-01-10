@@ -2,6 +2,7 @@
 from StringIO import StringIO
 import datetime
 from django.contrib.auth.models import User
+from django.db import transaction
 from django.db.models.query_utils import Q
 from django.shortcuts import  render_to_response, redirect
 from django.http import  HttpResponse
@@ -196,8 +197,9 @@ def ajax_forget_password(request):
 
     return HttpResponse(json.dumps(error))
 
+@transaction.commit_on_success
 def activated_password(request, token=None):
-    login_form = LoginForm(request)
+    login_form = LoginForm(request=request)
     active_token = models.ActiveToken.objects.filter(Q(token=token), ~Q(password=None))
     if active_token:
         current_time = datetime.datetime.now()
