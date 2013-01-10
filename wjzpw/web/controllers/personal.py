@@ -6,11 +6,14 @@ from django.db import transaction
 from django.db.models.query_utils import Q
 from django.http import HttpResponse, Http404
 from django.shortcuts import  render_to_response, redirect, get_object_or_404
+from django.template import loader
 from django.utils import simplejson
+from django.utils.html import strip_tags
 from wjzpw import settings
 from wjzpw.settings import SEARCH_JOB_SIZE
 from wjzpw.web import models
 from wjzpw.web.component import RequestContext
+from wjzpw.web.controllers.utils import send_html_mail
 from wjzpw.web.forms.forms import PersonalRegForm, ResumeForm, EduExperienceForm, WorkExperienceForm, SearchJobForm
 from wjzpw.web.models import Province, Job
 from django.contrib.auth import authenticate
@@ -167,6 +170,12 @@ def resume_view(request, resume_id):
     """
     预览、展示简历
     """
+    resume_kwargs = prepare_resume_parameters(request, resume_id);
+    return render_to_response(
+        RESUME_VIEW_PAGE, {}, RequestContext(request, resume_kwargs),
+    )
+
+def prepare_resume_parameters(request, resume_id):
     resume = get_object_or_404(models.Resume, pk=resume_id)
     edu_experience = get_object_or_404(models.EduExperience, resume=resume)
     resume_position_r = models.ResumePositionR.objects.filter(resume=resume)
@@ -176,16 +185,13 @@ def resume_view(request, resume_id):
     if request.user.is_active and (request.user.get_profile() == resume.user_profile
                                    or request.user.get_profile().cp_service):
         have_access_contact = True
-    return render_to_response(
-        RESUME_VIEW_PAGE, {}, RequestContext(request, {
-            'resume': resume,
-            'edu_experience': edu_experience,
-            'resume_position_r': resume_position_r,
-            'work_experiences': work_experiences,
-            'have_access_contact': have_access_contact
-        }
-        ),
-    )
+    return {
+        'resume': resume,
+        'edu_experience': edu_experience,
+        'resume_position_r': resume_position_r,
+        'work_experiences': work_experiences,
+        'have_access_contact': have_access_contact
+    }
 
 
 def search_job(request, is_vip=''):
@@ -233,7 +239,7 @@ def search_job(request, is_vip=''):
         ),
     )
 
-
+@transaction.commit_on_success
 def ajax_apply_job(request, job_id, is_store=False):
     """
     Apply a job by job ID
@@ -251,13 +257,34 @@ def ajax_apply_job(request, job_id, is_store=False):
                 user_job_r = models.UserJobR(user_profile=login_user.get_profile(), job_id=job_id, type=action_type)
                 user_job_r.save()
                 if not is_store:
-                    #TODO Send apply email to company
-                    pass
+                    # 发送申请工作邮件
+                    send_apply_email(request, login_user, job_id)
                 data = {'result': 'success'}
     else:
         data = {'result': 'login_required'}
     return HttpResponse(simplejson.dumps(data))
 
+def send_apply_email(request, login_user, job_id):
+    """
+    发送申请工作邮件
+    """
+    job = get_object_or_404(models.Job, pk=job_id)
+    resume = models.Resume.objects.get(user_profile=login_user.get_profile())
+    resume_kwargs = prepare_resume_parameters(request, resume.id);
+    html_content = loader.render_to_string(RESUME_VIEW_PAGE, resume_kwargs)
+    text_content = strip_tags(html_content)
+    try:
+        result = send_html_mail(
+            u'(wj-zpw.com)申请贵公司%s (%s)' % (job.name, job.location),
+            text_content,
+            html_content,
+            (u'吴江招聘网-' + login_user.get_profile().real_name),
+            [job.company.user.email,]
+        )
+        if result != 1:
+            raise Exception('Send email failed.');
+    except Exception, e:
+        raise Exception('Send email failed-> %s' % e)
 
 def ajax_store_job(request, job_id):
     """

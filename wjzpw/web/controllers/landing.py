@@ -287,11 +287,9 @@ def send_forgot_password_email(user, request):
         }
     )
     text_content = strip_tags(html_content)
-#    html_content = (forgot_password_mail_template % (, password, url, settings.ADMIN_EMAIL))
     try:
         result = send_html_mail(
             u'密码重置-吴江招聘网',
-#            u'<html>aaa</html>',
             text_content,
             html_content,
             settings.EMAIL_FROM_USER,
