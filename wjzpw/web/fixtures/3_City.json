@@ -3936,5 +3936,181 @@
             "type": 0,
             "province": 31
         }
+    },
+    {
+        "model": "web.City",
+        "pk": 359,
+        "fields": {
+            "name": "东城区",
+            "spell": "dongchengqu",
+            "code": "",
+            "type": 1,
+            "province": 1
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 360,
+        "fields": {
+            "name": "西城区",
+            "spell": "xichengqu",
+            "code": "",
+            "type": 1,
+            "province": 1
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 361,
+        "fields": {
+            "name": "朝阳区",
+            "spell": "chaoyangqu",
+            "code": "",
+            "type": 1,
+            "province": 1
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 362,
+        "fields": {
+            "name": "丰台区",
+            "spell": "fengtaiqu",
+            "code": "",
+            "type": 1,
+            "province": 1
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 363,
+        "fields": {
+            "name": " 石景山区",
+            "spell": "shijingshanqu",
+            "code": "",
+            "type": 1,
+            "province": 1
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 364,
+        "fields": {
+            "name": "海淀区",
+            "spell": "haidianqu",
+            "code": "",
+            "type": 1,
+            "province": 1
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 365,
+        "fields": {
+            "name": "门头沟区",
+            "spell": "mentougouqu",
+            "code": "",
+            "type": 1,
+            "province": 1
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 366,
+        "fields": {
+            "name": "房山区",
+            "spell": "fangshanqu",
+            "code": "",
+            "type": 1,
+            "province": 1
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 367,
+        "fields": {
+            "name": "通州区",
+            "spell": "tongzhouqu",
+            "code": "",
+            "type": 1,
+            "province": 1
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 368,
+        "fields": {
+            "name": "顺义区",
+            "spell": "shunyiqu",
+            "code": "",
+            "type": 1,
+            "province": 1
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 369,
+        "fields": {
+            "name": "昌平区",
+            "spell": "changpingqu",
+            "code": "",
+            "type": 1,
+            "province": 1
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 370,
+        "fields": {
+            "name": "大兴区",
+            "spell": "daxingqu",
+            "code": "",
+            "type": 1,
+            "province": 1
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 371,
+        "fields": {
+            "name": "怀柔区",
+            "spell": "huairouqu",
+            "code": "",
+            "type": 1,
+            "province": 1
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 372,
+        "fields": {
+            "name": "平谷区",
+            "spell": "pingguqu",
+            "code": "",
+            "type": 1,
+            "province": 1
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 373,
+        "fields": {
+            "name": "密云县",
+            "spell": "miyunqu",
+            "code": "",
+            "type": 1,
+            "province": 1
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 374,
+        "fields": {
+            "name": "延庆县",
+            "spell": "yanqingqu",
+            "code": "",
+            "type": 1,
+            "province": 1
+        }
     }
 ]
