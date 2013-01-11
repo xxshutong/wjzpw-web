@@ -4,8 +4,8 @@
         "pk" : 1,
         "fields" :
         {
-            "name": "计算机软件",
-            "spell": "jisuanjiruanjian"
+            "name": "化纤原料",
+            "spell": "hjyl"
         }
     },
     {
@@ -13,8 +13,161 @@
         "pk" : 2,
         "fields" :
         {
-            "name": "计算机硬件",
-            "spell": "jisuanjiyingjian"
+            "name": "织造/针织",
+            "spell": "zhizaozhengzhi"
+        }
+    },
+    {
+        "model" : "web.Industry",
+        "pk" : 3,
+        "fields" :
+        {
+            "name": "染整",
+            "spell": "ranzheng"
+        }
+    },
+    {
+        "model" : "web.Industry",
+        "pk" : 4,
+        "fields" :
+        {
+            "name": "后整理加工",
+            "spell": "houzhenglijiagong"
+        }
+    },
+    {
+        "model" : "web.Industry",
+        "pk" : 5,
+        "fields" :
+        {
+            "name": "贸易/进出口",
+            "spell": "maoyijinchukou"
+        }
+    },
+    {
+        "model" : "web.Industry",
+        "pk" : 6,
+        "fields" :
+        {
+            "name": "服装",
+            "spell": "fuzhuang"
+        }
+    },
+    {
+        "model" : "web.Industry",
+        "pk" : 7,
+        "fields" :
+        {
+            "name": "纺织化工",
+            "spell": "fangzhihuagong"
+        }
+    },
+    {
+        "model" : "web.Industry",
+        "pk" : 8,
+        "fields" :
+        {
+            "name": "纺织设备",
+            "spell": "fangzhishebei"
+        }
+    },
+    {
+        "model" : "web.Industry",
+        "pk" : 9,
+        "fields" :
+        {
+            "name": "专卖店/零售/超市",
+            "spell": "zhuanmaidianlingshouchaoshi"
+        }
+    },
+    {
+        "model" : "web.Industry",
+        "pk" : 10,
+        "fields" :
+        {
+            "name": "建筑/房地产/物业/装潢",
+            "spell": "jianzhufangdichan"
+        }
+    },
+    {
+        "model" : "web.Industry",
+        "pk" : 11,
+        "fields" :
+        {
+            "name": "服务业/娱乐/旅游",
+            "spell": "fuwuyeyule"
+        }
+    },
+    {
+        "model" : "web.Industry",
+        "pk" : 12,
+        "fields" :
+        {
+            "name": "广告/中介/设计/教育",
+            "spell": "guanggaozhongjiesheji"
+        }
+    },
+    {
+        "model" : "web.Industry",
+        "pk" : 13,
+        "fields" :
+        {
+            "name": "计算机/电子商务",
+            "spell": "jisuanjidianzishangwu"
+        }
+    },
+    {
+        "model" : "web.Industry",
+        "pk" : 14,
+        "fields" :
+        {
+            "name": "物流/会展",
+            "spell": "wuliuhuizhan"
+        }
+    },
+    {
+        "model" : "web.Industry",
+        "pk" : 15,
+        "fields" :
+        {
+            "name": "新能源",
+            "spell": "xinnengyuan"
+        }
+    },
+    {
+        "model" : "web.Industry",
+        "pk" : 16,
+        "fields" :
+        {
+            "name": "食品/农产品加工",
+            "spell": "shipinnongchapinjiagong"
+        }
+    },
+    {
+        "model" : "web.Industry",
+        "pk" : 17,
+        "fields" :
+        {
+            "name": "金融/保险/会计/投资",
+            "spell": "jinrongbaoxiankuaiji"
+        }
+    },
+    {
+        "model" : "web.Industry",
+        "pk" : 18,
+        "fields" :
+        {
+            "name": "制造业/维修",
+            "spell": "zhizaoyeweixiu"
+        }
+    },
+    {
+        "model" : "web.Industry",
+        "pk" : 19,
+        "fields" :
+        {
+            "name": "其它",
+            "spell": "qita"
         }
     }
 ]
