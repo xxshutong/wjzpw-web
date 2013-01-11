@@ -4112,5 +4112,181 @@
             "type": 1,
             "province": 1
         }
+    },
+    {
+        "model": "web.City",
+        "pk": 375,
+        "fields": {
+            "name": "和平区",
+            "spell": "hepingqu",
+            "code": "",
+            "type": 1,
+            "province": 2
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 376,
+        "fields": {
+            "name": "河东区",
+            "spell": "hedongqu",
+            "code": "",
+            "type": 1,
+            "province": 2
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 377,
+        "fields": {
+            "name": "河西区",
+            "spell": "hexiqu",
+            "code": "",
+            "type": 1,
+            "province": 2
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 378,
+        "fields": {
+            "name": "南开区",
+            "spell": "nankaiqu",
+            "code": "",
+            "type": 1,
+            "province": 2
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 379,
+        "fields": {
+            "name": "河北区",
+            "spell": "hebeiqu",
+            "code": "",
+            "type": 1,
+            "province": 2
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 380,
+        "fields": {
+            "name": "红桥区",
+            "spell": "hongqiaoqu",
+            "code": "",
+            "type": 1,
+            "province": 2
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 381,
+        "fields": {
+            "name": "东丽区",
+            "spell": "dongliqu",
+            "code": "",
+            "type": 1,
+            "province": 2
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 382,
+        "fields": {
+            "name": "西青区",
+            "spell": "xiqingqu",
+            "code": "",
+            "type": 1,
+            "province": 2
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 383,
+        "fields": {
+            "name": "津南区",
+            "spell": "jingnanqu",
+            "code": "",
+            "type": 1,
+            "province": 2
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 384,
+        "fields": {
+            "name": "北辰区",
+            "spell": "beichenqu",
+            "code": "",
+            "type": 1,
+            "province": 2
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 385,
+        "fields": {
+            "name": "武清区",
+            "spell": "wuqingqu",
+            "code": "",
+            "type": 1,
+            "province": 2
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 386,
+        "fields": {
+            "name": "宝坻区",
+            "spell": "baodiqu",
+            "code": "",
+            "type": 1,
+            "province": 2
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 387,
+        "fields": {
+            "name": "滨海新区",
+            "spell": "binhaixinqu",
+            "code": "",
+            "type": 1,
+            "province": 2
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 388,
+        "fields": {
+            "name": "宁河县",
+            "spell": "ninghexian",
+            "code": "",
+            "type": 1,
+            "province": 2
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 389,
+        "fields": {
+            "name": "静海县",
+            "spell": "jinghaixian",
+            "code": "",
+            "type": 1,
+            "province": 2
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 390,
+        "fields": {
+            "name": "蓟县",
+            "spell": "jixian",
+            "code": "",
+            "type": 1,
+            "province": 2
+        }
     }
 ]
