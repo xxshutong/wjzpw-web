@@ -140,7 +140,7 @@ class Position(models.Model):
         verbose_name_plural = _(u"基础信息-职位列表")
         verbose_name = _(u"职位")
 
-    industry = models.ForeignKey(Industry, name='industry', verbose_name=u"行业类别")
+    industry = models.ForeignKey(Industry, name='industry', verbose_name=u"行业类别", null=True, blank=True)
     spell = models.CharField(_(u'拼音'), max_length=50, blank=True)
     name = models.CharField(_(u'职位名称'), max_length=255)
     def __unicode__(self):
