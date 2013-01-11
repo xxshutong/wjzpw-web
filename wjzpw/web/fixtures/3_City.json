@@ -5091,5 +5091,203 @@
             "type": 1,
             "province": 32
         }
+    },
+    {
+        "model": "web.City",
+        "pk": 464,
+        "fields": {
+            "name": "澳门",
+            "spell": "aomen",
+            "code": "",
+            "type": 1,
+            "province": 33
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 465,
+        "fields": {
+            "name": "澎湖县",
+            "spell": "penghuxian",
+            "code": "",
+            "type": 1,
+            "province": 34
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 466,
+        "fields": {
+            "name": "彰化县",
+            "spell": "zhanghuaxian",
+            "code": "",
+            "type": 1,
+            "province": 34
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 467,
+        "fields": {
+            "name": "宜兰县",
+            "spell": "yilanxian",
+            "code": "",
+            "type": 1,
+            "province": 34
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 468,
+        "fields": {
+            "name": "台东县",
+            "spell": "taidongxian",
+            "code": "",
+            "type": 1,
+            "province": 34
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 469,
+        "fields": {
+            "name": "桃园县",
+            "spell": "taoyuanxian",
+            "code": "",
+            "type": 1,
+            "province": 34
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 470,
+        "fields": {
+            "name": "屏东县",
+            "spell": "pingdongxian",
+            "code": "",
+            "type": 1,
+            "province": 34
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 471,
+        "fields": {
+            "name": "花莲县",
+            "spell": "hualianxian",
+            "code": "",
+            "type": 1,
+            "province": 34
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 472,
+        "fields": {
+            "name": "基隆市",
+            "spell": "jilongshi",
+            "code": "",
+            "type": 1,
+            "province": 34
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 473,
+        "fields": {
+            "name": "苗栗县",
+            "spell": "miaolixian",
+            "code": "",
+            "type": 1,
+            "province": 34
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 474,
+        "fields": {
+            "name": "云林县",
+            "spell": "yunlinxian",
+            "code": "",
+            "type": 1,
+            "province": 34
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 475,
+        "fields": {
+            "name": "新北市",
+            "spell": "xinbeishi",
+            "code": "",
+            "type": 1,
+            "province": 34
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 476,
+        "fields": {
+            "name": "台北市",
+            "spell": "taibeishi",
+            "code": "",
+            "type": 1,
+            "province": 34
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 477,
+        "fields": {
+            "name": "南投县",
+            "spell": "nantouxian",
+            "code": "",
+            "type": 1,
+            "province": 34
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 478,
+        "fields": {
+            "name": "台南县",
+            "spell": "tainanxian",
+            "code": "",
+            "type": 1,
+            "province": 34
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 479,
+        "fields": {
+            "name": "嘉义县",
+            "spell": "jiayixian",
+            "code": "",
+            "type": 1,
+            "province": 34
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 480,
+        "fields": {
+            "name": "台中市",
+            "spell": "taizhongshi",
+            "code": "",
+            "type": 1,
+            "province": 34
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 481,
+        "fields": {
+            "name": "高雄市",
+            "spell": "gaoxiongshi",
+            "code": "",
+            "type": 1,
+            "province": 34
+        }
     }
 ]
