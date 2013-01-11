@@ -4893,5 +4893,203 @@
             "type": 1,
             "province": 22
         }
+    },
+    {
+        "model": "web.City",
+        "pk": 446,
+        "fields": {
+            "name": "荃湾区",
+            "spell": "quanwanqu",
+            "code": "",
+            "type": 1,
+            "province": 32
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 447,
+        "fields": {
+            "name": "湾仔区",
+            "spell": "wanzaiqu",
+            "code": "",
+            "type": 1,
+            "province": 32
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 448,
+        "fields": {
+            "name": "东区",
+            "spell": "dongqu",
+            "code": "",
+            "type": 1,
+            "province": 32
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 449,
+        "fields": {
+            "name": "南区",
+            "spell": "nanqu",
+            "code": "",
+            "type": 1,
+            "province": 32
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 450,
+        "fields": {
+            "name": "油尖旺区",
+            "spell": "youjianwangqu",
+            "code": "",
+            "type": 1,
+            "province": 32
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 451,
+        "fields": {
+            "name": "深水埗区",
+            "spell": "shenshuishequ",
+            "code": "",
+            "type": 1,
+            "province": 32
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 452,
+        "fields": {
+            "name": "九龙城区",
+            "spell": "jiulongchengqu",
+            "code": "",
+            "type": 1,
+            "province": 32
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 453,
+        "fields": {
+            "name": "中西区",
+            "spell": "zhongxiqu",
+            "code": "",
+            "type": 1,
+            "province": 32
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 454,
+        "fields": {
+            "name": "观塘区",
+            "spell": "guantangqu",
+            "code": "",
+            "type": 1,
+            "province": 32
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 455,
+        "fields": {
+            "name": "离岛区",
+            "spell": "lidaoqu",
+            "code": "",
+            "type": 1,
+            "province": 32
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 456,
+        "fields": {
+            "name": "屯门区",
+            "spell": "tunmenqu",
+            "code": "",
+            "type": 1,
+            "province": 32
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 457,
+        "fields": {
+            "name": "元朗区",
+            "spell": "yuanlangqu",
+            "code": "",
+            "type": 1,
+            "province": 32
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 458,
+        "fields": {
+            "name": "北区",
+            "spell": "beiqu",
+            "code": "",
+            "type": 1,
+            "province": 32
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 459,
+        "fields": {
+            "name": "大埔区",
+            "spell": "dapuqu",
+            "code": "",
+            "type": 1,
+            "province": 32
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 460,
+        "fields": {
+            "name": "西贡区",
+            "spell": "xigongqu",
+            "code": "",
+            "type": 1,
+            "province": 32
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 461,
+        "fields": {
+            "name": "沙田区",
+            "spell": "shatianqu",
+            "code": "",
+            "type": 1,
+            "province": 32
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 462,
+        "fields": {
+            "name": "葵青区",
+            "spell": "kuiqingqu",
+            "code": "",
+            "type": 1,
+            "province": 32
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 463,
+        "fields": {
+            "name": "黄大仙区",
+            "spell": "huangdaxianqu",
+            "code": "",
+            "type": 1,
+            "province": 32
+        }
     }
 ]
