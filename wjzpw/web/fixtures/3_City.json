@@ -4288,5 +4288,192 @@
             "type": 1,
             "province": 2
         }
+    },
+    {
+        "model": "web.City",
+        "pk": 391,
+        "fields": {
+            "name": "黄浦区",
+            "spell": "huangpuqu",
+            "code": "",
+            "type": 1,
+            "province": 9
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 392,
+        "fields": {
+            "name": "徐汇区",
+            "spell": "xuhuiqu",
+            "code": "",
+            "type": 1,
+            "province": 9
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 393,
+        "fields": {
+            "name": "长宁区",
+            "spell": "changningqu",
+            "code": "",
+            "type": 1,
+            "province": 9
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 394,
+        "fields": {
+            "name": "静安区",
+            "spell": "jinganqu",
+            "code": "",
+            "type": 1,
+            "province": 9
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 395,
+        "fields": {
+            "name": "普陀区",
+            "spell": "putuoqu",
+            "code": "",
+            "type": 1,
+            "province": 9
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 396,
+        "fields": {
+            "name": "闸北区",
+            "spell": "zhabeiqu",
+            "code": "",
+            "type": 1,
+            "province": 9
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 397,
+        "fields": {
+            "name": "虹口区",
+            "spell": "hongkouqu",
+            "code": "",
+            "type": 1,
+            "province": 9
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 398,
+        "fields": {
+            "name": "杨浦区",
+            "spell": "yangpuqu",
+            "code": "",
+            "type": 1,
+            "province": 9
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 399,
+        "fields": {
+            "name": "闵行区",
+            "spell": "mingxinqu",
+            "code": "",
+            "type": 1,
+            "province": 9
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 400,
+        "fields": {
+            "name": "宝山区",
+            "spell": "baoshanqu",
+            "code": "",
+            "type": 1,
+            "province": 9
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 401,
+        "fields": {
+            "name": "嘉定区",
+            "spell": "jiadingqu",
+            "code": "",
+            "type": 1,
+            "province": 9
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 402,
+        "fields": {
+            "name": "浦东新区",
+            "spell": "pudongxinqu",
+            "code": "",
+            "type": 1,
+            "province": 9
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 403,
+        "fields": {
+            "name": "金山区",
+            "spell": "jinshanqu",
+            "code": "",
+            "type": 1,
+            "province": 9
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 404,
+        "fields": {
+            "name": "松江区",
+            "spell": "songjiangqu",
+            "code": "",
+            "type": 1,
+            "province": 9
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 405,
+        "fields": {
+            "name": "青浦区",
+            "spell": "qingpuqu",
+            "code": "",
+            "type": 1,
+            "province": 9
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 406,
+        "fields": {
+            "name": "奉贤区",
+            "spell": "fengxianqu",
+            "code": "",
+            "type": 1,
+            "province": 9
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 407,
+        "fields": {
+            "name": "崇明县",
+            "spell": "chongmingxian",
+            "code": "",
+            "type": 1,
+            "province": 9
+        }
     }
 ]
