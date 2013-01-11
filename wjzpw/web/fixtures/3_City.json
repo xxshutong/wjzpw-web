@@ -4475,5 +4475,423 @@
             "type": 1,
             "province": 9
         }
+    },
+    {
+        "model": "web.City",
+        "pk": 408,
+        "fields": {
+            "name": "万州区",
+            "spell": "wanzhouqu",
+            "code": "",
+            "type": 1,
+            "province": 22
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 409,
+        "fields": {
+            "name": "涪陵区",
+            "spell": "fulingqu",
+            "code": "",
+            "type": 1,
+            "province": 22
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 410,
+        "fields": {
+            "name": "渝中区",
+            "spell": "yuzhongqu",
+            "code": "",
+            "type": 1,
+            "province": 22
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 411,
+        "fields": {
+            "name": "大渡口区",
+            "spell": "dadukouqu",
+            "code": "",
+            "type": 1,
+            "province": 22
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 412,
+        "fields": {
+            "name": "江北区",
+            "spell": "jiangbeiqu",
+            "code": "",
+            "type": 1,
+            "province": 22
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 413,
+        "fields": {
+            "name": "沙坪坝区",
+            "spell": "shapingbaqu",
+            "code": "",
+            "type": 1,
+            "province": 22
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 414,
+        "fields": {
+            "name": "九龙坡区",
+            "spell": "jiulongpoqu",
+            "code": "",
+            "type": 1,
+            "province": 22
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 415,
+        "fields": {
+            "name": "南岸区",
+            "spell": "nananqu",
+            "code": "",
+            "type": 1,
+            "province": 22
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 416,
+        "fields": {
+            "name": "北碚区",
+            "spell": "beipeiqu",
+            "code": "",
+            "type": 1,
+            "province": 22
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 417,
+        "fields": {
+            "name": "綦江区",
+            "spell": "qijiangqu",
+            "code": "",
+            "type": 1,
+            "province": 22
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 418,
+        "fields": {
+            "name": "大足区",
+            "spell": "dazuqu",
+            "code": "",
+            "type": 1,
+            "province": 22
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 419,
+        "fields": {
+            "name": "渝北区",
+            "spell": "yubeiqu",
+            "code": "",
+            "type": 1,
+            "province": 22
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 420,
+        "fields": {
+            "name": "巴南区",
+            "spell": "bananqu",
+            "code": "",
+            "type": 1,
+            "province": 22
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 421,
+        "fields": {
+            "name": "黔江区",
+            "spell": "qianjiangqu",
+            "code": "",
+            "type": 1,
+            "province": 22
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 422,
+        "fields": {
+            "name": "长寿区",
+            "spell": "changshouqu",
+            "code": "",
+            "type": 1,
+            "province": 22
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 423,
+        "fields": {
+            "name": "江津区",
+            "spell": "jiangjinqu",
+            "code": "",
+            "type": 1,
+            "province": 22
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 424,
+        "fields": {
+            "name": "合川区",
+            "spell": "hechuanqu",
+            "code": "",
+            "type": 1,
+            "province": 22
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 425,
+        "fields": {
+            "name": "永川区",
+            "spell": "yongchuanqu",
+            "code": "",
+            "type": 1,
+            "province": 22
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 426,
+        "fields": {
+            "name": "南川区",
+            "spell": "nanchuanqu",
+            "code": "",
+            "type": 1,
+            "province": 22
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 427,
+        "fields": {
+            "name": "潼南县",
+            "spell": "tongnanxian",
+            "code": "",
+            "type": 1,
+            "province": 22
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 428,
+        "fields": {
+            "name": "铜梁县",
+            "spell": "tongliangxian",
+            "code": "",
+            "type": 1,
+            "province": 22
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 429,
+        "fields": {
+            "name": "荣昌县",
+            "spell": "rongchangxian",
+            "code": "",
+            "type": 1,
+            "province": 22
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 430,
+        "fields": {
+            "name": "璧山县",
+            "spell": "bishanxian",
+            "code": "",
+            "type": 1,
+            "province": 22
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 431,
+        "fields": {
+            "name": "梁平县",
+            "spell": "liangpingxian",
+            "code": "",
+            "type": 1,
+            "province": 22
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 432,
+        "fields": {
+            "name": "城口县",
+            "spell": "chengkouxian",
+            "code": "",
+            "type": 1,
+            "province": 22
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 433,
+        "fields": {
+            "name": "丰都县",
+            "spell": "fengduxian",
+            "code": "",
+            "type": 1,
+            "province": 22
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 434,
+        "fields": {
+            "name": "垫江县",
+            "spell": "dianjiangxian",
+            "code": "",
+            "type": 1,
+            "province": 22
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 435,
+        "fields": {
+            "name": "武隆县",
+            "spell": "wulongxian",
+            "code": "",
+            "type": 1,
+            "province": 22
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 436,
+        "fields": {
+            "name": "忠县",
+            "spell": "zhongxian",
+            "code": "",
+            "type": 1,
+            "province": 22
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 437,
+        "fields": {
+            "name": "开县",
+            "spell": "kaixian",
+            "code": "",
+            "type": 1,
+            "province": 22
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 438,
+        "fields": {
+            "name": "云阳县",
+            "spell": "yunyangxian",
+            "code": "",
+            "type": 1,
+            "province": 22
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 439,
+        "fields": {
+            "name": "奉节县",
+            "spell": "fengjiexian",
+            "code": "",
+            "type": 1,
+            "province": 22
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 440,
+        "fields": {
+            "name": "巫山县",
+            "spell": "wushanxian",
+            "code": "",
+            "type": 1,
+            "province": 22
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 441,
+        "fields": {
+            "name": "巫溪县",
+            "spell": "wuxixian",
+            "code": "",
+            "type": 1,
+            "province": 22
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 442,
+        "fields": {
+            "name": "石柱土家族自治县",
+            "spell": "shizhutujiazu",
+            "code": "",
+            "type": 1,
+            "province": 22
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 443,
+        "fields": {
+            "name": "秀山土家族苗族自治县",
+            "spell": "xiushantujiazu",
+            "code": "",
+            "type": 1,
+            "province": 22
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 444,
+        "fields": {
+            "name": "酉阳土家族苗族自治县",
+            "spell": "youyangtujiazu",
+            "code": "",
+            "type": 1,
+            "province": 22
+        }
+    },
+    {
+        "model": "web.City",
+        "pk": 445,
+        "fields": {
+            "name": "彭水苗族土家族自治县",
+            "spell": "pengshuimiaozu",
+            "code": "",
+            "type": 1,
+            "province": 22
+        }
     }
 ]
