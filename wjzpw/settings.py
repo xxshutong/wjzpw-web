@@ -18,7 +18,7 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-DATABASES = {'default': dj_database_url.config(default='postgres://postgres:postgres@localhost/wjzpw')}
+DATABASES = {'default': dj_database_url.config(default='postgres://wjzpw:wjzpw@localhost/wjzpw')}
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name

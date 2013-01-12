@@ -1,52 +1,6 @@
 WJZPW - WEB PROJECT
 ==========================
 
-THE STACK
----------
-* Django application
-* Runs on heroku cedar stack
-* Backed by Postgresql database
-
-PREREQUISITE
-------------
-These instructions are for Ubuntu only. sudo where necessary.
-* Install Git
-    > sudo apt-get install git-core
-    > Configure for your github account in local machine, refer to https://help.github.com/articles/set-up-git
-
-* Install Postgresql
-    > sudo apt-get install postgresql
-    > sudo passwd postgres(Change password for postgres)
-    > sudo -u postgres psql
-    > alter user postgres with password 'postgres'
-
-* Install ruby gems(Version must be bigger than 1.3.5)
-    > sudo apt-get install ruby
-    > http://rubyforge.org/frs/?group_id=126(Download the latest version)
-    > sudo ruby setup.rb
-    > sudo apt-get install rubygems
-
-* gem install foreman(2.6.1)
-    Download 2.6.1 manually(http://rubygems.org/downloads/foreman-0.26.1.gem)
-    > wget http://rubygems.org/downloads/foreman-0.26.1.gem
-    > sudo gem install foreman-0.26.1.gem
-
-* python
-
-* Install virtualenv
-    > sudo apt-get install python-setuptools
-    > sudo easy_install virtualenv
-
-
-QUICK START
------------
-1. Get repository access from xxshutong@gmail.com.
-2. git clone git@github.com:xxshutong/wjzpw-web.git
-3. cd wjzpw-web
-4. sudo apt-get install libpq-dev python-dev
-5. ./setup.sh
-6. source .ve/bin/activate
-7. createdb wjzpw
 8. ./wjzpw/manage.py syncdb
 9. ./wjzpw/manage.py migrate
 10. To start the server, you must run it from within the wjzpw-web directory.
@@ -64,26 +18,64 @@ QUICK START
     >python ./wjzpw/manage.py loaddata ./wjzpw/web/fixtures/*
     
 
-**Note:** Default user name and password are admin/asdf
-
-KEY LINKS
----------
-* Learn about [Django on Heroku](http://devcenter.heroku.com/articles/django)
-* Admin portal for metaverse is at http://localhost:5000/admin **Note** that port might be different check logs
-
-
-DEPLOYMENT
+部署(阿里云)
 ----------
-* Make sure you have access to the heroku app.
-* Add the heroku remote:
+1.确保数据盘已经挂载
 
-    > git remote add heroku <heroku git url>
+* http://help.aliyun.com/manual?spm=0.0.0.115.AVOKFx&helpId=271
 
-* Push your code up:
+2.安装git
 
-    > git push heroku master
+	$ sudo apt-get install git-core
+	
+3.配置git
 
-* View your app:
+* https://help.github.com/articles/set-up-git#platform-linux
+* https://help.github.com/articles/generating-ssh-keys
 
-    > heroku open
+4.安装Postgresql
 
+	$ sudo apt-get install postgresql
+	$ sudo passwd postgres #设置postgres账户密码
+	$ sudo -u postgres psql #联合下一步修改postgres账户密码
+	$ alter user postgres with password 'postgres'
+	
+5.安装ruby gems(版本号必须高于1.3.5)
+
+	$ sudo apt-get install ruby #安装ruby
+	$ 下载最新版本 [ruby gems](http://rubyforge.org/frs/?group_id=126)
+	$ sudo ruby setup.rb
+	$ sudo apt-get install rubygems
+	
+6.安装foreman(2.6.1)
+
+	$ wget http://rubygems.org/downloads/foreman-0.26.1.gem
+	$ sudo gem install foreman-0.26.1.gem
+
+7.安装virtualenv
+
+	$ sudo apt-get install python-setuptools
+	$ sudo easy_install virtualenv
+
+8.安装python
+
+	$ sudo apt-get install libpq-dev python-dev
+
+9.下载并初始化吴江-招聘网项目
+
+	$ git clone git@github.com:xxshutong/wjzpw-web.git
+	$ cd wjzpw-web
+	$ ./setup.sh
+	$ source .ve/bin/activate
+	$ su postgres
+	$ createdb wjzpw
+	$ su root
+	$ ./wjzpw/manage.py syncdb
+	
+	
+**Note:** 后台管理默认的管理账户用户名和密码是admin/asdf
+
+更新
+----------
+迁徙
+----------
