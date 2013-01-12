@@ -1,11 +1,6 @@
 WJZPW - WEB PROJECT
 ==========================
 
-8. ./wjzpw/manage.py syncdb
-9. ./wjzpw/manage.py migrate
-10. To start the server, you must run it from within the wjzpw-web directory.
-    Otherwise the TEMPLATE_DIR will not be found. This is to stay consistent
-    with how it'd run within Heroku which puts the app in different directory.
 
         > foreman start
 
@@ -69,8 +64,15 @@ WJZPW - WEB PROJECT
 	$ source .ve/bin/activate
 	$ su postgres
 	$ createdb wjzpw
+	$ psql -> CREATE ROLE wjzpw WITH LOGIN CREATEDB ENCRYPTED PASSWORD 'wjzpw' #创建用户
 	$ su root
-	$ ./wjzpw/manage.py syncdb
+	$ ./wjzpw/manage.py syncdb -> no
+	$ ./wjzpw/manage.py migrate
+	$ python ./wjzpw/manage.py loaddata ./wjzpw/web/fixtures/*
+	
+11.运行吴江-招聘网
+	
+	$ foreman start
 	
 	
 **Note:** 后台管理默认的管理账户用户名和密码是admin/asdf
