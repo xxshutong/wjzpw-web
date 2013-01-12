@@ -1,12 +1,47 @@
 [
     {
-        "model" : "web.Service",
-        "pk" : 1,
-        "fields" :
-        {
-            "period": 0,
-            "price": 0,
-            "name": "免费服务(可免费发布5个职位)"
+        "model":"web.Service",
+        "pk":1,
+        "fields":{
+            "period":0,
+            "price":0,
+            "name":"免费服务(可发布3个职位，查看50次简历，周期一个月)"
+        }
+    },
+    {
+        "model":"web.Service",
+        "pk":2,
+        "fields":{
+            "period":1,
+            "price":300,
+            "name":"收费服务(可发布10个职位，查看250次简历，周期三个月)"
+        }
+    },
+    {
+        "model":"web.Service",
+        "pk":3,
+        "fields":{
+            "period":2,
+            "price":550,
+            "name":"收费服务(可发布20个职位，查看600次简历，周期半年)"
+        }
+    },
+    {
+        "model":"web.Service",
+        "pk":4,
+        "fields":{
+            "period":3,
+            "price":1000,
+            "name":"收费服务(可发布40个职位，查看1300次简历，周期一年)"
+        }
+    },
+    {
+        "model":"web.Service",
+        "pk":5,
+        "fields":{
+            "period":4,
+            "price":1500,
+            "name":"VIP服务(可发布50个职位，查看1500次简历，周期一年)"
         }
     }
 ]

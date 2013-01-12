@@ -153,10 +153,10 @@ class Service(models.Model):
 
     PERIOD_TYPE = (
         (0, u'免费'),
-        (1, u'一个月'),
-        (2, u'一个季度'),
-        (3, u'半年'),
-        (4, u'一年')
+        (1, u'一个季度'),
+        (2, u'半年'),
+        (3, u'一年'),
+        (4, u'一年(VIP)')
         )
     period = models.IntegerField(u'服务期限', max_length=2, choices=PERIOD_TYPE, default=0)
     price = models.IntegerField(u'价格', default=0)
