@@ -4,8 +4,8 @@
         "pk" : 1,
         "fields" :
         {
-            "name": "计算机类",
-            "spell": "jisuanjilei"
+            "name": "管理类",
+            "spell": "guanlilei"
         }
     },
     {
@@ -13,8 +13,368 @@
         "pk" : 2,
         "fields" :
         {
-            "name": "管理类",
-            "spell": "guanlilei"
+            "name": "行政管理",
+            "spell": "xingzhengguanli"
+        }
+    },
+    {
+        "model" : "web.MajorType",
+        "pk" : 3,
+        "fields" :
+        {
+            "name": "党政管理",
+            "spell": "dangzhengguanli"
+        }
+    },
+    {
+        "model" : "web.MajorType",
+        "pk" : 4,
+        "fields" :
+        {
+            "name": "纺织类",
+            "spell": "fangzhilei"
+        }
+    },
+    {
+        "model" : "web.MajorType",
+        "pk" : 5,
+        "fields" :
+        {
+            "name": "技工类",
+            "spell": "jigonglei"
+        }
+    },
+    {
+        "model" : "web.MajorType",
+        "pk" : 6,
+        "fields" :
+        {
+            "name": "计算机类",
+            "spell": "jisuanjilei"
+        }
+    },
+    {
+        "model" : "web.MajorType",
+        "pk" : 7,
+        "fields" :
+        {
+            "name": "管理工程类",
+            "spell": "guanligongchenglei"
+        }
+    },
+    {
+        "model" : "web.MajorType",
+        "pk" : 8,
+        "fields" :
+        {
+            "name": "机械制造类",
+            "spell": "jixiezhizaolei"
+        }
+    },
+    {
+        "model" : "web.MajorType",
+        "pk" : 9,
+        "fields" :
+        {
+            "name": "仪器仪表类",
+            "spell": "yiqiyibiaolei"
+        }
+    },
+    {
+        "model" : "web.MajorType",
+        "pk" : 10,
+        "fields" :
+        {
+            "name": "热工类",
+            "spell": "regonglei"
+        }
+    },
+    {
+        "model" : "web.MajorType",
+        "pk" : 11,
+        "fields" :
+        {
+            "name": "电气自动化",
+            "spell": "dianqizidonghua"
+        }
+    },
+    {
+        "model" : "web.MajorType",
+        "pk" : 12,
+        "fields" :
+        {
+            "name": "电子技术",
+            "spell": "dianzijishu"
+        }
+    },
+    {
+        "model" : "web.MajorType",
+        "pk" : 13,
+        "fields" :
+        {
+            "name": "工业自动化",
+            "spell": "gongyehuagonglei"
+        }
+    },
+    {
+        "model" : "web.MajorType",
+        "pk" : 14,
+        "fields" :
+        {
+            "name": "通信类",
+            "spell": "tongxinlei"
+        }
+    },
+    {
+        "model" : "web.MajorType",
+        "pk" : 15,
+        "fields" :
+        {
+            "name": "土建类",
+            "spell": "tujianlei"
+        }
+    },
+    {
+        "model" : "web.MajorType",
+        "pk" : 16,
+        "fields" :
+        {
+            "name": "化工类",
+            "spell": "huagonglei"
+        }
+    },
+    {
+        "model" : "web.MajorType",
+        "pk" : 17,
+        "fields" :
+        {
+            "name": "轻工/粮食/食品类",
+            "spell": "qinggongliangshishipin"
+        }
+    },
+    {
+        "model" : "web.MajorType",
+        "pk" : 18,
+        "fields" :
+        {
+            "name": "运输类",
+            "spell": "yunshulei"
+        }
+    },
+    {
+        "model" : "web.MajorType",
+        "pk" : 19,
+        "fields" :
+        {
+            "name": "水利类",
+            "spell": "shuililei"
+        }
+    },
+    {
+        "model" : "web.MajorType",
+        "pk" : 20,
+        "fields" :
+        {
+            "name": "测绘类",
+            "spell": "cehuilei"
+        }
+    },
+    {
+        "model" : "web.MajorType",
+        "pk" : 21,
+        "fields" :
+        {
+            "name": "环境类",
+            "spell": "huanjinglei"
+        }
+    },
+    {
+        "model" : "web.MajorType",
+        "pk" : 22,
+        "fields" :
+        {
+            "name": "应用理科及力学类",
+            "spell": "yingyongwulijilixue"
+        }
+    },
+    {
+        "model" : "web.MajorType",
+        "pk" : 23,
+        "fields" :
+        {
+            "name": "地质类",
+            "spell": "dizhilei"
+        }
+    },
+    {
+        "model" : "web.MajorType",
+        "pk" : 24,
+        "fields" :
+        {
+            "name": "矿业类",
+            "spell": "kuangyelei"
+        }
+    },
+    {
+        "model" : "web.MajorType",
+        "pk" : 25,
+        "fields" :
+        {
+            "name": "冶金类",
+            "spell": "yejinlei"
+        }
+    },
+    {
+        "model" : "web.MajorType",
+        "pk" : 26,
+        "fields" :
+        {
+            "name": "材料类",
+            "spell": "cailiaolei"
+        }
+    },
+    {
+        "model" : "web.MajorType",
+        "pk" : 27,
+        "fields" :
+        {
+            "name": "财经类",
+            "spell": "caijinglei"
+        }
+    },
+    {
+        "model" : "web.MajorType",
+        "pk" : 28,
+        "fields" :
+        {
+            "name": "政法类",
+            "spell": "zhengfalei"
+        }
+    },
+    {
+        "model" : "web.MajorType",
+        "pk" : 29,
+        "fields" :
+        {
+            "name": "文科类",
+            "spell": "wenkelei"
+        }
+    },
+    {
+        "model" : "web.MajorType",
+        "pk" : 31,
+        "fields" :
+        {
+            "name": "外语类",
+            "spell": "waiyulei"
+        }
+    },
+    {
+        "model" : "web.MajorType",
+        "pk" : 32,
+        "fields" :
+        {
+            "name": "历史类",
+            "spell": "lishilei"
+        }
+    },
+    {
+        "model" : "web.MajorType",
+        "pk" : 33,
+        "fields" :
+        {
+            "name": "政治类",
+            "spell": "zhengzhilei"
+        }
+    },
+    {
+        "model" : "web.MajorType",
+        "pk" : 34,
+        "fields" :
+        {
+            "name": "哲学类",
+            "spell": "zhexuelei"
+        }
+    },
+    {
+        "model" : "web.MajorType",
+        "pk" : 35,
+        "fields" :
+        {
+            "name": "图书馆学",
+            "spell": "tushuguanxue"
+        }
+    },
+    {
+        "model" : "web.MajorType",
+        "pk" : 36,
+        "fields" :
+        {
+            "name": "理科类",
+            "spell": "likelei"
+        }
+    },
+    {
+        "model" : "web.MajorType",
+        "pk" : 37,
+        "fields" :
+        {
+            "name": "医药类",
+            "spell": "yikelei"
+        }
+    },
+    {
+        "model" : "web.MajorType",
+        "pk" : 38,
+        "fields" :
+        {
+            "name": "师范",
+            "spell": "shifanlei"
+        }
+    },
+    {
+        "model" : "web.MajorType",
+        "pk" : 39,
+        "fields" :
+        {
+            "name": "农科类",
+            "spell": "nongkelei"
+        }
+    },
+    {
+        "model" : "web.MajorType",
+        "pk" : 40,
+        "fields" :
+        {
+            "name": "林科类",
+            "spell": "linkelei"
+        }
+    },
+    {
+        "model" : "web.MajorType",
+        "pk" : 41,
+        "fields" :
+        {
+            "name": "体育类",
+            "spell": "tiyulei"
+        }
+    },
+    {
+        "model" : "web.MajorType",
+        "pk" : 42,
+        "fields" :
+        {
+            "name": "艺术",
+            "spell": "yishu"
+        }
+    },
+    {
+        "model" : "web.MajorType",
+        "pk" : 43,
+        "fields" :
+        {
+            "name": "其他",
+            "spell": "qita"
         }
     }
 ]
