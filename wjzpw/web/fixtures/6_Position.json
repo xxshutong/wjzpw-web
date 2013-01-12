@@ -4,9 +4,9 @@
         "pk" : 1,
         "fields" :
         {
-            "industry": 1,
-            "name": "软件工程师",
-            "spell": "ruanjiangongchengshi"
+            "industry": null,
+            "name": "前道普工",
+            "spell": "qiandaopugong"
         }
     },
     {
@@ -14,9 +14,159 @@
         "pk" : 2,
         "fields" :
         {
-            "industry": 1,
-            "name": "系统分析师",
-            "spell": "xitongfenxishi"
+            "industry": null,
+            "name": "织造普工",
+            "spell": "zhicaopugong"
+        }
+    },
+    {
+        "model" : "web.Position",
+        "pk" : 3,
+        "fields" :
+        {
+            "industry": null,
+            "name": "后整理普工",
+            "spell": "houzhenglipugong"
+        }
+    },
+    {
+        "model" : "web.Position",
+        "pk" : 4,
+        "fields" :
+        {
+            "industry": null,
+            "name": "服装厂普工",
+            "spell": "fuzhuangchangpugong"
+        }
+    },
+    {
+        "model" : "web.Position",
+        "pk" : 5,
+        "fields" :
+        {
+            "industry": null,
+            "name": "检验/仓管",
+            "spell": "jianyancangguan"
+        }
+    },
+    {
+        "model" : "web.Position",
+        "pk" : 6,
+        "fields" :
+        {
+            "industry": null,
+            "name": "保健工",
+            "spell": "baojiangong"
+        }
+    },
+    {
+        "model" : "web.Position",
+        "pk" : 7,
+        "fields" :
+        {
+            "industry": null,
+            "name": "研发设计",
+            "spell": "yanfasheji"
+        }
+    },
+    {
+        "model" : "web.Position",
+        "pk" : 8,
+        "fields" :
+        {
+            "industry": null,
+            "name": "业务员",
+            "spell": "yewuyuan"
+        }
+    },
+    {
+        "model" : "web.Position",
+        "pk" : 9,
+        "fields" :
+        {
+            "industry": null,
+            "name": "跟单/理单",
+            "spell": "gendanlidan"
+        }
+    },
+    {
+        "model" : "web.Position",
+        "pk" : 10,
+        "fields" :
+        {
+            "industry": null,
+            "name": "管理/行政",
+            "spell": "guanlixingzheng"
+        }
+    },
+    {
+        "model" : "web.Position",
+        "pk" : 11,
+        "fields" :
+        {
+            "industry": null,
+            "name": "文职秘书",
+            "spell": "wenzhimishu"
+        }
+    },
+    {
+        "model" : "web.Position",
+        "pk" : 12,
+        "fields" :
+        {
+            "industry": null,
+            "name": "统计/财务/会计",
+            "spell": "tongjicaiwukuaiji"
+        }
+    },
+    {
+        "model" : "web.Position",
+        "pk" : 13,
+        "fields" :
+        {
+            "industry": null,
+            "name": "后勤人员",
+            "spell": "houqinrenyuan"
+        }
+    },
+    {
+        "model" : "web.Position",
+        "pk" : 14,
+        "fields" :
+        {
+            "industry": null,
+            "name": "计算机",
+            "spell": "jisuanji"
+        }
+    },
+    {
+        "model" : "web.Position",
+        "pk" : 15,
+        "fields" :
+        {
+            "industry": null,
+            "name": "餐饮/宾馆/娱乐业",
+            "spell": "canyinbinguanyuleye"
+        }
+    },
+    {
+        "model" : "web.Position",
+        "pk" : 16,
+        "fields" :
+        {
+            "industry": null,
+            "name": "商店/零售",
+            "spell": "shangdianlingshou"
+        }
+    },
+    {
+        "model" : "web.Position",
+        "pk" : 17,
+        "fields" :
+        {
+            "industry": null,
+            "name": "其他",
+            "spell": "qita"
         }
     }
 ]
