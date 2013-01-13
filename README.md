@@ -58,9 +58,19 @@ WJZPW - WEB PROJECT
 	$ ./wjzpw/manage.py migrate
 	$ python ./wjzpw/manage.py loaddata ./wjzpw/web/fixtures/*
 
-11.初始化环境变量，修改ini_environment的内容后执行下面的命令
+11.初始化环境变量
 
-    $ source ini_environment
+    $ export <ENV_NAME>=<ENV_VALUE>
+	
+可用的环境变量有
+	
+	* DEBUG=true
+	* DB_USERNAME=wjzpw
+ 	* DB_PASSWORD=wjzpw
+	* HOME_URL=http://localhost:8000/
+	* EMAIL_HOST_USERNAME=ipswitcher001@gmail.com
+	* EMAIL_HOST_PASSWORD=###
+    
 
 12.运行吴江-招聘网
 	
@@ -68,6 +78,7 @@ WJZPW - WEB PROJECT
 	
 	
 **Note:** 后台管理默认的管理账户用户名和密码是admin/asdf
+
 **Note:** 如果运行后出现decoder zip not available的问题可以试试以下命令:
 
     $ sudo apt-get build-dep python-imaging
