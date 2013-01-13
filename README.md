@@ -57,8 +57,12 @@ WJZPW - WEB PROJECT
 	$ ./wjzpw/manage.py syncdb -> no
 	$ ./wjzpw/manage.py migrate
 	$ python ./wjzpw/manage.py loaddata ./wjzpw/web/fixtures/*
-	
-11.运行吴江-招聘网
+
+11.初始化环境变量，修改ini_environment的内容后执行下面的命令
+
+    $ source ini_environment
+
+12.运行吴江-招聘网
 	
 	$ foreman start -p 80
 	
