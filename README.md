@@ -1,18 +1,6 @@
 WJZPW - WEB PROJECT
 ==========================
 
-
-        > foreman start
-
-        or
-
-        > python wjzpw/manage.py runserver
-
-11. Load initialized data
-
-    >python ./wjzpw/manage.py loaddata ./wjzpw/web/fixtures/*
-    
-
 部署(阿里云)
 ----------
 1.确保数据盘已经挂载
@@ -72,12 +60,25 @@ WJZPW - WEB PROJECT
 	
 11.运行吴江-招聘网
 	
-	$ foreman start
+	$ foreman start -p 80
 	
 	
 **Note:** 后台管理默认的管理账户用户名和密码是admin/asdf
+**Note:** 如果运行后出现decoder zip not available的问题可以试试以下命令:
+
+    $ sudo apt-get build-dep python-imaging
+
+**Note:** 如果要重启postgresql可杀掉进程后执行一下语句
+
+    $ /usr/lib/postgresql/9.1/bin/postgres -D /var/lib/postgresql/9.1/main -c config_file=/etc/postgresql/9.1/main/postgresql.conf
 
 更新
 ----------
+
+    $ git pull origin master
+    $./wjzpw/manage.py migrate
+
+
 迁徙
 ----------
+    git clone->restore database->restore uploaded images->set environment
