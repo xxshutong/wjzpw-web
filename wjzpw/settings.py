@@ -6,8 +6,7 @@ import dj_database_url
 
 # Register database schemes in URLs.
 
-DEBUG = True
-TEMPLATE_DEBUG = DEBUG
+DEBUG = (os.getenv('DEBUG', 'true') == 'true')
 
 PROJECT_DIR = os.getcwd()
 WEBVERSE_DIR = '/wjzpw/web/'
@@ -18,7 +17,10 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-DATABASES = {'default': dj_database_url.config(default='postgres://wjzpw:wjzpw@localhost/wjzpw')}
+
+DB_USERNAME = os.getenv('DB_USERNAME', 'wjzpw')
+DB_PASSWORD = os.getenv('DB_PASSWORD', 'wjzpw')
+DATABASES = {'default': dj_database_url.config(default=('postgres://%s:%s@localhost/wjzpw' % (DB_USERNAME, DB_PASSWORD)))}
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -51,7 +53,7 @@ MEDIA_ROOT = PROJECT_DIR + WEBVERSE_DIR
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
-MEDIA_URL = 'http://localhost:8000/'
+MEDIA_URL = os.getenv('HOME_URL', 'http://localhost:8000/')
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
@@ -221,7 +223,7 @@ EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USERNAME', 'ipswitcher001@gmail.com')
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', 'wjzpwwjzpw')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_FROM_USER = u'吴江-招聘网wj-zpw.com'
 ADMIN_EMAIL = 'xxshutong@gmail.com'
 # Email expiry time (days)
@@ -252,19 +254,3 @@ AUTH_PROFILE_MODULE = 'web.UserProfile'
 
 PROJECT_ROOT = path.abspath(path.dirname(__file__))
 sys.path.append(path.join(PROJECT_ROOT, 'config'))
-
-
-ENVIRONMENT='%ENVIRONMENT%'
-
-# Set the ENVIRONMENT to dev if cookie not set which means it's local dev.
-if 'ENVIRONMENT' in ENVIRONMENT:
-    ENVIRONMENT = 'dev'
-
-try:
-    env = __import__('settings_'+ENVIRONMENT)
-except:
-    env = __import__('settings_dev')
-
-for value in dir(env):
-    if not value.startswith('__'):
-        globals()[value] = getattr(env, value)
