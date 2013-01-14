@@ -76,7 +76,7 @@ class PersonalRegForm(forms.ModelForm):
     username = forms.RegexField(label=_(u"用户名"), max_length=30, regex=r'^[\w.@+-]+$',
         error_messages={'invalid': _(u"用户名只能包含字母、数字和下划线等字符.")})
     email = forms.EmailField(_(u'电子邮件'), widget=TextInput(attrs={'size': 25}))
-    birthday = forms.DateField(label=_(u'生日'), widget=TextInput(attrs={'readonly': 'true'}))
+    birthday = forms.DateField(label=_(u'生日'))
     gender = ChoiceField(widget=RadioSelect(attrs={'style': 'width:auto;'}), choices=UserProfile.GENDER)
     job_type = ChoiceField(widget=RadioSelect(attrs={'style': 'width:auto;', 'class': 'job_type'}),
         choices=UserProfile.JOB_TYPE_TYPE)
