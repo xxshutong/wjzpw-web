@@ -198,8 +198,6 @@ class ResumeForm(forms.ModelForm):
             if avatar.size > AVATAR_SIZE_LIMIT:
                 raise forms.ValidationError(_(u'上传图片尺寸过大( 大于2M )'))
             return avatar
-        else:
-            raise forms.ValidationError(_(u"您上传的图片不能识别，请重试"))
 
     def save(self, **new_data):
         instance = self.instance
