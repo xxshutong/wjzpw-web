@@ -249,7 +249,10 @@ class EduExperienceForm(forms.ModelForm):
         """
         if self.data.get('edu_from_year') == '0' or self.data.get('edu_from_month') == '0':
             raise forms.ValidationError(_(u'开始时间是必填项。'))
-        if self.data.get('edu_to_year') != '0' and self.data.get('edu_from_year') >= self.data.get('edu_to_year'):
+        if self.data.get('edu_to_year') != '0' and self.data.get('edu_from_year') > self.data.get('edu_to_year'):
+            raise forms.ValidationError(_(u'开始时间必须小于结束时间。'))
+        if self.data.get('edu_to_year') != '0' and self.data.get('edu_to_year') == self.data.get('edu_from_year')\
+            and self.data['edu_to_month'] != '0' and self.data['edu_from_month'] > self.data['edu_to_month']:
             raise forms.ValidationError(_(u'开始时间必须小于结束时间。'))
         self.cleaned_data['start_date'] = datetime.date(int(self.data['edu_from_year']),
             int(self.data['edu_from_month']), 1)
@@ -306,8 +309,11 @@ class WorkExperienceForm(forms.ModelForm):
         work_to_month = str(self.prefix) + '-' + 'work_to_month'
         if self.data.get(work_from_year) == '0' or self.data.get(work_from_month) == '0':
             raise forms.ValidationError(_(u'开始时间是必填项。'))
-        if self.data.get(work_to_year) != '0' and int(self.data.get(work_from_year)) >= int(
+        if self.data.get(work_to_year) != '0' and int(self.data.get(work_from_year)) > int(
             self.data.get(work_to_year)):
+            raise forms.ValidationError(_(u'开始时间必须小于结束时间。'))
+        if self.data.get(work_to_year) != '0' and int(self.data.get(work_to_year)) == int(self.data.get(work_from_year))\
+           and self.data[work_to_month] != '0' and int(self.data[work_from_month]) > int(self.data[work_to_month]):
             raise forms.ValidationError(_(u'开始时间必须小于结束时间。'))
         self.cleaned_data['start_date'] = datetime.date(int(self.data[work_from_year]), int(self.data[work_from_month]),
             1)
