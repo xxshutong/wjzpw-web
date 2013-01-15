@@ -6,5 +6,7 @@
 wjzpw/web/static/upload/avatars/*.*
 wjzpw/web/static/upload/config/*.*
 wjzpw/web/static/upload/adv_images/*.*
+wjzpw/web/static/admin/*
+wjzpw/web/static/tiny_mce/*
 
 ini_environment

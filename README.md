@@ -70,9 +70,12 @@ WJZPW - WEB PROJECT
 	* HOME_URL=http://localhost:8000/
 	* EMAIL_HOST_USERNAME=ipswitcher001@gmail.com
 	* EMAIL_HOST_PASSWORD=###
-    
 
-12.运行吴江-招聘网
+12.复制第三方静态文件
+
+    $ ./wjzpw/manage.py collectstatic
+
+13.运行吴江-招聘网
 	
 	$ foreman start -p 80
 	
@@ -91,7 +94,8 @@ WJZPW - WEB PROJECT
 ----------
 
     $ git pull origin master
-    $./wjzpw/manage.py migrate
+    $ ./wjzpw/manage.py migrate
+    $ $ ./wjzpw/manage.py collectstatic
 
 
 迁徙
