@@ -1,4 +1,5 @@
 from django.conf.urls.defaults import patterns, url, include
+from django.conf.urls.static import static
 from django.contrib import admin
 from wjzpw import settings
 
@@ -52,7 +53,14 @@ urlpatterns += patterns('wjzpw.web.controllers.system',
 
 )
 
-urlpatterns += patterns('',
-    url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT + "/static"}),
-    url(r'^tinymce/', include('tinymce.urls')),
-)
+if settings.DEBUG:
+    urlpatterns += patterns('',
+        url(r'^tinymce/', include('tinymce.urls')),
+        url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT + "/static"}),
+    )
+else:
+    urlpatterns += patterns('',
+        url(r'^tinymce/', include('tinymce.urls')),
+    ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
