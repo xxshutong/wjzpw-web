@@ -536,8 +536,8 @@ class FootItem(AbstractModel):
     用于显示页面尾部条目信息
     '''
     class Meta:
-        verbose_name_plural = _(u"系统-尾部条目")
-        verbose_name = _(u"尾部条目")
+        verbose_name_plural = _(u"系统-尾部条目及自定义页面")
+        verbose_name = _(u"尾部条目及自定义页面")
 
     name = models.CharField('条目名称', max_length=20)
     content = HTMLField('条目内容', max_length=10000)

@@ -79,7 +79,9 @@ WJZPW - WEB PROJECT
 	
 	$ foreman start -p 80
 	
-	
+
+部署中需要注意的问题
+----------
 **Note:** 后台管理默认的管理账户用户名和密码是admin/asdf
 
 **Note:** 如果运行后出现decoder zip not available的问题可以试试以下命令:
@@ -89,6 +91,10 @@ WJZPW - WEB PROJECT
 **Note:** 如果要重启postgresql可杀掉进程后执行一下语句
 
     $ /usr/lib/postgresql/9.1/bin/postgres -D /var/lib/postgresql/9.1/main -c config_file=/etc/postgresql/9.1/main/postgresql.conf
+
+**Note:** 如果无法上传图片可参考如下解决办法
+
+    http://crazysky.iteye.com/admin/blogs/1303821
 
 更新
 ----------
