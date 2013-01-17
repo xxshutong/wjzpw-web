@@ -261,8 +261,8 @@ def gather_person_info(person_list):
         edu_background = person.resume_set.all()[0].eduexperience_set.all()[0]
         person_obj['education'] = get_tuple_value_from_key(EDUCATION_TYPE, edu_background.edu_background)
         person_obj['major'] = edu_background.major
-        person_obj_list.append(person_obj);
         person_obj['odd'] = len(person_obj_list)/3%2 == 0
+        person_obj_list.append(person_obj);
         #resume
         resume_id = person.resume_set.all()[0].id
         person_obj['resume_id'] = resume_id

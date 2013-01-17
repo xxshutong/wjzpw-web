@@ -295,7 +295,7 @@ class Resume(AbstractModel):
     def position_str(self):
         temp = "";
         for position in self.resumepositionr_set.all():
-            temp = (", " if temp else "") + position.position.name
+            temp = temp + (", " if temp else "") + position.position.name
         return temp if temp else None
 
     def NO_str(self):
