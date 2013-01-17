@@ -124,7 +124,7 @@ class PersonalRegForm(forms.ModelForm):
         job_type = self.cleaned_data.get('job_type', '')
         work_years = self.cleaned_data['work_years']
         if job_type and job_type == '0':
-            if not work_years or work_years == '':
+            if work_years == -1:
                 raise forms.ValidationError(_(u'这个字段是必填的。'))
         return work_years
 

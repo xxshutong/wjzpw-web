@@ -213,6 +213,7 @@ class UserProfile(AbstractModel):
         )
 
     WORK_YEARS_TYPE = (
+        (-1, _(u'请选择')),
         (0, _(u'1年')),
         (1, _(u'2年')),
         (2, _(u'3-5年')),
@@ -234,7 +235,7 @@ class UserProfile(AbstractModel):
     weight = models.IntegerField(u'体重', null=True, blank=True)
     job_state = models.IntegerField(u'求职状态', max_length=2, choices=JOB_STATE_TYPE, default=0)
     job_type = models.IntegerField(u'类型', max_length=2, choices=JOB_TYPE_TYPE, default=0)
-    work_years = models.IntegerField(u'工作经验', max_length=2, choices=WORK_YEARS_TYPE, default=0, null=True, blank=True)
+    work_years = models.IntegerField(u'工作经验', max_length=2, choices=WORK_YEARS_TYPE, default=0)
     points_balance = models.IntegerField(u'点数', default=0)
     cp_accept_notice = models.BooleanField(u'是否同意接收网站邮件', default=True)
     cp_name = models.CharField(u'公司名称', max_length=255, null=True)
