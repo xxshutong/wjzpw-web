@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}简历保存成功 | 吴江-招聘网 | wj-zpw.com{% endblock %}
+
+{% block head %}
+<script src="/static/js/bootstrap.min.js" type="text/javascript"></script>
+{% endblock %}
+
+{% block content %}
+<!-- 主体信息开始 -->
+<div class="container">
+    <div class="content">
+        <div class="row">
+            <div class="left_layer">
+                <p class="title">人生总是太冲冲</p>
+                <p>人生最大的遗憾莫过于‘子欲养而亲不在’</p>
+            </div>
+            <div class="right_layer" style="padding-top:0px;">
+                <div style="text-align: center; margin-top: 30px;">
+                    <img src="/static/images/save_success.png" class="">
+                    <span style="font-size: 15px;color: green">恭喜您，您的简历已经保存成功，你现在可以：</span>
+                </div>
+                <div style="text-align: center">
+                    <a class="btn btn-primary" href="{% url search_job %}">找工作</a>
+                    &nbsp;
+                    <a class="btn btn-primary" href="{% url resume_detail %}">修改简历</a>
+					&nbsp;
+                    <a class="btn btn-primary" href="{% url resume_view resume_id %}">预览简历</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script language="javascript">
+    $(document).ready(function() {
+        right_height = $('.right_layer').height();
+        left_height = $('.left_layer').height();
+        if(right_height > left_height) {
+            $('.left_layer').height(right_height );
+        }
+    })
+
+</script>
+<script type="text/javascript" src="/static/js/wjzpw.js"></script>
+<!-- 主体信息结束 -->
+{% endblock %}

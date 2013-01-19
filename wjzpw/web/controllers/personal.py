@@ -21,6 +21,7 @@ from django.contrib.auth import login as djlogin
 
 REGISTER_PAGE = "../views/personal/register.html"
 RESUME_DETAIL_PAGE = "../views/personal/register_detail.html"
+RESUME_SUCCESS_PAGE = "../views/personal/register_success.html"
 SEARCH_JOB_PAGE = "../views/personal/search_job.html"
 RESUME_VIEW_PAGE = "../views/personal/resume_view.html"
 PERSONAL_DASHBOARD_PAGE = "../views/personal/dashboard.html"
@@ -74,8 +75,6 @@ def resume_detail(request):
     position = '#'
     work_experience_forms = []
     work_experience_num = int(request.POST.get('work_experience_num', 0))
-    # 指定是否需要跳转到预览简历页面
-    is_view = False
     # Show existing resume detail
     if request.method == 'GET':
         # Resume
@@ -108,14 +107,13 @@ def resume_detail(request):
     # Update resume detail or add new work experience
     else:
         submit_type = request.POST.get('submit_type', 'submit')
-        is_view = (submit_type == 'submit_and_view')
         # Resume
         resumes = models.Resume.objects.filter(user_profile=request.user.get_profile())
         if resumes:
             resume_form = ResumeForm(request.POST, request.FILES, instance=resumes[0])
         else:
             resume_form = ResumeForm(request.POST, request.FILES)
-            # EduExperience
+        # EduExperience
         edu_experiences = models.EduExperience.objects.filter(resume=resume_form.instance)
         if edu_experiences:
             edu_experience_form = EduExperienceForm(request.POST, instance=edu_experiences[0])
@@ -129,7 +127,7 @@ def resume_detail(request):
             i += 1
 
         # Submit resume detail
-        if submit_type == 'submit' or submit_type == 'submit_and_view':
+        if submit_type == 'submit':
             multiple_work_result = True
             for work_experience_form in work_experience_forms:
                 multiple_work_result = multiple_work_result and work_experience_form.is_valid()
@@ -143,8 +141,13 @@ def resume_detail(request):
                 for work_experience_form in work_experience_forms:
                     work_experience_form.instance.resume = resume_form.instance
                     work_experience_form.save(**work_experience_form.cleaned_data)
-            else:
-                is_view = False
+            # Navigate to success page
+            return render_to_response(
+                RESUME_SUCCESS_PAGE, {}, RequestContext(request, {
+                    'resume_id': resume_form.instance.id
+                })
+            )
+
         # Add new work experience
         elif submit_type == 'add_work_experience':
             work_experience_num += 1
@@ -161,7 +164,6 @@ def resume_detail(request):
             'position': position,
             'work_experience_num': work_experience_num,
             'selected_positions': selected_positions,
-            'is_view': is_view
         }),
     )
 

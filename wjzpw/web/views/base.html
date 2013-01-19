@@ -40,8 +40,8 @@
                 <div class="nav-collapse">
                     <ul class="nav">
                         <li {%if menu == 'dashboard'%}class="active"{%endif%}><a href="/">首页</a></li>
-                        <li {%if menu == 'search_job'%}class="active"{%endif%}><a href="/personal/search_job/">找工作</a></li>
-                        <li {%if menu == 'search_person'%}class="active"{%endif%}><a href="/company/search_person/">找人才</a></li>
+                        <li {%if menu == 'search_job'%}class="active"{%endif%}><a href="{% url search_job %}">找工作</a></li>
+                        <li {%if menu == 'search_person'%}class="active"{%endif%}><a href="{% url search_person %}">找人才</a></li>
                         <!--<li><a href="#">高级人才</a></li>-->
                         <li><a href="#" style="display:none">兼职人才</a></li>
                         <li {%if menu == 'feedback'%}class="active"{%endif%}><a href="{% url feedback %}">留言反馈</a></li>
