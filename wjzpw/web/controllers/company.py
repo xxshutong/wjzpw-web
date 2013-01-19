@@ -81,7 +81,7 @@ def search_person(request):
     找人才
     """
     resume_list = None
-    resumes = None
+    records = None
     if request.method == 'GET':
         search_form = SearchResumeForm()
         resume_list = Resume.objects.all().order_by('-updated_at')
@@ -109,15 +109,15 @@ def search_person(request):
         paginator = Paginator(resume_list, SEARCH_RESUME_SIZE)
         page = request.GET.get('page', 1)
         try:
-            resumes = paginator.page(page)
+            records = paginator.page(page)
         except PageNotAnInteger:
-            resumes = paginator.page(1)
+            records = paginator.page(1)
         except EmptyPage:
-            resumes = paginator.page(paginator.num_pages)
+            records = paginator.page(paginator.num_pages)
 
     return render_to_response(
         SEARCH_RESUME_PAGE, {}, RequestContext(request, {
-            'resumes': resumes,
+            'records': records,
             'search_form': search_form,
             'menu': 'search_person'
         }

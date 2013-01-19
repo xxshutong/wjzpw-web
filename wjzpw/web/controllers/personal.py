@@ -199,7 +199,7 @@ def search_job(request, is_vip=''):
     找工作，is_vip主要用于页面点击更多VIP招聘的时候传输过来的
     """
     job_list = None
-    jobs = None
+    records = None
     if request.method == 'GET':
         search_form = SearchJobForm(initial={'is_vip': ('true' if is_vip else 'false')})
         job_list = Job.objects.filter(end_date__gt=datetime.datetime.now()).order_by('-updated_at')
@@ -224,15 +224,15 @@ def search_job(request, is_vip=''):
         paginator = Paginator(job_list, SEARCH_JOB_SIZE)
         page = request.GET.get('page', 1)
         try:
-            jobs = paginator.page(page)
+            records = paginator.page(page)
         except PageNotAnInteger:
-            jobs = paginator.page(1)
+            records = paginator.page(1)
         except EmptyPage:
-            jobs = paginator.page(paginator.num_pages)
+            records = paginator.page(paginator.num_pages)
 
     return render_to_response(
         SEARCH_JOB_PAGE, {}, RequestContext(request, {
-            'jobs': jobs,
+            'records': records,
             'search_form': search_form,
             'menu': 'search_job'
         }

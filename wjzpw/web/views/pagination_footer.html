@@ -1,12 +1,12 @@
 <div class="pagination">
     <ul>
-        {% if jobs.has_previous %}
-        <li class="prev"><a href="?page={{ jobs.previous_page_number }}">< < 上一页</a></li>
+        {% if records.has_previous %}
+        <li class="prev"><a href="?page={{ records.previous_page_number }}">< < 上一页</a></li>
         {% endif %}
         <!--<li class="active"><a href="#">1</a></li>-->
         <!--<li><a href="#">2</a></li>-->
-        {% if jobs.has_next %}
-        <li class="next"><a href="?page={{ jobs.next_page_number }}">下一页 > ></a></li>
+        {% if records.has_next %}
+        <li class="next"><a href="?page={{ records.next_page_number }}">下一页 > ></a></li>
         {% endif %}
     </ul>
 </div>
