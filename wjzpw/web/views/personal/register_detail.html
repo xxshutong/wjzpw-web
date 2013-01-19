@@ -322,7 +322,7 @@
                 <div class="main_login" style="border:none; -moz-box-shadow:none">
                     <div class="form-actions">
                         <a class="btn btn-primary" id="submit" style="padding: 3px 14px;" type="submit">完成</a>
-                        &nbsp;<a class="btn btn-success" href="#" onClick="return false;"  id="submit_and_view" >完成并预览</a>
+                        <!--&nbsp;<a class="btn btn-success" href="#" onClick="return false;"  id="submit_and_view" >完成并预览</a>-->
                         &nbsp;<a class="btn" href="/">取消</a>
                     </div>
                 </div>
@@ -369,11 +369,11 @@
         $('#resume_form').submit();
     });
 
-    // 用于提交表单数据并跳转到简历预览页面
-    $('#submit_and_view').click(function() {
-        $('#submit_type').val('submit_and_view');
-        $('#resume_form').submit();
-    })
+    //// 用于提交表单数据并跳转到简历预览页面
+    //$('#submit_and_view').click(function() {
+    //    $('#submit_type').val('submit_and_view');
+    //    $('#resume_form').submit();
+    //})
 
     $('#id_add_position').click(function() {
         var value = $('#id_selected_position').val();
