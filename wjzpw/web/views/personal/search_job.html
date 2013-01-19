@@ -95,8 +95,8 @@
                             </tr>
                             </thead>
                             <tbody>
-                            {% if jobs%}
-                            {% for job in jobs.object_list %}
+                            {% if records%}
+                            {% for job in records.object_list %}
                                 <tr>
                                     <td><a href="/company/job/{{ job.id }}">{{ job.name }}</a></td>
                                     <td><a href="/company/detail/{{ job.company.id }}">{{ job.company.cp_name }}</a></td>
@@ -116,7 +116,7 @@
 
                             </tbody>
                         </table>
-                        {% if jobs %}
+                        {% if records %}
                             {% include 'pagination_footer.html' %}
                         {% endif %}
                     </div>
