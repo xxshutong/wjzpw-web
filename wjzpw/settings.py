@@ -186,7 +186,7 @@ LOGIN_URL  = "/login/"
 
 #Limit session expire time to 20 minutes
 SESSION_SAVE_EVERY_REQUEST = True
-SESSION_COOKIE_AGE = 1200
+SESSION_COOKIE_AGE = 1209600
 
 
 #######################################################################################################################
