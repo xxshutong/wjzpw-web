@@ -65,8 +65,8 @@ def add_job(request):
     else:
         form = JobForm(request.POST)
         if form.is_valid():
-            form.save(request.user.get_profile(), **form.cleaned_data)
-            #TODO redirect to job view page in future
+            saved_job = form.save(request.user.get_profile(), **form.cleaned_data)
+            return redirect('/company/job/%s' % saved_job.id)
     return render_to_response(
         ADD_JOB_PAGE, {}, RequestContext(request, {
             'form': form,

@@ -57,11 +57,11 @@
 								<div class="control-group">
 									<label for="xlInput">招聘部门：</label>
 									<div class="sinput">
-										<div class="value">{{ job.department }}</div>
+										<div class="value">{{ job.department|default:'无' }}</div>
 									</div>
 									<label for="xlInput" class="slabel">招聘人数：</label>
 									<div class="sinput">
-										<div class="value">{{ job.number }}</div>
+										<div class="value">{{ job.number|default:"不限" }}</div>
 									</div>
 								</div>
 								<!-- /clearfix -->
@@ -72,7 +72,7 @@
 									</div>
 									<label for="xlInput" class="slabel">截止日期：</label>
 									<div class="sinput">
-										<div class="value">{{ job.end_date|date:'Y年m月d日' }}</div>
+										<div class="value">{{ job.end_date|date:'Y年m月d日'|default:'长期有效' }}</div>
 									</div>
 								</div>
 								<!-- /clearfix -->
@@ -161,7 +161,7 @@
 								<div class="control-group">
 									<label for="xlInput">联系地址：</label>
 									<div class="sinput">
-										<div class="value">{{ job.company.cp_address }}</div>
+										<div class="value">{{ job.company.cp_address|default:'无' }}</div>
 									</div>
 								</div>
 								<!-- /clearfix -->
