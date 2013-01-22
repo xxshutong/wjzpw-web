@@ -239,6 +239,7 @@ def gather_job_info(job_list):
                 if prefix_company:
                     job_obj['odd'] = len(company_job_list)/3%2 == 0
                     company_job_list.append(job_obj)
+                    job_obj = {}
                 job_obj['name'] = job.company.cp_name
                 job_obj['id'] = job.company.id
                 job_obj['job_list'] = []
