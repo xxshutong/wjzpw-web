@@ -101,7 +101,7 @@ WJZPW - WEB PROJECT
 
     $ git pull origin master
     $ ./wjzpw/manage.py migrate
-    $ $ ./wjzpw/manage.py collectstatic
+    $ ./wjzpw/manage.py collectstatic
 
 
 迁徙

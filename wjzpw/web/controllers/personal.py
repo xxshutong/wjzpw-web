@@ -204,11 +204,11 @@ def search_job(request, is_vip=''):
     records = None
     if request.method == 'GET':
         search_form = SearchJobForm(initial={'is_vip': ('true' if is_vip else 'false')})
-        job_list = Job.objects.filter(end_date__gt=datetime.datetime.now()).order_by('-updated_at')
+        job_list = Job.objects.filter(Q(end_date__gt=datetime.datetime.now()) | Q(end_date=None)).order_by('-updated_at')
     else:
         search_form = SearchJobForm(request.POST)
         if search_form.is_valid():
-            filters = {'end_date__gt': datetime.datetime.now()}
+            filters = {}
             if search_form.cleaned_data['industry']:
                 filters['company__cp_industry'] = search_form.cleaned_data['industry']
             if search_form.cleaned_data['location'] and search_form.cleaned_data['location'].id != 1:
@@ -220,7 +220,7 @@ def search_job(request, is_vip=''):
                     filters['name__contains'] = search_form.cleaned_data['filter_str']
                 else:
                     filters['company__cp_name__contains'] = search_form.cleaned_data['filter_str']
-            job_list = Job.objects.filter(**filters).order_by('-updated_at')
+            job_list = Job.objects.filter(**filters).filter(Q(end_date__gt=datetime.datetime.now()) | Q(end_date=None)).order_by('-updated_at')
 
     if job_list:
         paginator = Paginator(job_list, SEARCH_JOB_SIZE)
