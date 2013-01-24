@@ -8,7 +8,7 @@ import random
 from tinymce.models import HTMLField
 from wjzpw import settings
 from wjzpw.settings import RESUME_NUMBER_FORMAT
-from wjzpw.web.constant import EDUCATION_TYPE, EXPERIENCE_TYPE, SEX_TYPE, SALARY_TYPE, PERSON_ACTION_TYPE, COMPANY_ACTION_TYPE, JOB_STATE_TYPE
+from wjzpw.web.constant import EDUCATION_TYPE, EXPERIENCE_TYPE, SEX_TYPE, SALARY_TYPE, PERSON_ACTION_TYPE, COMPANY_ACTION_TYPE, JOB_STATE_TYPE, EDUCATION_TYPE_JOB
 
 #  * Use south migration tool to generate the migration script.
 #        manage.py schemamigration web --auto
@@ -382,7 +382,7 @@ class Job(AbstractModel):
     number = models.IntegerField(u'招聘人数', null=True, blank=True)
     end_date = models.DateField(u'结束日期', null=True, blank=True)
     location = models.ForeignKey(Location, help_text=_(u'工作地点'), name='location', verbose_name=u"工作地点")
-    edu_background = models.IntegerField(u'教育背景', max_length=2, choices=EDUCATION_TYPE, default='')
+    edu_background = models.IntegerField(u'教育背景', max_length=2, choices=EDUCATION_TYPE_JOB, default=0)
     work_experience = models.IntegerField(u'工作经验', max_length=2, choices=EXPERIENCE_TYPE, default=0)
     age = models.IntegerField(u'年龄要求', max_length=2, choices=AGE_SCOPE, default=0)
     sex = models.IntegerField(u'性别', max_length=2, choices=SEX_TYPE, default=0)
