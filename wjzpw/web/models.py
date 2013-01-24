@@ -445,7 +445,7 @@ class PictureAdv(AbstractModel):
     company = models.ForeignKey(UserProfile, name='Company', help_text=_(u'必须选择公司而非个人'), verbose_name=u'公司')
     type = models.IntegerField(_(u'广告用途'), max_length=2, choices=IMG_ADV_TYPE, default=0)
     start_date = models.DateField(_(u'起始日期'), default=datetime.datetime.today())
-    end_date = models.DateField(_(u'结束日期'))
+    end_date = models.DateField(_(u'结束日期'), null=True, blank=True)
     img = models.ImageField(_(u'上传图片'), upload_to='static/upload/adv_images')
     width = models.IntegerField(_(u'图片宽度'), null=True, blank=True, help_text=_(u'首页图片广告宽度尺寸分三种：161.5, 333, 1019'))
     height = models.IntegerField(_(u'图片高度'), null=True, blank=True)
