@@ -20,6 +20,10 @@ label.slabel {
     width: 80px;
 }
 
+img {
+    max-width: none;
+}
+
 .table .yellow {
     color: #FFC40D;
     border-bottom-color: #FFC40D;
