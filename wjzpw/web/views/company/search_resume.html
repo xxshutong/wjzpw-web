@@ -109,7 +109,7 @@
                             {% for resume in records.object_list %}
                                 <tr>
                                     <td><a href="/personal/resume_view/{{ resume.id }}" target="_blank">{{ resume.user_profile.real_name }}</a></td>
-                                    <td>{{ resume.position_str|default_if_none:"不限" }}</td>
+                                    <td>{{ resume.position_str|default:"不限" }}</td>
                                     <td>{{ resume.edu_background_str }}</td>
                                     <td>{{ resume.sex_str }}</td>
                                     <td>{{ resume.location }}</td>

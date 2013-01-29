@@ -206,7 +206,7 @@
 						<td bgcolor="#ffffff" width="80">身　　高：</td>
 						<td bgcolor="#ffffff" width="170" class="value">{{ resume.user_profile.stature|default_if_none:"" }}CM</td>
 						<td bgcolor="#ffffff" width="80">体　　重：</td>
-						<td bgcolor="#ffffff" class="value">{{ resume.user_profile.weight|default_if_none:"" }}KG</td>
+						<td bgcolor="#ffffff" class="value">{{ resume.user_profile.weight|default:"" }}KG</td>
 					</tr>
 					<tr>
 						<td bgcolor="#ffffff" width="80">户　　籍：</td>
@@ -290,7 +290,7 @@
               		</tr>
               		<tr bgcolor="#ffffff">
                 		<td width="80">专　　业：</td>
-                		<td class="value">{{ edu_experience.major|default_if_none:"" }}</td>
+                		<td class="value">{{ edu_experience.major|default:"" }}</td>
               		</tr>
               		<tr bgcolor="#ffffff">
                 		<td width="80">学　　历：</td>
@@ -298,7 +298,7 @@
               		</tr>
               		<tr bgcolor="#ffffff">
                 		<td width="80">专业描述：</td>
-                		<td class="value">{{ edu_experience.major_desc }}</td>
+                		<td class="value">{{ edu_experience.major_desc|default:'无' }}</td>
               		</tr>
 					<tr bgcolor="#ffffff">
                 		<td width="80">海外学历：</td>
@@ -404,11 +404,11 @@
               		</tr>
 					<tr bgcolor="#ffffff">
                 		<td width="80">QQ号码：</td>
-                		<td class="value">{% if have_access_contact %}{{ resume.user_profile.qq|default_if_none:"无" }}{% else %}对不起，您没有权限查看，请<a href="/login/">登陆</a>或者注册为<a href="/company/register/">企业会员</a>{% endif %}</td>
+                		<td class="value">{% if have_access_contact %}{{ resume.user_profile.qq|default:"无" }}{% else %}对不起，您没有权限查看，请<a href="/login/">登陆</a>或者注册为<a href="/company/register/">企业会员</a>{% endif %}</td>
               		</tr>
                     <tr bgcolor="#ffffff">
                 		<td width="80">电子邮箱：</td>
-                		<td class="value">{% if have_access_contact %}{{ resume.user_profile.user.email|default_if_none:"无" }}{% else %}对不起，您没有权限查看，请<a href="/login/">登陆</a>或者注册为<a href="/company/register/">企业会员</a>{% endif %}</td>
+                		<td class="value">{% if have_access_contact %}{{ resume.user_profile.user.email|default:"无" }}{% else %}对不起，您没有权限查看，请<a href="/login/">登陆</a>或者注册为<a href="/company/register/">企业会员</a>{% endif %}</td>
               		</tr>
             	</tbody>
 			</table>

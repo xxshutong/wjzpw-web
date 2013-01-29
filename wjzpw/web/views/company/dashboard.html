@@ -43,7 +43,7 @@
 	                                    <td><a href="/personal/resume_view/{{ store_entity.resume.id }}" target="_blank">{{ store_entity.resume.user_profile.real_name }}</a></td>
 	                                    <td>{{ store_entity.resume.user_profile.get_gender_display }}</td>
 	                                    <td>{{ store_entity.resume.edu_background_str }}</td>
-	                                    <td>{{ store_entity.resume.position_str|default_if_none:"无" }}</td>
+	                                    <td>{{ store_entity.resume.position_str|default:"无" }}</td>
 	                                    <td>{{ store_entity.resume.location }}</td>
                                     </tr>
                                 {% endfor %}
@@ -70,7 +70,7 @@
 	                                    <td><a href="/personal/resume_view/{{ store_entity.resume.id }}" target="_blank">{{ store_entity.resume.user_profile.real_name }}</a></td>
 	                                    <td>{{ store_entity.resume.user_profile.get_gender_display }}</td>
 	                                    <td>{{ store_entity.resume.edu_background_str }}</td>
-	                                    <td>{{ store_entity.resume.position_str|default_if_none:"无" }}</td>
+	                                    <td>{{ store_entity.resume.position_str|default:"无" }}</td>
 	                                    <td>{{ store_entity.resume.location }}</td>
                                         <td>{{ store_entity.created_at|date:"Y年n月d日" }}</td>
                                     </tr>
