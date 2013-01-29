@@ -8,7 +8,7 @@ import random
 from tinymce.models import HTMLField
 from wjzpw import settings
 from wjzpw.settings import RESUME_NUMBER_FORMAT
-from wjzpw.web.constant import EDUCATION_TYPE, EXPERIENCE_TYPE, SEX_TYPE, SALARY_TYPE, PERSON_ACTION_TYPE, COMPANY_ACTION_TYPE, JOB_STATE_TYPE, EDUCATION_TYPE_JOB
+from wjzpw.web.constant import EDUCATION_TYPE, EXPERIENCE_TYPE, SEX_TYPE, SALARY_TYPE, PERSON_ACTION_TYPE, COMPANY_ACTION_TYPE, JOB_STATE_TYPE, EDUCATION_TYPE_JOB, ATTENDANCE_TIME
 
 #  * Use south migration tool to generate the migration script.
 #        manage.py schemamigration web --auto
@@ -45,17 +45,6 @@ JOB_TYPE = (
     (3, _(u'实习')),
     (4, _(u'全职/兼职'))
     )
-
-ATTENDANCE_TIME = (
-    (1, _(u'随时到岗')),
-    (2, _(u'三天内')),
-    (3, _(u'两周内')),
-    (4, _(u'一个月内')),
-    (5, _(u'三个月内')),
-    (6, _(u'待定'))
-    )
-
-
 
 class AbstractModel(models.Model):
     class Meta:

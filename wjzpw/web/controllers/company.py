@@ -93,7 +93,7 @@ def search_person(request):
                 filters['industry'] = search_form.cleaned_data['industry']
             if search_form.cleaned_data['location'] and search_form.cleaned_data['location'].id != 1:
                 filters['location'] = search_form.cleaned_data['location']
-            if search_form.cleaned_data['attendance_time']:
+            if search_form.cleaned_data['attendance_time'] and search_form.cleaned_data['attendance_time'] != '0':
                 filters['attendance_time'] = search_form.cleaned_data['attendance_time']
             if search_form.cleaned_data['job_type']:
                 filters['job_type'] = search_form.cleaned_data['job_type']
