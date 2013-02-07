@@ -75,6 +75,7 @@ def resume_detail(request):
     position = '#'
     work_experience_forms = []
     work_experience_num = int(request.POST.get('work_experience_num', 0))
+    deleted_work_experience = int(request.POST.get('deleted_work_experience', 0))
     # Show existing resume detail
     if request.method == 'GET':
         # Resume
@@ -122,8 +123,11 @@ def resume_detail(request):
 
         # WorkExperience
         i = 0
+        j = 1
         while i < work_experience_num:
-            work_experience_forms.append(WorkExperienceForm(request.POST, prefix=i + 1))
+            if (i+1) != deleted_work_experience:
+                work_experience_forms.append(WorkExperienceForm(request.POST, prefix=j))
+                j += 1
             i += 1
 
         # Submit resume detail
@@ -141,18 +145,23 @@ def resume_detail(request):
                 for work_experience_form in work_experience_forms:
                     work_experience_form.instance.resume = resume_form.instance
                     work_experience_form.save(**work_experience_form.cleaned_data)
-            # Navigate to success page
-            return render_to_response(
-                RESUME_SUCCESS_PAGE, {}, RequestContext(request, {
-                    'resume_id': resume_form.instance.id
-                })
-            )
+                # Navigate to success page
+                return render_to_response(
+                    RESUME_SUCCESS_PAGE, {}, RequestContext(request, {
+                        'resume_id': resume_form.instance.id
+                    })
+                )
 
         # Add new work experience
         elif submit_type == 'add_work_experience':
             work_experience_num += 1
             work_experience_forms.append(WorkExperienceForm(prefix=work_experience_num))
             position += str(work_experience_num - 1)
+
+        # Delete work experience
+        elif submit_type == 'delete_work_experience':
+            work_experience_num -= 1
+            position += str((deleted_work_experience - 1) if deleted_work_experience > 1 else 1)
 
     selected_positions = [resume_position.position for resume_position in
                           models.ResumePositionR.objects.filter(resume=resume_form.instance)]

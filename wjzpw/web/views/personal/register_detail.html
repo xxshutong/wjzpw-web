@@ -40,6 +40,7 @@
                 {{ form.non_field_errors }}
                 <input type="hidden" name="submit_type" id="submit_type">
                 <input type="hidden" name="work_experience_num" value="{{ work_experience_num }}"/>
+                <input type="hidden" name="deleted_work_experience" id="deleted_work_experience" value="0"/>
                 {{ resume_form.positions.as_hidden }}
                 {{ resume_form.user_profile.as_hidden }}
                 <!-- 教育经历 -->
@@ -191,6 +192,11 @@
                                 </div>
                             </div>
                             <!-- /control-group -->
+                            <div class="control-group">
+                                <label for="xlInput"><a class="btn btn-danger" href="#" onclick="deleteWorkExperience('{{ forloop.counter }}'); return false;">删除工作经历</a> </label>
+                                <div class="controls">
+                                </div>
+                            </div>
                         </fieldset>
                     </div>
                     {% endfor %}
@@ -426,6 +432,13 @@
             source: get_positions()
         });
     });
+
+
+    function deleteWorkExperience(deleted_experience) {
+		$("#deleted_work_experience").val(deleted_experience);
+        $('#submit_type').val('delete_work_experience');
+        $('#resume_form').submit();
+    }
 
     window.location.href="{{ position }}";
 
