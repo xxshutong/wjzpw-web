@@ -732,3 +732,10 @@ div.mutiple_select {
     min-height: 100%;
     max-height: 100%;
 }
+
+.value pre {
+    padding: 0px;
+    border: none;
+    background: none;
+    color: inherit;
+}

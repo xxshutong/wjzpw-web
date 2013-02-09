@@ -116,6 +116,14 @@
             color: #FFFFFF;
         }
 
+        .value pre {
+            padding: 0px;
+            border: none;
+            background: none;
+            color: inherit;
+            margin: 0px;
+        }
+
     </style>
 </head>
 
@@ -298,7 +306,7 @@
               		</tr>
               		<tr bgcolor="#ffffff">
                 		<td width="80">专业描述：</td>
-                		<td class="value">{{ edu_experience.major_desc|default:'无' }}</td>
+                		<td class="value"><pre>{{ edu_experience.major_desc|default:'无' }}</pre></td>
               		</tr>
 					<tr bgcolor="#ffffff">
                 		<td width="80">海外学历：</td>
@@ -357,7 +365,7 @@
 										</tr>
 										<tr bgcolor="#ffffff">
 										    <td width="77">工作描述：</td>
-										    <td class="value">{{ work_experience.work_desc }}</td>
+										    <td class="value"><pre>{{ work_experience.work_desc }}</pre></td>
 										</tr>
 							        </tbody>
 								</table>
@@ -381,7 +389,7 @@
               		</tr>
               		<tr bgcolor="#ffffff">
                 		<td width="80">自我评价：</td>
-                		<td class="value">{{ resume.self_desc }}</td>
+                		<td class="value"><pre>{{ resume.self_desc }}</pre></td>
               		</tr>
             	</tbody>
 			</table>
