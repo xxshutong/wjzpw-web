@@ -188,6 +188,8 @@ def resume_view(request, resume_id):
 
 def prepare_resume_parameters(request, resume_id):
     resume = get_object_or_404(models.Resume, pk=resume_id)
+    resume.views += 1
+    resume.save()
     edu_experience = get_object_or_404(models.EduExperience, resume=resume)
     resume_position_r = models.ResumePositionR.objects.filter(resume=resume)
     work_experiences = models.WorkExperience.objects.filter(resume=resume).order_by('-start_date')

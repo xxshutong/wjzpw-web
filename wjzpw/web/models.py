@@ -272,6 +272,7 @@ class Resume(AbstractModel):
     attendance_time = models.IntegerField(_(u'到岗时间'), choices=ATTENDANCE_TIME, default=1)
     avatar = models.ImageField(_(u'简历头像'), upload_to='static/upload/avatars', null=True, blank=True)
     self_desc = models.CharField(_(u'自我评价'), max_length=2000, null=True, blank=True)
+    views = models.IntegerField(u'查看次数', default=0)
 
     def sex_str(self):
         return get_tuple_value_from_key(SEX_TYPE, self.user_profile.gender)
