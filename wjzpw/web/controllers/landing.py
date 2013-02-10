@@ -231,10 +231,12 @@ def gather_job_info(job_list):
     company_job_list = []
     job_obj = {}
     prefix_company = None
+    len_limit = 20
     if job_list:
         for job in job_list:
-            if job.company == prefix_company:
+            if job.company == prefix_company and int(job_obj['length']) + len(job.name) < len_limit :
                 job_obj['job_list'].append(job)
+                job_obj['length'] += len(job.name) + 1
             else:
                 if prefix_company:
                     job_obj['odd'] = len(company_job_list)/3%2 == 0
@@ -244,6 +246,7 @@ def gather_job_info(job_list):
                 job_obj['id'] = job.company.id
                 job_obj['job_list'] = []
                 job_obj['job_list'].append(job)
+                job_obj['length'] = len(job.company.cp_name) + len(job.name) + 1
             prefix_company = job.company
         job_obj['odd'] = len(company_job_list)/3%2 == 0
         company_job_list.append(job_obj)

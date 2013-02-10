@@ -102,6 +102,7 @@ WJZPW - WEB PROJECT
     $ git pull origin master
     $ ./wjzpw/manage.py migrate
     $ ./wjzpw/manage.py collectstatic
+    $ ./run.sh
 
 
 迁徙
