@@ -405,15 +405,15 @@
               		</tr>
               		<tr bgcolor="#ffffff">
                 		<td width="80">手机(电话)：</td>
-                		<td class="value">{% if have_access_contact %}{{ resume.user_profile.mobile_phone }}{% else %}对不起，您没有权限查看，请<a href="/login/">登陆</a>或者注册为<a href="/company/register/">企业会员</a>{% endif %}</td>
+                		<td class="value">{% if have_access_contact %}{{ resume.user_profile.mobile_phone }}{% else %}对不起，您没有权限查看，请<a href="#" onclick="javascript:login_required()">登陆</a>或者注册为<a href="/company/register/">企业会员</a>{% endif %}</td>
               		</tr>
 					<tr bgcolor="#ffffff">
                 		<td width="80">QQ号码：</td>
-                		<td class="value">{% if have_access_contact %}{{ resume.user_profile.qq|default:"无" }}{% else %}对不起，您没有权限查看，请<a href="/login/">登陆</a>或者注册为<a href="/company/register/">企业会员</a>{% endif %}</td>
+                		<td class="value">{% if have_access_contact %}{{ resume.user_profile.qq|default:"无" }}{% else %}对不起，您没有权限查看，请<a href="#" onclick="javascript:login_required()">登陆</a>或者注册为<a href="/company/register/">企业会员</a>{% endif %}</td>
               		</tr>
                     <tr bgcolor="#ffffff">
                 		<td width="80">电子邮箱：</td>
-                		<td class="value">{% if have_access_contact %}{{ resume.user_profile.user.email|default:"无" }}{% else %}对不起，您没有权限查看，请<a href="/login/">登陆</a>或者注册为<a href="/company/register/">企业会员</a>{% endif %}</td>
+                		<td class="value">{% if have_access_contact %}{{ resume.user_profile.user.email|default:"无" }}{% else %}对不起，您没有权限查看，请<a href="#" onclick="javascript:login_required()">登陆</a>或者注册为<a href="/company/register/">企业会员</a>{% endif %}</td>
               		</tr>
             	</tbody>
 			</table>
@@ -437,6 +437,10 @@
 	</div>
 
 <script type="text/javascript">
+    function login_required() {
+        window.location = '{% url login%}?next=' + window.location.pathname
+    }
+
     function inviteResume(resume_id) {
         $.ajax({
             type:"GET",
@@ -446,7 +450,7 @@
             success: function(data) {
                 if(data){
                     if (data.result == 'login_required') {
-                        window.location = '{% url login%}';
+                        window.location = '{% url login%}?next=' + window.location.pathname;
                     } else if(data.result == 'conflict') {
                         alert("对不起，该简历您已经邀请过了。")
                     } else if(data.result == 'type_error') {
@@ -472,7 +476,7 @@
             success: function(data) {
                 if(data){
                     if (data.result == 'login_required') {
-                        window.location = '{% url login%}';
+                        window.location = '{% url login%}?next=' + window.location.pathname;
                     } else if(data.result == 'conflict') {
                         alert("对不起，该简历您已经收藏过了。")
                     } else if(data.result == 'type_error') {
