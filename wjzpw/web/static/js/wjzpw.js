@@ -1,5 +1,6 @@
 
 function applyJob(job_id, login_path) {
+    var path_name = window.location.pathname
     $.ajax({
         type:"GET",
         async:false,
@@ -8,7 +9,7 @@ function applyJob(job_id, login_path) {
         success: function(data) {
             if(data){
                 if (data.result == 'login_required') {
-                    window.location = login_path;
+                    window.location = login_path+'?next='+path_name;
                 } else if(data.result == 'conflict') {
                     alert("对不起，该工作您已经申请过了。")
                 } else if(data.result == 'type_error') {
@@ -26,6 +27,7 @@ function applyJob(job_id, login_path) {
 }
 
 function storeJob(job_id, login_path) {
+    var path_name = window.location.pathname
     $.ajax({
         type:"GET",
         async:false,
@@ -34,7 +36,7 @@ function storeJob(job_id, login_path) {
         success: function(data) {
             if(data){
                 if (data.result == 'login_required') {
-                    window.location = login_path;
+                    window.location = login_path+'?next='+path_name;
                 } else if(data.result == 'conflict') {
                     alert("对不起，该工作您已经收藏过了。")
                 } else if(data.result == 'type_error') {
