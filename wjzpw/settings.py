@@ -16,6 +16,7 @@ ADMINS = (
 )
 
 MANAGERS = ADMINS
+ADMIN_PREFIX = 'admin'
 
 
 DB_USERNAME = os.getenv('DB_USERNAME', 'wjzpw')

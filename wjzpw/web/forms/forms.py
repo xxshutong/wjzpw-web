@@ -112,9 +112,10 @@ class PersonalRegForm(forms.ModelForm):
         site.
 
         """
-        if User.objects.filter(email__iexact=self.cleaned_data['email']):
+        email = self.cleaned_data['email'].strip()
+        if User.objects.filter(email__iexact=email):
             raise forms.ValidationError(_(u'电子邮件已经存在。'))
-        return self.cleaned_data['email']
+        return email
 
     def clean_work_years(self):
         """

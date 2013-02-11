@@ -79,6 +79,12 @@ def login(request, info=None):
     """
     Logs User in.
     """
+    try:
+        next = request.REQUEST['next']
+        if next.find(str(settings.ADMIN_PREFIX)) != -1:
+            return redirect('/%s/?next=%s' % (str(settings.ADMIN_PREFIX), next))
+    except KeyError:
+        next = ''
     error = ''
     if request.method == 'GET':
         login_form = LoginForm(request=request)
@@ -93,6 +99,11 @@ def login(request, info=None):
                     if not user.is_staff and not user.is_superuser:
                         djlogin(request, user)
                         login_form.request.session.set_expiry(settings.SESSION_COOKIE_AGE)
+                        next_url = request.POST.get('next')
+                        if not next_url:
+                            next_url = request.GET.get('next', '')
+                        if next_url:
+                            return redirect(next_url)
                         return redirect('/')
                     else:
                         error = _(u'用户名或密码错误。')
@@ -104,7 +115,8 @@ def login(request, info=None):
         LOGIN_PAGE, {}, RequestContext(request, {
             'login_form':login_form,
             'info': info,
-            'error': error
+            'error': error,
+            'next': next
         }
         ),
     )
