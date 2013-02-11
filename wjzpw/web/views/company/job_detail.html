@@ -129,7 +129,9 @@
 									</div>
 									<label for="xlInput" class="slabel">电话/手机：</label>
 									<div class="sinput">
-										<div class="value">{{ job.company.cp_telephone|default:"无" }}/{{ job.company.cp_mobile_phone|default:"无" }}</div>
+										<div class="value">
+                                            {% if have_access_job %}{{ job.company.cp_telephone|default:"无" }}/{{ job.company.cp_mobile_phone|default:"无" }}{% else %}请<a style="text-decoration: underline" href="#" onclick="javascript:login_required()">登陆</a>或者注册为<a style="text-decoration: underline" href="/personal/register/">个人会员</a>{% endif %}
+                                        </div>
 									</div>
 								</div>
 								<!-- /clearfix -->
@@ -189,6 +191,10 @@
             $('.left_layer').height(right_height );
         }
     })
+
+    function login_required() {
+        window.location = '{% url login%}?next=' + window.location.pathname
+    }
 </script>
 <script type="text/javascript" src="/static/js/wjzpw.js"></script>
 <!-- 主体信息结束 -->

@@ -200,9 +200,14 @@ def job_detail(request, job_id):
     """
     job = get_object_or_404(models.Job, pk=job_id)
     job_list = models.Job.objects.filter(company=job.company.id).order_by('-updated_at')
+    # 判断是否可以访问工作的联系方式
+    have_access_job = False
+    if request.user.is_active:
+        have_access_job = True
     return render_to_response(
         JOB_DETAIL_PAGE, {}, RequestContext(request, {
             'job': job,
-            'job_list': job_list
+            'job_list': job_list,
+            'have_access_job': have_access_job
         })
     )
