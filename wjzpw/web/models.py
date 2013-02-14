@@ -522,7 +522,7 @@ class Configuration(AbstractModel):
 
     hot_line_one = models.CharField('Hot Line 1', max_length=20)
     hot_line_two = models.CharField('Hot Line 2', max_length=20, blank=True)
-    qq = models.CharField('QQ', max_length=50)
+    qq = models.CharField(u'QQ群', max_length=50)
     dashboard_image_1 = models.ImageField(u'首页图片1', upload_to='static/upload/config', help_text=u'首页公告下方的图片广告，建议275*140')
 
 class FootItem(AbstractModel):
