@@ -12,6 +12,9 @@
             <div class="row">
                 {{ item.content|safe }}
             </div>
+            <div class="row">
+                <span style="font-size: 14px; font-weight: bold; font-style: italic">发布日期：{{ item.updated_at|date:"Y年n月d日" }}</span>
+            </div>
         </div>
     </div>
 {% endblock %}
