@@ -82,8 +82,9 @@ class CompanyRegForm(forms.ModelForm):
         site.
 
         """
-        if User.objects.filter(email__iexact=self.cleaned_data['email']):
-            raise forms.ValidationError(_(u'电子邮件已经存在。'))
+        # 暂时关闭
+        #if User.objects.filter(email__iexact=self.cleaned_data['email']):
+        #    raise forms.ValidationError(_(u'电子邮件已经存在。'))
         return self.cleaned_data['email']
 
     def clean_password2(self):
