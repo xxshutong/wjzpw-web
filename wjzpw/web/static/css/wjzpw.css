@@ -1,10 +1,15 @@
 /* Override some defaults */
 html, body, table {
     background-color: #eee;
-    font-family: Helvetica, Tahoma, Arial, sans-serif;
+    /*font-family: Helvetica, Tahoma, Arial, sans-serif;*/
+    font-family: "宋体",Verdana, Geneva, sans-serif;
     font-size: 12px;
     line-height: 1.5;
     text-align: left;
+}
+
+p {
+    font-family: "宋体",Verdana, Geneva, sans-serif;
 }
 
 form .control-group, .form-horizontal .control-group {
