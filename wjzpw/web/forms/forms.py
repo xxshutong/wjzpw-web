@@ -185,7 +185,7 @@ class ResumeForm(forms.ModelForm):
 
     class Meta:
         model = Resume
-        exclude = ('resume_name',)
+        exclude = ('resume_name', 'views')
 
     industry = ModelChoiceField(Industry.objects.all(), empty_label=_(u'请选择'))
     location = ModelChoiceField(Location.objects.all(), empty_label=None)
