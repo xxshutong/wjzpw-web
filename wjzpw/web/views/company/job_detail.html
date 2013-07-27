@@ -175,7 +175,7 @@
 					<div class="main_login" style="border:none; -moz-box-shadow:none">
 						<div class="actions">
 
-                            <button onclick="javascript:note()" type="button" class="btn btn-success">有意者请联系{{ job.company.cp_telephone|default:"无" }}/{{ job.company.cp_mobile_phone|default:"无" }}</button>
+                            <button onclick="javascript:note()" type="button" class="btn btn-success">有意者请联系{{ job.company.cp_telephone|default:"" }}/{{ job.company.cp_mobile_phone|default:"" }}</button>
 {#							<a class="btn btn-primary" onclick="javascript:applyJob('{{ job.id }}', '{% url login%}');return false" href="#">立即申请</a>#}
                             &nbsp;
                             <a class="btn" onclick="javascript:history.go(-1);">返回</a>
