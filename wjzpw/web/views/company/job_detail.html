@@ -15,7 +15,7 @@
 <!-- 公司头部图片 -->
 <div class="container">
     <div class="content" style="padding-bottom:0px;">
-        <img src="/static/images/zpym_bj.gif" width="1020px" height="100px">
+        <img alt="{{ job.company.cp_name }}" src="/static/images/zpym_bj.gif" width="1020px" height="100px">
         <span style="position:absolute; margin-left:480px; margin-top:-70px; color:#FF0000; font-size:36px; font-weight:bold">{{ job.company.cp_name }}</span>
     </div>
 </div>
@@ -28,7 +28,7 @@
 				<p class="title"><a href="/company/detail/{{ job.company.id }}" class="btn" style="font-size:14px;">公司简介</a></p>
 				<ul>
                     {% for job in job_list %}
-                        <li><img src="/static/images/job_leftdianline.gif"/><a href="/company/job/{{ job.id }}">{{ job.name }}</a></li>
+                        <li><img alt="{{ job.name }}" src="/static/images/job_leftdianline.gif"/><a href="/company/job/{{ job.id }}">{{ job.name }}</a></li>
                     {% endfor %}
 				</ul>
 			</div>

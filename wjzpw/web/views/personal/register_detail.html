@@ -31,9 +31,9 @@
             </div>
             <div class="right_layer">
                 <div class="register_head">
-                    <img src="../../static/images/wizard_1_b.gif"/>
-                    <img src="../../static/images/wizard_2_r.gif"/>
-                    <img src="../../static/images/wizard_3_b.gif"/>
+                    <img alt="吴江-招聘网" src="../../static/images/wizard_1_b.gif"/>
+                    <img alt="吴江-招聘网" src="../../static/images/wizard_2_r.gif"/>
+                    <img alt="吴江-招聘网" src="../../static/images/wizard_3_b.gif"/>
                 </div>
                 <form method="POST" class="form-horizontal" action="{% url resume_detail %}" enctype="multipart/form-data" id="resume_form">
                 {% csrf_token %}
@@ -304,9 +304,9 @@
                                     <span class="help-block" style="margin-top:3px;">
                                         <div class="main_newspic" style="width:135px; height:160px; margin:0px;">
                                             {% if resume_form.instance and resume_form.instance.avatar and resume_form.instance.avatar.url %}
-                                                <img src="{{ resume_form.instance.avatar.url }}" alt="" style="width:135px; height:160px;">
+                                                <img src="{{ resume_form.instance.avatar.url }}" alt="求职者照片" style="width:135px; height:160px;">
                                             {% else %}
-                                                <img src="/static/upload/Person.gif" alt="" style="width:135px; height:160px;">
+                                                <img src="/static/upload/Person.gif" alt="求职者默认照片" style="width:135px; height:160px;">
                                             {% endif %}
                                         </div>
                                     </span>

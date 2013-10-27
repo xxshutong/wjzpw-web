@@ -86,7 +86,7 @@ class PersonalRegForm(forms.ModelForm):
     qq = forms.RegexField(label=_(u"QQ"), max_length=15, regex=r'^[1-9][0-9]{4,}$',
                           error_messages={'invalid': _(u"QQ格式不正确。")}, required=False)
     census = ModelChoiceField(City.objects.all(), empty_label=_(u'请选择'))
-    location = ModelChoiceField(Location.objects.all(), empty_label=_(u'请选择'))
+    location = ModelChoiceField(Location.objects.order_by("spell").all(), empty_label=_(u'请选择'))
 
     #Additional
     password = forms.CharField(widget=forms.PasswordInput(render_value=False, attrs={'class': 'middle', 'size': 20}))

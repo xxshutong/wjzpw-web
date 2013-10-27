@@ -229,7 +229,7 @@
                     <span><a class="more" href="/system/announcement/0/">更多>></a></span>网站公告
                 </div>
                 <div class="con">
-                    <div class="t1"><img width="59" height="56" src="../static/images/t1.gif"></div>
+                    <div class="t1"><img alt="吴江招聘网-公告栏" width="59" height="56" src="../static/images/t1.gif"></div>
                     <div class="anouncement">
                         <marquee scrollAmount=1 direction=up height="76">
                             <ul>
@@ -246,7 +246,7 @@
             <!-- 图片或者视频 -->
             <div class="main_newspic">
                 <a href="#">
-                    <img alt="" src="{{ configuration.dashboard_image_1.url }}">
+                    <img alt="吴江招聘网-微信公众账号" src="{{ configuration.dashboard_image_1.url }}">
                 </a>
             </div>
         </div>
@@ -258,7 +258,7 @@
                     {% if img_adv.span == 6 %}<div class="span_wj10" {% if img_adv.is_move_margin %} style="margin-left: 0px" {% endif %}>{% endif %}
                     {% if img_adv.span == 2 %}<div class="span_wj4" {% if img_adv.is_move_margin %} style="margin-left: 0px" {% endif %}>{% endif %}
                     {% if img_adv.span == 1 %}<div class="span_wj2" {% if img_adv.is_move_margin %} style="margin-left: 0px" {% endif %}>{% endif %}
-                    <a href="{{ img_adv.url }}" target="_blank"><img src="{{ img_adv.img }}" title="{{ img_adv.title }}"/></a>
+                    <a href="{{ img_adv.url }}" target="_blank"><img alt="{{ img_adv.title }}" src="{{ img_adv.img }}" title="{{ img_adv.title }}"/></a>
                 </div>
             {% endfor %}
 
