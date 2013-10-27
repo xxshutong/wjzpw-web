@@ -80,17 +80,24 @@
                                 <div class="control-group submit">
                                     {% if user.get_profile.type == 0 %}
                                         <a class="more" href="{% url resume_detail %}">>简历管理</a>
+                                        &nbsp;
+                                        <a class="more" href="{% url search_job %}">>职位搜索</a>
                                     {% endif %}
                                     {% if user.get_profile.type == 1 %}
-                                        <a class="more" href="{% url resume_detail %}">>信息管理</a>
+                                        <a class="more" href="{% url company_register %}">>修改资料</a>
+                                        &nbsp;
+                                        <a class="more" href="{% url search_person %}">>查找人才</a>
                                     {% endif %}
-                                    &nbsp;
-                                    <a class="more" href="{% url search_job %}">>职位搜索</a>
+
                                 </div>
                             </li>
                             <li>
                                 <a class="btn btn-success" href="{% if user.get_profile.type == 1 %}{% url company_dashboard %}{% else %}{% url personal_dashboard %}{% endif %}">控制面板<a/>
-                                <a class="btn" href="{% url logout %}" style="float:right;">退出</a>
+                                {% if user.get_profile.type == 0 %}
+                                    <a class="btn" href="{% url logout %}" style="float:right;">退出</a>
+                                {% else %}
+                                    <a class="btn btn-info" href="{% url add_job %}" style="float:right;">发布职位</a>
+                                {% endif %}
                             </li>
                             <li>您当前的积分为：{{ user.get_profile.points_balance }}</li>
                             <li>您最近登录的时间：</li>

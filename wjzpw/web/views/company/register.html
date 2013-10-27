@@ -18,6 +18,8 @@
             <div class="right_layer">
                 <form method="POST" class="form-horizontal" action="{% url company_register %}" id="register_form">
                 {% csrf_token %}
+                <input type="hidden" name="is_edit" value="{{ is_edit }}"/>
+                {{ form.id.as_hidden }}
                     <!-- 账户信息 -->
                     <div class="main_login">
                         <div class="tit">
@@ -25,29 +27,35 @@
                         </div>
                         <div>
                             <fieldset>
-                                <div class="control-group">
-                                    <label for="xlInput"><span class="required_star">*</span>用户名：</label>
-                                    <div class="controls">
-                                        {{ form.username }}
-                                        {{ form.username.errors }}
+                                {% if not is_edit %}
+                                    <div class="control-group">
+                                        <label for="xlInput"><span class="required_star">*</span>用户名：</label>
+                                        <div class="controls">
+                                            {{ form.username }}
+                                            {{ form.username.errors }}
+                                        </div>
                                     </div>
-                                </div>
-                                <!-- /control-group -->
-                                <div class="control-group">
-                                    <label for="xlInput"><span class="required_star">*</span>密　码：</label>
-                                    <div class="controls">
-                                        {{ form.password }}
-                                        {{ form.password.errors }}
+                                    <!-- /control-group -->
+                                    <div class="control-group">
+                                        <label for="xlInput"><span class="required_star">*</span>密　码：</label>
+                                        <div class="controls">
+                                            {{ form.password }}
+                                            {{ form.password.errors }}
+                                        </div>
                                     </div>
-                                </div>
-                                <!-- /control-group -->
-                                <div class="control-group">
-                                    <label for="xlInput"><span class="required_star">*</span>确认密码：</label>
-                                    <div class="controls">
-                                        {{ form.password2 }}
-                                        {{ form.password2.errors }}
+                                    <!-- /control-group -->
+                                    <div class="control-group">
+                                        <label for="xlInput"><span class="required_star">*</span>确认密码：</label>
+                                        <div class="controls">
+                                            {{ form.password2 }}
+                                            {{ form.password2.errors }}
+                                        </div>
                                     </div>
-                                </div>
+                                {% else %}
+                                    {{ form.username.as_hidden }}
+                                    {{ form.password.as_hidden }}
+                                    {{ form.password2.as_hidden }}
+                                {% endif %}
                                 <!-- /control-group -->
                                 <div class="control-group">
                                     <label for="xlInput"><span class="required_star">*</span>电子邮件：</label>
@@ -235,23 +243,25 @@
                                     </div>
                                 </div>
                                 <!-- /control-group -->
-                                <div class="control-group">
-                                    <label id="optionsCheckboxes" style="padding-top:7px;">服务条款：</label>
-                                    <div class="controls">
-                                        <ul class="inputs-list">
-                                            <li>
-                                                <label>
-                                                    {{ form.tos }}
-                                                    <span>我已认真阅读并同意遵守<a href="/system/foot_item/2/" target="_blank" style="text-decoration:underline">用户服务协议</a></span>
-                                                </label>
-                                            </li>
-                                        </ul>
-                                        <span class="help-block">
-                                            <strong>注意:</strong> 您必须同意服务条款才可以继续注册并享受本网站提供的各项服务。
-                                        </span>
-                                        {{ form.tos.errors }}
+                                {% if not is_edit %}
+                                    <div class="control-group">
+                                        <label id="optionsCheckboxes" style="padding-top:7px;">服务条款：</label>
+                                        <div class="controls">
+                                            <ul class="inputs-list">
+                                                <li>
+                                                    <label>
+                                                        {{ form.tos }}
+                                                        <span>我已认真阅读并同意遵守<a href="/system/foot_item/2/" target="_blank" style="text-decoration:underline">用户服务协议</a></span>
+                                                    </label>
+                                                </li>
+                                            </ul>
+                                            <span class="help-block">
+                                                <strong>注意:</strong> 您必须同意服务条款才可以继续注册并享受本网站提供的各项服务。
+                                            </span>
+                                            {{ form.tos.errors }}
+                                        </div>
                                     </div>
-                                </div>
+                                {% endif %}
                                 <!-- /control-group -->
                                 <div class="control-group">
                                     <label for="id_verify"><span class="required_star">*</span>验证码：</label>
@@ -267,7 +277,7 @@
                     <div class="main_login" style="border:none; -moz-box-shadow:none">
                         <div class="form-actions">
                             <button class="btn btn-primary" type="submit" >完成</button>
-                            &nbsp;<a class="btn" href="../index.html">取消</a>
+                            &nbsp;<a class="btn" href="/">取消</a>
                         </div>
                     </div>
                 </form>

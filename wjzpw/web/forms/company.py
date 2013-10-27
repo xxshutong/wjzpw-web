@@ -23,10 +23,11 @@ class CompanyRegForm(forms.ModelForm):
     """
     def __init__(self, data=None, files=None, auto_id='id_%s', prefix=None,\
                  initial=None, error_class=ErrorList, label_suffix=':',\
-                 empty_permitted=False, instance=None, request=None):
+                 empty_permitted=False, instance=None, request=None, is_edit=False):
         super(CompanyRegForm, self).__init__(data, files, auto_id, prefix, initial,\
             error_class, label_suffix, empty_permitted, instance)
         self.request = request
+        self.is_edit = is_edit
 
     class Meta:
         model = UserProfile
@@ -70,6 +71,9 @@ class CompanyRegForm(forms.ModelForm):
 
         """
         username = self.cleaned_data["username"]
+        # 编辑的时候不验证用户名唯一性
+        if self.is_edit:
+            return username
         try:
             User.objects.get(username=username)
         except User.DoesNotExist:
@@ -80,11 +84,13 @@ class CompanyRegForm(forms.ModelForm):
         """
         Validate that the supplied email is unique for the
         site.
-
         """
-        # 暂时关闭
-        #if User.objects.filter(email__iexact=self.cleaned_data['email']):
-        #    raise forms.ValidationError(_(u'电子邮件已经存在。'))
+        # 编辑时不进行唯一性验证
+        if self.is_edit and self.cleaned_data['email'] == self.request.user.email:
+            return self.cleaned_data['email']
+
+        if User.objects.filter(email__iexact=self.cleaned_data['email']):
+           raise forms.ValidationError(_(u'电子邮件已经存在。'))
         return self.cleaned_data['email']
 
     def clean_password2(self):
@@ -103,6 +109,8 @@ class CompanyRegForm(forms.ModelForm):
         Validate that the user accepted the Terms of Service.
 
         """
+        if self.is_edit:
+            return self.cleaned_data['tos']
         if self.cleaned_data.get('tos', False):
             return self.cleaned_data['tos']
         raise forms.ValidationError(_(u'必须同意用户服务协议才可以继续。'))
@@ -121,16 +129,17 @@ class CompanyRegForm(forms.ModelForm):
         """
         ``non_field_errors()`` because it doesn't apply to a single
         """
-        if self.cleaned_data.get('password2'):
+        if self.cleaned_data.has_key('password2'):
             del self.cleaned_data['password2']
-        if self.cleaned_data.get('tos'):
+        if self.cleaned_data.has_key('tos'):
             del self.cleaned_data['tos']
-        if self.cleaned_data.get('verify_img'):
+        if self.cleaned_data.has_key('verify_img'):
             del self.cleaned_data['verify_img']
 
         return self.cleaned_data
 
     def save(self, **new_data):
+        new_data['is_edit'] = self.is_edit
         #create company
         user_profile = create_company(**new_data)
         return user_profile

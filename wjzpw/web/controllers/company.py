@@ -22,22 +22,34 @@ COMPANY_DASHBOARD_PAGE = "../views/company/dashboard.html"
 COMPANY_DETAIL_PAGE = "../views/company/company_detail.html"
 JOB_DETAIL_PAGE = "../views/company/job_detail.html"
 
+
 def company_register(request):
     """
     Personal registration
     """
     error = ''
     form = CompanyRegForm(request=request)
+    is_edit = request.POST.get("is_edit") == 'True'
+    if not is_edit:
+        is_edit = False
 
-    if request.method == 'POST':
+    if request.method == 'GET':
+        if request.user.is_authenticated():
+            is_edit = True
+            form = CompanyRegForm(instance=request.user.get_profile(),
+                                  initial={'email': request.user.email, 'username': request.user.username,
+                                           'password': request.user.password, 'password2': request.user.password})
+    elif request.method == 'POST':
         # post register company
-        form = CompanyRegForm(request.POST, request=request)
+        form = CompanyRegForm(request.POST, request=request, is_edit=is_edit)
         if form.is_valid():
             user_profile = form.save(**form.cleaned_data)
 
+            if is_edit:
+                return redirect('/')
             # Login automatically
             user = authenticate(username=user_profile.user.username,
-                password=form.cleaned_data.get('password', None))
+                                password=form.cleaned_data.get('password', None))
             if user.is_active:
                 djlogin(request, user)
                 form.request.session.set_expiry(settings.SESSION_COOKIE_AGE)
@@ -48,6 +60,7 @@ def company_register(request):
     # go to register page
     return render_to_response(
         REGISTER_PAGE, {}, RequestContext(request, {
+            'is_edit': is_edit,
             'form': form,
             'error': error
         }),
@@ -137,11 +150,11 @@ def ajax_invite_resume(request, resume_id, is_store=False):
         else:
             try:
                 models.CompanyResumeR.objects.get(user_profile=login_user.get_profile(), resume=resume_id,
-                    type=action_type)
+                                                  type=action_type)
                 data = {'result': 'conflict'}
             except models.CompanyResumeR.DoesNotExist:
                 company_resume_r = models.CompanyResumeR(user_profile=login_user.get_profile(), resume_id=resume_id,
-                    type=action_type)
+                                                         type=action_type)
                 company_resume_r.save()
                 if not is_store:
                     #TODO Send invite email to person
@@ -168,9 +181,9 @@ def dashboard(request):
     if login_user and login_user.id:
         if login_user.get_profile().type == 1:
             store_list = models.CompanyResumeR.objects.filter(user_profile=login_user.get_profile(),
-                type='store').order_by('-updated_at')
+                                                              type='store').order_by('-updated_at')
             invite_list = models.CompanyResumeR.objects.filter(user_profile=login_user.get_profile(),
-                type='invite').order_by('-updated_at')
+                                                               type='invite').order_by('-updated_at')
             return render_to_response(
                 COMPANY_DASHBOARD_PAGE, {}, RequestContext(request, {
                     'store_list': store_list,
@@ -179,6 +192,7 @@ def dashboard(request):
                 ),
             )
     raise Http404
+
 
 def company_detail(request, company_id):
     """
@@ -193,6 +207,7 @@ def company_detail(request, company_id):
             'job_list': job_list
         }),
     )
+
 
 def job_detail(request, job_id):
     """
