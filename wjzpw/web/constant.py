@@ -157,9 +157,9 @@ EXPERIENCE_TYPE = (
 )
 
 SEX_TYPE = (
-    (0, u'不限'),
-    (1, u'男'),
-    (2, u'女')
+    (0, u'男'),
+    (1, u'女'),
+    (2, u'保密')
 )
 
 SALARY_TYPE = (
